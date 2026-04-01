@@ -1,0 +1,218 @@
+{
+  "backToList": "Back to List",
+  "header": {
+    "testMode": "Site is running in test mode"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact",
+    "institute": {
+      "title": "ABOUT INSTITUTE",
+      "about": "About Institute",
+      "services": "Structure",
+      "leadership": "Leadership",
+      "international": "International Cooperation",
+      "council": "Scientific Council",
+      "structure": "Institute Structure",
+      "documents": "Internal Documents",
+      "team": "Structural divisions",
+      "calendar": "Events Calendar",
+      "markaziyapparat": "Central apparatus"
+    },
+    "tadqiqot": {
+      "council": "Scientific Council",
+      "title": "Scientific activity",
+      "laboratories": "Scientific Laboratories",
+      "doctorate": "Doctorate",
+      "conferences": "Conferences",
+      "vacancies": "Job Vacancies"
+    },
+    "xizmatlar": {
+      "title": "SERVICES",
+      "Loyihalash": "Loyihalash",
+      "Instrumentaltexniktekshiruvniotkazish": "Instrumental technical inspection",
+      "Zilzilabardoshlikboʻyichailmiyxulosaberish": "Scientific and technical services in the field of nuclear physics"
+    },
+    "media": {
+      "title": "News and announcements",
+      "news": "News",
+      "calendar": "Events Calendar",
+      "conferences": "Conferences",
+      "announcements": "Announcements"
+    },
+    "normativ": {
+      "title": "NORMATIVE LEGAL DOCUMENTS",
+      "constitution": "Constitution",
+      "laws": "Laws",
+      "decrees": "Presidential Decrees and Resolutions",
+      "qonunchilik": "Legal acts of the Institute's activity areas",
+      "hukumat": "President and government documents",
+      "ichki": "Institute internal documents"
+    },
+    "boglanish": {
+      "title": "CONTACT",
+      "contact": "Contact information",
+      "hotline": "Hotline"
+    },
+    "umumiy": {
+      "title": "GENERAL INFORMATION",
+      "teachers": "Structural divisions",
+      "talented": "Talented Youth",
+      "symbols": "State Symbols",
+      "graduates": "Graduates"
+    },
+    "ochiq": {
+      "title": "OPEN DATA",
+      "requisites": "Institute Requisites",
+      "vacancies": "Vacancies",
+      "reception": "Leadership Reception Days"
+    }
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Latest news and announcements",
+    "readMore": "Read More",
+    "viewAll": "View All News",
+    "backToList": "Back to News List",
+    "otherNews": "Other News"
+  },
+  "features": {
+    "subtitle": "OUR COMPETENCIES",
+    "title": "MAIN DIRECTIONS",
+    "intro": "Innovative solutions and modern technologies for decision-making",
+    "readMore": "READ MORE",
+    "research": {
+      "title": "RESEARCH",
+      "description": "We conduct fundamental and applied research in the field of nuclear physics. Research projects are implemented through management. For this, 10 laboratories and research groups have been created."
+    },
+    "about": {
+      "title": "ABOUT US",
+      "description": "Our goal is to find opportunities to use nuclear physics and modern technologies to solve complex economic, social and scientific problems."
+    },
+    "projects": {
+      "title": "PROJECTS",
+      "description": "We develop software products for the automation of management and production processes based on nuclear technologies and their implementation in the economic, social and state management systems."
+    },
+    "contact": "Contact Information"
+  },
+  "about": {
+    "heroTitle": "About Us",
+    "heroLead": "A trusted partner and trusted solutions",
+    "whoWeAre": "Who We Are",
+    "whoWeAreText": "As a team we strive to deliver the best outcome for every project and every client. Through our experience, modern approaches and commitment we aim to be a reliable partner in your field.",
+    "valuesTitle": "How We Work",
+    "value1Title": "Quality",
+    "value1Text": "High standards and clear results in every project.",
+    "value2Title": "Transparency",
+    "value2Text": "Clear processes and constant communication.",
+    "value3Title": "Innovation",
+    "value3Text": "Modern solutions and continuous improvement.",
+    "statsTitle": "By the Numbers",
+    "stat1Number": "10+",
+    "stat1Label": "Years of experience",
+    "stat2Number": "100+",
+    "stat2Label": "Successful projects",
+    "stat3Number": "25+",
+    "stat3Label": "Qualified specialists",
+    "ctaTitle": "Have questions?",
+    "ctaText": "Get in touch — we're here to help.",
+    "ctaButton": "Contact Us"
+  },
+  "pages": {
+    "international": {
+      "title": "INTERNATIONAL COOPERATION RELATIONS",
+      "description": "The institute is open for cooperation with organizations in the field of nuclear physics and related areas. You can familiarize yourself with the documents on cooperation concluded with the organizations listed below, for this, click on their respective logos.",
+      "partnerInfo": "Documents and information about cooperation",
+      "viewDocuments": "View Documents"
+    },
+    "council": {
+      "members": "Scientific Council Composition:"
+    },
+    "conferences": {
+      "subtitle": "Scientific conferences and scientific-practical conferences",
+      "noConferences": "No conferences available at the moment"
+    },
+    "calendar": {
+      "comingSoon": "Coming Soon",
+      "comingSoonDescription": "The Events Calendar section is currently under development. Soon you will be able to view all events in this section."
+    },
+    "laboratories": {
+      "detail": "Laboratory Information",
+      "contact": "Contact Information",
+      "contactInfo": "For more information, please contact us.",
+      "noLaboratories": "No laboratories found",
+      "about": "About Laboratory",
+      "features": "Key Features",
+      "feature1": "Modern equipment and technologies",
+      "feature2": "Team of qualified specialists",
+      "feature3": "Scientific research and innovative solutions",
+      "contactUs": "Contact Us",
+      "gallery": "Laboratory Photos"
+    },
+    "constitution": {
+      "subtitle": "Constitution of the Republic of Uzbekistan",
+      "fullText": "Full Text",
+      "fullTextDescription": "To view the full text of the Constitution, please follow the link below:",
+      "viewFullText": "View Full Text"
+    },
+    "decrees": {
+      "fullText": "Full Text",
+      "fullTextDescription": "View the official and full text of the decree",
+      "viewFullText": "Open Full Text"
+    },
+    "laws": {
+      "comingSoon": "Coming Soon",
+      "comingSoonDescription": "The Laws section is currently under development. Soon you will be able to view all laws in this section."
+    },
+    "announcements": {
+      "comingSoon": "Coming Soon",
+      "comingSoonDescription": "The Announcements section is currently under development. Soon you will be able to view all announcements in this section."
+    },
+    "markaziyApparat": {
+      "title": "CENTRAL APPARATUS",
+      "rahbariyat": "Leadership",
+      "institutJamoasi": "Institute Team",
+      "biografiya": "Biography",
+      "noMembers": "No data found"
+    }
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "socialMedia": "Social Media",
+    "followUs": "Follow us on social media"
+  },
+  "vacancies": {
+    "subtitle": "Available vacancies and job positions",
+    "apply": "Apply",
+    "applyFor": "Apply for",
+    "fullname": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "comment": "Comment",
+    "resume": "Resume (file)",
+    "submit": "Submit",
+    "success": "Your application has been submitted successfully!",
+    "noVacancies": "No vacancies available at the moment",
+    "fillAllFields": "Please fill in all fields"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "cancel": "Cancel"
+  },
+  "contact": {
+    "workingDays": "Working Days:",
+    "weekdays": "Mon-Fri:",
+    "lunch": "Lunch:",
+    "address": "Address:"
+  },
+  "leadership": {
+    "responsibilities": "Responsibilities",
+    "receptionHours": "Thursday 15:00 - 17:00",
+    "biografiya": "Biography"
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "backToList": "Ro'yxatga qaytish",
+  "header": {
+    "testMode": "Sayt test rejimida ishlamoqda"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "services": "Xizmatlar",
+    "contact": "Aloqa",
+    "institute": {
+      "title": "INSTITUT HAQIDA",
+      "services": "Tashkilot tuzilmasi",
+      "leadership": "Rahbariyat",
+      "about": "Institut haqida",
+      "international": "Xalqaro hamkorlik",
+      "council": "Ilmiy kengash",
+      "structure": "Institut tuzilmasi",
+      "documents": "Ichki hujjatlar",
+      "team": "Tarkibiy bo'linmalar",
+      "calendar": "Voqealar taqvimi",
+      "markaziyapparat": "Markaziy apparat"
+    },
+    "tadqiqot": {
+      "council": "Ilmiy kengash",
+      "title": "Ilmiy faoliyat",
+      "laboratories": "Ilmiy laboratoriyalar",
+      "doctorate": "Doktarontura",
+      "conferences": "Konferensiyalar",
+      "vacancies": "Bo'sh ish o'rinlari"
+    },
+    "xizmatlar": {
+      "title": "XIZMATLAR",
+      "Loyihalash": "Loyihalash",
+      "Instrumentaltexniktekshiruvniotkazish": "Instrumental texnik tekshiruvni otkazish",
+      "Zilzilabardoshlikboʻyichailmiyxulosaberish": "Yadro fizikasi sohasidagi ilmiy-texnik xizmatlar"
+    },
+    "media": {
+      "title": "Yangilik va eʼlonlar",
+      "news": "Yangiliklar",
+      "calendar": "Voqaelar taqvimi",
+      "conferences": "Anjumanlar",
+      "announcements": "E'lonlar"
+    },
+    "normativ": {
+      "title": "NORMATIV HUQUQIY-HUJJATLAR",
+      "constitution": "Konstitutsiya",
+      "laws": "Qonunlar",
+      "decrees": "Prezident farmon va qarorlari",
+      "qonunchilik": "Institut faoliyat sohasiga oid milliy  konunchilik ",
+      "hukumat": "Prezident va Hukumat hujjatlari",
+      "ichki": "Institut ichki hujjatlari"
+    },
+    "boglanish": {
+      "title": "BOG'LANISH",
+      "contact": "Aloqa maʼlumotlari",
+      "hotline": "Ishonch telefoni"
+    },
+    "umumiy": {
+      "title": "UMUMIY MA'LUMOTLAR",
+      "teachers": "Tarkibiy bo'linmalar",
+      "talented": "Iqtidorli yoshlar",
+      "symbols": "Davlat ramzlari",
+      "graduates": "Bitiruvchilar"
+    },
+    "ochiq": {
+      "title": "OCHIQ MA'LUMOTLAR",
+      "requisites": "Institut rekvizitlari",
+      "vacancies": "Vakansiyalar",
+      "reception": "Rahbariyat qabul kunlari"
+    }
+  },
+  "news": {
+    "title": "Yangiliklar",
+    "subtitle": "So'nggi yangiliklar va e'lonlar",
+    "readMore": "Batafsil",
+    "viewAll": "Barcha yangiliklar",
+    "backToList": "Yangiliklar ro'yxatiga qaytish",
+    "otherNews": "Boshqa yangiliklar"
+  },
+  "features": {
+    "subtitle": "BIZNING KOMPETENSIYALAR",
+    "title": "ASOSIY YO'NALISHLAR",
+    "intro": "Innovatsion yechimlar va zamonaviy texnologiyalar asosida qarorlar qabul qilish",
+    "readMore": "BATAFSIL",
+    "research": {
+      "title": "TADQIQOT",
+      "description": "Biz yadro fizikasi bo'yicha fundamental va amaliy tadqiqotlar olib boramiz. Tadqiqot loyihalarni boshqarish orqali amalga oshiriladi. Buning uchun 10 ta laboratoriya va tadqiqot guruhlari tashkil etilgan."
+    },
+    "about": {
+      "title": "BIZ HAQIMIZDA",
+      "description": "Bizning maqsadimiz murakkab iqtisodiy, ijtimoiy va ilmiy muammolarni hal qilish uchun yadro fizikasi va zamonaviy texnologiyalardan foydalanish imkoniyatlarini topishdir."
+    },
+    "projects": {
+      "title": "LOYIHALAR",
+      "description": "Yadro texnologiyalari asosida boshqaruv va ishlab chiqarish jarayonlarini avtomatlashtirish bo'yicha dasturiy mahsulotlarni ishlab chiqish hamda ularni iqtisodiyot tarmoqlari, ijtimoiy soha va davlat boshqaruvi tizimida tadbiq qilish."
+    },
+    "contact": "Aloqa ma'lumotlari"
+  },
+  "about": {
+    "heroTitle": "Biz haqimizda",
+    "heroLead": "Ishonchli hamkor va ishonchli yechimlar",
+    "whoWeAre": "Biz kimizm",
+    "whoWeAreText": "Jamoa sifatida biz har bir loyiha va har bir mijoz uchun eng yaxshi natijani ta'minlashga intilamiz. Tajribamiz, zamonaviy yondashuvlarimiz va qat'iyatlimiz orqali sohangizda ishonchli hamkor bo'lishni maqsad qilganmiz.",
+    "valuesTitle": "Qanday ishlaymiz",
+    "value1Title": "Sifat",
+    "value1Text": "Har bir ishda yuqori standartlar va aniq natijaga erishish.",
+    "value2Title": "Ochiqlik",
+    "value2Text": "Shaffof jarayonlar va doimiy aloqa.",
+    "value3Title": "Innovatsiya",
+    "value3Text": "Zamonaviy yechimlar va doimiy rivojlanish.",
+    "statsTitle": "Raqamlar",
+    "stat1Number": "10+",
+    "stat1Label": "Yillik tajriba",
+    "stat2Number": "100+",
+    "stat2Label": "Muvaffaqiyatli loyihalar",
+    "stat3Number": "25+",
+    "stat3Label": "Malakali mutaxassislar",
+    "ctaTitle": "Savollaringiz bormi?",
+    "ctaText": "Biz bilan bog'laning — sizga yordam beramiz.",
+    "ctaButton": "Bog'lanish"
+  },
+  "pages": {
+    "international": {
+      "title": "XALQARO HAMKORLIK ALOQALARI",
+      "description": "Institut yadro fizikasi va tegishli sohalardagi tashkilotlar bilan hamkorlik uchun ochiq. Quyida keltirilgan tashkilotlar bilan tuzilgan hamkorlik to'g'risidagi hujjatlar bilan tanishishingiz mumkin, buning uchun ularning tegishli logotiplari ustiga bosing.",
+      "partnerInfo": "Hamkorlik to'g'risidagi hujjatlar va ma'lumotlar",
+      "viewDocuments": "Hujjatlarni ko'rish"
+    },
+    "council": {
+      "members": "Ilmiy kengash tarkibi:"
+    },
+    "conferences": {
+      "subtitle": "Ilmiy konferensiyalar va ilmiy-amaliy anjumanlar",
+      "noConferences": "Hozirda konferensiyalar mavjud emas"
+    },
+    "calendar": {
+      "comingSoon": "Tez orada qo'shiladi",
+      "comingSoonDescription": "Voqealar taqvimi bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha voqealar bilan tanishishingiz mumkin bo'ladi."
+    },
+    "laboratories": {
+      "detail": "Laboratoriya ma'lumotlari",
+      "contact": "Aloqa ma'lumotlari",
+      "contactInfo": "Batafsil ma'lumot uchun biz bilan bog'laning.",
+      "noLaboratories": "Laboratoriyalar topilmadi",
+      "about": "Laboratoriya haqida",
+      "features": "Asosiy xususiyatlar",
+      "feature1": "Zamonaviy uskunalar va texnologiyalar",
+      "feature2": "Malakali mutaxassislar jamoasi",
+      "feature3": "Ilmiy tadqiqotlar va innovatsion yechimlar",
+      "contactUs": "Bog'lanish",
+      "gallery": "Laboratoriya rasmlari"
+    },
+    "constitution": {
+      "subtitle": "Oʻzbekiston Respublikasi Konstitutsiyasi",
+      "fullText": "To'liq matn",
+      "fullTextDescription": "Konstitutsiyaning to'liq matnini ko'rish uchun quyidagi havolaga o'ting:",
+      "viewFullText": "To'liq matnni ko'rish"
+    },
+    "decrees": {
+      "fullText": "To'liq matn",
+      "fullTextDescription": "Qarorning rasmiy va to'liq matni bilan tanishish",
+      "viewFullText": "To'liq matnni ochish"
+    },
+    "laws": {
+      "comingSoon": "Tez orada qo'shiladi",
+      "comingSoonDescription": "Qonunlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha qonunlar bilan tanishishingiz mumkin bo'ladi."
+    },
+    "announcements": {
+      "comingSoon": "Tez orada qo'shiladi",
+      "comingSoonDescription": "E'lonlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha e'lonlar bilan tanishishingiz mumkin bo'ladi."
+    },
+    "markaziyApparat": {
+      "title": "MARKAZIY APPARAT",
+      "rahbariyat": "Rahbariyat",
+      "institutJamoasi": "Institut jamoasi",
+      "biografiya": "Biografiya",
+      "noMembers": "Ma'lumotlar topilmadi"
+    }
+  },
+  "footer": {
+    "quickLinks": "Tezkor havolalar",
+    "contact": "Aloqa",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "socialMedia": "Ijtimoiy tarmoqlar",
+    "followUs": "Bizni ijtimoiy tarmoqlarda kuzatib boring"
+  },
+  "vacancies": {
+    "subtitle": "Mavjud vakansiyalar va ish o'rinlari",
+    "apply": "Ariza yuborish",
+    "applyFor": "Ariza yuborish",
+    "fullname": "To'liq ism",
+    "email": "Email",
+    "phone": "Telefon",
+    "comment": "Izoh",
+    "resume": "Rezyume (fayl)",
+    "submit": "Yuborish",
+    "success": "Arizangiz muvaffaqiyatli yuborildi!",
+    "noVacancies": "Hozirda vakansiyalar mavjud emas",
+    "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "cancel": "Bekor qilish"
+  },
+  "contact": {
+    "workingDays": "Ish kunlari:",
+    "weekdays": "Du-Ju:",
+    "lunch": "Tushlik:",
+    "address": "Manzil:"
+  },
+  "leadership": {
+    "responsibilities": "Vazifalari",
+    "receptionHours": "Payshanba 15:00 - 17:00",
+    "biografiya": "Biografiya"
+  }
+}
