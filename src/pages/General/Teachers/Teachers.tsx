@@ -14,9 +14,7 @@ const Teachers: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
@@ -45,6 +43,7 @@ const Teachers: React.FC = () => {
                     <img
                       src={member.photo}
                       alt={member.fullname}
+                      loading="lazy"
                       className="w-26 h-26 md:w-32 md:h-32 object-cover rounded-full"
                     />
                   ) : (
@@ -159,7 +158,7 @@ const Teachers: React.FC = () => {
           </div>
         ) : (
           <div className="text-center text-gray-500 py-12">
-            <p>{t('pages.team.noMembers') || 'Jamoasi a\'zolari topilmadi'}</p>
+            <p>{t('pages.team.noMembers') || "Jamoasi a'zolari topilmadi"}</p>
           </div>
         )}
       </div>
@@ -168,4 +167,3 @@ const Teachers: React.FC = () => {
 };
 
 export default Teachers;
-

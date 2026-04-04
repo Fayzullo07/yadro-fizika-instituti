@@ -25,9 +25,9 @@ const Council: React.FC = () => {
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 uppercase">
             {scientificCouncil?.title ? (
-              <div 
+              <div
                 className=""
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }} 
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }}
               />
             ) : (
               t('nav.institute.council') || 'ILMIY KENGASH'
@@ -41,6 +41,7 @@ const Council: React.FC = () => {
             <img
               src={scientificCouncil.image}
               alt="Ilmiy kengash"
+              loading="lazy"
               className="w-full h-auto object-cover"
             />
           </div>
@@ -64,10 +65,7 @@ const Council: React.FC = () => {
             </h2> */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
               {members.map((member) => (
-                <div
-                  key={member.id}
-                  className=""
-                >
+                <div key={member.id} className="">
                   <div className="flex items-center gap-4">
                     {/* Photo */}
                     <div className="flex-shrink-0">
@@ -75,6 +73,7 @@ const Council: React.FC = () => {
                         <img
                           src={member.photo}
                           alt={member.fullname}
+                          loading="lazy"
                           className="w-32 h-32 md:w-36 md:h-36 object-cover rounded"
                         />
                       ) : (
@@ -124,4 +123,3 @@ const Council: React.FC = () => {
 };
 
 export default Council;
-

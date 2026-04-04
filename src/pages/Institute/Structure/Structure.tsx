@@ -30,13 +30,14 @@ const Structure: React.FC = () => {
   return (
     <div className="container !mx-auto ">
       <h1 className="text-2xl md:text-5xl font-semibold text-gray-900 mt-4 text-center">
-      {t('nav.institute.services')}
+        {t('nav.institute.services')}
       </h1>
 
       <article>
         <img
           src={currentDoc.file}
           alt={`Institut tuzilmasi ${currentDoc.title}`}
+          loading="lazy"
           className="w-full h-auto"
         />
       </article>
@@ -45,4 +46,3 @@ const Structure: React.FC = () => {
 };
 
 export default Structure;
-

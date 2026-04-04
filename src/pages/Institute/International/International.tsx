@@ -56,7 +56,10 @@ const International: React.FC = () => {
       <div className="container mx-auto px-4 py-12 md:py-16">
         <SectionHeader
           title={t('pages.international.title') || 'XALQARO HAMKORLIK ALOQALARI'}
-          subtitle={t('pages.international.description') || "Institut raqamli texnologiyalar va sun'iy intellekt sohasidagi tashkilotlar bilan hamkorlik uchun ochiq. Quyida keltirilgan tashkilotlar bilan tuzilgan hamkorlik to'g'risidagi hujjatlar bilan tanishishingiz mumkin, buning uchun ularning tegishli logotiplari ustiga bosing."}
+          subtitle={
+            t('pages.international.description') ||
+            "Institut raqamli texnologiyalar va sun'iy intellekt sohasidagi tashkilotlar bilan hamkorlik uchun ochiq. Quyida keltirilgan tashkilotlar bilan tuzilgan hamkorlik to'g'risidagi hujjatlar bilan tanishishingiz mumkin, buning uchun ularning tegishli logotiplari ustiga bosing."
+          }
         />
 
         {/* Partners Grid */}
@@ -72,9 +75,12 @@ const International: React.FC = () => {
                   <img
                     src={partner.logo}
                     alt={partner.name}
+                    loading="lazy"
                     className="max-w-full max-h-full object-contain"
                     onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x100?text=' + encodeURIComponent(partner.name);
+                      (e.target as HTMLImageElement).src =
+                        'https://via.placeholder.com/200x100?text=' +
+                        encodeURIComponent(partner.name);
                     }}
                   />
                 </div>
@@ -104,12 +110,7 @@ const International: React.FC = () => {
                   onClick={() => setSelectedPartner(null)}
                   className="text-gray-500 hover:text-gray-700 transition"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -123,22 +124,25 @@ const International: React.FC = () => {
                 <img
                   src={selectedPartner.logo}
                   alt={selectedPartner.name}
+                  loading="lazy"
                   className="max-w-full max-h-48 object-contain"
                   onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x150?text=' + encodeURIComponent(selectedPartner.name);
+                    (e.target as HTMLImageElement).src =
+                      'https://via.placeholder.com/300x150?text=' +
+                      encodeURIComponent(selectedPartner.name);
                   }}
                 />
               </div>
               <div className="text-gray-700">
                 <p className="mb-4">
-                  {t('pages.international.partnerInfo') || 
-                    'Hamkorlik to\'g\'risidagi hujjatlar va ma\'lumotlar...'}
+                  {t('pages.international.partnerInfo') ||
+                    "Hamkorlik to'g'risidagi hujjatlar va ma'lumotlar..."}
                 </p>
                 <a
                   href="#"
                   className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  {t('pages.international.viewDocuments') || 'Hujjatlarni ko\'rish'}
+                  {t('pages.international.viewDocuments') || "Hujjatlarni ko'rish"}
                 </a>
               </div>
             </div>
@@ -150,4 +154,3 @@ const International: React.FC = () => {
 };
 
 export default International;
-

@@ -17,7 +17,11 @@ interface MemberCardListProps {
   emptyMessage?: string;
 }
 
-const MemberCardList: React.FC<MemberCardListProps> = ({ members = [], showReceptionHours = true, emptyMessage }) => {
+const MemberCardList: React.FC<MemberCardListProps> = ({
+  members = [],
+  showReceptionHours = true,
+  emptyMessage,
+}) => {
   const { t } = useLanguage();
 
   if (members.length === 0) {
@@ -40,6 +44,7 @@ const MemberCardList: React.FC<MemberCardListProps> = ({ members = [], showRecep
               <img
                 src={member.photo}
                 alt={member.fullname}
+                loading="lazy"
                 className="w-26 h-26 md:w-32 md:h-32 object-cover rounded-full"
               />
             ) : (
@@ -65,7 +70,9 @@ const MemberCardList: React.FC<MemberCardListProps> = ({ members = [], showRecep
               {member.fullname}
             </h3>
             {member.position && (
-              <p className="text-sm md:text-base text-gray-600 mb-3 break-words">{member.position}</p>
+              <p className="text-sm md:text-base text-gray-600 mb-3 break-words">
+                {member.position}
+              </p>
             )}
             <button
               type="button"
@@ -141,11 +148,7 @@ const MemberCardList: React.FC<MemberCardListProps> = ({ members = [], showRecep
             )}
             {!showReceptionHours && member.linkedin && (
               <div className="flex items-center gap-2 text-gray-700">
-                <svg
-                  className="w-5 h-5 text-[#013d8c]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-5 h-5 text-[#013d8c]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 <a

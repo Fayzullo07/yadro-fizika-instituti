@@ -38,9 +38,7 @@ const NewsList: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
@@ -72,7 +70,7 @@ const NewsList: React.FC = () => {
       <div className="container mx-auto px-4 py-8 md:!py-10">
         <SectionHeader
           title={t('news.title') || 'Yangiliklar'}
-          subtitle={t('news.subtitle') || 'Barcha yangiliklar va e\'lonlar'}
+          subtitle={t('news.subtitle') || "Barcha yangiliklar va e'lonlar"}
         />
 
         {news.length > 0 ? (
@@ -89,6 +87,7 @@ const NewsList: React.FC = () => {
                       <img
                         src={item.images[0].image}
                         alt={stripHtmlRegex(item.title)}
+                        loading="lazy"
                         className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                       />
                     </div>
@@ -114,9 +113,7 @@ const NewsList: React.FC = () => {
 
                     <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-auto">
                       {item.created_at && (
-                        <span className="text-sm text-gray-500">
-                          {formatDate(item.created_at)}
-                        </span>
+                        <span className="text-sm text-gray-500">{formatDate(item.created_at)}</span>
                       )}
                       <Link
                         to={`/news/${item.id}`}
@@ -163,7 +160,11 @@ const NewsList: React.FC = () => {
                         </button>
                       );
                     } else if (pageNum === page - 2 || pageNum === page + 2) {
-                      return <span key={pageNum} className="px-2">...</span>;
+                      return (
+                        <span key={pageNum} className="px-2">
+                          ...
+                        </span>
+                      );
                     }
                     return null;
                   })}
@@ -190,4 +191,3 @@ const NewsList: React.FC = () => {
 };
 
 export default NewsList;
-

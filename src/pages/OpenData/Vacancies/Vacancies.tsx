@@ -32,7 +32,9 @@ const Vacancies: React.FC = () => {
 
   const vacancies: Vacancy[] = vacanciesData?.results || [];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -47,13 +49,40 @@ const Vacancies: React.FC = () => {
     setFormError(null);
   };
 
+  const validateEmail = (email: string): boolean => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    return /^\+?[\d\s\-()]{9,15}$/.test(phone);
+  };
+
+  const MAX_FILE_SIZE_MB = 5;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setFormError(null);
     setFormSuccess(false);
 
     if (!formData.fullname || !formData.email || !formData.phone || !selectedVacancy) {
-      setFormError(t('vacancies.fillAllFields') || 'Iltimos, barcha maydonlarni to\'ldiring');
+      setFormError(t('vacancies.fillAllFields') || "Iltimos, barcha maydonlarni to'ldiring");
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      setFormError(t('vacancies.invalidEmail') || "Email manzil noto'g'ri formatda");
+      return;
+    }
+
+    if (!validatePhone(formData.phone)) {
+      setFormError(t('vacancies.invalidPhone') || "Telefon raqam noto'g'ri formatda");
+      return;
+    }
+
+    if (resumeFile && resumeFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      setFormError(
+        t('vacancies.fileTooLarge') || `Fayl hajmi ${MAX_FILE_SIZE_MB}MB dan oshmasligi kerak`
+      );
       return;
     }
 
@@ -72,7 +101,7 @@ const Vacancies: React.FC = () => {
       }
 
       await createApplication(formDataToSend);
-      
+
       setFormSuccess(true);
       setFormData({
         fullname: '',
@@ -81,13 +110,13 @@ const Vacancies: React.FC = () => {
         comment: '',
       });
       setResumeFile(null);
-      
+
       // Reset file input
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement | null;
       if (fileInput) {
         fileInput.value = '';
       }
-      
+
       setTimeout(() => {
         setShowModal(false);
         setSelectedVacancy(null);
@@ -112,9 +141,7 @@ const Vacancies: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
@@ -124,7 +151,7 @@ const Vacancies: React.FC = () => {
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
         <SectionHeader
           title={t('nav.ochiq.vacancies') || 'Vakansiyalar'}
-          subtitle={t('vacancies.subtitle') || 'Mavjud vakansiyalar va ish o\'rinlari'}
+          subtitle={t('vacancies.subtitle') || "Mavjud vakansiyalar va ish o'rinlari"}
         />
 
         {vacancies.length > 0 ? (
@@ -142,7 +169,7 @@ const Vacancies: React.FC = () => {
                         dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.name) }}
                       />
                     )}
-                    
+
                     {vacancy.desc && (
                       <div
                         className="text-gray-700 mb-3"
@@ -151,9 +178,7 @@ const Vacancies: React.FC = () => {
                     )}
 
                     {vacancy.created_at && (
-                      <p className="text-sm text-gray-500">
-                        {vacancy.created_at}
-                      </p>
+                      <p className="text-sm text-gray-500">{vacancy.created_at}</p>
                     )}
                   </div>
 
@@ -192,14 +217,21 @@ const Vacancies: React.FC = () => {
                     className="text-gray-500 hover:text-gray-700"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </div>
 
                 {selectedVacancy.name && (
                   <div className="mb-4 pb-4 border-b border-gray-200">
-                    <p className="text-sm text-gray-600 mb-1">{t('vacancies.vacancy') || 'Vakansiya'}:</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {t('vacancies.vacancy') || 'Vakansiya'}:
+                    </p>
                     <div
                       className="text-gray-900 font-medium"
                       dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedVacancy.name) }}
@@ -217,7 +249,7 @@ const Vacancies: React.FC = () => {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        {t('vacancies.fullname') || 'To\'liq ism'} *
+                        {t('vacancies.fullname') || "To'liq ism"} *
                       </label>
                       <input
                         type="text"
@@ -322,4 +354,3 @@ const Vacancies: React.FC = () => {
 };
 
 export default Vacancies;
-

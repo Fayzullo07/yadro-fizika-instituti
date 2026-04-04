@@ -49,12 +49,18 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, onClose }) => (
         className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
       >
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
       <img
         src={src}
         alt="Laboratoriya rasmi"
+        loading="lazy"
         className="w-full max-h-[90vh] object-contain"
       />
     </div>
@@ -71,20 +77,33 @@ const LaboratoryDetail: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
 
   const defaultLaboratories: LaboratoryInfo[] = [
-    { id: 'default-1', name: "Bino va inshootlarning zilzilabardoshligi laboratoriyasi" },
-    { id: 'default-2', name: "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi" },
-    { id: 'default-3', name: "Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi" },
-    { id: 'default-4', name: "Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi" },
-    { id: 'default-5', name: "\"Yashil\" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi" },
-    { id: 'default-6', name: "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)" },
+    { id: 'default-1', name: 'Bino va inshootlarning zilzilabardoshligi laboratoriyasi' },
+    {
+      id: 'default-2',
+      name: "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi",
+    },
+    {
+      id: 'default-3',
+      name: 'Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi',
+    },
+    {
+      id: 'default-4',
+      name: 'Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi',
+    },
+    {
+      id: 'default-5',
+      name: '"Yashil" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi',
+    },
+    {
+      id: 'default-6',
+      name: "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)",
+    },
   ];
 
   const allLaboratories: LaboratoryInfo[] = laboratoryData?.results || [];
@@ -98,14 +117,7 @@ const LaboratoryDetail: React.FC = () => {
   const showImages = numericId === 1 || id === 'default-1' || id === '1';
   const images = LANG_IMAGES[language] || LANG_IMAGES['uz'];
 
-  return (
-    <ImagesView
-      laboratory={laboratory}
-      t={t}
-      showImages={showImages}
-      images={images}
-    />
-  );
+  return <ImagesView laboratory={laboratory} t={t} showImages={showImages} images={images} />;
 };
 
 const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, images }) => {
@@ -115,28 +127,25 @@ const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, imag
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-6 md:py-12">
         {/* <BackButton  /> */}
-            <BackButton
-                            to="/tadqiqot/laboratories"
-                            label={t('') || 'Laboratoriyalar ro\'yxatiga qaytish'}
-                        />
+        <BackButton
+          to="/tadqiqot/laboratories"
+          label={t('') || "Laboratoriyalar ro'yxatiga qaytish"}
+        />
         <div className="!mt-4">
           <SectionHeader
             title={laboratory?.name || 'Laboratoriya'}
-            subtitle={t('pages.laboratories.detail') || 'Laboratoriya ma\'lumotlari'}
+            subtitle={t('pages.laboratories.detail') || "Laboratoriya ma'lumotlari"}
           />
         </div>
 
         {showImages && (
           <div className="max-w-5xl mx-auto mt-8 flex flex-col gap-6">
             {images.map((img, idx) => (
-              <div
-                key={idx}
-                className=" overflow-hidden"
-                onClick={() => setSelectedImg(img)}
-              >
+              <div key={idx} className=" overflow-hidden" onClick={() => setSelectedImg(img)}>
                 <img
                   src={img}
                   alt={`Laboratoriya rasmi ${idx + 1}`}
+                  loading="lazy"
                   className="w-full object-contain"
                 />
               </div>
@@ -144,9 +153,7 @@ const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, imag
           </div>
         )}
 
-        {selectedImg && (
-          <ImageModal src={selectedImg} onClose={() => setSelectedImg(null)} />
-        )}
+        {selectedImg && <ImageModal src={selectedImg} onClose={() => setSelectedImg(null)} />}
       </div>
     </div>
   );

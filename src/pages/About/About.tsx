@@ -8,26 +8,19 @@ import type { AboutData } from '@/types';
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data: aboutData, loading, error } = useApi<AboutData>(
-    () => generalApi.getAbout(language),
-    [language]
-  );
+  const {
+    data: aboutData,
+    loading,
+    error,
+  } = useApi<AboutData>(() => generalApi.getAbout(language), [language]);
 
   return (
     <div className="bg-white">
-
       <section className="max-w-5xl mx-auto  pb-16">
-
-        {loading && (
-          <p className="mt-6 text-lg text-gray-600">
-            {t('common.loading')}
-          </p>
-        )}
+        {loading && <p className="mt-6 text-lg text-gray-600">{t('common.loading')}</p>}
 
         {error && (
-          <p className="mt-6 text-lg text-red-600">
-            {t('common.error') || 'Xatolik yuz berdi'}
-          </p>
+          <p className="mt-6 text-lg text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</p>
         )}
 
         {!loading && !error && (
@@ -36,6 +29,7 @@ const About: React.FC = () => {
               <img
                 src={aboutData.image}
                 alt={t('about.heroTitle') || 'About image'}
+                loading="lazy"
                 className="w-full max-h-[460px] object-cover"
               />
             )}
@@ -51,7 +45,6 @@ const About: React.FC = () => {
       </section>
 
       <section className="max-w-5xl mx-auto px-4 py-20 border-t border-gray-100">
-
         <h2 className="text-2xl font-semibold text-gray-900">
           {t('about.ctaTitle') || 'Bog‘lanish'}
         </h2>
@@ -59,7 +52,6 @@ const About: React.FC = () => {
         <p className="mt-3 text-gray-600">
           {t('about.ctaText') || 'Savollaringiz bo‘lsa, biz bilan bog‘laning.'}
         </p>
-
 
         <Link
           to={CONTACT_PATH}

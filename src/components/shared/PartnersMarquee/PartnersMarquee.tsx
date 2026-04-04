@@ -23,37 +23,37 @@ const PartnersMarquee: React.FC = () => {
       {
         id: 1,
         name: "O'ZBEKISTON RESPUBLIKASI PREZIDENTI",
-        subtitle: "MATBUOT XIZMATI",
+        subtitle: 'MATBUOT XIZMATI',
         image: prezyidentImage,
-        link: "https://www.president.uz/uz",
+        link: 'https://www.president.uz/uz',
       },
       {
         id: 2,
         name: "O'ZBEKISTON RESPUBLIKASI OLIY",
-        subtitle: "MAJLISI QONUNCHILIK PALATASI",
+        subtitle: 'MAJLISI QONUNCHILIK PALATASI',
         image: oliymajlisImage,
-        link: "https://parliament.gov.uz/",
+        link: 'https://parliament.gov.uz/',
       },
       {
         id: 3,
         name: "O'ZBEKISTON RESPUBLIKASI OLIY",
-        subtitle: "MAJLISINING SENATI",
+        subtitle: 'MAJLISINING SENATI',
         image: hukumatImage,
-        link: "https://senat.gov.uz/",
+        link: 'https://senat.gov.uz/',
       },
       {
         id: 4,
         name: "O'ZBEKISTON RESPUBLIKASI HUKUMATI",
-        subtitle: "PORTALI",
+        subtitle: 'PORTALI',
         image: portalImage,
-        link: "https://gov.uz/uz",
+        link: 'https://gov.uz/uz',
       },
       {
         id: 5,
-        name: "MILLIY HUQUQIY",
-        subtitle: "INTERNET PORTALI",
+        name: 'MILLIY HUQUQIY',
+        subtitle: 'INTERNET PORTALI',
         image: milliyhukquqiImage,
-        link: "https://huquqiyportal.uz/",
+        link: 'https://huquqiyportal.uz/',
       },
     ];
     setImages(partners);
@@ -80,6 +80,7 @@ const PartnersMarquee: React.FC = () => {
                 <img
                   src={partner.image}
                   alt={partner.name}
+                  loading="lazy"
                   className="!h-16 !cursor-pointer !w-16 w-auto mb-2 object-contain"
                 />
               ) : (
@@ -88,13 +89,9 @@ const PartnersMarquee: React.FC = () => {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-[#013d8c] font-semibold text-sm">
-                  {partner.name}
-                </p>
+                <p className="text-[#013d8c] font-semibold text-sm">{partner.name}</p>
                 {partner.subtitle && (
-                  <p className="text-[#013d8c] font-semibold text-sm">
-                    {partner.subtitle}
-                  </p>
+                  <p className="text-[#013d8c] font-semibold text-sm">{partner.subtitle}</p>
                 )}
               </div>
             </a>
@@ -112,6 +109,7 @@ const PartnersMarquee: React.FC = () => {
                 <img
                   src={partner.image}
                   alt={partner.name}
+                  loading="lazy"
                   className="!h-16 !w-16 w-auto mb-2 object-contain"
                 />
               ) : (
@@ -120,13 +118,9 @@ const PartnersMarquee: React.FC = () => {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-[#013d8c] font-semibold text-sm">
-                  {partner.name}
-                </p>
+                <p className="text-[#013d8c] font-semibold text-sm">{partner.name}</p>
                 {partner.subtitle && (
-                  <p className="text-[#013d8c] font-semibold text-sm">
-                    {partner.subtitle}
-                  </p>
+                  <p className="text-[#013d8c] font-semibold text-sm">{partner.subtitle}</p>
                 )}
               </div>
             </a>
