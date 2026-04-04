@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
   const { data: generalData, loading } = useGeneral();
 
   const organizationName: string = generalData?.organization_short_name
-    ? stripHtmlRegex(generalData.organization_name)
+    ? stripHtmlRegex(generalData.organization_short_name)
     : generalData?.organization_name
       ? stripHtmlRegex(generalData.organization_name)
       : 'SeysmikITM';

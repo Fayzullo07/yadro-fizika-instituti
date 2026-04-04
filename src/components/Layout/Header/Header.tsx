@@ -41,7 +41,7 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   const organizationName: string | null = generalData?.organization_short_name
-    ? stripHtmlRegex(generalData.organization_name)
+    ? stripHtmlRegex(generalData.organization_short_name)
     : generalData?.organization_name
       ? stripHtmlRegex(generalData.organization_name)
       : null;

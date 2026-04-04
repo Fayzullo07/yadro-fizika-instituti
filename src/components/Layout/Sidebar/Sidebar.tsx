@@ -24,7 +24,6 @@ import {
   ZILZILABARDOSHLIK_XULOSA_PATH,
   LABORATORY_DETAIL_PATH,
 } from '@/routes/path';
-import LaboratoryDetail from '@/pages/Research/Laboratories/LaboratoryDetail';
 import type { MenuItem } from '@/types';
 
 // Menu items structure - shared between component and helper function
