@@ -32,7 +32,7 @@ export const apiRequest = async <T = unknown>(endpoint: string, options: Request
 
 // Applications API
 export const applicationApi = {
-  create: async (data: FormData | ApplicationData, language: string | null = null) => {
+  create: async (data: FormData | ApplicationData, language: string | null = null): Promise<unknown> => {
     const url = `${API_BASE_URL}${API_ENDPOINTS.APPLICATION}`;
     const lang = language || getStoredLanguage();
     
