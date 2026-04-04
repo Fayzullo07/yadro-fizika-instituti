@@ -1,13 +1,13 @@
 import { useBanners } from '@/hooks/useBanners';
 import { useGeneral } from '@/hooks/useGeneral';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import institutImage from '@/assets/institut.png';
 import type { Banner } from '@/types';
 
 const Hero: React.FC = () => {
   const { data, loading, error } = useBanners({ per_page: 10 });
-  const { data: generalData, loading: generalLoading } = useGeneral();
+  const { data: generalData } = useGeneral();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
@@ -21,23 +21,24 @@ const Hero: React.FC = () => {
     : null;
 
   useEffect(() => {
-    if (banners.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % banners.length);
+    if (banners.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const nextIndex = (prev + 1) % banners.length;
         if (sliderRef.current) {
-          const nextIndex = (currentIndex + 1) % banners.length;
           sliderRef.current.scrollTo({
             left: nextIndex * sliderRef.current.offsetWidth,
             behavior: 'smooth',
           });
         }
-      }, 5000); // 5 soniyada bir o'zgaradi
+        return nextIndex;
+      });
+    }, 5000);
 
-      return () => clearInterval(interval);
-    }
-  }, [banners.length, currentIndex]);
+    return () => clearInterval(interval);
+  }, [banners.length]);
 
-  // Update currentIndex based on scroll position
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider || banners.length === 0) return;
@@ -46,18 +47,14 @@ const Hero: React.FC = () => {
       const scrollPosition = slider.scrollLeft;
       const itemWidth = slider.offsetWidth;
       const newIndex = Math.round(scrollPosition / itemWidth);
-      if (newIndex !== currentIndex && newIndex >= 0 && newIndex < banners.length) {
+      if (newIndex >= 0 && newIndex < banners.length) {
         setCurrentIndex(newIndex);
       }
     };
 
     slider.addEventListener('scroll', handleScroll);
-    return () => {
-      if (slider) {
-        slider.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [banners.length, currentIndex]);
+    return () => slider.removeEventListener('scroll', handleScroll);
+  }, [banners.length]);
 
   // Slider drag handlers
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -136,8 +133,6 @@ const Hero: React.FC = () => {
   if (error || !banners.length) {
     return null;
   }
-
-  const currentBanner: Banner = banners[currentIndex];
 
   return (
     <div className="relative  h-[650px] overflow-hidden">
@@ -285,6 +280,7 @@ const Hero: React.FC = () => {
                               src={banner.image}
                               alt={stripHtmlRegex(banner.title || 'Banner')}
                               className="w-full h-[400px] object-cover"
+                              loading="lazy"
                             />
                           )}
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
@@ -333,4 +329,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

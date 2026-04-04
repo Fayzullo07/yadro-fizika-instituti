@@ -7,6 +7,7 @@ import Sidebar, { shouldShowSidebar as checkShouldShowSidebar } from '../Sidebar
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 import ScrollToTop from '@/components/shared/ScrollToTop/ScrollToTop';
 import TextToSpeech from '@/components/shared/TextToSpeech/TextToSpeech';
+import { trackPageView } from '@/utils/analytics';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const MainLayout: React.FC = () => {
       left: 0,
       behavior: 'instant',
     });
+    trackPageView(location.pathname);
   }, [location.pathname]);
 
   // Check if sidebar should be shown using the same logic as Sidebar component

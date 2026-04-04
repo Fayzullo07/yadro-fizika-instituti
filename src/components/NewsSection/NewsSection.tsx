@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useNews } from '@/hooks/useNews';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { Link } from 'react-router-dom';
@@ -255,4 +256,4 @@ const NewsSection: React.FC = () => {
   );
 };
 
-export default NewsSection;
+export default memo(NewsSection);

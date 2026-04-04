@@ -1,5 +1,10 @@
 {
   "backToList": "Ro'yxatga qaytish",
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "description": "Siz qidirayotgan sahifa mavjud emas yoki boshqa manzilga ko'chirilgan.",
+    "backHome": "Bosh sahifaga qaytish"
+  },
   "header": {
     "testMode": "Sayt test rejimida ishlamoqda"
   },

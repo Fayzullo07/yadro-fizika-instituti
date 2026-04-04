@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-interface TextToSpeechProps {
-  selectedText?: string;
-}
-
 interface Position {
   x: number;
   y: number;
 }
 
-const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
+const TextToSpeech: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
@@ -37,7 +33,7 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
             y: rect.top - 10,
           });
           setIsVisible(true);
-        } catch (error) {
+        } catch {
           setIsVisible(false);
         }
       } else {
@@ -60,6 +56,9 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
     return () => {
       document.removeEventListener('mouseup', handleSelection);
       document.removeEventListener('click', handleClick);
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
     };
   }, []);
 
