@@ -3,6 +3,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useApi } from '@/hooks/useApi';
 import { generalApi } from '@/services/api';
 import { CONTACT_PATH } from '@/routes/path';
+import { sanitizeHtml } from '@/utils/htmlUtils';
 import type { AboutData } from '@/types';
 
 const About: React.FC = () => {
@@ -42,7 +43,7 @@ const About: React.FC = () => {
             {aboutData?.content && (
               <div
                 className="mt-8 text-gray-700 leading-relaxed space-y-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_p]:mt-4"
-                dangerouslySetInnerHTML={{ __html: aboutData.content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(aboutData.content) }}
               />
             )}
           </div>

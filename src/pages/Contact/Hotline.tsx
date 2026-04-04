@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 
 interface SocialMediaLink {
@@ -127,7 +128,7 @@ const Hotline: React.FC = () => {
                     <div
                       className="text-gray-700"
                       dangerouslySetInnerHTML={{
-                        __html: organizationDesc ? organizationDesc : (row.value as string),
+                        __html: sanitizeHtml(organizationDesc ? organizationDesc : (row.value as string)),
                       }}
                     />
                   )}

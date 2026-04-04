@@ -3,6 +3,7 @@ import { useVacancies, useCreateApplication } from '@/hooks/useApplications';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import { sanitizeHtml } from '@/utils/htmlUtils';
 import type { Vacancy } from '@/types';
 
 interface VacancyFormData {
@@ -138,14 +139,14 @@ const Vacancies: React.FC = () => {
                     {vacancy.name && (
                       <h3
                         className="text-lg font-semibold text-gray-900 mb-2"
-                        dangerouslySetInnerHTML={{ __html: vacancy.name }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.name) }}
                       />
                     )}
                     
                     {vacancy.desc && (
                       <div
                         className="text-gray-700 mb-3"
-                        dangerouslySetInnerHTML={{ __html: vacancy.desc }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.desc) }}
                       />
                     )}
 
@@ -201,7 +202,7 @@ const Vacancies: React.FC = () => {
                     <p className="text-sm text-gray-600 mb-1">{t('vacancies.vacancy') || 'Vakansiya'}:</p>
                     <div
                       className="text-gray-900 font-medium"
-                      dangerouslySetInnerHTML={{ __html: selectedVacancy.name }}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedVacancy.name) }}
                     />
                   </div>
                 )}

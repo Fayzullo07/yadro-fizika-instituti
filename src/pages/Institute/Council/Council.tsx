@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useScientificCouncil, useCouncilMembers } from '@/hooks/useCouncil';
+import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import type { ScientificCouncil, CouncilMember } from '@/types';
@@ -26,7 +27,7 @@ const Council: React.FC = () => {
             {scientificCouncil?.title ? (
               <div 
                 className=""
-                dangerouslySetInnerHTML={{ __html: scientificCouncil.title }} 
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }} 
               />
             ) : (
               t('nav.institute.council') || 'ILMIY KENGASH'
@@ -50,7 +51,7 @@ const Council: React.FC = () => {
           <div className="max-w-4xl mx-auto mb-12">
             <div
               className="prose prose-lg max-w-none text-gray-700 leading-relaxed [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_li]:text-base [&_li]:md:text-lg [&_em]:not-italic"
-              dangerouslySetInnerHTML={{ __html: scientificCouncil.council_duties }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.council_duties) }}
             />
           </div>
         )}

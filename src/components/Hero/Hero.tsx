@@ -1,6 +1,6 @@
 import { useBanners } from '@/hooks/useBanners';
 import { useGeneral } from '@/hooks/useGeneral';
-import { stripHtmlRegex } from '@/utils/htmlUtils';
+import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { useState, useEffect, useRef } from 'react';
 import institutImage from '@/assets/institut.png';
 import type { Banner } from '@/types';
@@ -291,7 +291,7 @@ const Hero: React.FC = () => {
                             {banner.title && (
                               <h3
                                 className="text-white text-lg font-semibold mb-2"
-                                dangerouslySetInnerHTML={{ __html: banner.title }}
+                                dangerouslySetInnerHTML={{ __html: sanitizeHtml(banner.title) }}
                               />
                             )}
                           </div>

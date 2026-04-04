@@ -28,7 +28,7 @@ const MainLayout: React.FC = () => {
     <div className="min-h-screen  flex flex-col">
       <Header />
       <div className={`flex relative ${isHomePage ? '' : 'container mx-auto'}`}>
-        <main className={`flex-grow borde border-gray-200 transition-all ${shouldShowSidebar && !isHomePage ? 'border m-6 shadow-lg py-4 px-2' : ''} ${!shouldShowSidebar ? 'w-full' : ''}`}>
+        <main className={`flex-grow border-gray-200 transition-all ${shouldShowSidebar && !isHomePage ? 'border m-6 shadow-lg py-4 px-2' : ''} ${!shouldShowSidebar ? 'w-full' : ''}`}>
           <div className="">
             <Breadcrumb />
             <Outlet />

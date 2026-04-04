@@ -76,7 +76,10 @@
     "readMore": "Read More",
     "viewAll": "View All News",
     "backToList": "Back to News List",
-    "otherNews": "Other News"
+    "otherNews": "Other News",
+    "previous": "Previous",
+    "next": "Next",
+    "noNews": "No news found"
   },
   "features": {
     "subtitle": "OUR COMPETENCIES",

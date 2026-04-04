@@ -68,10 +68,8 @@ export interface ScientificCouncil {
 
 export interface CouncilMember {
   id: number;
-  full_name: string;
   fullname: string;
   position: string;
-  image: string;
   photo: string;
   phone: string;
   email: string;
@@ -128,11 +126,9 @@ export interface NewsItem {
 // Teams
 export interface TeamMember {
   id: number;
-  full_name: string;
   fullname: string;
   position: string;
   photo: string;
-  image: string;
   phone: string;
   email: string;
   linkedin: string;
@@ -143,9 +139,7 @@ export interface TeamMember {
 export interface Vacancy {
   id: number;
   name: string;
-  title: string;
   desc: string;
-  description: string;
   requirements: string;
   salary: string;
   deadline: string;

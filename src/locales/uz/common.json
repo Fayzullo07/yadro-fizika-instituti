@@ -76,7 +76,10 @@
     "readMore": "Batafsil",
     "viewAll": "Barcha yangiliklar",
     "backToList": "Yangiliklar ro'yxatiga qaytish",
-    "otherNews": "Boshqa yangiliklar"
+    "otherNews": "Boshqa yangiliklar",
+    "previous": "Oldingi",
+    "next": "Keyingi",
+    "noNews": "Yangiliklar topilmadi"
   },
   "features": {
     "subtitle": "BIZNING KOMPETENSIYALAR",

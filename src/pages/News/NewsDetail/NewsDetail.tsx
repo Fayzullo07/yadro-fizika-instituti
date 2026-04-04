@@ -1,27 +1,21 @@
 import { useParams, Link } from 'react-router-dom';
 import { useNewsById, useNews } from '@/hooks/useNews';
-import { stripHtmlRegex } from '@/utils/htmlUtils';
+import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 
-interface NewsImage {
-  image: string;
-}
-
-interface NewsDetailItem {
-  id: number;
-  title: string;
-  description: string;
-  images: NewsImage[];
-  created_at: string;
-}
+const LOCALE_MAP: Record<string, string> = {
+  uz: 'uz-UZ',
+  ru: 'ru-RU',
+  en: 'en-US',
+};
 
 const NewsDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const { t } = useLanguage();
-    const { data: newsItem, loading, error } = useNewsById(id!) as { data: NewsDetailItem | null; loading: boolean; error: string | null };
-    const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 }) as { data: { results: NewsDetailItem[] } | null; loading: boolean; error: string | null };
+    const { t, language } = useLanguage();
+    const { data: newsItem, loading, error } = useNewsById(id!);
+    const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 });
 
     if (loading) {
         return <Loading />;
@@ -51,7 +45,7 @@ const NewsDetail: React.FC = () => {
         if (!dateString) return '';
         try {
             const date = new Date(dateString);
-            return date.toLocaleDateString('uz-UZ', {
+            return date.toLocaleDateString(LOCALE_MAP[language] || 'uz-UZ', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -92,20 +86,20 @@ const NewsDetail: React.FC = () => {
                                 {newsItem.title && (
                                     <h1
                                         className=" mb-2"
-                                        dangerouslySetInnerHTML={{ __html: newsItem.title }}
+                                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(newsItem.title) }}
                                     />
                                 )}
 
                                 <div className="flex items-center gap-4 mb-3 pb-3 border-b border-gray-200">
                                     {newsItem.created_at && (
-                                        <span className="text-sm mt-2">{(newsItem.created_at)}</span>
+                                        <span className="text-sm mt-2">{formatDate(newsItem.created_at)}</span>
                                     )}
                                 </div>
 
                                 {newsItem.description && (
                                     <div
                                         className="prose prose-lg max-w-none text-gray-700 leading-relaxed [&_p]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-gray-900 [&_h3]:mt-6 [&_h3]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_li]:mb-2 [&_img]:rounded-lg [&_img]:my-4"
-                                        dangerouslySetInnerHTML={{ __html: newsItem.description }}
+                                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(newsItem.description) }}
                                     />
                                 )}
 
@@ -166,7 +160,7 @@ const NewsDetail: React.FC = () => {
 
                                                     <h3
                                                         className="text-sm font-medium text-gray-900 line-clamp-1 mb-1"
-                                                        dangerouslySetInnerHTML={{ __html: item.title }}
+                                                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                                                     />
                                                     {item.created_at && (
                                                         <p className="text-xs text-gray-500">{item.created_at}</p>

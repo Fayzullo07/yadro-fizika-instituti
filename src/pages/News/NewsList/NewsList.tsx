@@ -1,5 +1,5 @@
 import { useNews } from '@/hooks/useNews';
-import { stripHtmlRegex } from '@/utils/htmlUtils';
+import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
@@ -17,8 +17,14 @@ interface NewsListItem {
   created_at: string;
 }
 
+const LOCALE_MAP: Record<string, string> = {
+  uz: 'uz-UZ',
+  ru: 'ru-RU',
+  en: 'en-US',
+};
+
 const NewsList: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
   const perPage = 12;
@@ -46,7 +52,7 @@ const NewsList: React.FC = () => {
     if (!dateString) return '';
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString('uz-UZ', {
+      return date.toLocaleDateString(LOCALE_MAP[language] || 'uz-UZ', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -93,7 +99,7 @@ const NewsList: React.FC = () => {
                     {item.title && (
                       <h3
                         className="text-xl font-semibold !line-clamp-1 text-gray-900 mb-3 line-clamp-2"
-                        dangerouslySetInnerHTML={{ __html: item.title }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                       />
                     )}
 
@@ -101,9 +107,7 @@ const NewsList: React.FC = () => {
                       <div
                         className="text-gray-600 mb-4 !line-clamp-3 flex-grow"
                         dangerouslySetInnerHTML={{
-                          __html: item.description
-                            ? item.description
-                            : item.description,
+                          __html: sanitizeHtml(item.description),
                         }}
                       />
                     )}
@@ -134,7 +138,7 @@ const NewsList: React.FC = () => {
                   disabled={page === 1}
                   className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  ← Oldingi
+                  ← {t('news.previous') || 'Oldingi'}
                 </button>
 
                 <div className="flex gap-2">
@@ -170,7 +174,7 @@ const NewsList: React.FC = () => {
                   disabled={page === totalPages}
                   className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  Keyingi →
+                  {t('news.next') || 'Keyingi'} →
                 </button>
               </div>
             )}

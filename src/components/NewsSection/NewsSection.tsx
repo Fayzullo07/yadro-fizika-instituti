@@ -1,5 +1,5 @@
 import { useNews } from '@/hooks/useNews';
-import { stripHtmlRegex } from '@/utils/htmlUtils';
+import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
@@ -81,7 +81,7 @@ const NewsSection: React.FC = () => {
                     {mainNews.title && (
                       <h3
                         className="text-white text-xl font-semibold line-clamp-2"
-                        dangerouslySetInnerHTML={{ __html: mainNews.title }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(mainNews.title) }}
                       />
                     )}
                   </div>
@@ -170,7 +170,7 @@ const NewsSection: React.FC = () => {
                     {otherNews[0].title && (
                       <h4
                         className="text-white text-sm font-semibold line-clamp-2 group-hover:underline"
-                        dangerouslySetInnerHTML={{ __html: otherNews[0].title }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(otherNews[0].title) }}
                       />
                     )}
                   </div>
@@ -212,7 +212,7 @@ const NewsSection: React.FC = () => {
                       {item.title && (
                         <h4
                           className="text-white text-xs font-semibold line-clamp-2 group-hover:underline"
-                          dangerouslySetInnerHTML={{ __html: item.title }}
+                          dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                         />
                       )}
                     </div>
@@ -223,7 +223,7 @@ const NewsSection: React.FC = () => {
           </div>
         </div>
 
-        {data?.count > 5 && (
+        {(data?.count ?? 0) > 5 && (
           <div className="text-center mt-8">
             <Link
               to="/news"

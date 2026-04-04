@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLaboratory } from '@/hooks/useDepartment';
+import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 
@@ -131,7 +132,7 @@ const Laboratories: React.FC = () => {
 
                       <div className="mb-4">
                         {laboratory.name ? (
-                          <div className="!text-gray-800 font-medium text-[15px] md:text-base leading-[1.7] tracking-wide " dangerouslySetInnerHTML={{ __html: laboratory.name }} />
+                          <div className="!text-gray-800 font-medium text-[15px] md:text-base leading-[1.7] tracking-wide " dangerouslySetInnerHTML={{ __html: sanitizeHtml(laboratory.name) }} />
                         ) : (
                           <span className="text-gray-400">-</span>
                         )}

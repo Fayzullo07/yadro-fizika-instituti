@@ -2,12 +2,15 @@ import './index.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { LanguageProvider } from './contexts/LanguageContext'
+import ErrorBoundary from './components/shared/ErrorBoundary/ErrorBoundary'
 import Routers from './routes/Routers'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <LanguageProvider>
-      <Routers />
-    </LanguageProvider>
+    <ErrorBoundary>
+      <LanguageProvider>
+        <Routers />
+      </LanguageProvider>
+    </ErrorBoundary>
   </StrictMode>,
 )
