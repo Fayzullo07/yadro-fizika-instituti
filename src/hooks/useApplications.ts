@@ -15,6 +15,7 @@ export const useVacancy = (id: number | string) => {
 
 export const useCreateApplication = () => {
   const { language } = useLanguage();
-  return useMutation<FormData | ApplicationData, unknown>((data) => applicationApi.create(data, language));
+  return useMutation<FormData | ApplicationData, unknown>((data) =>
+    applicationApi.create(data, language)
+  );
 };
-

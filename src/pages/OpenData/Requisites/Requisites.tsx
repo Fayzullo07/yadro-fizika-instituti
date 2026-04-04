@@ -17,12 +17,13 @@ const Requisites: React.FC = () => {
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
               Institut rekvizitlari
             </h2>
-            
+
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-semibold text-gray-600 mb-1">Institut nomi:</p>
                 <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                  O'zbekiston Respublikasi Raqamli texnologiyalar vazirligi huzuridagi Raqamli texnologiyalar va sun'iy intellektni rivojlantirish ilmiy-tadqiqot instituti
+                  O'zbekiston Respublikasi Raqamli texnologiyalar vazirligi huzuridagi Raqamli
+                  texnologiyalar va sun'iy intellektni rivojlantirish ilmiy-tadqiqot instituti
                 </p>
               </div>
 
@@ -47,7 +48,10 @@ const Requisites: React.FC = () => {
                 <div>
                   <p className="text-sm font-semibold text-gray-600 mb-1">IFUT:</p>
                   <p className="text-base md:text-lg text-gray-900 font-mono">
-                    72190 <span className="text-sm text-gray-600 font-normal">(Tabiiy fanlar va injeneriya sohasidagi boshqa tadqiqotlar va ishlanmalar)</span>
+                    72190{' '}
+                    <span className="text-sm text-gray-600 font-normal">
+                      (Tabiiy fanlar va injeneriya sohasidagi boshqa tadqiqotlar va ishlanmalar)
+                    </span>
                   </p>
                 </div>
 
@@ -65,4 +69,3 @@ const Requisites: React.FC = () => {
 };
 
 export default Requisites;
-

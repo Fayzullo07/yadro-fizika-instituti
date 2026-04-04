@@ -21,4 +21,3 @@ export const useScientificCouncilById = (id: number | string) => {
   const { language } = useLanguage();
   return useApi(() => councilApi.getScientificCouncilById(id, language), [id, language]);
 };
-

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 const AuthLayout: React.FC = () => {
   return (
@@ -11,4 +11,3 @@ const AuthLayout: React.FC = () => {
 };
 
 export default AuthLayout;
-

@@ -35,7 +35,10 @@ export const useLeadershipById = (id: number | string) => {
 
 export const useTeams = (params: PaginationParams = {}) => {
   const { language } = useLanguage();
-  return useApi(() => teamsApi.getAll(params, language), [language, params.page, params.per_page, params.search]);
+  return useApi(
+    () => teamsApi.getAll(params, language),
+    [language, params.page, params.per_page, params.search]
+  );
 };
 
 export const useTeamById = (id: number | string) => {

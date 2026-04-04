@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 
 // Generic hook for GET requests
-export const useApi = <T>(apiFunction: () => Promise<T>, dependencies: React.DependencyList = []) => {
+export const useApi = <T>(
+  apiFunction: () => Promise<T>,
+  dependencies: React.DependencyList = []
+) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +24,7 @@ export const useApi = <T>(apiFunction: () => Promise<T>, dependencies: React.Dep
     };
 
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 
   return { data, loading, error };
@@ -48,4 +51,3 @@ export const useMutation = <T, R = unknown>(apiFunction: (data: T) => Promise<R>
 
   return { mutate, loading, error };
 };
-

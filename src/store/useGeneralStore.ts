@@ -30,10 +30,7 @@ const useGeneralStore = create<GeneralState>()(
         const state = get();
 
         // Agar cache vaqti o'tgan bo'lsa (5 daqiqadan ko'p), eski ma'lumotlarni tozalash
-        if (
-          state.lastFetchTime &&
-          Date.now() - state.lastFetchTime > 5 * 60 * 1000
-        ) {
+        if (state.lastFetchTime && Date.now() - state.lastFetchTime > 5 * 60 * 1000) {
           set({
             generalData: null,
             lastFetchTime: null,
@@ -59,7 +56,7 @@ const useGeneralStore = create<GeneralState>()(
           const data = await generalApi.getGeneral(currentLanguage);
           // Ma'lumotlar versiyasini yangilash (timestamp)
           const dataVersion = Date.now();
-          
+
           set({
             generalData: data,
             loading: false,
@@ -101,4 +98,3 @@ const useGeneralStore = create<GeneralState>()(
 );
 
 export default useGeneralStore;
-

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import type { MenuLink } from "@/types";
+import { Link } from 'react-router-dom';
+import type { MenuLink } from '@/types';
 
 interface DropdownMenuProps {
   links: MenuLink[];

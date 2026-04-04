@@ -1,5 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE, getStoredLanguage, setStoredLanguage, getBrowserLanguage } from '@/config/i18n';
+import {
+  DEFAULT_LANGUAGE,
+  getStoredLanguage,
+  setStoredLanguage,
+  getBrowserLanguage,
+} from '@/config/i18n';
 import uzTranslations from '@/locales/uz/common.json';
 import ruTranslations from '@/locales/ru/common.json';
 import enTranslations from '@/locales/en/common.json';
@@ -55,4 +60,3 @@ export const useLanguage = () => {
   }
   return context;
 };
-

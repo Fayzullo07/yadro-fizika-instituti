@@ -1,7 +1,7 @@
 import type { Language } from '@/types';
 
 export const SUPPORTED_LANGUAGES: Record<Language, string> = {
-  uz: 'O\'zbek',
+  uz: "O'zbek",
   ru: 'Русский',
   en: 'English',
 };
@@ -25,7 +25,10 @@ export const setStoredLanguage = (lang: Language): void => {
 export const getBrowserLanguage = (): Language => {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
 
-  const browserLang = (navigator as Navigator & { userLanguage?: string }).language || (navigator as Navigator & { userLanguage?: string }).userLanguage || '';
+  const browserLang =
+    (navigator as Navigator & { userLanguage?: string }).language ||
+    (navigator as Navigator & { userLanguage?: string }).userLanguage ||
+    '';
   const langCode = browserLang.split('-')[0].toLowerCase();
 
   if (isLanguage(langCode)) {
@@ -34,4 +37,3 @@ export const getBrowserLanguage = (): Language => {
 
   return DEFAULT_LANGUAGE;
 };
-

@@ -7,7 +7,7 @@ export const shouldShowSidebar = (pathname: string, t: (key: string) => string):
   if (pathname === '/') return false;
   const menuItems = getMenuItems(t);
   for (const menuItem of menuItems) {
-    const hasActiveLink = menuItem.links.some(link => link.path === pathname);
+    const hasActiveLink = menuItem.links.some((link) => link.path === pathname);
     if (hasActiveLink) {
       return true;
     }
@@ -23,7 +23,7 @@ const Sidebar: React.FC = () => {
 
   const findActiveMenu = (): MenuItem | null => {
     for (const menuItem of menuItems) {
-      const hasActiveLink = menuItem.links.some(link => link.path === location.pathname);
+      const hasActiveLink = menuItem.links.some((link) => link.path === location.pathname);
       if (hasActiveLink) {
         return menuItem;
       }

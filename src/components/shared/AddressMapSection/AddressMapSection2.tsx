@@ -7,14 +7,13 @@ const AddressMapSection2: React.FC = () => {
   const { t } = useLanguage();
 
   // Manzil
-  const address =
-    "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
-  const phone = generalData?.phone || "+998 (71) 203-32-31";
+  const address = "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
+  const phone = generalData?.phone || '+998 (71) 203-32-31';
 
   // 🔴 ANIQ LOKATSIYA (Yangishahar 9A)
-  const latitude = "41.364664";
-  const longitude = "69.287714";
-  const mapZoom = "16";
+  const latitude = '41.364664';
+  const longitude = '69.287714';
+  const mapZoom = '16';
   // 41.364664, 69.287714
   return (
     <div className="">
@@ -39,9 +38,7 @@ const AddressMapSection2: React.FC = () => {
           <div className="flex  gap-3 justify-center lg:col-span-7 space-y-6 text-[#013d8c]">
             {/* Address */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">
-                {t('contact.address') || 'Manzil:'}
-              </h3>
+              <h3 className="text-lg font-semibold mb-2">{t('contact.address') || 'Manzil:'}</h3>
               <p className="text-sm leading-relaxed">{address}</p>
             </div>
 

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import type { MenuItem } from "@/types";
+import { Link } from 'react-router-dom';
+import type { MenuItem } from '@/types';
 
 interface MobileMenuProps {
   menuItems: MenuItem[];
@@ -12,10 +12,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, isOpen, onClose }) =
 
   return (
     <>
-      <div
-        className="fixed inset-0 bg-black/40 bg-opacity-50 z-30"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black/40 bg-opacity-50 z-30" onClick={onClose} />
       <div className="fixed inset-0 bg-white shadow-xl z-40 overflow-y-auto">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between mb-8">
@@ -24,12 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, isOpen, onClose }) =
               onClick={onClose}
               className="p-2 text-gray-700 hover:text-blue-600 transition-colors"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

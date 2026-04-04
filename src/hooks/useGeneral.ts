@@ -20,4 +20,3 @@ export const useContactUs = () => {
   const { language } = useLanguage();
   return useMutation<ContactUsData, unknown>((data) => generalApi.contactUs(data, language));
 };
-

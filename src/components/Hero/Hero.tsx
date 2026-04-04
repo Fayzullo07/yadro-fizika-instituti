@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
       <div className="relative h-[600px] overflow-hidden bg-gray-200">
         {/* Background skeleton */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
-        
+
         {/* Content skeleton */}
         <div className="relative z-10 h-full flex items-center">
           <div className="container mx-auto px-4">
@@ -112,7 +112,7 @@ const Hero: React.FC = () => {
                 <div className="h-8 md:h-10 bg-white/30 rounded-lg w-3/4 animate-pulse"></div>
                 <div className="h-8 md:h-10 bg-white/30 rounded-lg w-2/3 animate-pulse"></div>
               </div>
-              
+
               {/* Description skeleton */}
               <div className="space-y-2">
                 <div className="h-4 bg-white/30 rounded w-full animate-pulse"></div>
@@ -122,7 +122,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Dots skeleton */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
           <div className="w-3 h-3 rounded-full bg-white/50 animate-pulse"></div>
@@ -163,20 +163,20 @@ const Hero: React.FC = () => {
               {/* Organization Name */}
               {organizationName && (
                 <div className="mb-6 flex items-center gap-3">
-                  <h2 
+                  <h2
                     className="text-white line-clamp-5"
                     style={{
                       fontSize: '56px',
                       lineHeight: '120%',
                       fontWeight: '600',
-                      fontFamily: 'Arial, Helvetica, sans-serif'
+                      fontFamily: 'Arial, Helvetica, sans-serif',
                     }}
                   >
                     {organizationName}
                   </h2>
                 </div>
               )}
-              
+
               {/* {currentBanner.title && (
                 <h1
                   className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6"
@@ -255,7 +255,7 @@ const Hero: React.FC = () => {
                     </button>
                   </>
                 )}
-                
+
                 <div
                   ref={sliderRef}
                   className="relative overflow-x-auto overflow-y-hidden scrollbar-hide"
@@ -322,9 +322,7 @@ const Hero: React.FC = () => {
                 }
               }}
               className={`w-3 h-3 rounded-full transition-all ${
-                index === currentIndex
-                  ? 'bg-white w-8'
-                  : 'bg-white/50 hover:bg-white/75'
+                index === currentIndex ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/75'
               }`}
               aria-label={`Slide ${index + 1}`}
             />
@@ -336,4 +334,3 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
-

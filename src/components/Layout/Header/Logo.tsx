@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { HOME_PATH } from "@/routes/path";
-import { useGeneral } from "@/hooks/useGeneral";
-import { stripHtmlRegex } from "@/utils/htmlUtils";
+import { Link } from 'react-router-dom';
+import { HOME_PATH } from '@/routes/path';
+import { useGeneral } from '@/hooks/useGeneral';
+import { stripHtmlRegex } from '@/utils/htmlUtils';
 
 const Logo: React.FC = () => {
   const { data: generalData, loading } = useGeneral();
 
   const organizationName: string = generalData?.organization_short_name
     ? stripHtmlRegex(generalData.organization_short_name)
-    : "Logo";
+    : 'Logo';
 
   return (
     <Link to={HOME_PATH} className="flex items-center gap-2 md:gap-3 flex-shrink-0">

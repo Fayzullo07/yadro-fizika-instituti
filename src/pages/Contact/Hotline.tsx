@@ -26,17 +26,15 @@ const Hotline: React.FC = () => {
   const website = generalData?.website || 'www.naris.uz';
   const email = generalData?.email || 'info@ilmiy.uz';
   const address =
-    generalData?.address ||
-    '100174, Toshkent sh., Olmazor tumani, Universitet ko‘chasi, 7 uy';
+    generalData?.address || '100174, Toshkent sh., Olmazor tumani, Universitet ko‘chasi, 7 uy';
   const organizationDesc = generalData?.organization_desc || null;
 
-  const socialMediaLinks: SocialMediaLink[] =
-    generalData?.social_media || [
-      { name: 'youtube', url: '#' },
-      { name: 'telegram', url: '#' },
-      { name: 'instagram', url: '#' },
-      { name: 'facebook', url: '#' },
-    ];
+  const socialMediaLinks: SocialMediaLink[] = generalData?.social_media || [
+    { name: 'youtube', url: '#' },
+    { name: 'telegram', url: '#' },
+    { name: 'instagram', url: '#' },
+    { name: 'facebook', url: '#' },
+  ];
 
   const contactRows: ContactRow[] = [
     { label: 'Telefon', type: 'phone', value: phone },
@@ -95,54 +93,74 @@ const Hotline: React.FC = () => {
 
   return (
     <div className=" !py-10">
-      <h1 className="text-3xl font-bold text-[#013d8c] px-4 mb-8">
-        Ishonch telefoni
-      </h1>
+      <h1 className="text-3xl font-bold text-[#013d8c] px-4 mb-8">Ishonch telefoni</h1>
 
       <div className="border border-[#e9ecef] rounded-lg overflow-hidden">
         <table className="w-full !px-4">
           <tbody>
             {contactRows.map((row, i) => (
-              <tr key={i} className={`border-b border-[#e9ecef] last:border-b-0 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-[#f8f9fa]'}`}>
+              <tr
+                key={i}
+                className={`border-b border-[#e9ecef] last:border-b-0 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-[#f8f9fa]'}`}
+              >
                 <td className="w-1/3 px-6 py-4 font-semibold align-top text-gray-800">
                   {row.label}
                 </td>
                 <td className="px-6 py-4 text-gray-700">
                   {row.type === 'phone' && (
-                    <a href={`tel:${(row.value as string).replace(/\s/g, '')}`} className="text-blue-600 hover:text-blue-800 transition-colors">
+                    <a
+                      href={`tel:${(row.value as string).replace(/\s/g, '')}`}
+                      className="text-blue-600 hover:text-blue-800 transition-colors"
+                    >
                       {row.value as string}
                     </a>
                   )}
                   {row.type === 'email' && (
-                    <a href={`mailto:${row.value as string}`} className="text-blue-600 hover:text-blue-800 underline transition-colors">
+                    <a
+                      href={`mailto:${row.value as string}`}
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors"
+                    >
                       {row.value as string}
                     </a>
                   )}
                   {row.type === 'link' && (
-                    <a href={row.value as string} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline transition-colors">
+                    <a
+                      href={row.value as string}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors"
+                    >
                       {row.value as string}
                     </a>
                   )}
-                  {row.type === 'text' && <span className="text-gray-700">{row.value as string}</span>}
+                  {row.type === 'text' && (
+                    <span className="text-gray-700">{row.value as string}</span>
+                  )}
                   {row.type === 'description' && (
                     <div
                       className="text-gray-700"
                       dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(organizationDesc ? organizationDesc : (row.value as string)),
+                        __html: sanitizeHtml(
+                          organizationDesc ? organizationDesc : (row.value as string)
+                        ),
                       }}
                     />
                   )}
-                  {row.type === 'map' && <div className="w-full">{row.value as React.ReactNode}</div>}
+                  {row.type === 'map' && (
+                    <div className="w-full">{row.value as React.ReactNode}</div>
+                  )}
                   {row.type === 'social' && (
                     <div className="flex gap-3">
                       {(row.value as SocialMediaLink[]).map((s, idx) => {
                         const iconColors: Record<string, string> = {
                           youtube: 'bg-red-600 hover:bg-red-700',
                           telegram: 'bg-blue-500 hover:bg-blue-600',
-                          instagram: 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600',
+                          instagram:
+                            'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600',
                           facebook: 'bg-blue-600 hover:bg-blue-700',
                         };
-                        const iconClass = iconColors[s.name?.toLowerCase()] || 'bg-blue-600 hover:bg-blue-700';
+                        const iconClass =
+                          iconColors[s.name?.toLowerCase()] || 'bg-blue-600 hover:bg-blue-700';
                         return (
                           <a
                             key={idx}

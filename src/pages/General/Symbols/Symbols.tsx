@@ -10,7 +10,7 @@ const Symbols: React.FC = () => {
       </h1>
       <div className="bg-white rounded-lg shadow-lg p-8">
         <p className="text-lg text-gray-700">
-          {t('pages.symbols.content') || 'Davlat ramzlari ma\'lumotlari...'}
+          {t('pages.symbols.content') || "Davlat ramzlari ma'lumotlari..."}
         </p>
       </div>
     </div>
@@ -18,4 +18,3 @@ const Symbols: React.FC = () => {
 };
 
 export default Symbols;
-

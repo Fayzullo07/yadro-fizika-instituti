@@ -23,22 +23,20 @@ const Laboratories: React.FC = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
 
   const allLaboratories: LaboratoryItem[] = laboratoryData?.results || [];
-  
+
   // Default laboratoriya nomlari
   const defaultLaboratoryNames = [
-    "Bino va inshootlarning zilzilabardoshligi laboratoriyasi",
+    'Bino va inshootlarning zilzilabardoshligi laboratoriyasi',
     "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi",
-    "Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi",
-    "Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi",
-    "\"Yashil\" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi",
+    'Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi',
+    'Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi',
+    '"Yashil" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi',
     "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)",
   ];
 
@@ -53,9 +51,9 @@ const Laboratories: React.FC = () => {
         number: index === 5 ? 15 : 6,
       }));
     }
-    
+
     const labs = [...allLaboratories];
-    
+
     // Agar 6 tadan kam bo'lsa, default ma'lumotlar qo'shish
     while (labs.length < 6) {
       const defaultIndex = labs.length;
@@ -65,7 +63,7 @@ const Laboratories: React.FC = () => {
         number: labs.length === 5 ? 15 : 6,
       });
     }
-    
+
     // Agar API dan 6 tadan ko'p bo'lsa, faqat birinchi 6 tasini olamiz
     // Va agar API dan kelgan nomlar bo'sh bo'lsa, default nomlarni ishlatamiz
     return labs.slice(0, 6).map((lab, index) => ({
@@ -73,7 +71,7 @@ const Laboratories: React.FC = () => {
       name: lab.name || defaultLaboratoryNames[index] || `Laboratoriya ${index + 1}`,
     }));
   };
-  
+
   const laboratories = ensureSixLaboratories();
 
   // Default iconlar (har bir laboratoriya uchun)
@@ -92,7 +90,6 @@ const Laboratories: React.FC = () => {
     <div className="py-4">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
-
           {t('nav.tadqiqot.laboratories') || 'Laboratoriyalar'}
         </h1>
 
@@ -106,9 +103,7 @@ const Laboratories: React.FC = () => {
                 return (
                   <div
                     key={laboratory.id || index}
-                    className={`relative ${
-                      isLeftColumn ? 'md:pr-8' : 'md:pl-8'
-                    }`}
+                    className={`relative ${isLeftColumn ? 'md:pr-8' : 'md:pl-8'}`}
                   >
                     <div
                       className={`hidden md:block absolute top-1/2 ${
@@ -132,7 +127,10 @@ const Laboratories: React.FC = () => {
 
                       <div className="mb-4">
                         {laboratory.name ? (
-                          <div className="!text-gray-800 font-medium text-[15px] md:text-base leading-[1.7] tracking-wide " dangerouslySetInnerHTML={{ __html: sanitizeHtml(laboratory.name) }} />
+                          <div
+                            className="!text-gray-800 font-medium text-[15px] md:text-base leading-[1.7] tracking-wide "
+                            dangerouslySetInnerHTML={{ __html: sanitizeHtml(laboratory.name) }}
+                          />
                         ) : (
                           <span className="text-gray-400">-</span>
                         )}
@@ -154,4 +152,3 @@ const Laboratories: React.FC = () => {
 };
 
 export default Laboratories;
-

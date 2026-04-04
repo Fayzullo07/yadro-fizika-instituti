@@ -31,7 +31,7 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
         try {
           const range = selection.getRangeAt(0);
           const rect = range.getBoundingClientRect();
-          
+
           setPosition({
             x: rect.left + rect.width / 2,
             y: rect.top - 10,
@@ -83,7 +83,7 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
     }
 
     const utterance = new SpeechSynthesisUtterance(text);
-    
+
     // Set language based on text (Uzbek, Russian, or English)
     let lang = 'uz-UZ';
     if (/[а-яА-ЯёЁ]/.test(text)) {
@@ -91,15 +91,17 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
     } else if (/[a-zA-Z]/.test(text)) {
       lang = 'en-US';
     }
-    
+
     utterance.lang = lang;
 
     // Set voice for better accent
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(voice => {
+    const preferredVoice = voices.find((voice) => {
       if (lang === 'uz-UZ') {
         // Try to find Turkish or Russian voice as they might work better for Uzbek
-        return voice.lang.startsWith('tr-') || voice.lang.startsWith('ru-') || voice.lang.includes('uz');
+        return (
+          voice.lang.startsWith('tr-') || voice.lang.startsWith('ru-') || voice.lang.includes('uz')
+        );
       } else if (lang === 'ru-RU') {
         return voice.lang.startsWith('ru-');
       } else if (lang === 'en-US') {
@@ -122,12 +124,12 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
     utterance.onerror = () => setIsSpeaking(false);
 
     utteranceRef.current = utterance;
-    
+
     // Wait for voices to load if needed
     if (voices.length === 0) {
       const handleVoicesChanged = () => {
         const updatedVoices = window.speechSynthesis.getVoices();
-        const voice = updatedVoices.find(v => {
+        const voice = updatedVoices.find((v) => {
           if (lang === 'uz-UZ') {
             return v.lang.startsWith('tr-') || v.lang.startsWith('ru-') || v.lang.includes('uz');
           } else if (lang === 'ru-RU') {
@@ -165,11 +167,11 @@ const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
     >
       {isSpeaking ? (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
         </svg>
       ) : (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
         </svg>
       )}
     </button>

@@ -1,16 +1,16 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { HOME_PATH, HOTLINE_PATH } from "@/routes/path";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { useGeneral } from "@/hooks/useGeneral";
-import { stripHtmlRegex } from "@/utils/htmlUtils";
-import { getMenuItems } from "@/config/menu";
-import DesktopNavigation from "./DesktopNavigation";
-import MobileMenu from "./MobileMenu";
-import MobileMenuButton from "./MobileMenuButton";
-import LanguageSwitcher from "./LanguageSwitcher";
-import TickerBanner from "@/components/shared/TickerBanner/TickerBanner";
-import type { SocialMediaLink } from "@/types";
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { HOME_PATH, HOTLINE_PATH } from '@/routes/path';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useGeneral } from '@/hooks/useGeneral';
+import { stripHtmlRegex } from '@/utils/htmlUtils';
+import { getMenuItems } from '@/config/menu';
+import DesktopNavigation from './DesktopNavigation';
+import MobileMenu from './MobileMenu';
+import MobileMenuButton from './MobileMenuButton';
+import LanguageSwitcher from './LanguageSwitcher';
+import TickerBanner from '@/components/shared/TickerBanner/TickerBanner';
+import type { SocialMediaLink } from '@/types';
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
@@ -24,7 +24,9 @@ const Header: React.FC = () => {
       ? stripHtmlRegex(generalData.organization_name)
       : null;
 
-  const splitTextIntoTwoLines = (text: string | null): { firstLine: string; secondLine: string } => {
+  const splitTextIntoTwoLines = (
+    text: string | null
+  ): { firstLine: string; secondLine: string } => {
     if (!text) return { firstLine: '', secondLine: '' };
 
     const words = text.split(' ');
@@ -37,40 +39,43 @@ const Header: React.FC = () => {
 
   const { firstLine, secondLine } = splitTextIntoTwoLines(organizationName);
 
-  const socialMediaLinks: SocialMediaLink[] = useMemo(() => [
-    {
-      id: 'telegram',
-      name: 'Telegram',
-      href: '#',
-      icon: (
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.17 1.858-.896 6.375-1.268 8.451-.15.84-.445 1.12-.73 1.147-.61.055-1.072-.403-1.662-.79-.92-.617-1.44-.999-2.332-1.602-1.03-.654-.363-1.014.225-1.601.155-.153 2.84-2.604 2.895-2.826.006-.027.01-.13-.05-.192-.06-.062-.147-.041-.211-.024-.09.024-1.51.96-4.26 2.82-.404.27-.77.401-1.1.394-.36-.008-.995-.192-1.482-.35-.598-.193-1.074-.294-1.033-.62.022-.17.13-.343.36-.52 1.38-1.08 3.31-2.59 4.4-3.48 1.98-1.68 3.74-2.54 4.18-2.37.09.034.16.11.198.22.04.11.05.23.03.35z" />
-      ),
-    },
-    {
-      id: 'facebook',
-      name: 'Facebook',
-      href: '#',
-      icon: (
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-      ),
-    },
-    {
-      id: 'instagram',
-      name: 'Instagram',
-      href: '#',
-      icon: (
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-      ),
-    },
-    {
-      id: 'youtube',
-      name: 'YouTube',
-      href: '#',
-      icon: (
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      ),
-    },
-  ], []);
+  const socialMediaLinks: SocialMediaLink[] = useMemo(
+    () => [
+      {
+        id: 'telegram',
+        name: 'Telegram',
+        href: '#',
+        icon: (
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.17 1.858-.896 6.375-1.268 8.451-.15.84-.445 1.12-.73 1.147-.61.055-1.072-.403-1.662-.79-.92-.617-1.44-.999-2.332-1.602-1.03-.654-.363-1.014.225-1.601.155-.153 2.84-2.604 2.895-2.826.006-.027.01-.13-.05-.192-.06-.062-.147-.041-.211-.024-.09.024-1.51.96-4.26 2.82-.404.27-.77.401-1.1.394-.36-.008-.995-.192-1.482-.35-.598-.193-1.074-.294-1.033-.62.022-.17.13-.343.36-.52 1.38-1.08 3.31-2.59 4.4-3.48 1.98-1.68 3.74-2.54 4.18-2.37.09.034.16.11.198.22.04.11.05.23.03.35z" />
+        ),
+      },
+      {
+        id: 'facebook',
+        name: 'Facebook',
+        href: '#',
+        icon: (
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        ),
+      },
+      {
+        id: 'instagram',
+        name: 'Instagram',
+        href: '#',
+        icon: (
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        ),
+      },
+      {
+        id: 'youtube',
+        name: 'YouTube',
+        href: '#',
+        icon: (
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        ),
+      },
+    ],
+    []
+  );
 
   const menuItems = useMemo(() => getMenuItems(t), [t]);
 
@@ -96,7 +101,10 @@ const Header: React.FC = () => {
                     <div className="h-6 bg-gray-200 rounded w-48 animate-pulse"></div>
                   </>
                 ) : (
-                  <Link to={HOME_PATH} className="flex items-center gap-3 cursor-pointer transition-opacity">
+                  <Link
+                    to={HOME_PATH}
+                    className="flex items-center gap-3 cursor-pointer transition-opacity"
+                  >
                     {generalData?.organization_logo && (
                       <img
                         src={generalData.organization_logo}
@@ -164,7 +172,11 @@ const Header: React.FC = () => {
                         aria-label={social.name}
                         title={social.name}
                       >
-                        <svg className="w-5 h-5 text-[#013d8c] hover:text-blue-700 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-5 h-5 text-[#013d8c] hover:text-blue-700 transition-colors"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           {social.icon}
                         </svg>
                       </a>

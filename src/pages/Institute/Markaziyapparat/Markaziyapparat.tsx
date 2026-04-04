@@ -10,7 +10,11 @@ const Markaziyapparat = () => {
   const { t } = useLanguage();
   const [openSection, setOpenSection] = useState<AccordionKey>(null);
 
-  const { data: leadershipData, loading: leadershipLoading, error: leadershipError } = useLeadership();
+  const {
+    data: leadershipData,
+    loading: leadershipLoading,
+    error: leadershipError,
+  } = useLeadership();
   const { data: teamsData, loading: teamsLoading, error: teamsError } = useTeams();
 
   const loading = leadershipLoading || teamsLoading;
@@ -34,16 +38,29 @@ const Markaziyapparat = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </div>
+        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
   }
 
-  const accordionSections: { key: AccordionKey; labelKey: string; members: unknown[]; showReceptionHours: boolean }[] = [
-    { key: 'rahbariyat', labelKey: 'pages.markaziyApparat.rahbariyat', members: leadership, showReceptionHours: true },
-    { key: 'institutJamoasi', labelKey: 'pages.markaziyApparat.institutJamoasi', members: teams, showReceptionHours: false },
+  const accordionSections: {
+    key: AccordionKey;
+    labelKey: string;
+    members: unknown[];
+    showReceptionHours: boolean;
+  }[] = [
+    {
+      key: 'rahbariyat',
+      labelKey: 'pages.markaziyApparat.rahbariyat',
+      members: leadership,
+      showReceptionHours: true,
+    },
+    {
+      key: 'institutJamoasi',
+      labelKey: 'pages.markaziyApparat.institutJamoasi',
+      members: teams,
+      showReceptionHours: false,
+    },
   ];
 
   return (
@@ -59,12 +76,7 @@ const Markaziyapparat = () => {
             className="flex-shrink-0 p-2 text-gray-600 hover:text-[#013d8c] hover:bg-gray-100 rounded transition-colors print:hidden"
             aria-label={t('common.print') || 'Chop etish'}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

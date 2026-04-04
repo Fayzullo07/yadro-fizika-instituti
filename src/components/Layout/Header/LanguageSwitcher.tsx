@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { SUPPORTED_LANGUAGES } from "@/config/i18n";
-import uzFlag from "@/assets/flags/uz.png";
-import ruFlag from "@/assets/flags/ru.svg";
-import enFlag from "@/assets/flags/en.svg";
-import type { Language } from "@/types";
+import { useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { SUPPORTED_LANGUAGES } from '@/config/i18n';
+import uzFlag from '@/assets/flags/uz.png';
+import ruFlag from '@/assets/flags/ru.svg';
+import enFlag from '@/assets/flags/en.svg';
+import type { Language } from '@/types';
 
 interface LanguageSwitcherProps {
-  variant?: "desktop" | "mobile";
+  variant?: 'desktop' | 'mobile';
 }
 
-const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = "desktop" }) => {
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'desktop' }) => {
   const { language, changeLanguage } = useLanguage();
   const [isLangMenuOpen, setIsLangMenuOpen] = useState<boolean>(false);
 
-  const isMobile: boolean = variant === "mobile";
+  const isMobile: boolean = variant === 'mobile';
 
   const flags: Record<Language, string> = {
     uz: uzFlag,
@@ -26,18 +26,18 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = "desktop"
     <div className="relative">
       <button
         onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-        className={`flex items-center ${isMobile ? "gap-1 px-2 !py-1" : "gap-2 px-3 py-2"} text-gray-700 hover:text-blue-600 transition border border-gray-400 rounded-md hover:border-blue-600`}
+        className={`flex items-center ${isMobile ? 'gap-1 px-2 !py-1' : 'gap-2 px-3 py-2'} text-gray-700 hover:text-blue-600 transition border border-gray-400 rounded-md hover:border-blue-600`}
       >
         <img
           src={flags[language]}
           alt={`${language} flag`}
-          className={`${isMobile ? "w-5 h-5" : "w-6 h-6"} rounded-full object-cover`}
+          className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} rounded-full object-cover`}
         />
-        <span className={`uppercase font-medium ${isMobile ? "text-xs" : "text-xs xl:text-sm"}`}>
+        <span className={`uppercase font-medium ${isMobile ? 'text-xs' : 'text-xs xl:text-sm'}`}>
           {language}
         </span>
         <svg
-          className={`${isMobile ? "w-3 h-3" : "w-4 h-4"} transition-transform ${isLangMenuOpen ? "rotate-180" : ""}`}
+          className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} transition-transform ${isLangMenuOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -48,11 +48,10 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = "desktop"
 
       {isLangMenuOpen && (
         <>
+          <div className="fixed inset-0 z-10" onClick={() => setIsLangMenuOpen(false)} />
           <div
-            className="fixed inset-0 z-10"
-            onClick={() => setIsLangMenuOpen(false)}
-          />
-          <div className={`absolute ${isMobile ? "right-0" : "right-0"} mt-2 ${isMobile ? "w-32" : "w-40"} bg-white border border-gray-200 rounded-md shadow-lg z-20`}>
+            className={`absolute ${isMobile ? 'right-0' : 'right-0'} mt-2 ${isMobile ? 'w-32' : 'w-40'} bg-white border border-gray-200 rounded-md shadow-lg z-20`}
+          >
             {(Object.entries(SUPPORTED_LANGUAGES) as [Language, string][]).map(([code, name]) => (
               <button
                 key={code}
@@ -60,8 +59,8 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = "desktop"
                   changeLanguage(code);
                   setIsLangMenuOpen(false);
                 }}
-                className={`w-full text-left flex items-center gap-2 ${isMobile ? "px-3 py-2 text-sm" : "px-4 py-2"} hover:bg-gray-100 transition ${
-                  language === code ? "bg-blue-50 text-blue-600 font-medium" : "text-gray-700"
+                className={`w-full text-left flex items-center gap-2 ${isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2'} hover:bg-gray-100 transition ${
+                  language === code ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
                 }`}
               >
                 <img

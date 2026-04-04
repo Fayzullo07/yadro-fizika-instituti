@@ -7,10 +7,9 @@ const Team: React.FC = () => {
   return (
     <LeadershipTeam
       title={t('nav.institute.leadership') || 'JAMOA'}
-      emptyMessage={t('pages.team.noMembers') || 'Jamoasi a\'zolari topilmadi'}
+      emptyMessage={t('pages.team.noMembers') || "Jamoasi a'zolari topilmadi"}
     />
   );
 };
 
 export default Team;
-

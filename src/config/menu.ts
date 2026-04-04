@@ -48,8 +48,18 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     label: t('nav.xizmatlar.title') || 'XIZMATLAR',
     links: [
       { label: t('nav.xizmatlar.Loyihalash') || 'Konferensiyalar', path: LOYIHALASH_PATH },
-      { label: t('nav.xizmatlar.Instrumentaltexniktekshiruvniotkazish') || 'Instrumental texnik tekshiruvni otkazish', path: INSTRUMENTAL_TEKSHIRUV_PATH },
-      { label: t('nav.xizmatlar.Zilzilabardoshlikboʻyichailmiyxulosaberish') || 'Zilzilabardoshlik boʻyicha ilmiy xulosa berish', path: ZILZILABARDOSHLIK_XULOSA_PATH },
+      {
+        label:
+          t('nav.xizmatlar.Instrumentaltexniktekshiruvniotkazish') ||
+          'Instrumental texnik tekshiruvni otkazish',
+        path: INSTRUMENTAL_TEKSHIRUV_PATH,
+      },
+      {
+        label:
+          t('nav.xizmatlar.Zilzilabardoshlikboʻyichailmiyxulosaberish') ||
+          'Zilzilabardoshlik boʻyicha ilmiy xulosa berish',
+        path: ZILZILABARDOSHLIK_XULOSA_PATH,
+      },
     ],
   },
   {
@@ -58,7 +68,7 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     links: [
       { label: t('nav.media.news') || 'Yangiliklar', path: NEWS_PATH },
       { label: t('nav.media.conferences') || 'Anjumanlar', path: CONFERENCES_PATH },
-      { label: t('nav.media.announcements') || 'E\'lonlar', path: ANNOUNCEMENTS_PATH },
+      { label: t('nav.media.announcements') || "E'lonlar", path: ANNOUNCEMENTS_PATH },
     ],
   },
   {
@@ -68,14 +78,21 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
       { label: t('nav.normativ.constitution') || 'Konstitutsiya', path: CONSTITUTION_PATH },
       { label: t('nav.normativ.laws') || 'Qonunlar', path: LAWS_PATH },
       { label: t('nav.normativ.decrees') || 'Prezident farmon va qarorlari', path: DECREES_PATH },
-      { label: t('nav.normativ.qonunchilik') || 'Institut faoliyat sohasiga oid miliy  konunchilik ', path: QONUNCHILIK_PATH },
-      { label: t('nav.normativ.hukumat') || 'Prezident va Hukumat hujjatlari', path: HUKUMAT_HUJJATLARI_PATH },
+      {
+        label:
+          t('nav.normativ.qonunchilik') || 'Institut faoliyat sohasiga oid miliy  konunchilik ',
+        path: QONUNCHILIK_PATH,
+      },
+      {
+        label: t('nav.normativ.hukumat') || 'Prezident va Hukumat hujjatlari',
+        path: HUKUMAT_HUJJATLARI_PATH,
+      },
       { label: t('nav.normativ.ichki') || 'Institut ichki hujjatlari', path: ICHKI_HUJJATLAR_PATH },
     ],
   },
   {
     id: 'boglanish',
-    label: t('nav.boglanish.title') || 'BOG\'LANISH',
+    label: t('nav.boglanish.title') || "BOG'LANISH",
     links: [
       { label: t('nav.boglanish.contact') || 'Kontaklar', path: CONTACT_PATH },
       { label: t('nav.boglanish.hotline') || 'Ishonch telefoni', path: HOTLINE_PATH },

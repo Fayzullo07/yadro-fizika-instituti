@@ -10,7 +10,7 @@ const Talented: React.FC = () => {
       </h1>
       <div className="bg-white rounded-lg shadow-lg p-8">
         <p className="text-lg text-gray-700">
-          {t('pages.talented.content') || 'Iqtidorli yoshlar ma\'lumotlari...'}
+          {t('pages.talented.content') || "Iqtidorli yoshlar ma'lumotlari..."}
         </p>
       </div>
     </div>
@@ -18,4 +18,3 @@ const Talented: React.FC = () => {
 };
 
 export default Talented;
-

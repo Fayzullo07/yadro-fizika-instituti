@@ -1,5 +1,5 @@
-import DropdownMenu from "./DropdownMenu";
-import type { MenuItem } from "@/types";
+import DropdownMenu from './DropdownMenu';
+import type { MenuItem } from '@/types';
 
 interface NavMenuItemProps {
   item: MenuItem;
@@ -18,25 +18,17 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({ item, openDropdown, setOpenDr
         className={`
           flex items-center gap-1.5 uppercase text-xs xl:text-sm font-semibold tracking-wide
           px-4 !py-2.5 rounded-lg transition-all duration-200
-          ${isOpen
-            ? " "
-            : ""
-          }
+          ${isOpen ? ' ' : ''}
         `}
       >
         {item.label}
         <svg
-          className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
@@ -47,10 +39,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({ item, openDropdown, setOpenDr
             onClick={() => setOpenDropdown(null)}
             aria-hidden
           />
-          <DropdownMenu
-            links={item.links}
-            onClose={() => setOpenDropdown(null)}
-          />
+          <DropdownMenu links={item.links} onClose={() => setOpenDropdown(null)} />
         </>
       )}
     </li>

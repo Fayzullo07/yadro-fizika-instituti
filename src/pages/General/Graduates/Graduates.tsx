@@ -10,7 +10,7 @@ const Graduates: React.FC = () => {
       </h1>
       <div className="bg-white rounded-lg shadow-lg p-8">
         <p className="text-lg text-gray-700">
-          {t('pages.graduates.content') || 'Bitiruvchilar ma\'lumotlari...'}
+          {t('pages.graduates.content') || "Bitiruvchilar ma'lumotlari..."}
         </p>
       </div>
     </div>
@@ -18,4 +18,3 @@ const Graduates: React.FC = () => {
 };
 
 export default Graduates;
-

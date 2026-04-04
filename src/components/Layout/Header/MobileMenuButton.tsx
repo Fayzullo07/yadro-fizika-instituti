@@ -11,12 +11,7 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ isOpen, onClick }) 
       aria-label="Menu"
     >
       {isOpen ? (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -25,12 +20,7 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ isOpen, onClick }) 
           />
         </svg>
       ) : (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --default-font: 'Nunito Sans', sans-serif !important;
@@ -7,7 +7,10 @@
 }
 
 * {
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   scroll-behavior: smooth;
 }
 
@@ -24,16 +27,16 @@ body {
 .container {
   max-width: 1540px !important;
   width: 100% !important;
-  padding: 0 16px ;
+  padding: 0 16px;
 }
 /* Hide scrollbar for slider */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none; /* Chrome, Safari and Opera */
 }
 
 /* Ticker Banner Animation */

@@ -45,7 +45,7 @@ const Breadcrumb: React.FC = () => {
     [LABORATORIES_PATH]: t('nav.tadqiqot.laboratories') || 'Laboratoriyalar',
     [DOCTORATE_PATH]: t('nav.tadqiqot.doctorate') || 'Doktarontura',
     [INTERNATIONAL_PATH]: t('nav.institute.international') || 'Xalqaro hamkorlik',
-    [VACANCIES_PATH]: t('nav.tadqiqot.vacancies') || 'Bo\'sh ish o\'rinlari',
+    [VACANCIES_PATH]: t('nav.tadqiqot.vacancies') || "Bo'sh ish o'rinlari",
     [NEWS_PATH]: t('nav.media.news') || 'Yangiliklar',
     [CALENDAR_PATH]: t('nav.media.calendar') || 'Voqaelar taqvimi',
     [CONFERENCES_PATH]: t('nav.media.conferences') || 'Anjumanlar',
@@ -118,18 +118,11 @@ const Breadcrumb: React.FC = () => {
         <div className="flex items-center gap-2 text-sm">
           {breadcrumbs.map((item, index) => (
             <div key={index} className="flex items-center gap-2">
-              {index > 0 && (
-                <span className="text-[#013d8c] font-bold">›</span>
-              )}
+              {index > 0 && <span className="text-[#013d8c] font-bold">›</span>}
               {item.isCurrent ? (
-                <span className="text-gray-600 font-normal">
-                  {item.label}
-                </span>
+                <span className="text-gray-600 font-normal">{item.label}</span>
               ) : (
-                <Link
-                  to={item.path}
-                  className="text-[#013d8c] font-bold hover:underline"
-                >
+                <Link to={item.path} className="text-[#013d8c] font-bold hover:underline">
                   {item.label}
                 </Link>
               )}
