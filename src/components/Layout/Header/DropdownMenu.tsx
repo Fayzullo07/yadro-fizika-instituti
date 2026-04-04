@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import type { MenuLink } from "@/types";
 
-const DropdownMenu = ({ links, onClose }) => {
+interface DropdownMenuProps {
+  links: MenuLink[];
+  onClose: () => void;
+}
+
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ links, onClose }) => {
   return (
     <div className="absolute top-full left-0 mt-2 w-60 bg-white rounded-xl shadow-xl border border-gray-100 z-20 overflow-hidden">
       <div className="py-1">

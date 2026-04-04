@@ -1,6 +1,13 @@
+import React from 'react';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 
-const EmptyStatePage = ({ title, message, comingSoonText }) => {
+interface EmptyStatePageProps {
+  title: string;
+  message: string;
+  comingSoonText?: string;
+}
+
+const EmptyStatePage: React.FC<EmptyStatePageProps> = ({ title, message, comingSoonText }) => {
   return (
     <section>
       <div className="container mx-auto px-4 py-10 md:py-16">

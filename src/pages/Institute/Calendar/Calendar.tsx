@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 
-const Calendar = () => {
+const Calendar: React.FC = () => {
   const { t } = useLanguage();
 
   return (

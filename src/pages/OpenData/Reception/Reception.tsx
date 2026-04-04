@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Reception = () => {
+const Reception: React.FC = () => {
   const { t } = useLanguage();
 
   return (

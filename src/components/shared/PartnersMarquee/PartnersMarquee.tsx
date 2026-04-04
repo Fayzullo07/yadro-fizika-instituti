@@ -1,12 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import prezyidentImage from '@/assets/77200eb7-47ca-e586-f031-19d1a952f3f0_menu-links_487.webp';
 import oliymajlisImage from '@/assets/bb.webp';
 import hukumatImage from '@/assets/cc.webp';
 import portalImage from '@/assets/dd.webp';
 import milliyhukquqiImage from '@/assets/ee.webp';
 
-const PartnersMarquee = () => {
-  const [images, setImages] = useState([]);
+interface Partner {
+  id: number;
+  name: string;
+  subtitle?: string;
+  image: string;
+  link: string;
+}
+
+const PartnersMarquee: React.FC = () => {
+  const [images, setImages] = useState<Partner[]>([]);
 
   useEffect(() => {
     // Load images - user will provide images

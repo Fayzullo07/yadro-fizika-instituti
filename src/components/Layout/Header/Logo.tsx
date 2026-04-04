@@ -3,10 +3,10 @@ import { HOME_PATH } from "@/routes/path";
 import { useGeneral } from "@/hooks/useGeneral";
 import { stripHtmlRegex } from "@/utils/htmlUtils";
 
-const Logo = () => {
+const Logo: React.FC = () => {
   const { data: generalData, loading } = useGeneral();
 
-  const organizationName = generalData?.organization_short_name
+  const organizationName: string = generalData?.organization_short_name
     ? stripHtmlRegex(generalData.organization_short_name)
     : "Logo";
 

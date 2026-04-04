@@ -1,10 +1,18 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const Conferences = () => {
+interface Conference {
+  id: number;
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+}
+
+const Conferences: React.FC = () => {
   const { t } = useLanguage();
 
-  const conferences = [
+  const conferences: Conference[] = [
     {
       id: 1,
       title: 'Xalqaro ilmiy konferensiya',

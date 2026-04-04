@@ -8,11 +8,17 @@ import tuyafedLogo from '@/assets/tuyafed.png';
 import accelerationLogo from '@/assets/acceleration.jpg';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const International = () => {
-  const { t } = useLanguage();
-  const [selectedPartner, setSelectedPartner] = useState(null);
+interface Partner {
+  id: number;
+  name: string;
+  logo: string;
+}
 
-  const partners = [
+const International: React.FC = () => {
+  const { t } = useLanguage();
+  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
+
+  const partners: Partner[] = [
     {
       id: 1,
       name: 'GALGOTIAS EDUCATIONAL INSTITUTIONS',
@@ -67,8 +73,8 @@ const International = () => {
                     src={partner.logo}
                     alt={partner.name}
                     className="max-w-full max-h-full object-contain"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/200x100?text=' + encodeURIComponent(partner.name);
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x100?text=' + encodeURIComponent(partner.name);
                     }}
                   />
                 </div>
@@ -118,8 +124,8 @@ const International = () => {
                   src={selectedPartner.logo}
                   alt={selectedPartner.name}
                   className="max-w-full max-h-48 object-contain"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/300x150?text=' + encodeURIComponent(selectedPartner.name);
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x150?text=' + encodeURIComponent(selectedPartner.name);
                   }}
                 />
               </div>

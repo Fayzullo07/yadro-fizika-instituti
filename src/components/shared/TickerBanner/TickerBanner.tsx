@@ -1,7 +1,8 @@
+import React from 'react';
 import { useBanners } from '@/hooks/useBanners';
 import { stripHtmlRegex } from '@/utils/htmlUtils';
 
-const TickerBanner = () => {
+const TickerBanner: React.FC = () => {
   const { data, loading } = useBanners({ per_page: 5 });
   const banners = data?.results || [];
 
@@ -11,7 +12,7 @@ const TickerBanner = () => {
 
   // Combine all banner titles into one scrolling text
   const tickerText = banners
-    .map((banner) => stripHtmlRegex(banner.title || ''))
+    .map((banner: { title?: string }) => stripHtmlRegex(banner.title || ''))
     .filter(Boolean)
     .join(' • ');
 

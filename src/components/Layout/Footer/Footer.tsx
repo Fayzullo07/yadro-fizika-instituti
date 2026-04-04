@@ -3,19 +3,20 @@ import { useGeneral } from '@/hooks/useGeneral';
 import { stripHtmlRegex } from '@/utils/htmlUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { HOME_PATH, ABOUT_PATH, CONTACT_PATH } from '@/routes/path';
+import type { SocialMediaLink } from '@/types';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const { t } = useLanguage();
   const { data: generalData, loading } = useGeneral();
 
-  const organizationName = generalData?.organization_short_name
+  const organizationName: string = generalData?.organization_short_name
     ? stripHtmlRegex(generalData.organization_name)
     : generalData?.organization_name
       ? stripHtmlRegex(generalData.organization_name)
       : 'SeysmikITM';
 
   // Social media links
-  const socialMediaLinks = [
+  const socialMediaLinks: SocialMediaLink[] = [
     {
       id: 'telegram',
       name: 'Telegram',

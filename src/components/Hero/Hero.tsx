@@ -3,19 +3,20 @@ import { useGeneral } from '@/hooks/useGeneral';
 import { stripHtmlRegex } from '@/utils/htmlUtils';
 import { useState, useEffect, useRef } from 'react';
 import institutImage from '@/assets/institut.png';
+import type { Banner } from '@/types';
 
-const Hero = () => {
+const Hero: React.FC = () => {
   const { data, loading, error } = useBanners({ per_page: 10 });
   const { data: generalData, loading: generalLoading } = useGeneral();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const sliderRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [scrollLeft, setScrollLeft] = useState<number>(0);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  const banners = data?.results || [];
-  
-  const organizationName = generalData?.organization_short_name
+  const banners: Banner[] = data?.results || [];
+
+  const organizationName: string | null = generalData?.organization_short_name
     ? stripHtmlRegex(generalData.organization_name)
     : null;
 
@@ -59,14 +60,14 @@ const Hero = () => {
   }, [banners.length, currentIndex]);
 
   // Slider drag handlers
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!sliderRef.current) return;
     setIsDragging(true);
     setStartX(e.pageX - sliderRef.current.offsetLeft);
     setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDragging || !sliderRef.current) return;
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
@@ -74,25 +75,25 @@ const Hero = () => {
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (): void => {
     setIsDragging(false);
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!sliderRef.current) return;
     setIsDragging(true);
     setStartX(e.touches[0].pageX - sliderRef.current.offsetLeft);
     setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isDragging || !sliderRef.current) return;
     const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX) * 2;
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (): void => {
     setIsDragging(false);
   };
 
@@ -136,7 +137,7 @@ const Hero = () => {
     return null;
   }
 
-  const currentBanner = banners[currentIndex];
+  const currentBanner: Banner = banners[currentIndex];
 
   return (
     <div className="relative  h-[650px] overflow-hidden">

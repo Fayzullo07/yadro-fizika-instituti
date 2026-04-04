@@ -1,11 +1,24 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const Documents = () => {
+interface DocumentItem {
+  id: number;
+  name: string;
+  date: string;
+  type: string;
+}
+
+interface DocumentCategory {
+  id: number;
+  title: string;
+  documents: DocumentItem[];
+}
+
+const Documents: React.FC = () => {
   const { t } = useLanguage();
 
   // Mock data - keyinroq API dan olinadi
-  const documentCategories = [
+  const documentCategories: DocumentCategory[] = [
     {
       id: 1,
       title: t('nav.normativ.constitution') || 'Konstitutsiya',

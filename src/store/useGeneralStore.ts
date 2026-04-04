@@ -2,8 +2,20 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { generalApi } from '@/services/api';
 import { getStoredLanguage } from '@/config/i18n';
+import type { GeneralData } from '@/types';
 
-const useGeneralStore = create(
+interface GeneralState {
+  generalData: GeneralData | null;
+  loading: boolean;
+  error: string | null;
+  lastFetchTime: number | null;
+  language: string | null;
+  dataVersion: number | null;
+  fetchGeneral: (language?: string | null, forceRefresh?: boolean) => Promise<void>;
+  clearGeneral: () => void;
+}
+
+const useGeneralStore = create<GeneralState>()(
   persist(
     (set, get) => ({
       generalData: null,
@@ -13,7 +25,7 @@ const useGeneralStore = create(
       language: null,
       dataVersion: null, // Ma'lumotlar versiyasini kuzatish uchun
 
-      fetchGeneral: async (language = null, forceRefresh = false) => {
+      fetchGeneral: async (language: string | null = null, forceRefresh: boolean = false) => {
         const currentLanguage = language || getStoredLanguage();
         const state = get();
 
@@ -58,7 +70,7 @@ const useGeneralStore = create(
         } catch (error) {
           set({
             loading: false,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'An unknown error occurred',
           });
         }
       },

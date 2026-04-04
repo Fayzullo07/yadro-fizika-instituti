@@ -5,12 +5,23 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 
+interface NewsImage {
+  image: string;
+}
 
-const NewsDetail = () => {
-    const { id } = useParams();
+interface NewsDetailItem {
+  id: number;
+  title: string;
+  description: string;
+  images: NewsImage[];
+  created_at: string;
+}
+
+const NewsDetail: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
     const { t } = useLanguage();
-    const { data: newsItem, loading, error } = useNewsById(id);
-    const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 });
+    const { data: newsItem, loading, error } = useNewsById(id!) as { data: NewsDetailItem | null; loading: boolean; error: string | null };
+    const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 }) as { data: { results: NewsDetailItem[] } | null; loading: boolean; error: string | null };
 
     if (loading) {
         return <Loading />;
@@ -36,7 +47,7 @@ const NewsDetail = () => {
         );
     }
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString: string): string => {
         if (!dateString) return '';
         try {
             const date = new Date(dateString);
@@ -139,7 +150,7 @@ const NewsDetail = () => {
                                             <Link
                                                 key={item.id}
                                                 to={`/news/${item.id}`}
-                                                className={`block flex !items-center p-2 gap-2 transition-colors ${item.id === id
+                                                className={`block flex !items-center p-2 gap-2 transition-colors ${String(item.id) === id
                                                         ? 'bg-blue-50 border-blue-300'
                                                         : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                                                     }`}

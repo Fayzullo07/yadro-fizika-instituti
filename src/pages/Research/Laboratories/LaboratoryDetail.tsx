@@ -5,6 +5,7 @@ import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { useState } from 'react';
+import type { Language } from '@/types';
 
 // Rasmlarni til bo'yicha import qilish
 import uzImg1 from '@/assets/pdf/laboratoriya/Суний интелект Узб-1.jpg';
@@ -14,13 +15,30 @@ import enImg2 from '@/assets/pdf/laboratoriya/Сунний интелект Ан
 import ruImg1 from '@/assets/pdf/laboratoriya/Сунний интелект Рус-1.jpg';
 import ruImg2 from '@/assets/pdf/laboratoriya/Сунний интелект Рус-2.jpg';
 
-const LANG_IMAGES = {
+interface LaboratoryInfo {
+  id: number | string;
+  name: string;
+}
+
+interface ImageModalProps {
+  src: string;
+  onClose: () => void;
+}
+
+interface ImagesViewProps {
+  laboratory: LaboratoryInfo;
+  t: (key: string) => string;
+  showImages: boolean;
+  images: string[];
+}
+
+const LANG_IMAGES: Record<Language, string[]> = {
   uz: [uzImg1, uzImg2],
   en: [enImg1, enImg2],
   ru: [ruImg1, ruImg2],
 };
 
-const ImageModal = ({ src, onClose }) => (
+const ImageModal: React.FC<ImageModalProps> = ({ src, onClose }) => (
   <div
     className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
     onClick={onClose}
@@ -43,8 +61,8 @@ const ImageModal = ({ src, onClose }) => (
   </div>
 );
 
-const LaboratoryDetail = () => {
-  const { id } = useParams();
+const LaboratoryDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
   const { data: laboratoryData, loading, error } = useLaboratory();
 
@@ -60,7 +78,7 @@ const LaboratoryDetail = () => {
     );
   }
 
-  const defaultLaboratories = [
+  const defaultLaboratories: LaboratoryInfo[] = [
     { id: 'default-1', name: "Bino va inshootlarning zilzilabardoshligi laboratoriyasi" },
     { id: 'default-2', name: "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi" },
     { id: 'default-3', name: "Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi" },
@@ -69,14 +87,14 @@ const LaboratoryDetail = () => {
     { id: 'default-6', name: "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)" },
   ];
 
-  const allLaboratories = laboratoryData?.results || [];
-  const laboratory =
-    allLaboratories.find((lab) => lab.id === parseInt(id)) ||
+  const allLaboratories: LaboratoryInfo[] = laboratoryData?.results || [];
+  const laboratory: LaboratoryInfo =
+    allLaboratories.find((lab) => lab.id === parseInt(id || '0')) ||
     defaultLaboratories.find((lab) => lab.id === id) ||
-    defaultLaboratories[parseInt(id) - 1] ||
+    defaultLaboratories[parseInt(id || '1') - 1] ||
     defaultLaboratories[0];
 
-  const numericId = parseInt(id);
+  const numericId: number = parseInt(id || '0');
   const showImages = numericId === 1 || id === 'default-1' || id === '1';
   const images = LANG_IMAGES[language] || LANG_IMAGES['uz'];
 
@@ -90,8 +108,8 @@ const LaboratoryDetail = () => {
   );
 };
 
-const ImagesView = ({ laboratory, t, showImages, images }) => {
-  const [selectedImg, setSelectedImg] = useState(null);
+const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, images }) => {
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-gray-50">

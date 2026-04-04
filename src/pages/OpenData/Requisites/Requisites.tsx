@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Requisites = () => {
+const Requisites: React.FC = () => {
   const { t } = useLanguage();
 
   return (

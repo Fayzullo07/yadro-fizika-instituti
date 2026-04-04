@@ -3,6 +3,7 @@ import { useMutation } from './useApi';
 import { generalApi } from '@/services/api';
 import { useLanguage } from '@/contexts/LanguageContext';
 import useGeneralStore from '@/store/useGeneralStore';
+import { ContactUsData } from '@/types';
 
 export const useGeneral = () => {
   const { language } = useLanguage();
@@ -17,6 +18,6 @@ export const useGeneral = () => {
 
 export const useContactUs = () => {
   const { language } = useLanguage();
-  return useMutation((data) => generalApi.contactUs(data, language));
+  return useMutation<ContactUsData, unknown>((data) => generalApi.contactUs(data, language));
 };
 

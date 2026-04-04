@@ -1,7 +1,8 @@
+import React from 'react';
 import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const AddressMapSection = () => {
+const AddressMapSection: React.FC = () => {
   const { data: generalData } = useGeneral();
   const { t } = useLanguage();
 

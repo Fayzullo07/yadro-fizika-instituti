@@ -3,11 +3,11 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import institutImage from '@/assets/institut.png';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const LaboratoriesTasks = () => {
+const LaboratoriesTasks: React.FC = () => {
   const { t } = useLanguage();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  const tasks = [
+  const tasks: string[] = [
     "Seysmik faol hududlarda quriladigan aktiv seysmik himoyalash qurilmalariga ega bo'lgan va ega bo'lmagan yuqori qavatli binolarning konstruktiv o'ziga xosliklarini inobatga olgan holda seysmik mustahkamligini hisoblash usullarini takomillashtirish.",
     "Bino va inshootlarning texnik holatini monitoring qilishning ilmiy asoslarini yaratish bo'yicha tadqiqotlar o'tkazish. Zilzilalarda bino va inshootlarning shikastlanish darajasini baholash hamda ilmiy hajmdor ishlanmalarni ishlab chiqish.",
     "Bino va inshootlarni seysmik himoyalash uslublarini, yangi konstruktiv yechimlarni hamda ko'p qavatli bino va inshootlarning seysmik xatarini baholash metodikasini ishlab chiqish.",
@@ -28,15 +28,15 @@ const LaboratoriesTasks = () => {
     "Xalqaro ilmiy-texnik hamkorlikni rivojlantirish, chet el universitetlari, ilmiy-tadqiqot markazlari va institutlari bilan qo'shma tadqiqotlarda ishtirok etish, tegishli ilmiy yo'nalishlar va ixtisosliklar bo'yicha ilmiy darajali kadrlar tayyorlash.",
   ];
 
-  const nextSlide = () => {
+  const nextSlide = (): void => {
     setCurrentSlide((prev) => (prev + 1) % tasks.length);
   };
 
-  const prevSlide = () => {
+  const prevSlide = (): void => {
     setCurrentSlide((prev) => (prev - 1 + tasks.length) % tasks.length);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number): void => {
     setCurrentSlide(index);
   };
 

@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import type { MenuItem } from "@/types";
 
-const MobileMenu = ({ menuItems, isOpen, onClose }) => {
+interface MobileMenuProps {
+  menuItems: MenuItem[];
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (

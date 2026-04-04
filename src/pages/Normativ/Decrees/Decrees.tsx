@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 
-const Decrees = () => {
+const Decrees: React.FC = () => {
   const { t } = useLanguage();
 
   const decreeText = `Seysmik xavfsizlikni taʼminlash sohasida ilmiy tadqiqotlarni qoʻllab-quvvatlash va kadrlar tayyorlash, qurilishda sunʼiy intellekt texnologiyalaridan foydalanish va raqamli qurilishni rivojlantirish, barqaror konstruktiv yechimlar, yerosti va yerusti shaharsozligi, "yashil" qurilish, geotexnika va qurilish materiallari yoʻnalishlarida zarur ilmiy yechimlarni ishlab chiqish maqsadida qaror qilaman:`;

@@ -3,27 +3,35 @@ import { useVacancies, useCreateApplication } from '@/hooks/useApplications';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import type { Vacancy } from '@/types';
 
-const Vacancies = () => {
+interface VacancyFormData {
+  fullname: string;
+  email: string;
+  phone: string;
+  comment: string;
+}
+
+const Vacancies: React.FC = () => {
   const { t } = useLanguage();
   const { data: vacanciesData, loading, error } = useVacancies();
   const { mutate: createApplication, loading: submitting } = useCreateApplication();
-  
-  const [selectedVacancy, setSelectedVacancy] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
+
+  const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [formData, setFormData] = useState<VacancyFormData>({
     fullname: '',
     email: '',
     phone: '',
     comment: '',
   });
-  const [resumeFile, setResumeFile] = useState(null);
-  const [formError, setFormError] = useState(null);
-  const [formSuccess, setFormSuccess] = useState(false);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formSuccess, setFormSuccess] = useState<boolean>(false);
 
-  const vacancies = vacanciesData?.results || [];
+  const vacancies: Vacancy[] = vacanciesData?.results || [];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -32,13 +40,13 @@ const Vacancies = () => {
     setFormError(null);
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files?.[0];
     setResumeFile(file || null);
     setFormError(null);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setFormError(null);
     setFormSuccess(false);
@@ -54,7 +62,7 @@ const Vacancies = () => {
       formDataToSend.append('fullname', formData.fullname);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('phone', formData.phone);
-      formDataToSend.append('vacancy', selectedVacancy.id);
+      formDataToSend.append('vacancy', String(selectedVacancy.id));
       if (formData.comment) {
         formDataToSend.append('comment', formData.comment);
       }
@@ -74,7 +82,7 @@ const Vacancies = () => {
       setResumeFile(null);
       
       // Reset file input
-      const fileInput = document.querySelector('input[type="file"]');
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement | null;
       if (fileInput) {
         fileInput.value = '';
       }
@@ -84,12 +92,12 @@ const Vacancies = () => {
         setSelectedVacancy(null);
         setFormSuccess(false);
       }, 2000);
-    } catch (error) {
-      setFormError(error.message || t('common.error') || 'Xatolik yuz berdi');
+    } catch (err: unknown) {
+      setFormError((err as Error).message || t('common.error') || 'Xatolik yuz berdi');
     }
   };
 
-  const openApplicationModal = (vacancy) => {
+  const openApplicationModal = (vacancy: Vacancy): void => {
     setSelectedVacancy(vacancy);
     setShowModal(true);
     setFormError(null);

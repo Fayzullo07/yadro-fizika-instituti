@@ -2,11 +2,16 @@ import uzStructureImage from '@/assets/pdf/struktura_page1uzb.jpg';
 import enStructureImage from '@/assets/pdf/struktura_page2eng.jpg';
 import ruStructureImage from '@/assets/pdf/struktura_page3rus.jpg';
 import { useLanguage } from '@/contexts/LanguageContext';
+import type { Language } from '@/types';
 
-const Structure = () => {
-  const { t } = useLanguage();
-  const { language } = useLanguage();
-  const structureDocsByLanguage = {
+interface StructureDoc {
+  title: string;
+  file: string;
+}
+
+const Structure: React.FC = () => {
+  const { t, language } = useLanguage();
+  const structureDocsByLanguage: Record<Language, StructureDoc> = {
     uz: {
       title: "O'zbek tili",
       file: uzStructureImage,

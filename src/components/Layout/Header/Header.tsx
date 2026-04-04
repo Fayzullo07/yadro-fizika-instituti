@@ -32,20 +32,21 @@ import MobileMenu from "./MobileMenu";
 import MobileMenuButton from "./MobileMenuButton";
 import LanguageSwitcher from "./LanguageSwitcher";
 import TickerBanner from "@/components/shared/TickerBanner/TickerBanner";
+import type { MenuItem, SocialMediaLink } from "@/types";
 
-const Header = () => {
+const Header: React.FC = () => {
   const { t } = useLanguage();
   const { data: generalData, loading: generalLoading } = useGeneral();
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-  const organizationName = generalData?.organization_short_name
+  const organizationName: string | null = generalData?.organization_short_name
     ? stripHtmlRegex(generalData.organization_name)
     : generalData?.organization_name
       ? stripHtmlRegex(generalData.organization_name)
       : null;
 
-  const splitTextIntoTwoLines = (text) => {
+  const splitTextIntoTwoLines = (text: string | null): { firstLine: string; secondLine: string } => {
     if (!text) return { firstLine: '', secondLine: '' };
 
     const words = text.split(' ');
@@ -58,7 +59,7 @@ const Header = () => {
 
   const { firstLine, secondLine } = splitTextIntoTwoLines(organizationName);
 
-  const socialMediaLinks = [
+  const socialMediaLinks: SocialMediaLink[] = [
     {
       id: 'telegram',
       name: 'Telegram',
@@ -93,7 +94,7 @@ const Header = () => {
     },
   ];
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       id: 'institut',
       label: t('nav.institute.title') || 'INSTITUT',
@@ -158,10 +159,10 @@ const Header = () => {
     <>
       {/* Test Mode Banner */}
       <div className="bg-white text-red-500 pt-2 text-center text-sm font-semibold sticky top-0 z-[60]">
-        <div className="shadow">
-          <marquee direction="left">
+        <div className="shadow overflow-hidden">
+          <div className="animate-marquee whitespace-nowrap">
             {t('header.testMode') || 'Sayt test rejimida ishlamoqda'}
-          </marquee>
+          </div>
         </div>
       </div>
 

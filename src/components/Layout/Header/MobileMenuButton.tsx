@@ -1,4 +1,9 @@
-const MobileMenuButton = ({ isOpen, onClick }) => {
+interface MobileMenuButtonProps {
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ isOpen, onClick }) => {
   return (
     <button
       onClick={onClick}

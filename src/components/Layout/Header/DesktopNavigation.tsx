@@ -1,5 +1,13 @@
 import NavMenuItem from "./NavMenuItem";
-const DesktopNavigation = ({ menuItems, openDropdown, setOpenDropdown }) => {
+import type { MenuItem } from "@/types";
+
+interface DesktopNavigationProps {
+  menuItems: MenuItem[];
+  openDropdown: string | null;
+  setOpenDropdown: (id: string | null) => void;
+}
+
+const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ menuItems, openDropdown, setOpenDropdown }) => {
   return (
     <div className="hidden lg:flex items-center justify-between gap-4">
       <nav>

@@ -25,9 +25,10 @@ import {
   LABORATORY_DETAIL_PATH,
 } from '@/routes/path';
 import LaboratoryDetail from '@/pages/Research/Laboratories/LaboratoryDetail';
+import type { MenuItem } from '@/types';
 
 // Menu items structure - shared between component and helper function
-const getMenuItems = (t) => [
+const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     {
       id: 'institut',
       label: t('nav.institute.title') || 'INSTITUT',
@@ -88,7 +89,7 @@ const getMenuItems = (t) => [
     },
 ];
 
-export const shouldShowSidebar = (pathname, t) => {
+export const shouldShowSidebar = (pathname: string, t: (key: string) => string): boolean => {
   if (pathname === '/') return false;
   const menuItems = getMenuItems(t);
   for (const menuItem of menuItems) {
@@ -100,13 +101,13 @@ export const shouldShowSidebar = (pathname, t) => {
   return false;
 };
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
-  const menuItems = getMenuItems(t);
+  const menuItems: MenuItem[] = getMenuItems(t);
 
-  const findActiveMenu = () => {
+  const findActiveMenu = (): MenuItem | null => {
     for (const menuItem of menuItems) {
       const hasActiveLink = menuItem.links.some(link => link.path === location.pathname);
       if (hasActiveLink) {

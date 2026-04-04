@@ -2,15 +2,16 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useScientificCouncil, useCouncilMembers } from '@/hooks/useCouncil';
 import Loading from '@/components/shared/Loading/Loading';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import type { ScientificCouncil, CouncilMember } from '@/types';
 
-const Council = () => {
+const Council: React.FC = () => {
   const { t } = useLanguage();
   const { data: scientificCouncilData, loading: councilLoading } = useScientificCouncil();
   const { data: membersData, loading: membersLoading } = useCouncilMembers();
 
-  const loading = councilLoading || membersLoading;
-  const scientificCouncil = scientificCouncilData?.results?.[0];
-  const members = membersData?.results || [];
+  const loading: boolean = councilLoading || membersLoading;
+  const scientificCouncil: ScientificCouncil | undefined = scientificCouncilData?.results?.[0];
+  const members: CouncilMember[] = membersData?.results || [];
 
   if (loading) {
     return <Loading />;

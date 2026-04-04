@@ -1,9 +1,15 @@
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLeadership } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import MemberCardList from '@/components/shared/MemberCardList/MemberCardList';
 
-const LeadershipTeam = ({ title, emptyMessage }) => {
+interface LeadershipTeamProps {
+  title: string;
+  emptyMessage?: string;
+}
+
+const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) => {
   const { t } = useLanguage();
   const { data: leadershipData, loading, error } = useLeadership();
 

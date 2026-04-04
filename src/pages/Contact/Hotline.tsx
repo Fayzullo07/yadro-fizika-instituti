@@ -1,8 +1,20 @@
+import React from 'react';
 import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 
-const Hotline = () => {
+interface SocialMediaLink {
+  name: string;
+  url: string;
+}
+
+interface ContactRow {
+  label: string;
+  type: 'phone' | 'email' | 'link' | 'text' | 'description' | 'map' | 'social';
+  value: string | React.ReactNode | SocialMediaLink[];
+}
+
+const Hotline: React.FC = () => {
   const { t } = useLanguage();
   const { data: generalData, loading } = useGeneral();
 
@@ -17,7 +29,7 @@ const Hotline = () => {
     '100174, Toshkent sh., Olmazor tumani, Universitet ko‘chasi, 7 uy';
   const organizationDesc = generalData?.organization_desc || null;
 
-  const socialMediaLinks =
+  const socialMediaLinks: SocialMediaLink[] =
     generalData?.social_media || [
       { name: 'youtube', url: '#' },
       { name: 'telegram', url: '#' },
@@ -25,7 +37,7 @@ const Hotline = () => {
       { name: 'facebook', url: '#' },
     ];
 
-  const contactRows = [
+  const contactRows: ContactRow[] = [
     { label: 'Telefon', type: 'phone', value: phone },
     { label: 'Ishonch telefoni', type: 'phone', value: hotline },
     { label: 'Veb-sayt', type: 'link', value: website },
@@ -62,8 +74,8 @@ const Hotline = () => {
     },
   ];
 
-  const getSocialIcon = (name) => {
-    const icons = {
+  const getSocialIcon = (name: string): React.ReactNode => {
+    const icons: Record<string, React.ReactNode> = {
       youtube: (
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
       ),
@@ -96,34 +108,34 @@ const Hotline = () => {
                 </td>
                 <td className="px-6 py-4 text-gray-700">
                   {row.type === 'phone' && (
-                    <a href={`tel:${row.value.replace(/\s/g, '')}`} className="text-blue-600 hover:text-blue-800 transition-colors">
-                      {row.value}
+                    <a href={`tel:${(row.value as string).replace(/\s/g, '')}`} className="text-blue-600 hover:text-blue-800 transition-colors">
+                      {row.value as string}
                     </a>
                   )}
                   {row.type === 'email' && (
-                    <a href={`mailto:${row.value}`} className="text-blue-600 hover:text-blue-800 underline transition-colors">
-                      {row.value}
+                    <a href={`mailto:${row.value as string}`} className="text-blue-600 hover:text-blue-800 underline transition-colors">
+                      {row.value as string}
                     </a>
                   )}
                   {row.type === 'link' && (
-                    <a href={row.value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline transition-colors">
-                      {row.value}
+                    <a href={row.value as string} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline transition-colors">
+                      {row.value as string}
                     </a>
                   )}
-                  {row.type === 'text' && <span className="text-gray-700">{row.value}</span>}
+                  {row.type === 'text' && <span className="text-gray-700">{row.value as string}</span>}
                   {row.type === 'description' && (
                     <div
                       className="text-gray-700"
                       dangerouslySetInnerHTML={{
-                        __html: organizationDesc ? organizationDesc : row.value,
+                        __html: organizationDesc ? organizationDesc : (row.value as string),
                       }}
                     />
                   )}
-                  {row.type === 'map' && <div className="w-full">{row.value}</div>}
+                  {row.type === 'map' && <div className="w-full">{row.value as React.ReactNode}</div>}
                   {row.type === 'social' && (
                     <div className="flex gap-3">
-                      {row.value.map((s, idx) => {
-                        const iconColors = {
+                      {(row.value as SocialMediaLink[]).map((s, idx) => {
+                        const iconColors: Record<string, string> = {
                           youtube: 'bg-red-600 hover:bg-red-700',
                           telegram: 'bg-blue-500 hover:bg-blue-600',
                           instagram: 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600',

@@ -1,7 +1,8 @@
-import { Navigate } from "react-router-dom";
-import { AUTH_PATH, LOGIN_PATH } from "./path";
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+}
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   return <>{children}</>;
 };

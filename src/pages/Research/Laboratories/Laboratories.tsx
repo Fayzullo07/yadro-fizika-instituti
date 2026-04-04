@@ -1,9 +1,17 @@
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLaboratory } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 
-const Laboratories = () => {
+interface LaboratoryItem {
+  id: number | string;
+  name: string;
+  number?: number;
+  icon?: React.ReactNode;
+}
+
+const Laboratories: React.FC = () => {
   const { t } = useLanguage();
   const { data: laboratoryData, loading, error } = useLaboratory();
 
@@ -21,7 +29,7 @@ const Laboratories = () => {
     );
   }
 
-  const allLaboratories = laboratoryData?.results || [];
+  const allLaboratories: LaboratoryItem[] = laboratoryData?.results || [];
   
   // Default laboratoriya nomlari
   const defaultLaboratoryNames = [
@@ -34,7 +42,7 @@ const Laboratories = () => {
   ];
 
   // Agar API dan kamroq ma'lumot kelsa, 6 tagacha to'ldirish
-  const ensureSixLaboratories = () => {
+  const ensureSixLaboratories = (): LaboratoryItem[] => {
     // Agar API dan ma'lumot bo'lsa, ularni ishlatamiz, aks holda default nomlarni ishlatamiz
     if (allLaboratories.length === 0) {
       // API dan ma'lumot kelmagan bo'lsa, barcha default nomlarni qaytaramiz
@@ -68,7 +76,7 @@ const Laboratories = () => {
   const laboratories = ensureSixLaboratories();
 
   // Default iconlar (har bir laboratoriya uchun)
-  const getDefaultIcon = (index) => {
+  const getDefaultIcon = (index: number): React.ReactNode => {
     // Oddiy icon SVG - har bir laboratoriya uchun bir xil icon
     return (
       <path

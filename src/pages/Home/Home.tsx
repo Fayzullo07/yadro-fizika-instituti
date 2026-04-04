@@ -5,7 +5,7 @@ import PartnersMarquee from '@/components/shared/PartnersMarquee/PartnersMarquee
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection';
 import LaboratoriesTasks from '@/components/LaboratoriesTasks/LaboratoriesTasks';
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div className="w-full">
       <Hero />

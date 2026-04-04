@@ -1,7 +1,14 @@
 import DropdownMenu from "./DropdownMenu";
+import type { MenuItem } from "@/types";
 
-const NavMenuItem = ({ item, openDropdown, setOpenDropdown }) => {
-  const isOpen = openDropdown === item.id;
+interface NavMenuItemProps {
+  item: MenuItem;
+  openDropdown: string | null;
+  setOpenDropdown: (id: string | null) => void;
+}
+
+const NavMenuItem: React.FC<NavMenuItemProps> = ({ item, openDropdown, setOpenDropdown }) => {
+  const isOpen: boolean = openDropdown === item.id;
 
   return (
     <li className="relative">

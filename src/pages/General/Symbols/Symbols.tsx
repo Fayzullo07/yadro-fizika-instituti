@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Symbols = () => {
+const Symbols: React.FC = () => {
   const { t } = useLanguage();
 
   return (

@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection2';
 import Loading from '@/components/shared/Loading/Loading';
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const { t } = useLanguage();
   const { data: generalData, loading } = useGeneral();
 

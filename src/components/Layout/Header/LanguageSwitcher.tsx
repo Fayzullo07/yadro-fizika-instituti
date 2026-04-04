@@ -4,14 +4,19 @@ import { SUPPORTED_LANGUAGES } from "@/config/i18n";
 import uzFlag from "@/assets/flags/uz.png";
 import ruFlag from "@/assets/flags/ru.svg";
 import enFlag from "@/assets/flags/en.svg";
+import type { Language } from "@/types";
 
-const LanguageSwitcher = ({ variant = "desktop" }) => {
+interface LanguageSwitcherProps {
+  variant?: "desktop" | "mobile";
+}
+
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = "desktop" }) => {
   const { language, changeLanguage } = useLanguage();
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState<boolean>(false);
 
-  const isMobile = variant === "mobile";
+  const isMobile: boolean = variant === "mobile";
 
-  const flags = {
+  const flags: Record<Language, string> = {
     uz: uzFlag,
     ru: ruFlag,
     en: enFlag,
@@ -48,7 +53,7 @@ const LanguageSwitcher = ({ variant = "desktop" }) => {
             onClick={() => setIsLangMenuOpen(false)}
           />
           <div className={`absolute ${isMobile ? "right-0" : "right-0"} mt-2 ${isMobile ? "w-32" : "w-40"} bg-white border border-gray-200 rounded-md shadow-lg z-20`}>
-            {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
+            {(Object.entries(SUPPORTED_LANGUAGES) as [Language, string][]).map(([code, name]) => (
               <button
                 key={code}
                 onClick={() => {

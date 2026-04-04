@@ -1,6 +1,23 @@
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const MemberCardList = ({ members = [], showReceptionHours = true, emptyMessage }) => {
+interface MemberCardItem {
+  id: number;
+  fullname: string;
+  position?: string;
+  photo?: string;
+  phone?: string;
+  email?: string;
+  linkedin?: string;
+}
+
+interface MemberCardListProps {
+  members?: MemberCardItem[];
+  showReceptionHours?: boolean;
+  emptyMessage?: string;
+}
+
+const MemberCardList: React.FC<MemberCardListProps> = ({ members = [], showReceptionHours = true, emptyMessage }) => {
   const { t } = useLanguage();
 
   if (members.length === 0) {

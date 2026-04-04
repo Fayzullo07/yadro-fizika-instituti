@@ -3,10 +3,11 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useApi } from '@/hooks/useApi';
 import { generalApi } from '@/services/api';
 import { CONTACT_PATH } from '@/routes/path';
+import type { AboutData } from '@/types';
 
-const About = () => {
+const About: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data: aboutData, loading, error } = useApi(
+  const { data: aboutData, loading, error } = useApi<AboutData>(
     () => generalApi.getAbout(language),
     [language]
   );

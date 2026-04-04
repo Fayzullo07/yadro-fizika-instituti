@@ -5,7 +5,19 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const NewsList = () => {
+interface NewsImage {
+  image: string;
+}
+
+interface NewsListItem {
+  id: number;
+  title: string;
+  description: string;
+  images: NewsImage[];
+  created_at: string;
+}
+
+const NewsList: React.FC = () => {
   const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
@@ -27,10 +39,10 @@ const NewsList = () => {
     );
   }
 
-  const news = data?.results || [];
+  const news: NewsListItem[] = data?.results || [];
   const totalPages = Math.ceil((data?.count || 0) / perPage);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     if (!dateString) return '';
     try {
       const date = new Date(dateString);
@@ -44,7 +56,7 @@ const NewsList = () => {
     }
   };
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage: number): void => {
     setSearchParams({ page: newPage.toString() });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

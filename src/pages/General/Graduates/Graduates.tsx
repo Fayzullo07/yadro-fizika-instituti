@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Graduates = () => {
+const Graduates: React.FC = () => {
   const { t } = useLanguage();
 
   return (

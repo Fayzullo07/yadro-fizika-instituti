@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Talented = () => {
+const Talented: React.FC = () => {
   const { t } = useLanguage();
 
   return (

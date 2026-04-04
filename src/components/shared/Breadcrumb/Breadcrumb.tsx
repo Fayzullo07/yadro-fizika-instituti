@@ -1,3 +1,4 @@
+import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import {
@@ -19,7 +20,13 @@ import {
   MARKAZIY_APPARAT_PATH,
 } from '@/routes/path';
 
-const Breadcrumb = () => {
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+  isCurrent?: boolean;
+}
+
+const Breadcrumb: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
@@ -29,7 +36,7 @@ const Breadcrumb = () => {
   }
 
   // Map paths to their labels
-  const pathLabels = {
+  const pathLabels: Record<string, string> = {
     [ABOUT_PATH]: t('nav.institute.about') || 'Institut haqida',
     [STRUCTURE_PATH]: t('nav.institute.services') || 'Tashkilot tuzilmasi',
     [TEAM_PATH]: t('nav.institute.leadership') || 'Rahbariyat',
@@ -48,8 +55,8 @@ const Breadcrumb = () => {
   };
 
   // Build breadcrumb items
-  const buildBreadcrumbs = () => {
-    const items = [
+  const buildBreadcrumbs = (): BreadcrumbItem[] => {
+    const items: BreadcrumbItem[] = [
       {
         label: t('nav.home') || 'Bosh sahifa',
         path: HOME_PATH,
@@ -63,7 +70,7 @@ const Breadcrumb = () => {
     if (currentLabel) {
       // Check if current page is under a parent category
       // For example, if on /institut/structure, we might want to show "Institut haqida" as parent
-      const parentPaths = {
+      const parentPaths: Record<string, string | null> = {
         [STRUCTURE_PATH]: ABOUT_PATH,
         [TEAM_PATH]: ABOUT_PATH,
         [TEACHERS_PATH]: ABOUT_PATH,

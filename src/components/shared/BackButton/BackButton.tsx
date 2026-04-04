@@ -1,7 +1,14 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const BackButton = ({ to, label, className = '' }) => {
+interface BackButtonProps {
+  to: string;
+  label?: string;
+  className?: string;
+}
+
+const BackButton: React.FC<BackButtonProps> = ({ to, label, className = '' }) => {
   const { t } = useLanguage();
 
   return (

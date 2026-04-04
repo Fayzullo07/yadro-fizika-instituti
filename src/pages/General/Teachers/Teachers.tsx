@@ -1,8 +1,9 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTeams } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
+import type { TeamMember } from '@/types';
 
-const Teachers = () => {
+const Teachers: React.FC = () => {
   const { t } = useLanguage();
   const { data: teamsData, loading, error } = useTeams();
 
@@ -20,7 +21,7 @@ const Teachers = () => {
     );
   }
 
-  const teams = teamsData?.results || [];
+  const teams: TeamMember[] = teamsData?.results || [];
 
   return (
     <div className="min-h-[calc(100vh-208px)] mt-10 bg-white">

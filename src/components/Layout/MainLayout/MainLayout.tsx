@@ -8,7 +8,7 @@ import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import ScrollToTop from "@/components/shared/ScrollToTop/ScrollToTop";
 import TextToSpeech from "@/components/shared/TextToSpeech/TextToSpeech";
 
-const MainLayout = () => {
+const MainLayout: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
@@ -21,8 +21,8 @@ const MainLayout = () => {
   }, [location.pathname]);
 
   // Check if sidebar should be shown using the same logic as Sidebar component
-  const shouldShowSidebar = checkShouldShowSidebar(location.pathname, t);
-  const isHomePage = location.pathname === '/';
+  const shouldShowSidebar: boolean = checkShouldShowSidebar(location.pathname, t);
+  const isHomePage: boolean = location.pathname === '/';
 
   return (
     <div className="min-h-screen  flex flex-col">

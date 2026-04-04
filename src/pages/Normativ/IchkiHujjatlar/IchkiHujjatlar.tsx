@@ -1,7 +1,7 @@
 import EmptyStatePage from '@/components/shared/EmptyStatePage/EmptyStatePage';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const IchkiHujjatlar = () => {
+const IchkiHujjatlar: React.FC = () => {
   const { t } = useLanguage();
 
   return (

@@ -1,8 +1,9 @@
 import { API_BASE_URL, API_ENDPOINTS } from '@/config/api';
 import { getStoredLanguage } from '@/config/i18n';
+import type { PaginationParams, PaginatedResponse, ContactUsData, ApplicationData, GeneralData, AboutData, Banner, ScientificCouncil, CouncilMember, Department, Laboratory, LeadershipMember, NewsItem, TeamMember, Vacancy } from '@/types';
 
 // Helper function for API requests
-export const apiRequest = async (endpoint, options = {}, language = null) => {
+export const apiRequest = async <T = unknown>(endpoint: string, options: RequestInit = {}, language: string | null = null): Promise<T> => {
   const url = `${API_BASE_URL}${endpoint}`;
   const lang = language || getStoredLanguage();
   
@@ -31,7 +32,7 @@ export const apiRequest = async (endpoint, options = {}, language = null) => {
 
 // Applications API
 export const applicationApi = {
-  create: async (data, language = null) => {
+  create: async (data: FormData | ApplicationData, language: string | null = null) => {
     const url = `${API_BASE_URL}${API_ENDPOINTS.APPLICATION}`;
     const lang = language || getStoredLanguage();
     
@@ -62,61 +63,61 @@ export const applicationApi = {
     }
   },
   
-  getVacancies: (language = null) => apiRequest(API_ENDPOINTS.APPLICATION_VACANCY, {}, language),
-  
-  getVacancyById: (id, language = null) => apiRequest(API_ENDPOINTS.APPLICATION_VACANCY_BY_ID(id), {}, language),
+  getVacancies: (language: string | null = null) => apiRequest<PaginatedResponse<Vacancy>>(API_ENDPOINTS.APPLICATION_VACANCY, {}, language),
+
+  getVacancyById: (id: number | string, language: string | null = null) => apiRequest<Vacancy>(API_ENDPOINTS.APPLICATION_VACANCY_BY_ID(id), {}, language),
 };
 
 // Banners API
 export const bannersApi = {
-  getAll: (params = {}, language = null) => {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
     const queryParams = new URLSearchParams();
-    if (params.page) queryParams.append('page', params.page);
-    if (params.per_page) queryParams.append('per_page', params.per_page);
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
     if (params.search) queryParams.append('search', params.search);
-    
-    const endpoint = queryParams.toString() 
+
+    const endpoint = queryParams.toString()
       ? `${API_ENDPOINTS.BANNERS}?${queryParams.toString()}`
       : API_ENDPOINTS.BANNERS;
-    
-    return apiRequest(endpoint, {}, language);
+
+    return apiRequest<PaginatedResponse<Banner>>(endpoint, {}, language);
   },
-  
-  getById: (id, language = null) => apiRequest(API_ENDPOINTS.BANNERS_BY_ID(id), {}, language),
+
+  getById: (id: number | string, language: string | null = null) => apiRequest<Banner>(API_ENDPOINTS.BANNERS_BY_ID(id), {}, language),
 };
 
 // Council API
 export const councilApi = {
-  getCouncilMembers: (language = null) => apiRequest(API_ENDPOINTS.COUNCIL_MEMBERS, {}, language),
-  
-  getCouncilMemberById: (id, language = null) => apiRequest(API_ENDPOINTS.COUNCIL_MEMBERS_BY_ID(id), {}, language),
-  
-  getScientificCouncil: (language = null) => apiRequest(API_ENDPOINTS.SCIENTIFIC_COUNCIL, {}, language),
-  
-  getScientificCouncilById: (id, language = null) => apiRequest(API_ENDPOINTS.SCIENTIFIC_COUNCIL_BY_ID(id), {}, language),
+  getCouncilMembers: (language: string | null = null) => apiRequest<PaginatedResponse<CouncilMember>>(API_ENDPOINTS.COUNCIL_MEMBERS, {}, language),
+
+  getCouncilMemberById: (id: number | string, language: string | null = null) => apiRequest<CouncilMember>(API_ENDPOINTS.COUNCIL_MEMBERS_BY_ID(id), {}, language),
+
+  getScientificCouncil: (language: string | null = null) => apiRequest<PaginatedResponse<ScientificCouncil>>(API_ENDPOINTS.SCIENTIFIC_COUNCIL, {}, language),
+
+  getScientificCouncilById: (id: number | string, language: string | null = null) => apiRequest<ScientificCouncil>(API_ENDPOINTS.SCIENTIFIC_COUNCIL_BY_ID(id), {}, language),
 };
 
 // Department API
 export const departmentApi = {
-  getAll: (language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT, {}, language),
-  
-  getById: (id, language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT_BY_ID(id), {}, language),
-  
-  getLaboratory: (language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT_LABORATORY, {}, language),
-  
-  getLaboratoryById: (id, language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT_LABORATORY_BY_ID(id), {}, language),
-  
-  getLeadership: (language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT_LEADERSHIP, {}, language),
-  
-  getLeadershipById: (id, language = null) => apiRequest(API_ENDPOINTS.DEPARTMENT_LEADERSHIP_BY_ID(id), {}, language),
+  getAll: (language: string | null = null) => apiRequest<PaginatedResponse<Department>>(API_ENDPOINTS.DEPARTMENT, {}, language),
+
+  getById: (id: number | string, language: string | null = null) => apiRequest<Department>(API_ENDPOINTS.DEPARTMENT_BY_ID(id), {}, language),
+
+  getLaboratory: (language: string | null = null) => apiRequest<PaginatedResponse<Laboratory>>(API_ENDPOINTS.DEPARTMENT_LABORATORY, {}, language),
+
+  getLaboratoryById: (id: number | string, language: string | null = null) => apiRequest<Laboratory>(API_ENDPOINTS.DEPARTMENT_LABORATORY_BY_ID(id), {}, language),
+
+  getLeadership: (language: string | null = null) => apiRequest<PaginatedResponse<LeadershipMember>>(API_ENDPOINTS.DEPARTMENT_LEADERSHIP, {}, language),
+
+  getLeadershipById: (id: number | string, language: string | null = null) => apiRequest<LeadershipMember>(API_ENDPOINTS.DEPARTMENT_LEADERSHIP_BY_ID(id), {}, language),
 };
 
 // General API
 export const generalApi = {
-  getGeneral: (language = null) => apiRequest(API_ENDPOINTS.GENERAL, {}, language),
-  getAbout: (language = null) => apiRequest(API_ENDPOINTS.ABOUT, {}, language),
-  
-  contactUs: (data, language = null) => apiRequest(API_ENDPOINTS.CONTACT_US, {
+  getGeneral: (language: string | null = null) => apiRequest<GeneralData>(API_ENDPOINTS.GENERAL, {}, language),
+  getAbout: (language: string | null = null) => apiRequest<AboutData>(API_ENDPOINTS.ABOUT, {}, language),
+
+  contactUs: (data: ContactUsData, language: string | null = null) => apiRequest<unknown>(API_ENDPOINTS.CONTACT_US, {
     method: 'POST',
     body: JSON.stringify(data),
   }, language),
@@ -124,36 +125,36 @@ export const generalApi = {
 
 // News API
 export const newsApi = {
-  getAll: (params = {}, language = null) => {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
     const queryParams = new URLSearchParams();
-    if (params.page) queryParams.append('page', params.page);
-    if (params.per_page) queryParams.append('per_page', params.per_page);
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
     if (params.search) queryParams.append('search', params.search);
-    
-    const endpoint = queryParams.toString() 
+
+    const endpoint = queryParams.toString()
       ? `${API_ENDPOINTS.NEWS}?${queryParams.toString()}`
       : API_ENDPOINTS.NEWS;
-    
-    return apiRequest(endpoint, {}, language);
+
+    return apiRequest<PaginatedResponse<NewsItem>>(endpoint, {}, language);
   },
-  
-  getById: (id, language = null) => apiRequest(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
+
+  getById: (id: number | string, language: string | null = null) => apiRequest<NewsItem>(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
 };
 
 // Teams API
 export const teamsApi = {
-  getAll: (params = {}, language = null) => {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
     const queryParams = new URLSearchParams();
-    if (params.page) queryParams.append('page', params.page);
-    if (params.per_page) queryParams.append('per_page', params.per_page);
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
     if (params.search) queryParams.append('search', params.search);
-    
-    const endpoint = queryParams.toString() 
+
+    const endpoint = queryParams.toString()
       ? `${API_ENDPOINTS.TEAMS}?${queryParams.toString()}`
       : API_ENDPOINTS.TEAMS;
-    
-    return apiRequest(endpoint, {}, language);
+
+    return apiRequest<PaginatedResponse<TeamMember>>(endpoint, {}, language);
   },
-  
-  getById: (id, language = null) => apiRequest(API_ENDPOINTS.TEAMS_BY_ID(id), {}, language),
+
+  getById: (id: number | string, language: string | null = null) => apiRequest<TeamMember>(API_ENDPOINTS.TEAMS_BY_ID(id), {}, language),
 };

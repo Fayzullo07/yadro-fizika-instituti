@@ -1,4 +1,12 @@
-const SectionHeader = ({ title, subtitle, className = '' }) => {
+import React from 'react';
+
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, className = '' }) => {
   return (
     <div className={`text-center mb-8 ${className}`}>
       <h2 className="text-3xl md:text-4xl font-semibold text-[#013d8c] mb-3">

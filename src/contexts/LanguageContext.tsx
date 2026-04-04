@@ -3,19 +3,20 @@ import { DEFAULT_LANGUAGE, getStoredLanguage, setStoredLanguage, getBrowserLangu
 import uzTranslations from '@/locales/uz/common.json';
 import ruTranslations from '@/locales/ru/common.json';
 import enTranslations from '@/locales/en/common.json';
+import { Language, LanguageContextType } from '@/types';
 
-const translations = {
+const translations: Record<Language, Record<string, unknown>> = {
   uz: uzTranslations,
   ru: ruTranslations,
   en: enTranslations,
 };
 
-const LanguageContext = createContext();
+const LanguageContext = createContext<LanguageContextType | null>(null);
 
-export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(() => {
+export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+  const [language, setLanguage] = useState<Language>(() => {
     const stored = getStoredLanguage();
-    return stored || getBrowserLanguage();
+    return (stored || getBrowserLanguage()) as Language;
   });
 
   useEffect(() => {
@@ -23,18 +24,18 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = language;
   }, [language]);
 
-  const t = (key) => {
+  const t = (key: string): string => {
     const keys = key.split('.');
-    let value = translations[language];
-    
+    let value: unknown = translations[language];
+
     for (const k of keys) {
-      value = value?.[k];
+      value = (value as Record<string, unknown>)?.[k];
     }
-    
-    return value || key;
+
+    return (value as string) || key;
   };
 
-  const changeLanguage = (lang) => {
+  const changeLanguage = (lang: Language): void => {
     if (translations[lang]) {
       setLanguage(lang);
     }

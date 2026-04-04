@@ -1,7 +1,7 @@
 import EmptyStatePage from '@/components/shared/EmptyStatePage/EmptyStatePage';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Qonunchilik = () => {
+const Qonunchilik: React.FC = () => {
   const { t } = useLanguage();
 
   return (

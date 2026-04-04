@@ -1,10 +1,17 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Doctorate = () => {
+interface Specialty {
+  id: number;
+  code: string;
+  title: string;
+  fileUrl: string;
+}
+
+const Doctorate: React.FC = () => {
   const { t } = useLanguage();
 
   // Static data - can be replaced with API call later
-  const specialties = [
+  const specialties: Specialty[] = [
     {
       id: 1,
       code: '05.01.11',

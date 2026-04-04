@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import LeadershipTeam from '@/components/shared/LeadershipTeam/LeadershipTeam';
 
-const Team = () => {
+const Team: React.FC = () => {
   const { t } = useLanguage();
 
   return (

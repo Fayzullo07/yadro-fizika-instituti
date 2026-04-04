@@ -1,10 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const TextToSpeech = ({ selectedText }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const utteranceRef = useRef(null);
+interface TextToSpeechProps {
+  selectedText?: string;
+}
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+const TextToSpeech: React.FC<TextToSpeechProps> = ({ selectedText }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -36,8 +45,8 @@ const TextToSpeech = ({ selectedText }) => {
       }
     };
 
-    const handleClick = (e) => {
-      if (!e.target.closest('.text-to-speech-button')) {
+    const handleClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.text-to-speech-button')) {
         const selection = window.getSelection();
         if (!selection || selection.toString().trim().length === 0) {
           setIsVisible(false);
@@ -54,7 +63,7 @@ const TextToSpeech = ({ selectedText }) => {
     };
   }, []);
 
-  const speakText = async () => {
+  const speakText = async (): Promise<void> => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
       return;
     }

@@ -1,7 +1,8 @@
-import { Navigate } from "react-router-dom";
-import { HOME_PATH } from "./path";
+interface PublicRouteProps {
+  children: React.ReactNode;
+}
 
-const PublicRoute = ({ children }) => {
+const PublicRoute = ({ children }: PublicRouteProps) => {
 
 
   return <>{children}</>;

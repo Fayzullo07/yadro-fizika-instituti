@@ -3,10 +3,18 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { ABOUT_PATH } from '@/routes/path';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
-const FeaturesSection = () => {
+interface Feature {
+  id: number;
+  title: string;
+  description: string;
+  link: string;
+  icon: React.ReactNode;
+}
+
+const FeaturesSection: React.FC = () => {
   const { t } = useLanguage();
 
-  const features = [
+  const features: Feature[] = [
     {
       id: 1,
       title: t('features.research.title') || 'TADQIQOT',

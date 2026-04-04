@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 
-const Constitution = () => {
+const Constitution: React.FC = () => {
     const { t } = useLanguage();
 
     const muqaddima = `Biz, Oʻzbekistonning yagona xalqi,

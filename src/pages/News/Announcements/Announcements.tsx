@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import EmptyStatePage from '@/components/shared/EmptyStatePage/EmptyStatePage';
 
-const Announcements = () => {
+const Announcements: React.FC = () => {
   const { t } = useLanguage();
 
   return (

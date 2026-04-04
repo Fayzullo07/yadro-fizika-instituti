@@ -3,14 +3,15 @@ import { stripHtmlRegex } from '@/utils/htmlUtils';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import type { NewsItem } from '@/types';
 
-const NewsSection = () => {
+const NewsSection: React.FC = () => {
   const { data, loading, error } = useNews({ per_page: 5 });
   const { t } = useLanguage();
-  const news = data?.results || [];
+  const news: NewsItem[] = data?.results || [];
 
   // Color classes for news cards
-  const cardColors = [
+  const cardColors: string[] = [
     'bg-blue-600',
     'bg-green-600',
     'bg-red-500',
@@ -42,8 +43,8 @@ const NewsSection = () => {
     return null;
   }
 
-  const mainNews = news[0];
-  const otherNews = news.slice(1, 5);
+  const mainNews: NewsItem = news[0];
+  const otherNews: NewsItem[] = news.slice(1, 5);
 
   return (
     <section className="py-16 mx-auto">
