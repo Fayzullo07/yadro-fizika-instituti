@@ -17,7 +17,7 @@ import {
   CONFERENCES_PATH,
   DOCUMENTS_PATH,
   CONTACT_PATH,
-  MARKAZIY_APPARAT_PATH,
+  CENTRAL_OFFICE_PATH,
 } from '@/routes/path';
 
 interface BreadcrumbItem {
@@ -51,7 +51,7 @@ const Breadcrumb: React.FC = () => {
     [CONFERENCES_PATH]: t('nav.media.conferences') || 'Anjumanlar',
     [DOCUMENTS_PATH]: t('nav.normativ.title') || 'Normativ huquqiy-hujjatlar',
     [CONTACT_PATH]: t('nav.boglanish.contact') || 'Kontaklar',
-    [MARKAZIY_APPARAT_PATH]: t('nav.institute.markaziyapparat') || 'Markaziy apparat',
+    [CENTRAL_OFFICE_PATH]: t('nav.institute.markaziyapparat') || 'Markaziy apparat',
   };
 
   // Build breadcrumb items
@@ -84,7 +84,7 @@ const Breadcrumb: React.FC = () => {
         [CONFERENCES_PATH]: null,
         [DOCUMENTS_PATH]: null,
         [CONTACT_PATH]: null,
-        [MARKAZIY_APPARAT_PATH]: ABOUT_PATH,
+        [CENTRAL_OFFICE_PATH]: ABOUT_PATH,
       };
 
       const parentPath = parentPaths[currentPath];

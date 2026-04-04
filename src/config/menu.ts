@@ -14,12 +14,12 @@ import {
   CONSTITUTION_PATH,
   LAWS_PATH,
   DECREES_PATH,
-  QONUNCHILIK_PATH,
-  HUKUMAT_HUJJATLARI_PATH,
-  ICHKI_HUJJATLAR_PATH,
-  LOYIHALASH_PATH,
-  INSTRUMENTAL_TEKSHIRUV_PATH,
-  ZILZILABARDOSHLIK_XULOSA_PATH,
+  LEGISLATION_PATH,
+  GOVERNMENT_DOCUMENTS_PATH,
+  INTERNAL_DOCUMENTS_PATH,
+  PROJECT_DESIGN_PATH,
+  INSTRUMENTAL_INSPECTION_PATH,
+  SEISMIC_CONCLUSION_PATH,
 } from '@/routes/path';
 import type { MenuItem } from '@/types';
 
@@ -47,18 +47,18 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     id: 'xizmatlar',
     label: t('nav.xizmatlar.title') || 'XIZMATLAR',
     links: [
-      { label: t('nav.xizmatlar.Loyihalash') || 'Konferensiyalar', path: LOYIHALASH_PATH },
+      { label: t('nav.xizmatlar.Loyihalash') || 'Konferensiyalar', path: PROJECT_DESIGN_PATH },
       {
         label:
           t('nav.xizmatlar.Instrumentaltexniktekshiruvniotkazish') ||
           'Instrumental texnik tekshiruvni otkazish',
-        path: INSTRUMENTAL_TEKSHIRUV_PATH,
+        path: INSTRUMENTAL_INSPECTION_PATH,
       },
       {
         label:
           t('nav.xizmatlar.Zilzilabardoshlikboʻyichailmiyxulosaberish') ||
           'Zilzilabardoshlik boʻyicha ilmiy xulosa berish',
-        path: ZILZILABARDOSHLIK_XULOSA_PATH,
+        path: SEISMIC_CONCLUSION_PATH,
       },
     ],
   },
@@ -81,13 +81,16 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
       {
         label:
           t('nav.normativ.qonunchilik') || 'Institut faoliyat sohasiga oid miliy  konunchilik ',
-        path: QONUNCHILIK_PATH,
+        path: LEGISLATION_PATH,
       },
       {
         label: t('nav.normativ.hukumat') || 'Prezident va Hukumat hujjatlari',
-        path: HUKUMAT_HUJJATLARI_PATH,
+        path: GOVERNMENT_DOCUMENTS_PATH,
       },
-      { label: t('nav.normativ.ichki') || 'Institut ichki hujjatlari', path: ICHKI_HUJJATLAR_PATH },
+      {
+        label: t('nav.normativ.ichki') || 'Institut ichki hujjatlari',
+        path: INTERNAL_DOCUMENTS_PATH,
+      },
     ],
   },
   {

@@ -9,45 +9,45 @@ export const HOTLINE_PATH = '/hotline';
 export const SETTINGS_PATH = '/settings';
 
 // Institute routes
-export const INTERNATIONAL_PATH = '/institut/international';
-export const COUNCIL_PATH = '/institut/council';
-export const STRUCTURE_PATH = '/institut/structure';
-export const DOCUMENTS_PATH = '/institut/documents';
-export const TEAM_PATH = '/institut/team';
-export const CALENDAR_PATH = '/institut/calendar';
-export const MARKAZIY_APPARAT_PATH = '/institut/markaziyapparat';
+export const INTERNATIONAL_PATH = '/institute/international';
+export const COUNCIL_PATH = '/institute/council';
+export const STRUCTURE_PATH = '/institute/structure';
+export const DOCUMENTS_PATH = '/institute/documents';
+export const TEAM_PATH = '/institute/team';
+export const CALENDAR_PATH = '/institute/calendar';
+export const CENTRAL_OFFICE_PATH = '/institute/central-office';
 
 // Research routes
-export const LABORATORIES_PATH = '/tadqiqot/laboratories';
-export const LABORATORY_DETAIL_PATH = '/tadqiqot/laboratories/:id';
-export const DOCTORATE_PATH = '/tadqiqot/doctorate';
-export const CONFERENCES_PATH = '/tadqiqot/conferences';
+export const LABORATORIES_PATH = '/research/laboratories';
+export const LABORATORY_DETAIL_PATH = '/research/laboratories/:id';
+export const DOCTORATE_PATH = '/research/doctorate';
+export const CONFERENCES_PATH = '/research/conferences';
 
-// Xizmatlar routes
-export const LOYIHALASH_PATH = '/xizmatlar/loyiha-tashkilatish';
-export const INSTRUMENTAL_TEKSHIRUV_PATH = '/xizmatlar/instrumental-texnik-tekshiruv';
-export const ZILZILABARDOSHLIK_XULOSA_PATH = '/xizmatlar/zilzilabardoshlik-xulosa';
+// Engineering routes
+export const PROJECT_DESIGN_PATH = '/engineering/project-design';
+export const INSTRUMENTAL_INSPECTION_PATH = '/engineering/instrumental-inspection';
+export const SEISMIC_CONCLUSION_PATH = '/engineering/seismic-conclusion';
 
 // General Information routes
-export const TEACHERS_PATH = '/umumiy/teachers';
-export const TALENTED_PATH = '/umumiy/talented';
-export const SYMBOLS_PATH = '/umumiy/symbols';
-export const GRADUATES_PATH = '/umumiy/graduates';
+export const TEACHERS_PATH = '/general/teachers';
+export const TALENTED_PATH = '/general/talented';
+export const SYMBOLS_PATH = '/general/symbols';
+export const GRADUATES_PATH = '/general/graduates';
 
 // Open Data routes
-export const REQUISITES_PATH = '/ochiq/requisites';
-export const RECEPTION_PATH = '/ochiq/reception';
-export const VACANCIES_PATH = '/ochiq/vacancies';
+export const REQUISITES_PATH = '/open-data/requisites';
+export const RECEPTION_PATH = '/open-data/reception';
+export const VACANCIES_PATH = '/open-data/vacancies';
 
 // News routes
 export const NEWS_PATH = '/news';
 export const NEWS_DETAIL_PATH = '/news/:id';
-export const ANNOUNCEMENTS_PATH = '/news/elonlar';
+export const ANNOUNCEMENTS_PATH = '/news/announcements';
 
 // Documents routes
 export const CONSTITUTION_PATH = '/normativ/constitution';
 export const LAWS_PATH = '/normativ/laws';
 export const DECREES_PATH = '/normativ/decrees';
-export const QONUNCHILIK_PATH = '/normativ/qonunchilik';
-export const HUKUMAT_HUJJATLARI_PATH = '/normativ/hukumat-hujjatlari';
-export const ICHKI_HUJJATLAR_PATH = '/normativ/ichki-hujjatlar';
+export const LEGISLATION_PATH = '/normativ/legislation';
+export const GOVERNMENT_DOCUMENTS_PATH = '/normativ/government-documents';
+export const INTERNAL_DOCUMENTS_PATH = '/normativ/internal-documents';

@@ -1,7 +1,7 @@
 import EmptyStatePage from '@/components/shared/EmptyStatePage/EmptyStatePage';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const ZilzilabardoshlikXulosa = () => {
+const SeismicConclusion = () => {
   const { t } = useLanguage();
 
   return (
@@ -16,4 +16,4 @@ const ZilzilabardoshlikXulosa = () => {
   );
 };
 
-export default ZilzilabardoshlikXulosa;
+export default SeismicConclusion;

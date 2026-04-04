@@ -6,7 +6,7 @@ import MemberCardList from '@/components/shared/MemberCardList/MemberCardList';
 
 type AccordionKey = 'rahbariyat' | 'institutJamoasi' | null;
 
-const Markaziyapparat = () => {
+const CentralOffice = () => {
   const { t } = useLanguage();
   const [openSection, setOpenSection] = useState<AccordionKey>(null);
 
@@ -132,4 +132,4 @@ const Markaziyapparat = () => {
   );
 };
 
-export default Markaziyapparat;
+export default CentralOffice;

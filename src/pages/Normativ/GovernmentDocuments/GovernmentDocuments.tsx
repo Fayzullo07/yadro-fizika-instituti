@@ -1,16 +1,16 @@
 import EmptyStatePage from '@/components/shared/EmptyStatePage/EmptyStatePage';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Loyihalash = () => {
+const GovernmentDocuments: React.FC = () => {
   const { t } = useLanguage();
 
   return (
     <EmptyStatePage
-      title={t('nav.xizmatlar.Loyihalash') || 'Loyihalash'}
+      title={t('nav.normativ.hukumat') || 'Prezident va Hukumat hujjatlari'}
       comingSoonText={t('pages.announcements.comingSoon') || "Tez orada qo'shiladi"}
-      message="Loyihalash bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha ma'lumotlar bilan tanishishingiz mumkin bo'ladi."
+      message="Ushbu bo'lim hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha ma'lumotlar bilan tanishishingiz mumkin bo'ladi."
     />
   );
 };
 
-export default Loyihalash;
+export default GovernmentDocuments;

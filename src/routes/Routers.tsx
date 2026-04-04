@@ -15,7 +15,7 @@ const Structure = lazy(() => import('@/pages/Institute/Structure/Structure'));
 const Documents = lazy(() => import('@/pages/Institute/Documents/Documents'));
 const Team = lazy(() => import('@/pages/Institute/Team/Team'));
 const Calendar = lazy(() => import('@/pages/Institute/Calendar/Calendar'));
-const Markaziyapparat = lazy(() => import('@/pages/Institute/Markaziyapparat/Markaziyapparat'));
+const CentralOffice = lazy(() => import('@/pages/Institute/CentralOffice/CentralOffice'));
 const Laboratories = lazy(() => import('@/pages/Research/Laboratories/Laboratories'));
 const LaboratoryDetail = lazy(() => import('@/pages/Research/Laboratories/LaboratoryDetail'));
 const Doctorate = lazy(() => import('@/pages/Research/Doctorate/Doctorate'));
@@ -33,14 +33,16 @@ const Announcements = lazy(() => import('@/pages/News/Announcements/Announcement
 const Constitution = lazy(() => import('@/pages/Normativ/Constitution/Constitution'));
 const Decrees = lazy(() => import('@/pages/Normativ/Decrees/Decrees'));
 const Laws = lazy(() => import('@/pages/Normativ/Laws/Laws'));
-const Qonunchilik = lazy(() => import('@/pages/Normativ/Qonunchilik/Qonunchilik'));
-const HukumatHujjatlari = lazy(
-  () => import('@/pages/Normativ/HukumatHujjatlari/HukumatHujjatlari')
+const Legislation = lazy(() => import('@/pages/Normativ/Legislation/Legislation'));
+const GovernmentDocuments = lazy(
+  () => import('@/pages/Normativ/GovernmentDocuments/GovernmentDocuments')
 );
-const IchkiHujjatlar = lazy(() => import('@/pages/Normativ/IchkiHujjatlar/IchkiHujjatlar'));
-const Loyihalash = lazy(() => import('@/pages/Xizmatlar/Loyihalash'));
-const InstrumentalTekhiruv = lazy(() => import('@/pages/Xizmatlar/InstrumentalTekshiruv'));
-const ZilzilabardoshlikXulosa = lazy(() => import('@/pages/Xizmatlar/ZilzilabardoshlikXulosa'));
+const InternalDocuments = lazy(
+  () => import('@/pages/Normativ/InternalDocuments/InternalDocuments')
+);
+const ProjectDesign = lazy(() => import('@/pages/Engineering/ProjectDesign'));
+const InstrumentalInspection = lazy(() => import('@/pages/Engineering/InstrumentalInspection'));
+const SeismicConclusion = lazy(() => import('@/pages/Engineering/SeismicConclusion'));
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'));
 
 import {
@@ -72,13 +74,13 @@ import {
   CONSTITUTION_PATH,
   DECREES_PATH,
   LAWS_PATH,
-  QONUNCHILIK_PATH,
-  HUKUMAT_HUJJATLARI_PATH,
-  ICHKI_HUJJATLAR_PATH,
-  MARKAZIY_APPARAT_PATH,
-  LOYIHALASH_PATH,
-  INSTRUMENTAL_TEKSHIRUV_PATH,
-  ZILZILABARDOSHLIK_XULOSA_PATH,
+  LEGISLATION_PATH,
+  GOVERNMENT_DOCUMENTS_PATH,
+  INTERNAL_DOCUMENTS_PATH,
+  CENTRAL_OFFICE_PATH,
+  PROJECT_DESIGN_PATH,
+  INSTRUMENTAL_INSPECTION_PATH,
+  SEISMIC_CONCLUSION_PATH,
 } from './path';
 
 const PageSkeleton = <Loading variant="page" />;
@@ -173,10 +175,10 @@ const Routers = () => {
           ),
         },
         {
-          path: MARKAZIY_APPARAT_PATH,
+          path: CENTRAL_OFFICE_PATH,
           element: (
             <Suspense fallback={CardsSkeleton}>
-              <Markaziyapparat />
+              <CentralOffice />
             </Suspense>
           ),
         },
@@ -213,28 +215,28 @@ const Routers = () => {
             </Suspense>
           ),
         },
-        // Xizmatlar routes
+        // Engineering routes
         {
-          path: LOYIHALASH_PATH,
+          path: PROJECT_DESIGN_PATH,
           element: (
             <Suspense fallback={DetailSkeleton}>
-              <Loyihalash />
+              <ProjectDesign />
             </Suspense>
           ),
         },
         {
-          path: INSTRUMENTAL_TEKSHIRUV_PATH,
+          path: INSTRUMENTAL_INSPECTION_PATH,
           element: (
             <Suspense fallback={DetailSkeleton}>
-              <InstrumentalTekhiruv />
+              <InstrumentalInspection />
             </Suspense>
           ),
         },
         {
-          path: ZILZILABARDOSHLIK_XULOSA_PATH,
+          path: SEISMIC_CONCLUSION_PATH,
           element: (
             <Suspense fallback={DetailSkeleton}>
-              <ZilzilabardoshlikXulosa />
+              <SeismicConclusion />
             </Suspense>
           ),
         },
@@ -356,26 +358,26 @@ const Routers = () => {
           ),
         },
         {
-          path: QONUNCHILIK_PATH,
+          path: LEGISLATION_PATH,
           element: (
             <Suspense fallback={PageSkeleton}>
-              <Qonunchilik />
+              <Legislation />
             </Suspense>
           ),
         },
         {
-          path: HUKUMAT_HUJJATLARI_PATH,
+          path: GOVERNMENT_DOCUMENTS_PATH,
           element: (
             <Suspense fallback={PageSkeleton}>
-              <HukumatHujjatlari />
+              <GovernmentDocuments />
             </Suspense>
           ),
         },
         {
-          path: ICHKI_HUJJATLAR_PATH,
+          path: INTERNAL_DOCUMENTS_PATH,
           element: (
             <Suspense fallback={PageSkeleton}>
-              <IchkiHujjatlar />
+              <InternalDocuments />
             </Suspense>
           ),
         },
