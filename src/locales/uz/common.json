@@ -126,7 +126,9 @@
     "stat3Label": "Malakali mutaxassislar",
     "ctaTitle": "Savollaringiz bormi?",
     "ctaText": "Biz bilan bog'laning — sizga yordam beramiz.",
-    "ctaButton": "Bog'lanish"
+    "ctaButton": "Bog'lanish",
+    "sectionSubtitle": "Biz haqimizda",
+    "sectionReadMore": "Batafsil o'qish"
   },
   "pages": {
     "international": {
@@ -207,16 +209,26 @@
     "noVacancies": "Hozirda vakansiyalar mavjud emas",
     "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
   },
+  "stats": {
+    "title": "INSTITUT RAQAMLARDA",
+    "academics": "Akademiklar",
+    "professors": "Professorlar",
+    "doctoralStudents": "Doktorantlar",
+    "staff": "Xodimlar"
+  },
   "common": {
     "loading": "Yuklanmoqda...",
     "error": "Xatolik yuz berdi",
     "cancel": "Bekor qilish"
   },
   "contact": {
-    "workingDays": "Ish kunlari:",
+    "workingDays": "Ish kunlari",
     "weekdays": "Du-Ju:",
     "lunch": "Tushlik:",
-    "address": "Manzil:"
+    "address": "Manzil",
+    "phone": "Telefon",
+    "location": "Lokatsiya",
+    "findUs": "Bizni toping"
   },
   "leadership": {
     "responsibilities": "Vazifalari",

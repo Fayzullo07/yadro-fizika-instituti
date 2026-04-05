@@ -126,7 +126,9 @@
     "stat3Label": "Квалифицированных специалистов",
     "ctaTitle": "Есть вопросы?",
     "ctaText": "Свяжитесь с нами — мы поможем.",
-    "ctaButton": "Связаться"
+    "ctaButton": "Связаться",
+    "sectionSubtitle": "О нас",
+    "sectionReadMore": "Подробнее"
   },
   "pages": {
     "international": {
@@ -207,16 +209,26 @@
     "noVacancies": "В настоящее время вакансий нет",
     "fillAllFields": "Пожалуйста, заполните все поля"
   },
+  "stats": {
+    "title": "ИНСТИТУТ В ЦИФРАХ",
+    "academics": "Академики",
+    "professors": "Профессора",
+    "doctoralStudents": "Докторанты",
+    "staff": "Сотрудники"
+  },
   "common": {
     "loading": "Загрузка...",
     "error": "Произошла ошибка",
     "cancel": "Отмена"
   },
   "contact": {
-    "workingDays": "Рабочие дни:",
+    "workingDays": "Рабочие дни",
     "weekdays": "Пн-Пт:",
     "lunch": "Обед:",
-    "address": "Адрес:"
+    "address": "Адрес",
+    "phone": "Телефон",
+    "location": "Локация",
+    "findUs": "Найдите нас"
   },
   "leadership": {
     "responsibilities": "Обязанности",

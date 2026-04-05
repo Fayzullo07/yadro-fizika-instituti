@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -13,12 +15,27 @@ const MainLayout: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'instant',
+    const lenis = new Lenis({
+      duration: 1.4,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
     });
+    lenisRef.current = lenis;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
     trackPageView(location.pathname);
   }, [location.pathname]);
 
@@ -29,7 +46,7 @@ const MainLayout: React.FC = () => {
   return (
     <div className="min-h-screen  flex flex-col">
       <Header />
-      <div className={`flex relative ${isHomePage ? '' : 'container mx-auto'}`}>
+      <div className={`flex relative ${isHomePage ? '' : 'container mx-auto pt-28'}`}>
         <main
           className={`flex-grow border-gray-200 transition-all ${shouldShowSidebar && !isHomePage ? 'border m-6 shadow-lg py-4 px-2' : ''} ${!shouldShowSidebar ? 'w-full' : ''}`}
         >

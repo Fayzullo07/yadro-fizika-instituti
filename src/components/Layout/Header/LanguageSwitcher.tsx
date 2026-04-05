@@ -8,13 +8,17 @@ import type { Language } from '@/types';
 
 interface LanguageSwitcherProps {
   variant?: 'desktop' | 'mobile';
+  isScrolled?: boolean;
 }
 
-const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'desktop' }) => {
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
+  variant = 'desktop',
+  isScrolled = true,
+}) => {
   const { language, changeLanguage } = useLanguage();
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState<boolean>(false);
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
-  const isMobile: boolean = variant === 'mobile';
+  const isMobile = variant === 'mobile';
 
   const flags: Record<Language, string> = {
     uz: uzFlag,
@@ -26,18 +30,22 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'desktop'
     <div className="relative">
       <button
         onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-        className={`flex items-center ${isMobile ? 'gap-1 px-2 !py-1' : 'gap-2 px-3 py-2'} text-gray-700 hover:text-blue-600 transition border border-gray-400 rounded-md hover:border-blue-600`}
+        className={`flex items-center ${isMobile ? 'gap-1 px-2 py-1' : 'gap-2 px-3 py-2'} rounded-full transition-all duration-300 ${
+          isScrolled
+            ? 'text-gray-700 border border-gray-200 hover:border-blue-400 hover:text-blue-600'
+            : 'text-white/80 border border-white/20 hover:border-white/40 hover:text-white'
+        }`}
       >
         <img
           src={flags[language]}
           alt={`${language} flag`}
-          className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} rounded-full object-cover`}
+          className={`${isMobile ? 'w-5 h-5' : 'w-5 h-5'} rounded-full object-cover`}
         />
-        <span className={`uppercase font-medium ${isMobile ? 'text-xs' : 'text-xs xl:text-sm'}`}>
+        <span className={`uppercase font-medium ${isMobile ? 'text-xs' : 'text-xs'}`}>
           {language}
         </span>
         <svg
-          className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} transition-transform ${isLangMenuOpen ? 'rotate-180' : ''}`}
+          className={`${isMobile ? 'w-3 h-3' : 'w-3.5 h-3.5'} transition-transform ${isLangMenuOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -49,9 +57,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'desktop'
       {isLangMenuOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsLangMenuOpen(false)} />
-          <div
-            className={`absolute ${isMobile ? 'right-0' : 'right-0'} mt-2 ${isMobile ? 'w-32' : 'w-40'} bg-white border border-gray-200 rounded-md shadow-lg z-20`}
-          >
+          <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-gray-100 z-20 overflow-hidden">
             {(Object.entries(SUPPORTED_LANGUAGES) as [Language, string][]).map(([code, name]) => (
               <button
                 key={code}
@@ -59,14 +65,14 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'desktop'
                   changeLanguage(code);
                   setIsLangMenuOpen(false);
                 }}
-                className={`w-full text-left flex items-center gap-2 ${isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2'} hover:bg-gray-100 transition ${
+                className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-sm hover:bg-gray-50 transition ${
                   language === code ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
                 }`}
               >
                 <img
                   src={flags[code]}
                   alt={`${code} flag`}
-                  className="w-6 h-6 rounded-full object-cover"
+                  className="w-5 h-5 rounded-full object-cover"
                 />
                 <span>{name}</span>
               </button>

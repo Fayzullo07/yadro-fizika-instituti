@@ -5,23 +5,26 @@ interface DesktopNavigationProps {
   menuItems: MenuItem[];
   openDropdown: string | null;
   setOpenDropdown: (id: string | null) => void;
+  isScrolled?: boolean;
 }
 
 const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   menuItems,
   openDropdown,
   setOpenDropdown,
+  isScrolled = true,
 }) => {
   return (
-    <div className="hidden lg:flex items-center justify-between gap-4">
+    <div className="hidden lg:flex items-center">
       <nav>
-        <ul className="flex items-center justify-between gap-3 xl:gap-3">
+        <ul className="flex items-center gap-1">
           {menuItems.map((item) => (
             <NavMenuItem
               key={item.id}
               item={item}
               openDropdown={openDropdown}
               setOpenDropdown={setOpenDropdown}
+              isScrolled={isScrolled}
             />
           ))}
         </ul>

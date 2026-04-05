@@ -126,7 +126,9 @@
     "stat3Label": "Qualified specialists",
     "ctaTitle": "Have questions?",
     "ctaText": "Get in touch — we're here to help.",
-    "ctaButton": "Contact Us"
+    "ctaButton": "Contact Us",
+    "sectionSubtitle": "About Us",
+    "sectionReadMore": "Read More"
   },
   "pages": {
     "international": {
@@ -207,16 +209,26 @@
     "noVacancies": "No vacancies available at the moment",
     "fillAllFields": "Please fill in all fields"
   },
+  "stats": {
+    "title": "INSTITUTE IN NUMBERS",
+    "academics": "Academics",
+    "professors": "Professors",
+    "doctoralStudents": "Doctoral Students",
+    "staff": "Staff"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
     "cancel": "Cancel"
   },
   "contact": {
-    "workingDays": "Working Days:",
+    "workingDays": "Working Days",
     "weekdays": "Mon-Fri:",
     "lunch": "Lunch:",
-    "address": "Address:"
+    "address": "Address",
+    "phone": "Phone",
+    "location": "Location",
+    "findUs": "Find Us"
   },
   "leadership": {
     "responsibilities": "Responsibilities",

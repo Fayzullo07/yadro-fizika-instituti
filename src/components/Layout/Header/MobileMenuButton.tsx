@@ -1,13 +1,20 @@
 interface MobileMenuButtonProps {
   isOpen: boolean;
+  isScrolled?: boolean;
   onClick: () => void;
 }
 
-const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ isOpen, onClick }) => {
+const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
+  isOpen,
+  isScrolled = true,
+  onClick,
+}) => {
   return (
     <button
       onClick={onClick}
-      className="p-2 text-gray-700 hover:text-blue-600 transition-colors"
+      className={`lg:hidden p-2 rounded-lg transition-all duration-300 ${
+        isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
+      }`}
       aria-label="Menu"
     >
       {isOpen ? (

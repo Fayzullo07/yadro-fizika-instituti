@@ -4,7 +4,7 @@ import Loading from '@/components/shared/Loading/Loading';
 import MainLayout from '@/components/Layout/MainLayout/MainLayout';
 
 // Lazy-loaded pages
-const Home = lazy(() => import('@/pages/Home/Home'));
+import Home from '@/pages/Home/Home';
 const About = lazy(() => import('@/pages/About/About'));
 const Services = lazy(() => import('@/pages/Services/Services'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
@@ -83,9 +83,9 @@ import {
   SEISMIC_CONCLUSION_PATH,
 } from './path';
 
-const PageSkeleton = <Loading variant="page" />;
-const CardsSkeleton = <Loading variant="cards" />;
-const DetailSkeleton = <Loading variant="detail" />;
+const PageSkeleton = <Loading />;
+const CardsSkeleton = <Loading />;
+const DetailSkeleton = <Loading />;
 
 const Routers = () => {
   const router = createBrowserRouter([
@@ -95,11 +95,7 @@ const Routers = () => {
       children: [
         {
           path: HOME_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Home />
-            </Suspense>
-          ),
+          element: <Home />,
         },
         {
           path: ABOUT_PATH,

@@ -17,3 +17,12 @@ export const stripHtmlRegex = (html: string | null | undefined): string => {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '').trim();
 };
+
+/**
+ * Strips HTML tags and decodes HTML entities (&lsquo; &mdash; etc.)
+ */
+export const stripHtmlAndDecode = (html: string | null | undefined): string => {
+  if (!html) return '';
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.textContent || '';
+};
