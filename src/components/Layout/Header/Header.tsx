@@ -115,15 +115,15 @@ const Header: React.FC = () => {
       </div>
 
       {/* Navigation bar */}
-      <div className="border-t bg-gray-50 border-gray-100">
+      <div className="border-t bg-[#0f1b3d] border-gray-100">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between py-2">
+          <div className="flex items-center justify-center py-2">
             {!isMobileMenuOpen && (
               <DesktopNavigation
                 menuItems={menuItems}
                 openDropdown={openDropdown}
                 setOpenDropdown={setOpenDropdown}
-                isScrolled
+                isScrolled={false}
               />
             )}
           </div>

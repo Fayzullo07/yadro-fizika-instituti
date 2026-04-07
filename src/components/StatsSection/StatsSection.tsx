@@ -53,17 +53,17 @@ const StatCard: React.FC<{ stat: StatItem; inView: boolean; index: number }> = (
   return (
     <div
       className={`flex items-center ${
-        index % 2 === 0 ? 'border-r border-gray-200' : ''
-      } ${index < 2 ? 'border-b lg:border-b-0 border-gray-200' : ''} ${
-        index !== 3 ? 'lg:border-r lg:border-gray-200' : ''
+        index % 2 === 0 ? 'border-r border-white/10' : ''
+      } ${index < 2 ? 'border-b lg:border-b-0 border-white/10' : ''} ${
+        index !== 3 ? 'lg:border-r lg:border-white/10' : ''
       }`}
     >
       <div className="px-4 md:px-8 py-3 md:py-4 text-center w-full">
-        <span className="text-xl md:text-3xl font-bold text-gray-900 tabular-nums">
+        <span className="text-xl md:text-3xl font-bold text-white tabular-nums">
           {count}
           {stat.suffix}
         </span>
-        <p className="text-[10px] md:text-sm text-gray-400 mt-0.5 md:mt-1 tracking-wide">
+        <p className="text-[10px] md:text-sm text-blue-200/50 mt-0.5 md:mt-1 tracking-wide">
           {t(stat.labelKey) || stat.fallback}
         </p>
       </div>
@@ -90,7 +90,7 @@ const StatsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="bg-white border-t border-gray-100" ref={ref}>
+    <section className="bg-[#0f1b3d]" ref={ref}>
       <div className="container mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {STATS.map((stat, index) => (
