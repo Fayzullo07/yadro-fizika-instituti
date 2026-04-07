@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
 
       {/* White content card */}
       <div className="absolute inset-y-0 left-0 z-10 flex items-end md:items-center">
-        <div className="bg-white shadow border border-gray-100 p-6 md:p-12 lg:p-16 w-[92vw] md:w-[50vw] lg:w-[40vw] md:min-h-[50%] flex flex-col justify-center">
+        <div className="bg-gray-50 p-6 md:p-12 lg:p-16 w-[92vw] md:w-[50vw] lg:w-[40vw] md:min-h-[50%] flex flex-col justify-center">
           {/* Slide counter */}
           {hasMultipleSlides && (
             <div className="flex items-center gap-3 mb-4 md:mb-8">

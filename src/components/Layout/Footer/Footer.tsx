@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
 import FooterSkeleton from './FooterSkeleton';
+import logoFallback from '@/assets/logo.jpg';
 
 const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -27,17 +28,15 @@ const Footer: React.FC = () => {
         {/* Top row: branding + social */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-10 border-b border-white/10">
           <div className="flex items-center gap-4">
-            {generalData?.organization_logo && (
-              <img
-                src={generalData.organization_logo}
-                alt={organizationName}
-                loading="lazy"
-                className="h-11 w-11 object-contain rounded-lg bg-white/10 p-1.5"
-              />
-            )}
+            <img
+              src={logoFallback}
+              alt={organizationName}
+              loading="lazy"
+              className="h-11 w-11 object-contain rounded-lg"
+            />
             <div>
               <h3 className="text-white font-bold text-lg leading-snug">
-                {loading ? '...' : organizationName}
+                O'z Res FA YADRO FIZIKASI INSTITUTI
               </h3>
               {generalData?.organization_desc && (
                 <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">

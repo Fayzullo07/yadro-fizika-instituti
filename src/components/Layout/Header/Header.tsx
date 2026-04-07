@@ -10,6 +10,7 @@ import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 import LanguageSwitcher from './LanguageSwitcher';
 import { SOCIAL_LINKS } from '../Footer/FooterData';
+import logoFallback from '@/assets/logo.jpg';
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
@@ -39,18 +40,14 @@ const Header: React.FC = () => {
               </div>
             ) : (
               <Link to={HOME_PATH} className="flex items-center gap-3 group">
-                {generalData?.organization_logo && (
-                  <img
-                    src={generalData.organization_logo}
-                    alt={organizationName || 'Logo'}
-                    className="h-10 w-10 object-contain rounded-lg"
-                  />
-                )}
-                {organizationName && (
-                  <span className="text-sm md:text-base font-bold leading-tight text-gray-900">
-                    {organizationName}
-                  </span>
-                )}
+                <img
+                  src={logoFallback}
+                  alt={organizationName || 'Logo'}
+                  className="h-10 w-10 object-contain rounded-lg"
+                />
+                <span className="text-sm md:text-base font-bold leading-tight text-gray-900">
+                  O'z Res FA YADRO FIZIKASI INSTITUTI
+                </span>
               </Link>
             )}
           </div>
