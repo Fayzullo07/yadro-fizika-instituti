@@ -6,6 +6,8 @@ interface NavMenuItemProps {
   openDropdown: string | null;
   setOpenDropdown: (id: string | null) => void;
   isScrolled?: boolean;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 }
 
 const NavMenuItem: React.FC<NavMenuItemProps> = ({
@@ -13,11 +15,17 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({
   openDropdown,
   setOpenDropdown,
   isScrolled = true,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const isOpen = openDropdown === item.id;
 
   return (
-    <li className="relative">
+    <li
+      className="relative"
+      onMouseEnter={() => onMouseEnter?.(item.id)}
+      onMouseLeave={onMouseLeave}
+    >
       <button
         type="button"
         onClick={() => setOpenDropdown(isOpen ? null : item.id)}
@@ -25,7 +33,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({
           isScrolled
             ? isOpen
               ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100'
+              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
             : isOpen
               ? 'text-white bg-white/15'
               : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -33,21 +41,16 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({
       >
         {item.label}
         <svg
-          className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-3 h-3 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
-      {isOpen && (
-        <>
-          <div className="fixed inset-0 z-10" onClick={() => setOpenDropdown(null)} aria-hidden />
-          <DropdownMenu links={item.links} onClose={() => setOpenDropdown(null)} />
-        </>
-      )}
+      {isOpen && <DropdownMenu links={item.links} onClose={() => setOpenDropdown(null)} />}
     </li>
   );
 };
