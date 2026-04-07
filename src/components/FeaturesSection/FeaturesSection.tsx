@@ -15,7 +15,7 @@ const FeaturesSection: React.FC = () => {
           <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
             {t('features.intro') || 'Innovatsion yechimlar va zamonaviy texnologiyalar'}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
             {t('features.title') || "ASOSIY YO'NALISHLAR"}
           </h2>
         </div>

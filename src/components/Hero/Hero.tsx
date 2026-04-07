@@ -1,43 +1,58 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { useBanners } from '@/hooks/useBanners';
-import { useGeneral } from '@/hooks/useGeneral';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
-import OrganizationBadge from './OrganizationBadge';
-import VerticalSlideSelector from './VerticalSlideSelector';
-import MobileDots from './MobileDots';
-import ScrollIndicator from './ScrollIndicator';
 
 const AUTOPLAY_INTERVAL = 5000;
 
 const Hero: React.FC = () => {
   const { data, loading, error } = useBanners({ per_page: 10 });
-  const { data: generalData } = useGeneral();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const timerRef = useRef<ReturnType<typeof setInterval>>(null);
 
   const banners: Banner[] = data?.results || [];
 
-  const organizationName = generalData?.organization_short_name
-    ? stripHtmlRegex(generalData.organization_name)
-    : null;
+  const changeSlide = useCallback(
+    (newIndex: number, dir: 'next' | 'prev') => {
+      setDirection(dir);
+      setPrevIndex(currentIndex);
+      setCurrentIndex(newIndex);
+    },
+    [currentIndex]
+  );
 
   const startAutoplay = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % banners.length);
+      setDirection('next');
+      setCurrentIndex((prev) => {
+        setPrevIndex(prev);
+        return (prev + 1) % banners.length;
+      });
     }, AUTOPLAY_INTERVAL);
   }, [banners.length]);
 
+  const goToPrev = useCallback(() => {
+    changeSlide((currentIndex - 1 + banners.length) % banners.length, 'prev');
+    startAutoplay();
+  }, [currentIndex, banners.length, changeSlide, startAutoplay]);
+
   const goToSlide = useCallback(
     (index: number) => {
-      setCurrentIndex(index);
+      changeSlide(index, index > currentIndex ? 'next' : 'prev');
       startAutoplay();
     },
-    [startAutoplay]
+    [currentIndex, changeSlide, startAutoplay]
   );
+
+  const goToNext = useCallback(() => {
+    changeSlide((currentIndex + 1) % banners.length, 'next');
+    startAutoplay();
+  }, [currentIndex, banners.length, changeSlide, startAutoplay]);
 
   useEffect(() => {
     if (banners.length <= 1) return;
@@ -54,78 +69,98 @@ const Hero: React.FC = () => {
   const hasMultipleSlides = banners.length > 1;
 
   return (
-    <div className="relative h-screen overflow-hidden">
-      {/* Fullscreen banner backgrounds */}
-      {banners.map((banner, index) => (
-        <BannerBackground
-          key={banner.id || index}
-          banner={banner}
-          isActive={index === currentIndex}
-          isFirst={index === 0}
-        />
-      ))}
+    <div className="relative h-full overflow-hidden">
+      {/* Banner backgrounds */}
+      {banners.map((banner, index) => {
+        let state: 'enter' | 'exit' | 'idle';
+        if (index === currentIndex) state = 'enter';
+        else if (index === prevIndex) state = 'exit';
+        else state = 'idle';
 
-      {/* Overlays */}
-      <div className="absolute inset-0 bg-linear-to-r from-black/40 via-black/15 to-transparent"></div>
-      <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent"></div>
+        return (
+          <BannerBackground
+            key={banner.id || index}
+            banner={banner}
+            state={state}
+            direction={direction}
+          />
+        );
+      })}
 
-      {/* Content */}
-      <div className="relative z-10 h-screen flex items-center">
-        <div className="container mx-auto">
-          <div className="max-w-3xl">
-            {organizationName && (
-              <div>
-                <OrganizationBadge
-                  name={organizationName}
-                  logo={generalData?.organization_logo}
-                  slideKey={currentIndex}
-                />
-              </div>
-            )}
-
-            {currentBanner.title && (
-              <h1
-                key={`title-${currentIndex}`}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 animate-slide-up"
-                style={{ animationDelay: '100ms' }}
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentBanner.title) }}
-              />
-            )}
-
-            {currentBanner.description && (
-              <p
-                key={`desc-${currentIndex}`}
-                className="text-lg md:text-xl text-white/50 leading-relaxed max-w-xl mb-10 line-clamp-3 animate-slide-up"
-                style={{ animationDelay: '200ms' }}
+      {/* White content card */}
+      <div className="absolute inset-y-0 left-0 z-10 flex items-end md:items-center">
+        <div className="bg-white shadow border border-gray-100 p-6 md:p-12 lg:p-16 w-[92vw] md:w-[50vw] lg:w-[40vw] md:min-h-[50%] flex flex-col justify-center">
+          {/* Slide counter */}
+          {hasMultipleSlides && (
+            <div className="flex items-center gap-3 mb-4 md:mb-8">
+              <button
+                onClick={goToPrev}
+                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:border-gray-400 transition-all"
+                aria-label="Previous slide"
               >
-                {stripHtmlRegex(currentBanner.description)}
-              </p>
-            )}
-          </div>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+
+              <div className="flex items-center gap-2">
+                {banners.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-0.5 rounded-full transition-all duration-500 ${
+                      index === currentIndex
+                        ? 'w-6 bg-gray-900'
+                        : 'w-3 bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    aria-label={`Slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={goToNext}
+                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:border-gray-400 transition-all"
+                aria-label="Next slide"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+
+          {/* Title */}
+          {currentBanner.title && (
+            <h1
+              key={`title-${currentIndex}`}
+              className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.15] mb-3 md:mb-6 animate-slide-up"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentBanner.title) }}
+            />
+          )}
+
+          {/* Description */}
+          {currentBanner.description && (
+            <p
+              key={`desc-${currentIndex}`}
+              className="text-sm md:text-lg text-gray-500 leading-relaxed line-clamp-3 md:line-clamp-4 animate-slide-up"
+              style={{ animationDelay: '100ms' }}
+            >
+              {stripHtmlRegex(currentBanner.description)}
+            </p>
+          )}
         </div>
       </div>
-
-      {hasMultipleSlides && (
-        <>
-          <div>
-            <VerticalSlideSelector
-              total={banners.length}
-              currentIndex={currentIndex}
-              onSelect={goToSlide}
-            />
-          </div>
-          <div>
-            <MobileDots total={banners.length} currentIndex={currentIndex} onSelect={goToSlide} />
-          </div>
-        </>
-      )}
-
-      <div>
-        <ScrollIndicator />
-      </div>
-
-      {/* Bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white to-transparent z-10"></div>
     </div>
   );
 };

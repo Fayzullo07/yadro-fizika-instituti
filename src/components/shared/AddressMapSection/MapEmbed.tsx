@@ -3,7 +3,7 @@ const LONGITUDE = '69.287714';
 const MAP_ZOOM = '16';
 
 const MapEmbed: React.FC = () => (
-  <div className="relative h-80 lg:h-auto lg:col-span-2">
+  <div className="relative h-80 lg:h-auto lg:min-h-100">
     <iframe
       src={`https://yandex.com/map-widget/v1/?ll=${LONGITUDE},${LATITUDE}&z=${MAP_ZOOM}&pt=${LONGITUDE},${LATITUDE},pm2rdm`}
       width="100%"

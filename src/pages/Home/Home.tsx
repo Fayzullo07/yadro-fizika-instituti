@@ -10,9 +10,14 @@ import LaboratoriesTasks from '@/components/LaboratoriesTasks/LaboratoriesTasks'
 const Home: React.FC = () => {
   return (
     <div className="w-full">
-      <Hero />
+      {/* Header + Hero + Stats = full screen on desktop */}
+      <div className="flex flex-col md:h-[calc(100vh-120px)]">
+        <div className="h-[60vh] md:flex-1 md:h-auto md:min-h-0">
+          <Hero />
+        </div>
+        <StatsSection />
+      </div>
       <AboutSection />
-      <StatsSection />
       <LaboratoriesTasks />
       <NewsSection />
       <FeaturesSection />

@@ -20,16 +20,16 @@ const AddressMapSection: React.FC = () => {
           <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
             {t('contact.location') || 'Lokatsiya'}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
             {t('contact.findUs') || 'Bizni toping'}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-gray-200 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 rounded-2xl overflow-hidden">
           <MapEmbed />
 
           {/* Info */}
-          <div className="flex flex-col justify-center gap-8 p-8 md:p-10 bg-gray-50">
+          <div className="flex flex-col justify-center gap-6 md:gap-8 p-6 md:p-8 lg:p-10 bg-gray-50">
             <div>
               <InfoItem icon={<LocationIcon />} title={t('contact.address') || 'Manzil'}>
                 <p className="text-gray-500 text-sm leading-relaxed">{ADDRESS}</p>

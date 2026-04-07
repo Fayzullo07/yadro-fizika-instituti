@@ -36,7 +36,7 @@ const NewsSection: React.FC = () => {
             <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
               {t('news.subtitle') || "So'nggi yangiliklar"}
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
               {t('news.title') || 'Yangiliklar'}
             </h2>
           </div>

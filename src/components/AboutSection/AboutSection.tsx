@@ -25,19 +25,19 @@ const AboutSection: React.FC = () => {
             <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
               {t('about.sectionSubtitle')}
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
               {data.title || t('about.heroTitle')}
             </h2>
 
             {(data.content || data.description) && (
-              <p className="text-gray-500 leading-relaxed text-base line-clamp-6 mb-8">
+              <p className="text-gray-500 leading-relaxed text-sm md:text-base line-clamp-4 md:line-clamp-6 mb-6 md:mb-8">
                 {stripHtmlAndDecode(data.content || data.description)}
               </p>
             )}
 
             <Link
               to={ABOUT_PATH}
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-gray-900 text-white font-medium rounded-full hover:bg-gray-800 text-sm"
+              className="inline-flex items-center gap-2 px-5 md:px-7 py-3 md:py-3.5 bg-gray-900 text-white font-medium rounded-full hover:bg-gray-800 text-xs md:text-sm"
               style={{ transition: 'background-color 0.5s ease' }}
             >
               {t('about.sectionReadMore')}
@@ -59,7 +59,7 @@ const AboutSection: React.FC = () => {
                 src={data.image}
                 alt={stripHtmlRegex(data.title)}
                 loading="lazy"
-                className="w-full h-80 md:h-112 object-cover"
+                className="w-full h-56 md:h-80 lg:h-112 object-cover"
               />
               <div className="absolute bottom-0 left-0 w-full h-1 bg-(--primary-blue)"></div>
             </div>
@@ -85,7 +85,7 @@ const AboutSkeleton: React.FC = () => (
           </div>
           <div className="h-12 w-40 bg-gray-200 rounded-full animate-pulse"></div>
         </div>
-        <div className="h-80 md:h-112 bg-gray-200 animate-pulse"></div>
+        <div className="h-56 md:h-80 lg:h-112 bg-gray-200 animate-pulse"></div>
       </div>
     </div>
   </section>

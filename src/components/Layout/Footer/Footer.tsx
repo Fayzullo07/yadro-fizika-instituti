@@ -22,10 +22,7 @@ const Footer: React.FC = () => {
   }, [generalData]);
 
   return (
-    <footer className="bg-slate-950 text-gray-300 mt-auto">
-      {/* Accent top border */}
-      <div className="h-0.5 bg-linear-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
-
+    <footer className="bg-[#0f1b3d] text-gray-300 mt-auto">
       <div className="container mx-auto py-14">
         {/* Top row: branding + social */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-10 border-b border-white/10">
@@ -43,7 +40,7 @@ const Footer: React.FC = () => {
                 {loading ? '...' : organizationName}
               </h3>
               {generalData?.organization_desc && (
-                <p className="text-gray-500 text-xs mt-1 max-w-sm line-clamp-1">
+                <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">
                   {stripHtmlRegex(generalData.organization_desc)}
                 </p>
               )}
@@ -57,7 +54,7 @@ const Footer: React.FC = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition-all duration-200"
+                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-blue-200/50 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-200"
                 aria-label={social.name}
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -80,7 +77,7 @@ const Footer: React.FC = () => {
             ) : (
               generalData?.organization_desc && (
                 <div
-                  className="text-gray-500 text-sm leading-relaxed line-clamp-4"
+                  className="text-blue-200/50 text-sm leading-relaxed line-clamp-4"
                   dangerouslySetInnerHTML={{
                     __html: sanitizeHtml(generalData.organization_desc),
                   }}
@@ -99,9 +96,9 @@ const Footer: React.FC = () => {
                 <li key={pathKey}>
                   <Link
                     to={pathKey}
-                    className="group flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors duration-200"
+                    className="group flex items-center gap-2 text-blue-200/50 hover:text-white text-sm transition-colors duration-200"
                   >
-                    <span className="w-1 h-1 rounded-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                    <span className="w-1 h-1 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                     {t(labelKey) || fallback}
                   </Link>
                 </li>
@@ -119,7 +116,7 @@ const Footer: React.FC = () => {
                 <li>
                   <a
                     href={`mailto:${generalData.email}`}
-                    className="flex items-center gap-3 text-gray-500 hover:text-white transition-colors duration-200"
+                    className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
                   >
                     <EmailIcon />
                     <span className="text-sm">{generalData.email}</span>
@@ -130,7 +127,7 @@ const Footer: React.FC = () => {
                 <li>
                   <a
                     href={`tel:${generalData.phone}`}
-                    className="flex items-center gap-3 text-gray-500 hover:text-white transition-colors duration-200"
+                    className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
                   >
                     <PhoneIcon />
                     <span className="text-sm">{generalData.phone}</span>
@@ -138,7 +135,7 @@ const Footer: React.FC = () => {
                 </li>
               )}
               {generalData?.address && (
-                <li className="flex items-start gap-3 text-gray-500">
+                <li className="flex items-start gap-3 text-blue-200/50">
                   <LocationIcon />
                   <span className="text-sm leading-relaxed">{generalData.address}</span>
                 </li>
@@ -149,9 +146,9 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-white/5 bg-black/20">
+      <div className="border-t border-white/5 bg-[#0a1330]">
         <div className="container mx-auto py-5">
-          <p className="text-center text-gray-600 text-xs">
+          <p className="text-center text-blue-200/30 text-xs">
             © {new Date().getFullYear()} {organizationName}.{' '}
             {t('footer.rights') || 'Barcha huquqlar himoyalangan.'}
           </p>

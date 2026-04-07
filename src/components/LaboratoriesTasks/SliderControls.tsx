@@ -45,7 +45,7 @@ const ArrowButton: React.FC<{ direction: 'prev' | 'next'; onClick: () => void }>
 }) => (
   <button
     onClick={onClick}
-    className={`w-11 h-11 rounded-full flex items-center justify-center transition-all ${
+    className={`w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-all ${
       direction === 'prev'
         ? 'border border-white/20 text-white/60 hover:text-white hover:border-white/40'
         : 'bg-white/20 text-white hover:bg-white/30'

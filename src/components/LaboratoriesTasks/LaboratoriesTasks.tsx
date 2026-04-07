@@ -53,7 +53,7 @@ const LaboratoriesTasks: React.FC = () => {
           />
         </div>
 
-        <div className="relative overflow-hidden min-h-96 md:min-h-110">
+        <div className="relative overflow-hidden min-h-72 md:min-h-96 lg:min-h-110">
           {/* Background */}
           <img
             src={institutImage}
@@ -64,13 +64,13 @@ const LaboratoriesTasks: React.FC = () => {
           <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-black/20"></div>
 
           {/* Content */}
-          <div className="relative z-10 flex flex-col justify-between min-h-96 md:min-h-110 p-8 md:p-14">
+          <div className="relative z-10 flex flex-col justify-between min-h-72 md:min-h-96 lg:min-h-110 p-5 md:p-8 lg:p-14">
             <div className="max-w-2xl w-full flex-1">
               {/* Task number */}
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
                 <span
                   key={currentSlide}
-                  className="text-6xl md:text-7xl font-bold text-white/20 animate-slide-up"
+                  className="text-4xl md:text-6xl lg:text-7xl font-bold text-white/20 animate-slide-up"
                 >
                   {String(currentSlide + 1).padStart(2, '0')}
                 </span>
@@ -88,7 +88,9 @@ const LaboratoriesTasks: React.FC = () => {
                       animation: index === currentSlide ? 'fade-in 0.5s ease-out' : 'none',
                     }}
                   >
-                    <p className="text-white/90 text-base md:text-lg leading-relaxed">{task}</p>
+                    <p className="text-white/90 text-sm md:text-base lg:text-lg leading-relaxed">
+                      {task}
+                    </p>
                   </div>
                 ))}
               </div>

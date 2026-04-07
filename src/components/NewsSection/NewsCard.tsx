@@ -5,7 +5,7 @@ import type { NewsItem } from '@/types';
 const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => (
   <Link
     to={`/news/${item.id}`}
-    className="group relative block aspect-4/3 overflow-hidden bg-gray-200"
+    className="group relative block aspect-4/3 sm:aspect-4/3 overflow-hidden bg-gray-200"
   >
     {/* Image */}
     {item.images?.[0] ? (

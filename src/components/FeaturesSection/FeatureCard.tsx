@@ -20,12 +20,12 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, readMoreText }) => (
   <Link
     to={feature.link}
-    className="group relative flex flex-col p-8 md:p-10 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-gray-200 hover:bg-gray-50"
+    className="group relative flex flex-col p-6 md:p-8 lg:p-10 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-gray-200 hover:bg-gray-50"
     style={{ transition: 'background-color 0.5s ease' }}
   >
     {/* Number */}
     <span
-      className="text-5xl font-bold text-gray-100 group-hover:text-gray-200 absolute top-6 right-8"
+      className="text-4xl md:text-5xl font-bold text-gray-100 group-hover:text-gray-200 absolute top-4 right-6 md:top-6 md:right-8"
       style={{ transition: 'color 0.5s ease' }}
     >
       {feature.number}
@@ -33,17 +33,19 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, readMoreText }) => (
 
     {/* Icon */}
     <div
-      className="w-12 h-12 rounded-full bg-gray-900 group-hover:bg-blue-600 flex items-center justify-center text-white mb-6"
+      className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 group-hover:bg-blue-600 flex items-center justify-center text-white mb-4 md:mb-6"
       style={{ transition: 'background-color 0.5s ease' }}
     >
       {feature.icon}
     </div>
 
     {/* Title */}
-    <h3 className="text-lg font-bold text-gray-900 mb-3 tracking-wide">{feature.title}</h3>
+    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2 md:mb-3 tracking-wide">
+      {feature.title}
+    </h3>
 
     {/* Description */}
-    <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+    <p className="text-gray-500 text-xs md:text-sm leading-relaxed">{feature.description}</p>
 
     {/* Spacer */}
     <div className="flex-1"></div>
