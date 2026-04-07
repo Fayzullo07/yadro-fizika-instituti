@@ -27,7 +27,7 @@ body {
 }
 
 .container {
-  max-width: 1540px !important;
+  max-width: 1280px !important;
   width: 100% !important;
   padding-inline: 1.5rem;
 }
@@ -121,6 +121,43 @@ body {
 
 .animate-hero-zoom {
   animation: hero-zoom 20s ease-out forwards;
+}
+
+/* Hero slide enter/exit animations */
+@keyframes slide-enter-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-enter-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-exit-to-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-exit-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 /* Hero slide progress bar */

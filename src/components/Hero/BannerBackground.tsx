@@ -11,28 +11,26 @@ const FALLBACK_IMAGES = [img1, img2, img3, img4, img5];
 interface BannerBackgroundProps {
   banner: Banner;
   index?: number;
-  state: 'enter' | 'exit' | 'idle';
-  direction: 'next' | 'prev';
+  offset?: number;
+  animate?: boolean;
+  animationName?: string;
 }
 
 const BannerBackground: React.FC<BannerBackgroundProps> = memo(
-  ({ banner, index = 0, state, direction }) => {
-    if (state === 'idle') return null;
-
-    const getTransform = () => {
-      if (state === 'enter') return 'translateX(0) scale(1)';
-      return direction === 'next' ? 'translateX(-8%) scale(0.95)' : 'translateX(8%) scale(0.95)';
-    };
+  ({ index = 0, offset, animate, animationName }) => {
+    const isDrag = offset !== undefined && offset !== 0;
 
     return (
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]})`,
-          transform: getTransform(),
-          opacity: state === 'exit' ? 0 : 1,
-          transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease',
-          zIndex: state === 'enter' ? 2 : 1,
+          backgroundImage: `url(${FALLBACK_IMAGES[0]})`,
+          transform: isDrag ? `translateX(${offset}px)` : undefined,
+          transition: isDrag && animate ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          animation: animationName
+            ? `${animationName} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards`
+            : undefined,
+          zIndex: 1,
         }}
       ></div>
     );
