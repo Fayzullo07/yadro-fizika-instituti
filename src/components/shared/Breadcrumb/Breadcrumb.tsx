@@ -114,7 +114,7 @@ const Breadcrumb: React.FC = () => {
 
   return (
     <nav className="bg-white py-3">
-      <div className="container mx-auto px-4">
+      <div>
         <div className="flex items-center gap-2 text-sm">
           {breadcrumbs.map((item, index) => (
             <div key={index} className="flex items-center gap-2">

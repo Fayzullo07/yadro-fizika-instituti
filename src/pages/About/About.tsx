@@ -15,26 +15,24 @@ const About: React.FC = () => {
   } = useApi<AboutData>(() => generalApi.getAbout(language), [language]);
 
   return (
-    <div className="bg-white">
-      <section className="max-w-5xl mx-auto  pb-16">
+    <div className="bg-white shadow-lg">
+      <section className="pb-16">
         {loading && <p className="mt-6 text-lg text-gray-600">{t('common.loading')}</p>}
 
-        {error && (
-          <p className="mt-6 text-lg text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</p>
-        )}
+        {error && <p className="mt-6 text-lg text-red-600">{t('common.error')}</p>}
 
-        {!loading && !error && (
-          <div className="mt-8">
-            {aboutData?.image && (
+        {!loading && !error && aboutData && (
+          <div className="">
+            {aboutData.image && (
               <img
                 src={aboutData.image}
-                alt={t('about.heroTitle') || 'About image'}
+                alt={t('about.heroTitle')}
                 loading="lazy"
                 className="w-full max-h-[460px] object-cover"
               />
             )}
 
-            {aboutData?.content && (
+            {aboutData.content && (
               <div
                 className="mt-8 text-gray-700 leading-relaxed space-y-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_p]:mt-4"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(aboutData.content) }}
@@ -44,7 +42,7 @@ const About: React.FC = () => {
         )}
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-20 border-t border-gray-100">
+      <section className=" px-4 py-20 border-t border-gray-100">
         <h2 className="text-2xl font-semibold text-gray-900">
           {t('about.ctaTitle') || 'Bog‘lanish'}
         </h2>

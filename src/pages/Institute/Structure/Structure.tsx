@@ -28,7 +28,7 @@ const Structure: React.FC = () => {
   const currentDoc = structureDocsByLanguage[language] || structureDocsByLanguage.uz;
 
   return (
-    <div className="container !mx-auto ">
+    <div className="min-h-screen border-2">
       <h1 className="text-2xl md:text-5xl font-semibold text-gray-900 mt-4 text-center">
         {t('nav.institute.services')}
       </h1>

@@ -33,7 +33,7 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-1 gap-4 container mx-auto">
+    <div className="grid grid-cols-1 xl:grid-cols-1 gap-4 ">
       {members.map((member) => (
         <div
           key={member.id}

@@ -22,7 +22,7 @@ const Teachers: React.FC = () => {
   const teams: TeamMember[] = teamsData?.results || [];
 
   return (
-    <div className="min-h-[calc(100vh-208px)] mt-10 bg-white">
+    <div className="bg-white border-2">
       <div className="max-w-[900px] mx-auto px-4">
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">

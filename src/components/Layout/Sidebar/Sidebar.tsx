@@ -38,25 +38,24 @@ const Sidebar: React.FC = () => {
   }
 
   return (
-    <aside className="sticky right-0 top-52 pt-[10px] w-80 min-h-[calc(100vh-208px)] max-h-[calc(100vh-208px)] overflow-y-auto z-40">
+    <aside className="sticky right-0 top-27 w-80 min-h-[calc(100vh-208px)] max-h-[calc(100vh-208px)] overflow-y-auto z-40 border-2 border-red-500">
       <div className="p-4">
         {/* Active Menu Header */}
         {/* <div className="bg-[#013d8c] text-white px-4 py-3 mb-2 rounded">
           <h3 className="font-semibold text-sm uppercase">{activeMenu.label}</h3>
         </div> */}
 
-        <div className="">
+        <div className="border">
           {activeMenu.links.map((link, index) => {
             const isActive = location.pathname === link.path;
             return (
               <Link
                 key={index}
                 to={link.path}
-                className={`flex items-center gap-2 px-4 py-3  transition-colors ${
-                  isActive
-                    ? 'bg-[#013d8c] text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
-                }`}
+                className={`flex items-center gap-2 px-4 py-3 transition-colors ${isActive
+                  ? 'bg-[#013d8c] text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
+                  }`}
               >
                 <svg
                   className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-600'}`}

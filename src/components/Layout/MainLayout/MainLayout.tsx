@@ -46,17 +46,17 @@ const MainLayout: React.FC = () => {
   return (
     <div className="min-h-screen  flex flex-col">
       <Header />
-      <div className={`flex relative ${isHomePage ? '' : 'container mx-auto pt-28'}`}>
+      <div className={`flex relative ${isHomePage ? '' : 'container mx-auto'}`}>
         <main
-          className={`flex-grow border-gray-200 transition-all ${shouldShowSidebar && !isHomePage ? 'border m-6 shadow-lg py-4 px-2' : ''} ${!shouldShowSidebar ? 'w-full' : ''}`}
+          className={`flex-grow border-gray-200 transition-all ${shouldShowSidebar && !isHomePage ? '' : ''} ${!shouldShowSidebar ? 'w-full' : ''}`}
         >
-          <div className="">
+          <div>
             <Breadcrumb />
             <Outlet />
           </div>
         </main>
         {shouldShowSidebar && (
-          <div className="!w-80 hidden sm:block">
+          <div className="w-80! hidden sm:block">
             <Sidebar />
           </div>
         )}

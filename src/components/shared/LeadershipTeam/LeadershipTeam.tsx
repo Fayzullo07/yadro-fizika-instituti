@@ -25,11 +25,15 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) 
     );
   }
 
-  const leadership = leadershipData?.results || [];
+  const leadership = (leadershipData?.results || []).map((member) => ({
+    ...member,
+    fullname: member.full_name,
+    photo: member.image,
+  }));
 
   return (
-    <div className="min-h-[calc(100vh-208px)] mt-10 bg-white">
-      <div className="max-w-[900px] mx-auto px-4">
+    <div className="bg-white min-h-screen">
+      <div className=" border-2">
         <h1 className="text-2xl md:text-5xl font-semibold text-gray-900 mb-8 text-center">
           {title}
         </h1>
