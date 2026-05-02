@@ -1,3 +1,4 @@
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Specialty {
@@ -42,12 +43,10 @@ const Doctorate: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
+    <div className="min-h-screen">
+      <div className="pb-8 md:pb-12">
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl lg:text-5xl font-semibold text-gray-900 mb-12 text-center">
-          {t('nav.tadqiqot.doctorate') || 'DOKTORANTURA'}
-        </h1>
+        <PageTitle>{t('nav.tadqiqot.doctorate') || 'DOKTORANTURA'}</PageTitle>
 
         {/* Specialties List */}
         <div className="space-y-4">

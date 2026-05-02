@@ -1,5 +1,6 @@
 import React from 'react';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
+import PageTitle from '../PageTitle/PageTitle';
 
 interface EmptyStatePageProps {
   title: string;
@@ -10,18 +11,15 @@ interface EmptyStatePageProps {
 const EmptyStatePage: React.FC<EmptyStatePageProps> = ({ title, message, comingSoonText }) => {
   return (
     <section>
-      <div className="container mx-auto px-4 py-10 md:py-16">
+      <div className="pb-8 md:pb-12">
         <Breadcrumb />
 
-        <div className="max-w-4xl mx-auto mt-10">
+        <div className="mt-10">
           <header className="text-center mb-14">
             <div className="flex justify-center mb-6">
               <div className="w-16 h-1 bg-[#013d8c] rounded-full" />
             </div>
-
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-[0.15em] text-gray-900 uppercase">
-              {title}
-            </h1>
+            <PageTitle>{title}</PageTitle>
           </header>
 
           <section className="text-center py-12">

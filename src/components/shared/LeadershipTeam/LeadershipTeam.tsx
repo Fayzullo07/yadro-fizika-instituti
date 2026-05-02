@@ -3,6 +3,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLeadership } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import MemberCardList from '@/components/shared/MemberCardList/MemberCardList';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 interface LeadershipTeamProps {
   title: string;
@@ -32,11 +33,9 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) 
   }));
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className=" border-2">
-        <h1 className="text-2xl md:text-5xl font-semibold text-gray-900 mb-8 text-center">
-          {title}
-        </h1>
+    <div className="min-h-screen">
+      <div>
+        <PageTitle>{title}</PageTitle>
         <MemberCardList
           members={leadership}
           showReceptionHours

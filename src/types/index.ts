@@ -109,18 +109,19 @@ export interface LeadershipMember {
 
 // News
 export interface NewsImage {
-  id: number;
+  id: string | number;
   image: string;
+  created_at?: string;
 }
 
 export interface NewsItem {
-  id: number;
+  id: string | number;
   title: string;
   description: string;
-  image: string;
+  image?: string;
   images: NewsImage[];
   created_at: string;
-  updated_at: string;
+  updated_at?: string;
 }
 
 // Teams

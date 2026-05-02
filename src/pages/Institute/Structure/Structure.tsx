@@ -1,6 +1,7 @@
 import uzStructureImage from '@/assets/pdf/struktura_page1uzb.jpg';
 import enStructureImage from '@/assets/pdf/struktura_page2eng.jpg';
 import ruStructureImage from '@/assets/pdf/struktura_page3rus.jpg';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { Language } from '@/types';
 
@@ -28,11 +29,8 @@ const Structure: React.FC = () => {
   const currentDoc = structureDocsByLanguage[language] || structureDocsByLanguage.uz;
 
   return (
-    <div className="min-h-screen border-2">
-      <h1 className="text-2xl md:text-5xl font-semibold text-gray-900 mt-4 text-center">
-        {t('nav.institute.services')}
-      </h1>
-
+    <div className="min-h-screen">
+      <PageTitle>{t('nav.institute.services')}</PageTitle>
       <article>
         <img
           src={currentDoc.file}

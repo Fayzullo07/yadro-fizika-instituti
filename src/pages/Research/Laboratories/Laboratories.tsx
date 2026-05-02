@@ -4,6 +4,7 @@ import { useLaboratory } from '@/hooks/useDepartment';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import { Link } from 'react-router-dom';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 interface LaboratoryItem {
   id: number | string;
@@ -87,11 +88,10 @@ const Laboratories: React.FC = () => {
   };
 
   return (
-    <div className="py-4">
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
-          {t('nav.tadqiqot.laboratories') || 'Laboratoriyalar'}
-        </h1>
+    <div className="min-h-screen">
+      <div className="pb-8 md:pb-12">
+        {/* Title */}
+        <PageTitle>{t('nav.tadqiqot.laboratories') || 'Laboratoriyalar'}</PageTitle>
 
         {laboratories.length > 0 ? (
           <div className="relative max-w-6xl mx-auto">

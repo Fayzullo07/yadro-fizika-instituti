@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Loading from '@/components/shared/Loading/Loading';
 import MainLayout from '@/components/Layout/MainLayout/MainLayout';
+import SidebarLayout from '@/components/Layout/SidebarLayout/SidebarLayout';
+import PageLayout from '@/components/Layout/PageLayout/PageLayout';
 
 // Lazy-loaded pages
 import Home from '@/pages/Home/Home';
@@ -98,292 +100,302 @@ const Routers = () => {
           element: <Home />,
         },
         {
-          path: ABOUT_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <About />
-            </Suspense>
-          ),
+          element: <PageLayout />,
+          children: [
+            {
+              path: SERVICES_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Services />
+                </Suspense>
+              ),
+            },
+            {
+              path: LABORATORY_DETAIL_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <LaboratoryDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: NEWS_DETAIL_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <NewsDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: '*',
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <NotFound />
+                </Suspense>
+              ),
+            },
+          ],
         },
         {
-          path: SERVICES_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Services />
-            </Suspense>
-          ),
-        },
-        {
-          path: CONTACT_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Contact />
-            </Suspense>
-          ),
-        },
-        // Institute routes
-        {
-          path: INTERNATIONAL_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <International />
-            </Suspense>
-          ),
-        },
-        {
-          path: COUNCIL_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Council />
-            </Suspense>
-          ),
-        },
-        {
-          path: STRUCTURE_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <Structure />
-            </Suspense>
-          ),
-        },
-        {
-          path: DOCUMENTS_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Documents />
-            </Suspense>
-          ),
-        },
-        {
-          path: TEAM_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Team />
-            </Suspense>
-          ),
-        },
-        {
-          path: CALENDAR_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Calendar />
-            </Suspense>
-          ),
-        },
-        {
-          path: CENTRAL_OFFICE_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <CentralOffice />
-            </Suspense>
-          ),
-        },
-        // Research routes
-        {
-          path: LABORATORIES_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Laboratories />
-            </Suspense>
-          ),
-        },
-        {
-          path: LABORATORY_DETAIL_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <LaboratoryDetail />
-            </Suspense>
-          ),
-        },
-        {
-          path: DOCTORATE_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Doctorate />
-            </Suspense>
-          ),
-        },
-        {
-          path: CONFERENCES_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Conferences />
-            </Suspense>
-          ),
-        },
-        // Engineering routes
-        {
-          path: PROJECT_DESIGN_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <ProjectDesign />
-            </Suspense>
-          ),
-        },
-        {
-          path: INSTRUMENTAL_INSPECTION_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <InstrumentalInspection />
-            </Suspense>
-          ),
-        },
-        {
-          path: SEISMIC_CONCLUSION_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <SeismicConclusion />
-            </Suspense>
-          ),
-        },
-        // General Information routes
-        {
-          path: TEACHERS_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Teachers />
-            </Suspense>
-          ),
-        },
-        {
-          path: TALENTED_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Talented />
-            </Suspense>
-          ),
-        },
-        {
-          path: SYMBOLS_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Symbols />
-            </Suspense>
-          ),
-        },
-        {
-          path: GRADUATES_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Graduates />
-            </Suspense>
-          ),
-        },
-        // Open Data routes
-        {
-          path: REQUISITES_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Requisites />
-            </Suspense>
-          ),
-        },
-        {
-          path: VACANCIES_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Vacancies />
-            </Suspense>
-          ),
-        },
-        {
-          path: RECEPTION_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Reception />
-            </Suspense>
-          ),
-        },
-        // News routes
-        {
-          path: NEWS_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <NewsList />
-            </Suspense>
-          ),
-        },
-        {
-          path: NEWS_DETAIL_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <NewsDetail />
-            </Suspense>
-          ),
-        },
-        {
-          path: ANNOUNCEMENTS_PATH,
-          element: (
-            <Suspense fallback={CardsSkeleton}>
-              <Announcements />
-            </Suspense>
-          ),
-        },
-        // Contact routes
-        {
-          path: HOTLINE_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Hotline />
-            </Suspense>
-          ),
-        },
-        // Normativ routes
-        {
-          path: CONSTITUTION_PATH,
-          element: (
-            <Suspense fallback={DetailSkeleton}>
-              <Constitution />
-            </Suspense>
-          ),
-        },
-        {
-          path: LAWS_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Laws />
-            </Suspense>
-          ),
-        },
-        {
-          path: DECREES_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Decrees />
-            </Suspense>
-          ),
-        },
-        {
-          path: LEGISLATION_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <Legislation />
-            </Suspense>
-          ),
-        },
-        {
-          path: GOVERNMENT_DOCUMENTS_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <GovernmentDocuments />
-            </Suspense>
-          ),
-        },
-        {
-          path: INTERNAL_DOCUMENTS_PATH,
-          element: (
-            <Suspense fallback={PageSkeleton}>
-              <InternalDocuments />
-            </Suspense>
-          ),
-        },
-        {
-          path: '*',
-          element: (
-            <Suspense fallback={<Loading />}>
-              <NotFound />
-            </Suspense>
-          ),
+          element: <SidebarLayout />,
+          children: [
+            {
+              path: ABOUT_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <About />
+                </Suspense>
+              ),
+            },
+            {
+              path: CONTACT_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Contact />
+                </Suspense>
+              ),
+            },
+            // Institute routes
+            {
+              path: INTERNATIONAL_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <International />
+                </Suspense>
+              ),
+            },
+            {
+              path: COUNCIL_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Council />
+                </Suspense>
+              ),
+            },
+            {
+              path: STRUCTURE_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <Structure />
+                </Suspense>
+              ),
+            },
+            {
+              path: DOCUMENTS_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Documents />
+                </Suspense>
+              ),
+            },
+            {
+              path: TEAM_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Team />
+                </Suspense>
+              ),
+            },
+            {
+              path: CALENDAR_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Calendar />
+                </Suspense>
+              ),
+            },
+            {
+              path: CENTRAL_OFFICE_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <CentralOffice />
+                </Suspense>
+              ),
+            },
+            // Research routes
+            {
+              path: LABORATORIES_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Laboratories />
+                </Suspense>
+              ),
+            },
+            {
+              path: DOCTORATE_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Doctorate />
+                </Suspense>
+              ),
+            },
+            {
+              path: CONFERENCES_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Conferences />
+                </Suspense>
+              ),
+            },
+            // Engineering routes
+            {
+              path: PROJECT_DESIGN_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <ProjectDesign />
+                </Suspense>
+              ),
+            },
+            {
+              path: INSTRUMENTAL_INSPECTION_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <InstrumentalInspection />
+                </Suspense>
+              ),
+            },
+            {
+              path: SEISMIC_CONCLUSION_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <SeismicConclusion />
+                </Suspense>
+              ),
+            },
+            // General Information routes
+            {
+              path: TEACHERS_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Teachers />
+                </Suspense>
+              ),
+            },
+            {
+              path: TALENTED_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Talented />
+                </Suspense>
+              ),
+            },
+            {
+              path: SYMBOLS_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Symbols />
+                </Suspense>
+              ),
+            },
+            {
+              path: GRADUATES_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Graduates />
+                </Suspense>
+              ),
+            },
+            // Open Data routes
+            {
+              path: REQUISITES_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Requisites />
+                </Suspense>
+              ),
+            },
+            {
+              path: VACANCIES_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Vacancies />
+                </Suspense>
+              ),
+            },
+            {
+              path: RECEPTION_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Reception />
+                </Suspense>
+              ),
+            },
+            // News routes
+            {
+              path: NEWS_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <NewsList />
+                </Suspense>
+              ),
+            },
+            {
+              path: ANNOUNCEMENTS_PATH,
+              element: (
+                <Suspense fallback={CardsSkeleton}>
+                  <Announcements />
+                </Suspense>
+              ),
+            },
+            // Contact routes
+            {
+              path: HOTLINE_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Hotline />
+                </Suspense>
+              ),
+            },
+            // Normativ routes
+            {
+              path: CONSTITUTION_PATH,
+              element: (
+                <Suspense fallback={DetailSkeleton}>
+                  <Constitution />
+                </Suspense>
+              ),
+            },
+            {
+              path: LAWS_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Laws />
+                </Suspense>
+              ),
+            },
+            {
+              path: DECREES_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Decrees />
+                </Suspense>
+              ),
+            },
+            {
+              path: LEGISLATION_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <Legislation />
+                </Suspense>
+              ),
+            },
+            {
+              path: GOVERNMENT_DOCUMENTS_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <GovernmentDocuments />
+                </Suspense>
+              ),
+            },
+            {
+              path: INTERNAL_DOCUMENTS_PATH,
+              element: (
+                <Suspense fallback={PageSkeleton}>
+                  <InternalDocuments />
+                </Suspense>
+              ),
+            },
+          ],
         },
       ],
     },

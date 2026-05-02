@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
     generalData?.address || "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
 
   return (
-    <div className="min-h-screen py-4 bg-gray-50">
+    <div className="min-h-screen">
       <div className="">
         {/* Sarlavha */}
         <SectionHeader
@@ -27,8 +27,8 @@ const Contact: React.FC = () => {
         />
 
         {/* Asosiy kontent */}
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-4">
+        <div>
+          <div className="flex flex-col lg:flex-row gap-2">
             {/* Aloqa ma'lumotlari */}
             <div className="lg:w-1/3">
               <div className="bg-white rounded-md p-6 mb-6 border border-gray-100">

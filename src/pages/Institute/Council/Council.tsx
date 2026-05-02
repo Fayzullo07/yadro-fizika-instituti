@@ -2,8 +2,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useScientificCouncil, useCouncilMembers } from '@/hooks/useCouncil';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import type { ScientificCouncil, CouncilMember } from '@/types';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 const Council: React.FC = () => {
   const { t } = useLanguage();
@@ -19,11 +19,11 @@ const Council: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 md:py-12">
+    <div className="min-h-screen">
+      <div className=" pb-8 md:pb-12">
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 uppercase">
+          <PageTitle>
             {scientificCouncil?.title ? (
               <div
                 className=""
@@ -32,12 +32,12 @@ const Council: React.FC = () => {
             ) : (
               t('nav.institute.council') || 'ILMIY KENGASH'
             )}
-          </h1>
+          </PageTitle>
         </div>
 
         {/* Header Image */}
         {scientificCouncil?.image && (
-          <div className="mb-12 rounded-lg overflow-hidden shadow-lg">
+          <div className="mb-12 overflow-hidden shadow-lg">
             <img
               src={scientificCouncil.image}
               alt="Ilmiy kengash"

@@ -2,6 +2,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useTeams } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import type { TeamMember } from '@/types';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 const Teachers: React.FC = () => {
   const { t } = useLanguage();
@@ -22,16 +23,14 @@ const Teachers: React.FC = () => {
   const teams: TeamMember[] = teamsData?.results || [];
 
   return (
-    <div className="bg-white border-2">
-      <div className="max-w-[900px] mx-auto px-4">
+    <div className="min-h-screen">
+      <div>
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">
-          {t('nav.umumiy.teachers') || 'Institut jamoasi'}
-        </h1>
+        <PageTitle>{t('nav.umumiy.teachers') || 'Institut jamoasi'}</PageTitle>
 
         {/* Team Members List */}
         {teams.length > 0 ? (
-          <div className="grid grid-cols-1 xl:grid-cols-1 gap-4 container mx-auto">
+          <div className="grid grid-cols-1 xl:grid-cols-1 gap-4">
             {teams.map((member) => (
               <div
                 key={member.id}

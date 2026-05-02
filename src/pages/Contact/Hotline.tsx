@@ -3,6 +3,7 @@ import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 interface SocialMediaLink {
   name: string;
@@ -92,11 +93,11 @@ const Hotline: React.FC = () => {
   };
 
   return (
-    <div className=" !py-10">
-      <h1 className="text-3xl font-bold text-[#013d8c] px-4 mb-8">Ishonch telefoni</h1>
+    <div className="min-h-screen py-4">
+      <PageTitle>Ishonch telefoni</PageTitle>
 
-      <div className="border border-[#e9ecef] rounded-lg overflow-hidden">
-        <table className="w-full !px-4">
+      <div className="border border-[#e9ecef] overflow-hidden">
+        <table className="w-full">
           <tbody>
             {contactRows.map((row, i) => (
               <tr

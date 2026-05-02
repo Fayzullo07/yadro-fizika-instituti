@@ -3,18 +3,6 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { getMenuItems } from '@/config/menu';
 import type { MenuItem } from '@/types';
 
-export const shouldShowSidebar = (pathname: string, t: (key: string) => string): boolean => {
-  if (pathname === '/') return false;
-  const menuItems = getMenuItems(t);
-  for (const menuItem of menuItems) {
-    const hasActiveLink = menuItem.links.some((link) => link.path === pathname);
-    if (hasActiveLink) {
-      return true;
-    }
-  }
-  return false;
-};
-
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
@@ -23,7 +11,12 @@ const Sidebar: React.FC = () => {
 
   const findActiveMenu = (): MenuItem | null => {
     for (const menuItem of menuItems) {
-      const hasActiveLink = menuItem.links.some((link) => link.path === location.pathname);
+      const hasActiveLink = menuItem.links.some((link) => {
+        if (location.pathname === link.path) return true;
+        // Allows nested routes (like /research/laboratories/1) to keep the parent menu active
+        if (link.path !== '/' && location.pathname.startsWith(link.path + '/')) return true;
+        return false;
+      });
       if (hasActiveLink) {
         return menuItem;
       }
@@ -33,12 +26,12 @@ const Sidebar: React.FC = () => {
 
   const activeMenu = findActiveMenu();
 
-  if (location.pathname === '/' || !activeMenu) {
+  if (!activeMenu) {
     return null;
   }
 
   return (
-    <aside className="sticky right-0 top-27 w-80 min-h-[calc(100vh-208px)] max-h-[calc(100vh-208px)] overflow-y-auto z-40 border-2 border-red-500">
+    <aside className="sticky right-0 top-27 w-80 min-h-[calc(100vh-208px)] max-h-[calc(100vh-208px)] overflow-y-auto z-40">
       <div className="p-4">
         {/* Active Menu Header */}
         {/* <div className="bg-[#013d8c] text-white px-4 py-3 mb-2 rounded">
@@ -52,10 +45,11 @@ const Sidebar: React.FC = () => {
               <Link
                 key={index}
                 to={link.path}
-                className={`flex items-center gap-2 px-4 py-3 transition-colors ${isActive
-                  ? 'bg-[#013d8c] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
-                  }`}
+                className={`flex items-center gap-2 px-4 py-3 transition-colors ${
+                  isActive
+                    ? 'bg-[#013d8c] text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
+                }`}
               >
                 <svg
                   className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-600'}`}

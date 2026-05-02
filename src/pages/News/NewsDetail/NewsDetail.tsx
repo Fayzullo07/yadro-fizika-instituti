@@ -23,7 +23,7 @@ const NewsDetail: React.FC = () => {
 
   if (error || !newsItem) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <div className="container mx-auto px-4 pt-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">
@@ -55,8 +55,8 @@ const NewsDetail: React.FC = () => {
   const allNews = newsListData?.results || [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen">
+      <div>
         <div className="flex flex-col lg:flex-row gap-5">
           {/* Main Content */}
           <div className="flex-1">
@@ -117,7 +117,7 @@ const NewsDetail: React.FC = () => {
 
           {/* Sidebar */}
           <aside className="w-full lg:w-[250px] mt-12 flex-shrink-0">
-            <div className="bg-white rounded border border-gray-200 p-2 sticky top-22">
+            <div className="bg-white rounded border border-gray-200 p-2 sticky top-27">
               <h2 className="text-xl font-medium text-gray-900 mb-4">
                 {t('news.otherNews') || 'Boshqa yangiliklar'}
               </h2>
