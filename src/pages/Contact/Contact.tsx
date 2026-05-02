@@ -18,8 +18,8 @@ const Contact: React.FC = () => {
     generalData?.address || "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
 
   return (
-    <div className="min-h-screen">
-      <div className="">
+    <div>
+      <div>
         {/* Sarlavha */}
         <SectionHeader
           title={t('nav.contact') || 'Aloqa'}

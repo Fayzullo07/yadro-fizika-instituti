@@ -57,7 +57,7 @@ const NewsList: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen border-2">
+    <div className="min-h-screen">
       <div className=" pb-8 md:pb-10">
         <SectionHeader
           title={t('news.title') || 'Yangiliklar'}

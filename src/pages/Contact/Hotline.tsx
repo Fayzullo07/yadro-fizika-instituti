@@ -93,7 +93,7 @@ const Hotline: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-4">
+    <div className="py-4">
       <PageTitle>Ishonch telefoni</PageTitle>
 
       <div className="border border-[#e9ecef] overflow-hidden">
