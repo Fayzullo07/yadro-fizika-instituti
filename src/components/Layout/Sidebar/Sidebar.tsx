@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
           <h3 className="font-semibold text-sm uppercase">{activeMenu.label}</h3>
         </div> */}
 
-        <div className="border">
+        <div>
           {activeMenu.links.map((link, index) => {
             const isActive = location.pathname === link.path;
             return (
