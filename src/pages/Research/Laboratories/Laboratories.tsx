@@ -29,7 +29,7 @@ const Laboratories: React.FC = () => {
     );
   }
 
-  const allLaboratories: LaboratoryItem[] = laboratoryData?.results || [];
+  const allLaboratories: LaboratoryItem[] = laboratoryData?.data || [];
 
   // Default laboratoriya nomlari
   const defaultLaboratoryNames = [

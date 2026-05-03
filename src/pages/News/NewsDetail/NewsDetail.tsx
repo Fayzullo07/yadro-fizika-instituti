@@ -4,6 +4,7 @@ import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
+import type { NewsImage } from '@/types';
 
 const LOCALE_MAP: Record<string, string> = {
   uz: 'uz-UZ',
@@ -14,7 +15,8 @@ const LOCALE_MAP: Record<string, string> = {
 const NewsDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
-  const { data: newsItem, loading, error } = useNewsById(id!);
+  const { data: newsItemResponse, loading, error } = useNewsById(id!);
+  const newsItem = newsItemResponse?.data;
   const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 });
 
   if (loading) {
@@ -52,7 +54,9 @@ const NewsDetail: React.FC = () => {
     }
   };
 
-  const allNews = newsListData?.results || [];
+  const allNews = newsListData?.data || [];
+  const otherNews = allNews.filter((item) => String(item.id) !== String(newsItem.id)).slice(0, 10);
+  const showSidebar = newsListLoading || otherNews.length > 0;
 
   return (
     <div className="min-h-screen">
@@ -69,7 +73,7 @@ const NewsDetail: React.FC = () => {
               {newsItem.images && newsItem.images.length > 0 && (
                 <div className="relative h-64 md:h-[500px] overflow-hidden">
                   <img
-                    src={newsItem.images[0].image}
+                    src={newsItem.images[0].url || newsItem.images[0].image}
                     alt={stripHtmlRegex(newsItem.title)}
                     loading="lazy"
                     className="w-full h-full object-cover"
@@ -100,10 +104,10 @@ const NewsDetail: React.FC = () => {
 
                 {newsItem.images && newsItem.images.length > 1 && (
                   <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {newsItem.images.slice(1).map((image, index) => (
+                    {newsItem.images.slice(1).map((image: NewsImage, index: number) => (
                       <img
                         key={index}
-                        src={image.image}
+                        src={image.url || image.image}
                         alt={`${stripHtmlRegex(newsItem.title)} - ${index + 2}`}
                         loading="lazy"
                         className="w-full h-auto rounded-lg"
@@ -116,27 +120,25 @@ const NewsDetail: React.FC = () => {
           </div>
 
           {/* Sidebar */}
-          <aside className="w-full lg:w-[250px] mt-12 flex-shrink-0">
-            <div className="bg-white rounded border border-gray-200 p-2 sticky top-27">
-              <h2 className="text-xl font-medium text-gray-900 mb-4">
-                {t('news.otherNews') || 'Boshqa yangiliklar'}
-              </h2>
+          {showSidebar && (
+            <aside className="w-full lg:w-[250px] mt-12 flex-shrink-0">
+              <div className="bg-white rounded border border-gray-200 p-2 sticky top-27">
+                <h2 className="text-xl font-medium text-gray-900 mb-4">
+                  {t('news.otherNews') || 'Boshqa yangiliklar'}
+                </h2>
 
-              {newsListLoading ? (
-                <div className="space-y-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} className="animate-pulse">
-                      <div className="h-20 bg-gray-200 rounded mb-2"></div>
-                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                    </div>
-                  ))}
-                </div>
-              ) : allNews.length > 0 ? (
-                <div className=" max-h-[calc(100vh-200px)] overflow-y-auto">
-                  {allNews
-                    .filter((item) => item.id !== newsItem.id)
-                    .slice(0, 10)
-                    .map((item) => (
+                {newsListLoading ? (
+                  <div className="space-y-2">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <div key={i} className="animate-pulse">
+                        <div className="h-20 bg-gray-200 rounded mb-2"></div>
+                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className=" max-h-[calc(100vh-200px)] overflow-y-auto">
+                    {otherNews.map((item) => (
                       <Link
                         key={item.id}
                         to={`/news/${item.id}`}
@@ -148,7 +150,7 @@ const NewsDetail: React.FC = () => {
                       >
                         {item.images && item.images.length > 0 && (
                           <img
-                            src={item.images[0].image}
+                            src={item.images[0].url || item.images[0].image}
                             alt={stripHtmlRegex(item.title)}
                             loading="lazy"
                             className="w-10 h-10 object-cover rounded"
@@ -165,21 +167,18 @@ const NewsDetail: React.FC = () => {
                         </div>
                       </Link>
                     ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 text-sm">
-                  {t('news.noNews') || 'Boshqa yangiliklar topilmadi'}
-                </p>
-              )}
+                  </div>
+                )}
 
-              {/* View All Button */}
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <Link to="/news" className="block w-full mb-2 text-center text-sm font-medium">
-                  {t('news.viewAll') || 'Barcha yangiliklar'}
-                </Link>
+                {/* View All Button */}
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <Link to="/news" className="block w-full mb-2 text-center text-sm font-medium">
+                    {t('news.viewAll') || 'Barcha yangiliklar'}
+                  </Link>
+                </div>
               </div>
-            </div>
-          </aside>
+            </aside>
+          )}
         </div>
       </div>
     </div>

@@ -53,12 +53,12 @@ const useGeneralStore = create<GeneralState>()(
         set({ loading: true, error: null, language: currentLanguage });
 
         try {
-          const data = await generalApi.getGeneral(currentLanguage);
+          const response = await generalApi.getGeneral(currentLanguage);
           // Ma'lumotlar versiyasini yangilash (timestamp)
           const dataVersion = Date.now();
 
           set({
-            generalData: data,
+            generalData: response.data,
             loading: false,
             error: null,
             lastFetchTime: Date.now(),

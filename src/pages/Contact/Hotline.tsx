@@ -17,7 +17,6 @@ interface ContactRow {
 }
 
 const Hotline: React.FC = () => {
-  const { t } = useLanguage();
   const { data: generalData, loading } = useGeneral();
 
   if (loading) return <Loading />;

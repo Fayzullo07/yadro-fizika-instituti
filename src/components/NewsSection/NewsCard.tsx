@@ -10,7 +10,7 @@ const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => (
     {/* Image */}
     {item.images?.[0] ? (
       <img
-        src={item.images[0].image}
+        src={item.images[0].url || item.images[0].image}
         alt={stripHtmlRegex(item.title)}
         loading="lazy"
         className="absolute inset-0 w-full h-full object-cover news-card-img"

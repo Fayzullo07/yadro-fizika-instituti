@@ -1,9 +1,21 @@
-// API Response types
 export interface PaginatedResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
+  status: boolean;
+  message: string;
+  data: T[];
+  meta: {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number;
+    to: number;
+  };
+}
+
+export interface SingleResponse<T> {
+  status: boolean;
+  message: string;
+  data: T;
 }
 
 export interface PaginationParams {
@@ -110,7 +122,8 @@ export interface LeadershipMember {
 // News
 export interface NewsImage {
   id: string | number;
-  image: string;
+  image?: string; // keeping image for backward compatibility if needed, but adding url
+  url?: string;
   created_at?: string;
 }
 

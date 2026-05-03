@@ -26,7 +26,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) 
     );
   }
 
-  const leadership = (leadershipData?.results || []).map((member) => ({
+  const leadership = (leadershipData?.data || []).map((member) => ({
     ...member,
     fullname: member.full_name,
     photo: member.image,

@@ -20,12 +20,12 @@ const ArrowIcon: React.FC = () => (
 const NewsSection: React.FC = () => {
   const { data, loading, error } = useNews({ per_page: 4 });
   const { t } = useLanguage();
-  const news: NewsItem[] = data?.results || [];
+  const news: NewsItem[] = data?.data || [];
 
   if (loading) return <NewsSkeleton />;
   if (error || !news.length) return null;
 
-  const showViewAll = (data?.count ?? 0) > 4;
+  const showViewAll = (data?.meta?.total ?? 0) > 4;
 
   return (
     <section className="py-16 md:py-24 bg-linear-to-b from-gray-50 to-gray-100">

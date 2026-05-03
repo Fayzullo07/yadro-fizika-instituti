@@ -20,7 +20,7 @@ const Teachers: React.FC = () => {
     );
   }
 
-  const teams: TeamMember[] = teamsData?.results || [];
+  const teams: TeamMember[] = teamsData?.data || [];
 
   return (
     <div className="min-h-screen">

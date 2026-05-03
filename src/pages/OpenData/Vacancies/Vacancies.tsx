@@ -30,7 +30,7 @@ const Vacancies: React.FC = () => {
   const [formError, setFormError] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<boolean>(false);
 
-  const vacancies: Vacancy[] = vacanciesData?.results || [];
+  const vacancies: Vacancy[] = vacanciesData?.data || [];
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

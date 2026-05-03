@@ -1,5 +1,4 @@
 import { useNews } from '@/hooks/useNews';
-import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
@@ -34,22 +33,8 @@ const NewsList: React.FC = () => {
     );
   }
 
-  const news: NewsItem[] = data?.results || [];
-  const totalPages = Math.ceil((data?.count || 0) / perPage);
-
-  const formatDate = (dateString: string): string => {
-    if (!dateString) return '';
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString(LOCALE_MAP[language] || 'uz-UZ', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
-    } catch {
-      return dateString;
-    }
-  };
+  const news: NewsItem[] = data?.data || [];
+  const totalPages = Math.ceil((data?.meta?.total || 0) / perPage);
 
   const handlePageChange = (newPage: number): void => {
     setSearchParams({ page: newPage.toString() });

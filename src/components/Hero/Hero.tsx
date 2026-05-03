@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
 
-  const banners: Banner[] = data?.results || [];
+  const banners: Banner[] = data?.data || [];
 
   const changeSlide = useCallback(
     (newIndex: number, dir: 'next' | 'prev') => {

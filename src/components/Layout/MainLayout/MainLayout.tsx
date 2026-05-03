@@ -11,7 +11,7 @@ import { trackPageView } from '@/utils/analytics';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
-  const { t } = useLanguage();
+  useLanguage();
 
   const lenisRef = useRef<Lenis | null>(null);
 

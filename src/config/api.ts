@@ -7,8 +7,8 @@ export const API_ENDPOINTS = {
   APPLICATION_VACANCY_BY_ID: (id: number | string) => `/api/v1/application/vacancy/${id}/`,
 
   // Banners
-  BANNERS: '/api/v1/banners/',
-  BANNERS_BY_ID: (id: number | string) => `/api/v1/banners/${id}/`,
+  BANNERS: '/api/banners',
+  BANNERS_BY_ID: (id: number | string) => `/api/banners/${id}`,
 
   // Council
   COUNCIL_MEMBERS: '/api/v1/council/council-members/',
@@ -26,12 +26,12 @@ export const API_ENDPOINTS = {
 
   // General
   GENERAL: '/api/v1/general/',
-  ABOUT: '/api/v1/general/about/',
+  ABOUT: '/api/about',
   CONTACT_US: '/api/v1/general/contact-us/',
 
   // News
-  NEWS: '/api/v1/news/',
-  NEWS_BY_ID: (id: number | string) => `/api/v1/news/${id}/`,
+  NEWS: '/api/news',
+  NEWS_BY_ID: (id: number | string) => `/api/news/${id}`,
 
   // Teams
   TEAMS: '/api/v1/teams/',

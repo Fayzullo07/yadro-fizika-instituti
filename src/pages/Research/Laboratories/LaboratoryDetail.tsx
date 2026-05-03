@@ -106,7 +106,7 @@ const LaboratoryDetail: React.FC = () => {
     },
   ];
 
-  const allLaboratories: LaboratoryInfo[] = laboratoryData?.results || [];
+  const allLaboratories: LaboratoryInfo[] = laboratoryData?.data || [];
   const laboratory: LaboratoryInfo =
     allLaboratories.find((lab) => lab.id === parseInt(id || '0')) ||
     defaultLaboratories.find((lab) => lab.id === id) ||

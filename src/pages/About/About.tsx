@@ -4,15 +4,17 @@ import { useApi } from '@/hooks/useApi';
 import { generalApi } from '@/services/api';
 import { CONTACT_PATH } from '@/routes/path';
 import { sanitizeHtml } from '@/utils/htmlUtils';
-import type { AboutData } from '@/types';
+import type { AboutData, SingleResponse } from '@/types';
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
   const {
-    data: aboutData,
+    data: aboutResponse,
     loading,
     error,
-  } = useApi<AboutData>(() => generalApi.getAbout(language), [language]);
+  } = useApi<SingleResponse<AboutData>>(() => generalApi.getAbout(language), [language]);
+
+  const aboutData = aboutResponse?.data;
 
   return (
     <div className="bg-white shadow-lg">
@@ -34,7 +36,7 @@ const About: React.FC = () => {
 
             {aboutData.content && (
               <div
-                className="mt-8 text-gray-700 leading-relaxed space-y-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_p]:mt-4"
+                className="mt-8 px-3 text-gray-700 leading-relaxed space-y-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-8 [&_p]:mt-4"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(aboutData.content) }}
               />
             )}

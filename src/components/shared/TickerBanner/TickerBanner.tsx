@@ -4,7 +4,7 @@ import { stripHtmlRegex } from '@/utils/htmlUtils';
 
 const TickerBanner: React.FC = () => {
   const { data, loading } = useBanners({ per_page: 5 });
-  const banners = data?.results || [];
+  const banners = data?.data || [];
 
   if (loading || !banners.length) {
     return null;

@@ -4,14 +4,17 @@ import { useApi } from '@/hooks/useApi';
 import { generalApi } from '@/services/api';
 import { stripHtmlRegex, stripHtmlAndDecode } from '@/utils/htmlUtils';
 import { ABOUT_PATH } from '@/routes/path';
-import type { AboutData } from '@/types';
+import type { AboutData, SingleResponse } from '@/types';
 
 const AboutSection: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data, loading, error } = useApi<AboutData>(
-    () => generalApi.getAbout(language),
-    [language]
-  );
+  const {
+    data: aboutResponse,
+    loading,
+    error,
+  } = useApi<SingleResponse<AboutData>>(() => generalApi.getAbout(language), [language]);
+
+  const data = aboutResponse?.data;
 
   if (loading) return <AboutSkeleton />;
   if (error || !data) return null;

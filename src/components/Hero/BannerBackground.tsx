@@ -17,7 +17,7 @@ interface BannerBackgroundProps {
 }
 
 const BannerBackground: React.FC<BannerBackgroundProps> = memo(
-  ({ index = 0, offset, animate, animationName }) => {
+  ({ index: _index = 0, offset, animate, animationName }) => {
     const isDrag = offset !== undefined && offset !== 0;
 
     return (

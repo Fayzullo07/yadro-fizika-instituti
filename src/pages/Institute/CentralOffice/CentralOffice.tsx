@@ -20,8 +20,8 @@ const CentralOffice = () => {
   const loading = leadershipLoading || teamsLoading;
   const error = leadershipError || teamsError;
 
-  const leadership = (leadershipData as unknown as { results?: unknown[] })?.results ?? [];
-  const teams = (teamsData as unknown as { results?: unknown[] })?.results ?? [];
+  const leadership = (leadershipData as unknown as { data?: unknown[] })?.data ?? [];
+  const teams = (teamsData as unknown as { data?: unknown[] })?.data ?? [];
 
   const toggleSection = (key: AccordionKey) => {
     setOpenSection((prev) => (prev === key ? null : key));

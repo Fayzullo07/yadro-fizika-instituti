@@ -1,6 +1,7 @@
 import { API_BASE_URL, API_ENDPOINTS } from '@/config/api';
 import { getStoredLanguage } from '@/config/i18n';
 import type {
+  SingleResponse,
   PaginationParams,
   PaginatedResponse,
   ContactUsData,
@@ -31,6 +32,7 @@ export const apiRequest = async <T = unknown>(
     headers: {
       'Content-Type': 'application/json',
       'Accept-Language': lang,
+      'ngrok-skip-browser-warning': 'true',
       ...options.headers,
     },
     ...options,
@@ -66,6 +68,7 @@ export const applicationApi = {
       method: 'POST',
       headers: {
         'Accept-Language': lang,
+        'ngrok-skip-browser-warning': 'true',
         ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       },
       body: isFormData ? data : JSON.stringify(data),
@@ -113,7 +116,7 @@ export const bannersApi = {
   },
 
   getById: (id: number | string, language: string | null = null) =>
-    apiRequest<Banner>(API_ENDPOINTS.BANNERS_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<Banner>>(API_ENDPOINTS.BANNERS_BY_ID(id), {}, language),
 };
 
 // Council API
@@ -122,7 +125,11 @@ export const councilApi = {
     apiRequest<PaginatedResponse<CouncilMember>>(API_ENDPOINTS.COUNCIL_MEMBERS, {}, language),
 
   getCouncilMemberById: (id: number | string, language: string | null = null) =>
-    apiRequest<CouncilMember>(API_ENDPOINTS.COUNCIL_MEMBERS_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<CouncilMember>>(
+      API_ENDPOINTS.COUNCIL_MEMBERS_BY_ID(id),
+      {},
+      language
+    ),
 
   getScientificCouncil: (language: string | null = null) =>
     apiRequest<PaginatedResponse<ScientificCouncil>>(
@@ -132,7 +139,11 @@ export const councilApi = {
     ),
 
   getScientificCouncilById: (id: number | string, language: string | null = null) =>
-    apiRequest<ScientificCouncil>(API_ENDPOINTS.SCIENTIFIC_COUNCIL_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<ScientificCouncil>>(
+      API_ENDPOINTS.SCIENTIFIC_COUNCIL_BY_ID(id),
+      {},
+      language
+    ),
 };
 
 // Department API
@@ -141,13 +152,17 @@ export const departmentApi = {
     apiRequest<PaginatedResponse<Department>>(API_ENDPOINTS.DEPARTMENT, {}, language),
 
   getById: (id: number | string, language: string | null = null) =>
-    apiRequest<Department>(API_ENDPOINTS.DEPARTMENT_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<Department>>(API_ENDPOINTS.DEPARTMENT_BY_ID(id), {}, language),
 
   getLaboratory: (language: string | null = null) =>
     apiRequest<PaginatedResponse<Laboratory>>(API_ENDPOINTS.DEPARTMENT_LABORATORY, {}, language),
 
   getLaboratoryById: (id: number | string, language: string | null = null) =>
-    apiRequest<Laboratory>(API_ENDPOINTS.DEPARTMENT_LABORATORY_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<Laboratory>>(
+      API_ENDPOINTS.DEPARTMENT_LABORATORY_BY_ID(id),
+      {},
+      language
+    ),
 
   getLeadership: (language: string | null = null) =>
     apiRequest<PaginatedResponse<LeadershipMember>>(
@@ -157,15 +172,19 @@ export const departmentApi = {
     ),
 
   getLeadershipById: (id: number | string, language: string | null = null) =>
-    apiRequest<LeadershipMember>(API_ENDPOINTS.DEPARTMENT_LEADERSHIP_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<LeadershipMember>>(
+      API_ENDPOINTS.DEPARTMENT_LEADERSHIP_BY_ID(id),
+      {},
+      language
+    ),
 };
 
 // General API
 export const generalApi = {
   getGeneral: (language: string | null = null) =>
-    apiRequest<GeneralData>(API_ENDPOINTS.GENERAL, {}, language),
+    apiRequest<SingleResponse<GeneralData>>(API_ENDPOINTS.GENERAL, {}, language),
   getAbout: (language: string | null = null) =>
-    apiRequest<AboutData>(API_ENDPOINTS.ABOUT, {}, language),
+    apiRequest<SingleResponse<AboutData>>(API_ENDPOINTS.ABOUT, {}, language),
 
   contactUs: (data: ContactUsData, language: string | null = null) =>
     apiRequest<unknown>(
@@ -194,7 +213,7 @@ export const newsApi = {
   },
 
   getById: (id: number | string, language: string | null = null) =>
-    apiRequest<NewsItem>(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<NewsItem>>(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
 };
 
 // Teams API
