@@ -16,6 +16,7 @@ export const DOCUMENTS_PATH = '/institute/documents';
 export const TEAM_PATH = '/institute/team';
 export const CALENDAR_PATH = '/institute/calendar';
 export const CENTRAL_OFFICE_PATH = '/institute/central-office';
+export const DEPARTMENTS_PATH = '/institute/departments';
 
 // Research routes
 export const LABORATORIES_PATH = '/research/laboratories';

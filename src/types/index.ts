@@ -66,8 +66,8 @@ export interface Banner {
   title: string;
   description: string;
   image: string;
-  link: string;
-  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 // Council
@@ -80,22 +80,23 @@ export interface ScientificCouncil {
 
 export interface CouncilMember {
   id: number;
+  scientific_council_id: number;
   fullname: string;
   position: string;
-  photo: string;
-  phone: string;
-  email: string;
-  bio: string;
   degree: string;
-  reception_hours: string;
+  photo: string;
+  order: number;
+  created_at: string;
+  updated_at: string;
 }
 
 // Department
 export interface Department {
   id: number;
   name: string;
-  description: string;
-  image: string;
+  type: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Laboratory {
@@ -149,6 +150,35 @@ export interface TeamMember {
   reception_hours: string;
 }
 
+// Video Gallery
+export interface VideoGalleryItem {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// Gallery
+export interface GalleryItem {
+  id: number;
+  image: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Stats
+export interface StatData {
+  id: number;
+  title: string;
+  value: number;
+  suffix: string;
+  display_value: string;
+  order: number;
+}
+
 // Vacancy
 export interface Vacancy {
   id: number;
@@ -158,6 +188,23 @@ export interface Vacancy {
   salary: string;
   deadline: string;
   created_at: string;
+}
+
+export interface PartnerItem {
+  id: number;
+  name: string;
+  description: string;
+  link: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface StructureData {
+  id: number;
+  image: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ApplicationData {

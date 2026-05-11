@@ -4,14 +4,14 @@ import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 
 const SidebarLayout: React.FC = () => {
   return (
-    <div className="container mx-auto flex relative">
-      <main className="flex-grow border-gray-200 transition-all">
+    <div className="  px-10 flex relative">
+      <main className="grow border-gray-200 transition-all">
         <div>
           <Breadcrumb />
           <Outlet />
         </div>
       </main>
-      <div className="w-80! hidden sm:block">
+      <div className="w-80 hidden sm:block">
         <Sidebar />
       </div>
     </div>

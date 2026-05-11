@@ -17,6 +17,11 @@ import type {
   NewsItem,
   TeamMember,
   Vacancy,
+  StatData,
+  GalleryItem,
+  VideoGalleryItem,
+  PartnerItem,
+  StructureData,
 } from '@/types';
 
 // Helper function for API requests
@@ -32,7 +37,6 @@ export const apiRequest = async <T = unknown>(
     headers: {
       'Content-Type': 'application/json',
       'Accept-Language': lang,
-      'ngrok-skip-browser-warning': 'true',
       ...options.headers,
     },
     ...options,
@@ -68,7 +72,7 @@ export const applicationApi = {
       method: 'POST',
       headers: {
         'Accept-Language': lang,
-        'ngrok-skip-browser-warning': 'true',
+        ...(import.meta.env.DEV && { 'ngrok-skip-browser-warning': 'true' }),
         ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       },
       body: isFormData ? data : JSON.stringify(data),
@@ -97,7 +101,7 @@ export const applicationApi = {
     apiRequest<PaginatedResponse<Vacancy>>(API_ENDPOINTS.APPLICATION_VACANCY, {}, language),
 
   getVacancyById: (id: number | string, language: string | null = null) =>
-    apiRequest<Vacancy>(API_ENDPOINTS.APPLICATION_VACANCY_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<Vacancy>>(API_ENDPOINTS.APPLICATION_VACANCY_BY_ID(id), {}, language),
 };
 
 // Banners API
@@ -122,7 +126,11 @@ export const bannersApi = {
 // Council API
 export const councilApi = {
   getCouncilMembers: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<CouncilMember>>(API_ENDPOINTS.COUNCIL_MEMBERS, {}, language),
+    apiRequest<PaginatedResponse<CouncilMember>>(
+      `${API_ENDPOINTS.COUNCIL_MEMBERS}?per_page=100`,
+      {},
+      language
+    ),
 
   getCouncilMemberById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<CouncilMember>>(
@@ -132,11 +140,7 @@ export const councilApi = {
     ),
 
   getScientificCouncil: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<ScientificCouncil>>(
-      API_ENDPOINTS.SCIENTIFIC_COUNCIL,
-      {},
-      language
-    ),
+    apiRequest<SingleResponse<ScientificCouncil>>(API_ENDPOINTS.SCIENTIFIC_COUNCIL, {}, language),
 
   getScientificCouncilById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<ScientificCouncil>>(
@@ -216,6 +220,50 @@ export const newsApi = {
     apiRequest<SingleResponse<NewsItem>>(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
 };
 
+// Video Gallery API
+export const videoGalleryApi = {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const queryParams = new URLSearchParams();
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
+    const endpoint = queryParams.toString()
+      ? `${API_ENDPOINTS.VIDEO_GALLERY}?${queryParams.toString()}`
+      : API_ENDPOINTS.VIDEO_GALLERY;
+    return apiRequest<PaginatedResponse<VideoGalleryItem>>(endpoint, {}, language);
+  },
+};
+
+// Galleries API
+export const galleriesApi = {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const queryParams = new URLSearchParams();
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
+    const endpoint = queryParams.toString()
+      ? `${API_ENDPOINTS.GALLERIES}?${queryParams.toString()}`
+      : API_ENDPOINTS.GALLERIES;
+    return apiRequest<PaginatedResponse<GalleryItem>>(endpoint, {}, language);
+  },
+};
+
+// Stats API
+export const statsApi = {
+  getAll: (language: string | null = null) =>
+    apiRequest<PaginatedResponse<StatData>>(API_ENDPOINTS.STATS, {}, language),
+};
+
+// Partners API
+export const partnersApi = {
+  getAll: (language: string | null = null) =>
+    apiRequest<PaginatedResponse<PartnerItem>>(API_ENDPOINTS.PARTNERS, {}, language),
+};
+
+// Structure API
+export const structureApi = {
+  get: (language: string | null = null) =>
+    apiRequest<SingleResponse<StructureData>>(API_ENDPOINTS.STRUCTURE, {}, language),
+};
+
 // Teams API
 export const teamsApi = {
   getAll: (params: PaginationParams = {}, language: string | null = null) => {
@@ -232,5 +280,5 @@ export const teamsApi = {
   },
 
   getById: (id: number | string, language: string | null = null) =>
-    apiRequest<TeamMember>(API_ENDPOINTS.TEAMS_BY_ID(id), {}, language),
+    apiRequest<SingleResponse<TeamMember>>(API_ENDPOINTS.TEAMS_BY_ID(id), {}, language),
 };

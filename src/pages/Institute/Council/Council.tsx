@@ -11,7 +11,7 @@ const Council: React.FC = () => {
   const { data: membersData, loading: membersLoading } = useCouncilMembers();
 
   const loading: boolean = councilLoading || membersLoading;
-  const scientificCouncil: ScientificCouncil | undefined = scientificCouncilData?.data?.[0];
+  const scientificCouncil: ScientificCouncil | undefined = scientificCouncilData?.data;
   const members: CouncilMember[] = membersData?.data || [];
 
   if (loading) {

@@ -1,7 +1,7 @@
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
-import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection2';
+import MapEmbed from '@/components/shared/AddressMapSection/MapEmbed';
 import Loading from '@/components/shared/Loading/Loading';
 
 const Contact: React.FC = () => {
@@ -163,7 +163,7 @@ const Contact: React.FC = () => {
 
             {/* Xarita */}
             <div className="lg:w-2/3">
-              <AddressMapSection />
+              <MapEmbed />
             </div>
           </div>
         </div>

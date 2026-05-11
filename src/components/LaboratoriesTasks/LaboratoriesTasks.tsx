@@ -3,11 +3,13 @@ import institutImage from '@/assets/institut.png';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import SliderControls from './SliderControls';
 import { LABORATORY_TASKS } from './TasksData';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const TOTAL = LABORATORY_TASKS.length;
 const AUTOPLAY_INTERVAL = 3000;
 
 const LaboratoriesTasks: React.FC = () => {
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval>>(null);
 
@@ -47,13 +49,10 @@ const LaboratoriesTasks: React.FC = () => {
     <section className="w-full py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
-          <SectionHeader
-            title="Seysmik xavfsizlik va barqaror qurilish"
-            subtitle="Milliy tadqiqot instituti laboratoriyalarining asosiy vazifalari"
-          />
+          <SectionHeader title={t('labs.title')} subtitle={t('labs.subtitle')} />
         </div>
 
-        <div className="relative overflow-hidden min-h-72 md:min-h-96 lg:min-h-110">
+        <div className="relative overflow-hidden min-h-72 md:min-h-96 lg:min-h-125">
           {/* Background */}
           <img
             src={institutImage}
@@ -64,8 +63,8 @@ const LaboratoriesTasks: React.FC = () => {
           <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-black/20"></div>
 
           {/* Content */}
-          <div className="relative z-10 flex flex-col justify-between min-h-72 md:min-h-96 lg:min-h-110 p-5 md:p-8 lg:p-14">
-            <div className="max-w-2xl w-full flex-1">
+          <div className="relative z-10 flex flex-col justify-between min-h-72 md:min-h-96 lg:min-h-125 p-5 md:p-8 lg:p-14">
+            <div className="max-w-4xl w-full flex-1">
               {/* Task number */}
               <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
                 <span
@@ -97,7 +96,7 @@ const LaboratoriesTasks: React.FC = () => {
             </div>
 
             {/* Controls */}
-            <div className="max-w-2xl w-full">
+            <div className="max-w-4xl w-full">
               <SliderControls
                 total={TOTAL}
                 currentIndex={currentSlide}

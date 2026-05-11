@@ -17,6 +17,7 @@
       "title": "ABOUT INSTITUTE",
       "about": "About Institute",
       "services": "Structure",
+      "departments": "Departments",
       "leadership": "Leadership",
       "international": "International Cooperation",
       "council": "Scientific Council",
@@ -180,6 +181,7 @@
       "comingSoon": "Coming Soon",
       "comingSoonDescription": "The Announcements section is currently under development. Soon you will be able to view all announcements in this section."
     },
+    "comingSoonMessage": "This section is currently under development. All information will be available here soon.",
     "markaziyApparat": {
       "title": "CENTRAL APPARATUS",
       "rahbariyat": "Leadership",
@@ -209,6 +211,14 @@
     "noVacancies": "No vacancies available at the moment",
     "fillAllFields": "Please fill in all fields"
   },
+  "labs": {
+    "title": "Seismic Safety and Sustainable Construction",
+    "subtitle": "Core tasks of the National Research Institute laboratories"
+  },
+  "gallery": {
+    "title": "Photo Gallery",
+    "subtitle": "PHOTOS"
+  },
   "stats": {
     "title": "INSTITUTE IN NUMBERS",
     "academics": "Academics",
@@ -234,5 +244,9 @@
     "responsibilities": "Responsibilities",
     "receptionHours": "Thursday 15:00 - 17:00",
     "biografiya": "Biography"
+  },
+  "videoGallery": {
+    "title": "Video Gallery",
+    "subtitle": "VIDEOS"
   }
 }

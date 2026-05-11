@@ -6,6 +6,8 @@ import NewsSection from '@/components/NewsSection/NewsSection';
 import PartnersMarquee from '@/components/shared/PartnersMarquee/PartnersMarquee';
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection';
 import LaboratoriesTasks from '@/components/LaboratoriesTasks/LaboratoriesTasks';
+import GallerySection from '@/components/GallerySection/GallerySection';
+import VideoGallerySection from '@/components/VideoGallerySection/VideoGallerySection';
 
 const Home: React.FC = () => {
   return (
@@ -18,6 +20,8 @@ const Home: React.FC = () => {
       <LaboratoriesTasks />
       <NewsSection />
       <FeaturesSection />
+      <GallerySection />
+      <VideoGallerySection />
       <PartnersMarquee />
       <AddressMapSection />
     </div>

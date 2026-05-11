@@ -16,6 +16,7 @@
     "institute": {
       "title": "INSTITUT HAQIDA",
       "services": "Tashkilot tuzilmasi",
+      "departments": "Bo'limlar",
       "leadership": "Rahbariyat",
       "about": "Institut haqida",
       "international": "Xalqaro hamkorlik",
@@ -180,6 +181,7 @@
       "comingSoon": "Tez orada qo'shiladi",
       "comingSoonDescription": "E'lonlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha e'lonlar bilan tanishishingiz mumkin bo'ladi."
     },
+    "comingSoonMessage": "Ushbu bo'lim hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha ma'lumotlar bilan tanishishingiz mumkin bo'ladi.",
     "markaziyApparat": {
       "title": "MARKAZIY APPARAT",
       "rahbariyat": "Rahbariyat",
@@ -209,6 +211,14 @@
     "noVacancies": "Hozirda vakansiyalar mavjud emas",
     "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
   },
+  "gallery": {
+    "title": "Fotogalereya",
+    "subtitle": "RASMLAR"
+  },
+  "labs": {
+    "title": "Seysmik xavfsizlik va barqaror qurilish",
+    "subtitle": "Milliy tadqiqot instituti laboratoriyalarining asosiy vazifalari"
+  },
   "stats": {
     "title": "INSTITUT RAQAMLARDA",
     "academics": "Akademiklar",
@@ -234,5 +244,9 @@
     "responsibilities": "Vazifalari",
     "receptionHours": "Payshanba 15:00 - 17:00",
     "biografiya": "Biografiya"
+  },
+  "videoGallery": {
+    "title": "Video Galereya",
+    "subtitle": "VIDEOLAR"
   }
 }

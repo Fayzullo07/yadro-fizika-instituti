@@ -1,43 +1,22 @@
-import uzStructureImage from '@/assets/pdf/struktura_page1uzb.jpg';
-import enStructureImage from '@/assets/pdf/struktura_page2eng.jpg';
-import ruStructureImage from '@/assets/pdf/struktura_page3rus.jpg';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { useLanguage } from '@/contexts/LanguageContext';
-import type { Language } from '@/types';
-
-interface StructureDoc {
-  title: string;
-  file: string;
-}
+import { useStructure } from '@/hooks/useStructure';
 
 const Structure: React.FC = () => {
-  const { t, language } = useLanguage();
-  const structureDocsByLanguage: Record<Language, StructureDoc> = {
-    uz: {
-      title: "O'zbek tili",
-      file: uzStructureImage,
-    },
-    ru: {
-      title: 'Rus tili',
-      file: ruStructureImage,
-    },
-    en: {
-      title: 'English',
-      file: enStructureImage,
-    },
-  };
-  const currentDoc = structureDocsByLanguage[language] || structureDocsByLanguage.uz;
+  const { t } = useLanguage();
+  const { data, loading, error } = useStructure();
+
+  const imageUrl = data?.data?.image;
 
   return (
     <div className="min-h-screen">
       <PageTitle>{t('nav.institute.services')}</PageTitle>
       <article>
-        <img
-          src={currentDoc.file}
-          alt={`Institut tuzilmasi ${currentDoc.title}`}
-          loading="lazy"
-          className="w-full h-auto"
-        />
+        {loading && <div className="w-full aspect-4/3 bg-gray-100 animate-pulse rounded" />}
+        {!loading && (error || !imageUrl) && null}
+        {!loading && imageUrl && (
+          <img src={imageUrl} alt="Institut tuzilmasi" loading="lazy" className="w-full h-auto" />
+        )}
       </article>
     </div>
   );

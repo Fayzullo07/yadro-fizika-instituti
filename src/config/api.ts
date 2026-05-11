@@ -2,38 +2,53 @@ export const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL;
 
 export const API_ENDPOINTS = {
   // Applications
-  APPLICATION: '/api/v1/application/',
-  APPLICATION_VACANCY: '/api/v1/application/vacancy/',
-  APPLICATION_VACANCY_BY_ID: (id: number | string) => `/api/v1/application/vacancy/${id}/`,
+  APPLICATION: '/api/application/',
+  APPLICATION_VACANCY: '/api/application/vacancy/',
+  APPLICATION_VACANCY_BY_ID: (id: number | string) => `/api/application/vacancy/${id}/`,
 
   // Banners
   BANNERS: '/api/banners',
   BANNERS_BY_ID: (id: number | string) => `/api/banners/${id}`,
 
   // Council
-  COUNCIL_MEMBERS: '/api/v1/council/council-members/',
-  COUNCIL_MEMBERS_BY_ID: (id: number | string) => `/api/v1/council/council-members/${id}/`,
-  SCIENTIFIC_COUNCIL: '/api/v1/council/scientific-council/',
-  SCIENTIFIC_COUNCIL_BY_ID: (id: number | string) => `/api/v1/council/scientific-council/${id}/`,
+  COUNCIL_MEMBERS: '/api/council-members',
+  COUNCIL_MEMBERS_BY_ID: (id: number | string) => `/api/council-members/${id}`,
+  SCIENTIFIC_COUNCIL: '/api/scientific-council',
+  SCIENTIFIC_COUNCIL_BY_ID: (id: number | string) => `/api/council/scientific-council/${id}/`,
 
   // Department
-  DEPARTMENT: '/api/v1/department/',
-  DEPARTMENT_BY_ID: (id: number | string) => `/api/v1/department/${id}/`,
-  DEPARTMENT_LABORATORY: '/api/v1/department/laboratory/',
-  DEPARTMENT_LABORATORY_BY_ID: (id: number | string) => `/api/v1/department/laboratory/${id}/`,
-  DEPARTMENT_LEADERSHIP: '/api/v1/department/leadership/',
-  DEPARTMENT_LEADERSHIP_BY_ID: (id: number | string) => `/api/v1/department/leadership/${id}/`,
+  DEPARTMENT: '/api/departments',
+  DEPARTMENT_BY_ID: (id: number | string) => `/api/departments/${id}`,
+  DEPARTMENT_LABORATORY: '/api/department/laboratory/',
+  DEPARTMENT_LABORATORY_BY_ID: (id: number | string) => `/api/department/laboratory/${id}/`,
+  DEPARTMENT_LEADERSHIP: '/api/department/leadership/',
+  DEPARTMENT_LEADERSHIP_BY_ID: (id: number | string) => `/api/department/leadership/${id}/`,
 
   // General
-  GENERAL: '/api/v1/general/',
+  GENERAL: '/api/general/',
   ABOUT: '/api/about',
-  CONTACT_US: '/api/v1/general/contact-us/',
+  CONTACT_US: '/api/general/contact-us/',
 
   // News
   NEWS: '/api/news',
   NEWS_BY_ID: (id: number | string) => `/api/news/${id}`,
 
   // Teams
-  TEAMS: '/api/v1/teams/',
-  TEAMS_BY_ID: (id: number | string) => `/api/v1/teams/${id}/`,
+  TEAMS: '/api/teams/',
+  TEAMS_BY_ID: (id: number | string) => `/api/teams/${id}/`,
+
+  // Stats
+  STATS: '/api/stats',
+
+  // Galleries
+  GALLERIES: '/api/galleries',
+
+  // Video Gallery
+  VIDEO_GALLERY: '/api/video-gallery',
+
+  // Partners
+  PARTNERS: '/api/partners',
+
+  // Structure
+  STRUCTURE: '/api/structure',
 };

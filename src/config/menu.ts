@@ -4,6 +4,7 @@ import {
   TEAM_PATH,
   TEACHERS_PATH,
   COUNCIL_PATH,
+  DEPARTMENTS_PATH,
   LABORATORIES_PATH,
   DOCTORATE_PATH,
   NEWS_PATH,
@@ -30,6 +31,7 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     links: [
       { label: t('nav.institute.about') || 'Institut haqida', path: ABOUT_PATH },
       { label: t('nav.institute.services') || 'Tashkilot tuzilmasi', path: STRUCTURE_PATH },
+      { label: t('nav.institute.departments') || "Bo'limlar", path: DEPARTMENTS_PATH },
       { label: t('nav.institute.leadership') || 'Rahbariyat', path: TEAM_PATH },
       { label: t('nav.institute.team') || 'Institut jamoasi', path: TEACHERS_PATH },
     ],

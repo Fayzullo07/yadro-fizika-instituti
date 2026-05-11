@@ -6,7 +6,7 @@ import SidebarLayout from '@/components/Layout/SidebarLayout/SidebarLayout';
 import PageLayout from '@/components/Layout/PageLayout/PageLayout';
 
 // Lazy-loaded pages
-import Home from '@/pages/Home/Home';
+const Home = lazy(() => import('@/pages/Home/Home'));
 const About = lazy(() => import('@/pages/About/About'));
 const Services = lazy(() => import('@/pages/Services/Services'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
@@ -14,6 +14,7 @@ const Hotline = lazy(() => import('@/pages/Contact/Hotline'));
 const International = lazy(() => import('@/pages/Institute/International/International'));
 const Council = lazy(() => import('@/pages/Institute/Council/Council'));
 const Structure = lazy(() => import('@/pages/Institute/Structure/Structure'));
+const Departments = lazy(() => import('@/pages/Institute/Departments/Departments'));
 const Documents = lazy(() => import('@/pages/Institute/Documents/Documents'));
 const Team = lazy(() => import('@/pages/Institute/Team/Team'));
 const Calendar = lazy(() => import('@/pages/Institute/Calendar/Calendar'));
@@ -83,11 +84,8 @@ import {
   PROJECT_DESIGN_PATH,
   INSTRUMENTAL_INSPECTION_PATH,
   SEISMIC_CONCLUSION_PATH,
+  DEPARTMENTS_PATH,
 } from './path';
-
-const PageSkeleton = <Loading />;
-const CardsSkeleton = <Loading />;
-const DetailSkeleton = <Loading />;
 
 const Routers = () => {
   const router = createBrowserRouter([
@@ -97,7 +95,11 @@ const Routers = () => {
       children: [
         {
           path: HOME_PATH,
-          element: <Home />,
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Home />
+            </Suspense>
+          ),
         },
         {
           element: <PageLayout />,
@@ -105,7 +107,7 @@ const Routers = () => {
             {
               path: SERVICES_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Services />
                 </Suspense>
               ),
@@ -113,7 +115,7 @@ const Routers = () => {
             {
               path: LABORATORY_DETAIL_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <LaboratoryDetail />
                 </Suspense>
               ),
@@ -121,7 +123,7 @@ const Routers = () => {
             {
               path: NEWS_DETAIL_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <NewsDetail />
                 </Suspense>
               ),
@@ -142,7 +144,7 @@ const Routers = () => {
             {
               path: ABOUT_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <About />
                 </Suspense>
               ),
@@ -150,7 +152,7 @@ const Routers = () => {
             {
               path: CONTACT_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Contact />
                 </Suspense>
               ),
@@ -159,7 +161,7 @@ const Routers = () => {
             {
               path: INTERNATIONAL_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <International />
                 </Suspense>
               ),
@@ -167,7 +169,7 @@ const Routers = () => {
             {
               path: COUNCIL_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Council />
                 </Suspense>
               ),
@@ -175,7 +177,7 @@ const Routers = () => {
             {
               path: STRUCTURE_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Structure />
                 </Suspense>
               ),
@@ -183,7 +185,7 @@ const Routers = () => {
             {
               path: DOCUMENTS_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Documents />
                 </Suspense>
               ),
@@ -191,7 +193,7 @@ const Routers = () => {
             {
               path: TEAM_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Team />
                 </Suspense>
               ),
@@ -199,7 +201,7 @@ const Routers = () => {
             {
               path: CALENDAR_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Calendar />
                 </Suspense>
               ),
@@ -207,8 +209,16 @@ const Routers = () => {
             {
               path: CENTRAL_OFFICE_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <CentralOffice />
+                </Suspense>
+              ),
+            },
+            {
+              path: DEPARTMENTS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Departments />
                 </Suspense>
               ),
             },
@@ -216,7 +226,7 @@ const Routers = () => {
             {
               path: LABORATORIES_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Laboratories />
                 </Suspense>
               ),
@@ -224,7 +234,7 @@ const Routers = () => {
             {
               path: DOCTORATE_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Doctorate />
                 </Suspense>
               ),
@@ -232,7 +242,7 @@ const Routers = () => {
             {
               path: CONFERENCES_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Conferences />
                 </Suspense>
               ),
@@ -241,7 +251,7 @@ const Routers = () => {
             {
               path: PROJECT_DESIGN_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <ProjectDesign />
                 </Suspense>
               ),
@@ -249,7 +259,7 @@ const Routers = () => {
             {
               path: INSTRUMENTAL_INSPECTION_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <InstrumentalInspection />
                 </Suspense>
               ),
@@ -257,7 +267,7 @@ const Routers = () => {
             {
               path: SEISMIC_CONCLUSION_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <SeismicConclusion />
                 </Suspense>
               ),
@@ -266,7 +276,7 @@ const Routers = () => {
             {
               path: TEACHERS_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Teachers />
                 </Suspense>
               ),
@@ -274,7 +284,7 @@ const Routers = () => {
             {
               path: TALENTED_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Talented />
                 </Suspense>
               ),
@@ -282,7 +292,7 @@ const Routers = () => {
             {
               path: SYMBOLS_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Symbols />
                 </Suspense>
               ),
@@ -290,7 +300,7 @@ const Routers = () => {
             {
               path: GRADUATES_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Graduates />
                 </Suspense>
               ),
@@ -299,7 +309,7 @@ const Routers = () => {
             {
               path: REQUISITES_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Requisites />
                 </Suspense>
               ),
@@ -307,7 +317,7 @@ const Routers = () => {
             {
               path: VACANCIES_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Vacancies />
                 </Suspense>
               ),
@@ -315,7 +325,7 @@ const Routers = () => {
             {
               path: RECEPTION_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Reception />
                 </Suspense>
               ),
@@ -324,7 +334,7 @@ const Routers = () => {
             {
               path: NEWS_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <NewsList />
                 </Suspense>
               ),
@@ -332,7 +342,7 @@ const Routers = () => {
             {
               path: ANNOUNCEMENTS_PATH,
               element: (
-                <Suspense fallback={CardsSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Announcements />
                 </Suspense>
               ),
@@ -341,7 +351,7 @@ const Routers = () => {
             {
               path: HOTLINE_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Hotline />
                 </Suspense>
               ),
@@ -350,7 +360,7 @@ const Routers = () => {
             {
               path: CONSTITUTION_PATH,
               element: (
-                <Suspense fallback={DetailSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Constitution />
                 </Suspense>
               ),
@@ -358,7 +368,7 @@ const Routers = () => {
             {
               path: LAWS_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Laws />
                 </Suspense>
               ),
@@ -366,7 +376,7 @@ const Routers = () => {
             {
               path: DECREES_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Decrees />
                 </Suspense>
               ),
@@ -374,7 +384,7 @@ const Routers = () => {
             {
               path: LEGISLATION_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <Legislation />
                 </Suspense>
               ),
@@ -382,7 +392,7 @@ const Routers = () => {
             {
               path: GOVERNMENT_DOCUMENTS_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <GovernmentDocuments />
                 </Suspense>
               ),
@@ -390,7 +400,7 @@ const Routers = () => {
             {
               path: INTERNAL_DOCUMENTS_PATH,
               element: (
-                <Suspense fallback={PageSkeleton}>
+                <Suspense fallback={<Loading />}>
                   <InternalDocuments />
                 </Suspense>
               ),

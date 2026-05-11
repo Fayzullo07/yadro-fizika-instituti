@@ -14,17 +14,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://1ea9-185-203-236-98.ngrok-free.app',
-        changeOrigin: true,
-        configure: (proxy, _options) => {
-          proxy.on('proxyReq', (proxyReq) => {
-            proxyReq.setHeader('ngrok-skip-browser-warning', 'true');
-          });
-        },
-      },
-    },
-  },
 });
