@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 export const useCouncilMembers = () => {
   const { language } = useLanguage();
-  return useApi(() => councilApi.getCouncilMembers(language), [language]);
+  return useApi(() => councilApi.getCouncilMembers({ per_page: 100 }, language), [language]);
 };
 
 export const useCouncilMember = (id: number | string) => {

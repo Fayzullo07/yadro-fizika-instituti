@@ -1,16 +1,10 @@
-import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
 import MapEmbed from './MapEmbed';
 import InfoItem from './InfoItem';
-import { LocationIcon, PhoneIcon, ClockIcon } from './Icons';
-
-const ADDRESS = "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
+import { LocationIcon, PhoneIcon, ClockIcon, FaxIcon } from './Icons';
 
 const AddressMapSection: React.FC = () => {
-  const { data: generalData } = useGeneral();
   const { t } = useLanguage();
-
-  const phone = generalData?.phone || '+998 (71) 203-32-31';
 
   return (
     <section className="py-16 md:py-24">
@@ -32,19 +26,32 @@ const AddressMapSection: React.FC = () => {
           <div className="flex flex-col justify-center gap-6 md:gap-8 p-6 md:p-8 lg:p-10 bg-gray-50">
             <div>
               <InfoItem icon={<LocationIcon />} title={t('contact.address') || 'Manzil'}>
-                <p className="text-gray-500 text-sm leading-relaxed">{ADDRESS}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{t('contact.addressValue')}</p>
               </InfoItem>
             </div>
 
             <div>
               <InfoItem icon={<PhoneIcon />} title={t('contact.phone') || 'Telefon'}>
                 <a
-                  href={`tel:${phone.replace(/\s/g, '')}`}
-                  className="text-gray-500 hover:text-gray-900 text-sm font-medium"
+                  href="tel:+998712893118"
+                  className="text-gray-500 hover:text-gray-900 text-sm font-medium block"
                   style={{ transition: 'color 0.5s ease' }}
                 >
-                  {phone}
+                  (+998 71) 289-31-18
                 </a>
+                <a
+                  href="tel:+998712893160"
+                  className="text-gray-500 hover:text-gray-900 text-sm font-medium block"
+                  style={{ transition: 'color 0.5s ease' }}
+                >
+                  (+998 71) 289-31-60
+                </a>
+              </InfoItem>
+            </div>
+
+            <div>
+              <InfoItem icon={<FaxIcon />} title={t('contact.fax') || 'Faks'}>
+                <p className="text-gray-500 text-sm font-medium">(+998 71) 289-36-65</p>
               </InfoItem>
             </div>
 

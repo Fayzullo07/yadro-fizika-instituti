@@ -85,7 +85,8 @@
     "otherNews": "Boshqa yangiliklar",
     "previous": "Oldingi",
     "next": "Keyingi",
-    "noNews": "Yangiliklar topilmadi"
+    "noNews": "Yangiliklar topilmadi",
+    "notFound": "Yangilik topilmadi"
   },
   "features": {
     "subtitle": "BIZNING KOMPETENSIYALAR",
@@ -181,6 +182,9 @@
       "comingSoon": "Tez orada qo'shiladi",
       "comingSoonDescription": "E'lonlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha e'lonlar bilan tanishishingiz mumkin bo'ladi."
     },
+    "departments": {
+      "empty": "Bo'limlar topilmadi"
+    },
     "comingSoonMessage": "Ushbu bo'lim hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha ma'lumotlar bilan tanishishingiz mumkin bo'ladi.",
     "markaziyApparat": {
       "title": "MARKAZIY APPARAT",
@@ -236,7 +240,9 @@
     "weekdays": "Du-Ju:",
     "lunch": "Tushlik:",
     "address": "Manzil",
+    "addressValue": "100214, Toshkent sh., Ulug'bek shaharchasi, U.G'ulomov ko'chasi, 1",
     "phone": "Telefon",
+    "fax": "Faks",
     "location": "Lokatsiya",
     "findUs": "Bizni toping"
   },

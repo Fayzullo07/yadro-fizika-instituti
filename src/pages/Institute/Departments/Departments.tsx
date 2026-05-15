@@ -18,7 +18,7 @@ const Departments: React.FC = () => {
       {error && <p className="text-center text-red-600 py-8">{t('common.error')}</p>}
 
       {!error && departments.length === 0 && (
-        <p className="text-center text-gray-500 py-8">Bo'limlar topilmadi</p>
+        <p className="text-center text-gray-500 py-8">{t('pages.departments.empty')}</p>
       )}
 
       {departments.length > 0 && (

@@ -51,7 +51,7 @@ export const apiRequest = async <T = unknown>(
 
     return await response.json();
   } catch (error) {
-    console.error('API Request Error:', error);
+    if (import.meta.env.DEV) console.error('API Request Error:', error);
     throw error;
   }
 };
@@ -92,7 +92,7 @@ export const applicationApi = {
 
       return await response.json();
     } catch (error) {
-      console.error('API Request Error:', error);
+      if (import.meta.env.DEV) console.error('API Request Error:', error);
       throw error;
     }
   },
@@ -125,12 +125,15 @@ export const bannersApi = {
 
 // Council API
 export const councilApi = {
-  getCouncilMembers: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<CouncilMember>>(
-      `${API_ENDPOINTS.COUNCIL_MEMBERS}?per_page=100`,
-      {},
-      language
-    ),
+  getCouncilMembers: (params: PaginationParams = {}, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
+    const endpoint = query.toString()
+      ? `${API_ENDPOINTS.COUNCIL_MEMBERS}?${query.toString()}`
+      : API_ENDPOINTS.COUNCIL_MEMBERS;
+    return apiRequest<PaginatedResponse<CouncilMember>>(endpoint, {}, language);
+  },
 
   getCouncilMemberById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<CouncilMember>>(

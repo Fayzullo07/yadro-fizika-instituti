@@ -85,7 +85,8 @@
     "otherNews": "Other News",
     "previous": "Previous",
     "next": "Next",
-    "noNews": "No news found"
+    "noNews": "No news found",
+    "notFound": "News not found"
   },
   "features": {
     "subtitle": "OUR COMPETENCIES",
@@ -181,6 +182,9 @@
       "comingSoon": "Coming Soon",
       "comingSoonDescription": "The Announcements section is currently under development. Soon you will be able to view all announcements in this section."
     },
+    "departments": {
+      "empty": "No departments found"
+    },
     "comingSoonMessage": "This section is currently under development. All information will be available here soon.",
     "markaziyApparat": {
       "title": "CENTRAL APPARATUS",
@@ -236,7 +240,9 @@
     "weekdays": "Mon-Fri:",
     "lunch": "Lunch:",
     "address": "Address",
+    "addressValue": "100214, Tashkent, Ulugbek settlement, 1 Khuroson St",
     "phone": "Phone",
+    "fax": "Fax",
     "location": "Location",
     "findUs": "Find Us"
   },

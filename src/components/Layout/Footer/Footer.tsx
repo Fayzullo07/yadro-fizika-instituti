@@ -35,9 +35,7 @@ const Footer: React.FC = () => {
               className="h-11 w-11 object-contain rounded-lg"
             />
             <div>
-              <h3 className="text-white font-bold text-lg leading-snug">
-                O'z Res FA YADRO FIZIKASI INSTITUTI
-              </h3>
+              <h3 className="text-white font-bold text-lg leading-snug">{organizationName}</h3>
               {generalData?.organization_desc && (
                 <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">
                   {stripHtmlRegex(generalData.organization_desc)}

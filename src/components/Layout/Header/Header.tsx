@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                   className="h-10 w-10 object-contain rounded-lg"
                 />
                 <span className="text-sm md:text-base font-bold leading-tight text-gray-900">
-                  O'z Res FA YADRO FIZIKASI INSTITUTI
+                  {organizationName || "O'z Res FA YADRO FIZIKASI INSTITUTI"}
                 </span>
               </Link>
             )}

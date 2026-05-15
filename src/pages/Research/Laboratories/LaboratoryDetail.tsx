@@ -38,34 +38,37 @@ const LANG_IMAGES: Record<Language, string[]> = {
   ru: [ruImg1, ruImg2],
 };
 
-const ImageModal: React.FC<ImageModalProps> = ({ src, onClose }) => (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-    onClick={onClose}
-  >
-    <div className="relative max-w-5xl w-full mx-4" onClick={(e) => e.stopPropagation()}>
-      <button
-        onClick={onClose}
-        className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-      <img
-        src={src}
-        alt="Laboratoriya rasmi"
-        loading="lazy"
-        className="w-full max-h-[90vh] object-contain"
-      />
+const ImageModal: React.FC<ImageModalProps> = ({ src, onClose }) => {
+  const { t } = useLanguage();
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="relative max-w-5xl w-full mx-4" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+        >
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <img
+          src={src}
+          alt={t('pages.laboratories.gallery')}
+          loading="lazy"
+          className="w-full max-h-[90vh] object-contain"
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const LaboratoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

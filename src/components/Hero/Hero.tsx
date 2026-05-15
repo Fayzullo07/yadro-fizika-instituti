@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { useBanners } from '@/hooks/useBanners';
-import { sanitizeHtml } from '@/utils/htmlUtils';
+import { useGeneral } from '@/hooks/useGeneral';
+import { sanitizeHtml, stripHtmlRegex } from '@/utils/htmlUtils';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
@@ -10,6 +11,12 @@ const DRAG_THRESHOLD = 50;
 
 const Hero: React.FC = () => {
   const { data, loading, error } = useBanners({ per_page: 10 });
+  const { data: generalData } = useGeneral();
+  const organizationName = generalData
+    ? stripHtmlRegex(
+        generalData.organization_short_name || generalData.organization_name || ''
+      ).trim() || "O'z Res FA YADRO FIZIKASI INSTITUTI"
+    : "O'z Res FA YADRO FIZIKASI INSTITUTI";
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
@@ -213,7 +220,7 @@ const Hero: React.FC = () => {
               className="inline-flex mb-4 md:mb-5 animate-slide-up"
             >
               <span className="px-4 py-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs md:text-sm font-semibold tracking-widest uppercase">
-                O'z Res FA YADRO FIZIKASI INSTITUTI
+                {organizationName}
               </span>
             </div>
 
