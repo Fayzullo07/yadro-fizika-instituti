@@ -12,17 +12,19 @@ import VideoGallerySection from '@/components/VideoGallerySection/VideoGallerySe
 const Home: React.FC = () => {
   return (
     <div className="w-full">
-      <div className="h-[60vh] md:h-[calc(100dvh-90px)]">
-        <Hero />
+      <div className="flex flex-col h-dvh md:h-[calc(100dvh-140px)]">
+        <div className="flex-1 min-h-0">
+          <Hero />
+        </div>
+        <StatsSection />
+        <PartnersMarquee />
       </div>
-      <StatsSection />
       <AboutSection />
       <LaboratoriesTasks />
       <NewsSection />
       <FeaturesSection />
       <GallerySection />
       <VideoGallerySection />
-      <PartnersMarquee />
       <AddressMapSection />
     </div>
   );

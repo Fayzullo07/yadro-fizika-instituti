@@ -5,6 +5,7 @@ import { sanitizeHtml, stripHtmlRegex } from '@/utils/htmlUtils';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
+import img1 from '@/assets/institut.png';
 
 const AUTOPLAY_INTERVAL = 5000;
 const DRAG_THRESHOLD = 50;
@@ -110,13 +111,15 @@ const Hero: React.FC = () => {
   }, [banners.length, startAutoplay]);
 
   if (loading) return <HeroSkeleton />;
-  if (error || !banners.length) return null;
 
-  const currentBanner = banners[currentIndex];
-  const hasMultipleSlides = banners.length > 1;
+  const fallbackBanner = { id: 0, image: img1, title: '', order: 0 } as unknown as Banner;
+  const activeBanners = banners.length > 0 ? banners : [fallbackBanner];
 
-  const nextDragIndex = (currentIndex + 1) % banners.length;
-  const prevDragIndex = (currentIndex - 1 + banners.length) % banners.length;
+  const currentBanner = activeBanners[currentIndex] ?? activeBanners[0];
+  const hasMultipleSlides = activeBanners.length > 1;
+
+  const nextDragIndex = (currentIndex + 1) % activeBanners.length;
+  const prevDragIndex = (currentIndex - 1 + activeBanners.length) % activeBanners.length;
 
   return (
     <div
@@ -133,7 +136,7 @@ const Hero: React.FC = () => {
       onTouchEnd={handleDragEnd}
     >
       {/* Banner slides */}
-      {banners.map((banner, index) => {
+      {activeBanners.map((banner, index) => {
         const isCurrentDragging = isDragging.current && dragOffset !== 0;
 
         // Case 1: Dragging — show current + adjacent with pixel offsets
@@ -207,77 +210,59 @@ const Hero: React.FC = () => {
         return null;
       })}
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[#0f1b3d]/60 z-3"></div>
+      {/* Bottom gradient overlay — sits within image area */}
+      <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-[#0f1b3d]/80 via-[#0f1b3d]/30 to-transparent z-3" />
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex items-center pointer-events-none">
-        <div className="container mx-auto pb-10 md:pb-16 lg:pb-20">
-          <div className="max-w-2xl">
-            {/* Organization badge */}
-            <div
-              key={`badge-${currentIndex}`}
-              className="inline-flex mb-4 md:mb-5 animate-slide-up"
-            >
-              <span className="px-4 py-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs md:text-sm font-semibold tracking-widest uppercase">
-                {organizationName}
-              </span>
-            </div>
+      {/* Content — overlaid on image */}
+      <div className="absolute inset-x-0 bottom-[18%] z-10 pointer-events-none">
+        <div className="container mx-auto px-6 md:px-10">
+          {/* Org name row */}
+          <div
+            key={`badge-${currentIndex}`}
+            className="flex items-center gap-3 mb-3 animate-slide-up"
+          >
+            <div className="w-6 h-px bg-blue-400/70" />
+            <span className="text-blue-300/90 text-xs font-semibold tracking-[0.2em] uppercase">
+              {organizationName}
+            </span>
+          </div>
 
-            {/* Title */}
-            {currentBanner.title && (
-              <h1
-                key={`title-${currentIndex}`}
-                className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.15] mb-4 md:mb-5 animate-slide-up line-clamp-3"
-                style={{ animationDelay: '100ms' }}
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentBanner.title) }}
-              />
-            )}
+          {/* Title */}
+          {currentBanner.title && (
+            <h1
+              key={`title-${currentIndex}`}
+              className="text-2xl md:text-4xl font-bold text-white leading-snug mb-5 animate-slide-up max-w-3xl line-clamp-3 drop-shadow-md"
+              style={{ animationDelay: '80ms' }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentBanner.title) }}
+            />
+          )}
 
-            {/* Bottom row: button + dots */}
-            <div
-              key={`bottom-${currentIndex}`}
-              className="flex items-center gap-6 md:gap-8 animate-slide-up pointer-events-auto"
-              style={{ animationDelay: '200ms' }}
-            >
-              <button className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 bg-white text-gray-900 rounded-full text-xs md:text-sm font-medium hover:bg-gray-100 transition-colors">
-                Batafsil
-                <svg
-                  className="w-3.5 h-3.5 md:w-4 md:h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+          {/* Bottom row: divider line + dots */}
+          <div
+            key={`bottom-${currentIndex}`}
+            className="flex items-center gap-4 animate-slide-up pointer-events-auto"
+            style={{ animationDelay: '160ms' }}
+          >
+            <div className="h-px flex-1 max-w-16 bg-white/20" />
+            {hasMultipleSlides && (
+              <div className="flex items-center gap-2">
+                {activeBanners.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`rounded-full transition-all duration-500 ${
+                      index === currentIndex
+                        ? 'w-6 h-1.5 bg-white'
+                        : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'
+                    }`}
+                    aria-label={`Slide ${index + 1}`}
                   />
-                </svg>
-              </button>
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
-
-      {/* Dots — bottom center */}
-      {hasMultipleSlides && (
-        <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/15 pointer-events-auto">
-          {banners.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`rounded-full transition-all duration-500 ${
-                index === currentIndex
-                  ? 'w-7 h-2 bg-white shadow-[0_0_8px_rgba(255,255,255,0.4)]'
-                  : 'w-2 h-2 bg-white/30 hover:bg-white/60'
-              }`}
-              aria-label={`Slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };
