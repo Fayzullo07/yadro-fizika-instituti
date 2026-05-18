@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
+import { formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { NewsItem } from '@/types';
 
-const formatDate = (iso: string) => {
-  const d = new Date(iso);
-  return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
-};
-
 const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <Link
       to={`/news/${item.id}`}
@@ -51,7 +47,7 @@ const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => {
         <div>
           {item.created_at && (
             <span className="inline-block text-white/40 group-hover:text-white/60 text-xs font-medium tracking-wide mb-2.5">
-              {formatDate(item.created_at)}
+              {formatDate(item.created_at, language)}
             </span>
           )}
 

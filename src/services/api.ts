@@ -9,6 +9,7 @@ import type {
   GeneralData,
   AboutData,
   InstituteHistoryData,
+  AnnouncementItem,
   Banner,
   ScientificCouncil,
   CouncilMember,
@@ -272,6 +273,14 @@ export const structureApi = {
 export const instituteHistoryApi = {
   get: (language: string | null = null) =>
     apiRequest<SingleResponse<InstituteHistoryData>>(API_ENDPOINTS.INSTITUTE_HISTORY, {}, language),
+};
+
+// Announcements (Ads) API
+export const adsApi = {
+  getAll: (language: string | null = null) =>
+    apiRequest<PaginatedResponse<AnnouncementItem>>(API_ENDPOINTS.ADS, {}, language),
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<AnnouncementItem>>(API_ENDPOINTS.ADS_BY_ID(id), {}, language),
 };
 
 // Teams API

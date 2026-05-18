@@ -7,12 +7,6 @@ import NewsCard from '@/components/NewsSection/NewsCard';
 
 import type { NewsItem } from '@/types';
 
-const LOCALE_MAP: Record<string, string> = {
-  uz: 'uz-UZ',
-  ru: 'ru-RU',
-  en: 'en-US',
-};
-
 const NewsList: React.FC = () => {
   const { t, language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();

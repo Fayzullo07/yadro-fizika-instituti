@@ -54,4 +54,8 @@ export const API_ENDPOINTS = {
 
   // Institute history
   INSTITUTE_HISTORY: '/api/institute-history',
+
+  // Announcements (ads)
+  ADS: '/api/ads',
+  ADS_BY_ID: (id: number | string) => `/api/ads/${id}`,
 };

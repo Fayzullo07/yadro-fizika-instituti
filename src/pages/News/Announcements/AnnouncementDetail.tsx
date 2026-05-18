@@ -1,0 +1,71 @@
+import { useParams, Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAnnouncementById } from '@/hooks/useAnnouncements';
+import { sanitizeHtml } from '@/utils/htmlUtils';
+import { formatDate } from '@/utils/dateUtils';
+import Loading from '@/components/shared/Loading/Loading';
+import BackButton from '@/components/shared/BackButton/BackButton';
+
+const AnnouncementDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const { t, language } = useLanguage();
+  const { data: detailRes, loading, error } = useAnnouncementById(id!);
+
+  const item = detailRes?.data;
+
+  if (loading) return <Loading />;
+
+  if (error || !item) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-gray-500 mb-4">{t('common.error') || "E'lon topilmadi"}</p>
+        <Link to="/news/announcements" className="text-[#013d8c] hover:underline font-medium">
+          ← {t('backToList') || "Ro'yxatga qaytish"}
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pb-10">
+      <BackButton to="/news/announcements" label={t('backToList') || "Ro'yxatga qaytish"} />
+
+      <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="bg-[#013d8c] px-6 py-5">
+          <div className="flex items-center gap-2 mb-3">
+            <svg
+              className="w-4 h-4 text-white/70"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            <span className="text-white/70 text-sm">{formatDate(item.created_at, language)}</span>
+          </div>
+          <h1 className="text-white text-xl md:text-2xl font-bold leading-snug">{item.title}</h1>
+        </div>
+
+        <div
+          className="
+            px-6 py-6 text-gray-700 text-[15px] leading-relaxed
+            [&_a]:text-blue-600 [&_a]:underline [&_a]:break-all [&_a:hover]:text-blue-800
+            [&_blockquote]:border-l-4 [&_blockquote]:border-[#013d8c]/30
+            [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
+            [&_b]:font-semibold [&_strong]:font-semibold
+            [&_div]:leading-relaxed
+            [&_p]:mb-3
+          "
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
+        />
+      </article>
+    </div>
+  );
+};
+
+export default AnnouncementDetail;

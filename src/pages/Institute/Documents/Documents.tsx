@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import { formatDate } from '@/utils/dateUtils';
 
 interface DocumentItem {
   id: number;
@@ -15,7 +16,7 @@ interface DocumentCategory {
 }
 
 const Documents: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   // Mock data - keyinroq API dan olinadi
   const documentCategories: DocumentCategory[] = [
@@ -99,9 +100,7 @@ const Documents: React.FC = () => {
                         </div>
                         <div className="flex-1">
                           <h3 className="font-medium text-gray-900 mb-1">{doc.name}</h3>
-                          <p className="text-sm text-gray-500">
-                            {new Date(doc.date).toLocaleDateString('uz-UZ')}
-                          </p>
+                          <p className="text-sm text-gray-500">{formatDate(doc.date, language)}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">

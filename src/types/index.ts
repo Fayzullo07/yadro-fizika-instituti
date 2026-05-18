@@ -60,6 +60,15 @@ export interface InstituteHistoryData {
   updated_at: string;
 }
 
+export interface AnnouncementItem {
+  id: number;
+  title: string;
+  description: string;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ContactUsData {
   full_name: string;
   email: string;

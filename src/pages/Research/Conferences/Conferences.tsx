@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
+import { formatDate } from '@/utils/dateUtils';
 
 interface Conference {
   id: number;
@@ -10,7 +11,7 @@ interface Conference {
 }
 
 const Conferences: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const conferences: Conference[] = [
     {
@@ -63,7 +64,7 @@ const Conferences: React.FC = () => {
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    {new Date(conference.date).toLocaleDateString('uz-UZ')}
+                    {formatDate(conference.date, language)}
                   </div>
 
                   <span className="hidden sm:block w-px h-4 bg-gray-300"></span>

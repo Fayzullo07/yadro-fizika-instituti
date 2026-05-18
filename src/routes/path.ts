@@ -56,6 +56,7 @@ export const VACANCIES_PATH = '/open-data/vacancies';
 export const NEWS_PATH = '/news';
 export const NEWS_DETAIL_PATH = '/news/:id';
 export const ANNOUNCEMENTS_PATH = '/news/announcements';
+export const ANNOUNCEMENT_DETAIL_PATH = '/news/announcements/:id';
 
 // Documents routes
 export const CONSTITUTION_PATH = '/normativ/constitution';

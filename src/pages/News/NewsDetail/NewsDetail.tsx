@@ -1,16 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
 import { useNewsById, useNews } from '@/hooks/useNews';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
+import { formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 import type { NewsImage } from '@/types';
-
-const LOCALE_MAP: Record<string, string> = {
-  uz: 'uz-UZ',
-  ru: 'ru-RU',
-  en: 'en-US',
-};
 
 const NewsDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,20 +34,6 @@ const NewsDetail: React.FC = () => {
       </div>
     );
   }
-
-  const formatDate = (dateString: string): string => {
-    if (!dateString) return '';
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString(LOCALE_MAP[language] || 'uz-UZ', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
-    } catch {
-      return dateString;
-    }
-  };
 
   const allNews = newsListData?.data || [];
   const otherNews = allNews.filter((item) => String(item.id) !== String(newsItem.id)).slice(0, 10);
@@ -91,7 +72,9 @@ const NewsDetail: React.FC = () => {
 
                 <div className="flex items-center gap-4 mb-3 pb-3 border-b border-gray-200">
                   {newsItem.created_at && (
-                    <span className="text-sm mt-2">{formatDate(newsItem.created_at)}</span>
+                    <span className="text-sm mt-2">
+                      {formatDate(newsItem.created_at, language)}
+                    </span>
                   )}
                 </div>
 
@@ -162,7 +145,9 @@ const NewsDetail: React.FC = () => {
                             dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                           />
                           {item.created_at && (
-                            <p className="text-xs text-gray-500">{item.created_at}</p>
+                            <p className="text-xs text-gray-500">
+                              {formatDate(item.created_at, language)}
+                            </p>
                           )}
                         </div>
                       </Link>

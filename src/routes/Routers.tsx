@@ -34,6 +34,7 @@ const Vacancies = lazy(() => import('@/pages/OpenData/Vacancies/Vacancies'));
 const NewsList = lazy(() => import('@/pages/News/NewsList/NewsList'));
 const NewsDetail = lazy(() => import('@/pages/News/NewsDetail/NewsDetail'));
 const Announcements = lazy(() => import('@/pages/News/Announcements/Announcements'));
+const AnnouncementDetail = lazy(() => import('@/pages/News/Announcements/AnnouncementDetail'));
 const Constitution = lazy(() => import('@/pages/Normativ/Constitution/Constitution'));
 const Decrees = lazy(() => import('@/pages/Normativ/Decrees/Decrees'));
 const Laws = lazy(() => import('@/pages/Normativ/Laws/Laws'));
@@ -89,6 +90,7 @@ import {
   NEWS_PATH,
   NEWS_DETAIL_PATH,
   ANNOUNCEMENTS_PATH,
+  ANNOUNCEMENT_DETAIL_PATH,
   CONSTITUTION_PATH,
   DECREES_PATH,
   LAWS_PATH,
@@ -460,6 +462,14 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Announcements />
+                </Suspense>
+              ),
+            },
+            {
+              path: ANNOUNCEMENT_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <AnnouncementDetail />
                 </Suspense>
               ),
             },
