@@ -24,49 +24,39 @@ const AddressMapSection: React.FC = () => {
 
           {/* Info */}
           <div className="flex flex-col justify-center gap-6 md:gap-8 p-6 md:p-8 lg:p-10 bg-gray-50">
-            <div>
-              <InfoItem icon={<LocationIcon />} title={t('contact.address') || 'Manzil'}>
-                <p className="text-gray-500 text-sm leading-relaxed">{t('contact.addressValue')}</p>
-              </InfoItem>
-            </div>
+            <InfoItem icon={<LocationIcon />} title={t('contact.address') || 'Manzil'}>
+              <p className="text-gray-500 text-sm leading-relaxed">{t('contact.addressValue')}</p>
+            </InfoItem>
 
-            <div>
-              <InfoItem icon={<PhoneIcon />} title={t('contact.phone') || 'Telefon'}>
-                <a
-                  href="tel:+998712893118"
-                  className="text-gray-500 hover:text-gray-900 text-sm font-medium block"
-                  style={{ transition: 'color 0.5s ease' }}
-                >
-                  (+998 71) 289-31-18
-                </a>
-                <a
-                  href="tel:+998712893160"
-                  className="text-gray-500 hover:text-gray-900 text-sm font-medium block"
-                  style={{ transition: 'color 0.5s ease' }}
-                >
-                  (+998 71) 289-31-60
-                </a>
-              </InfoItem>
-            </div>
+            <InfoItem icon={<PhoneIcon />} title={t('contact.phone') || 'Telefon'}>
+              <a
+                href="tel:+998712893118"
+                className="text-gray-500 hover:text-gray-900 text-sm font-medium block transition-colors duration-500"
+              >
+                (+998 71) 289-31-18
+              </a>
+              <a
+                href="tel:+998712893160"
+                className="text-gray-500 hover:text-gray-900 text-sm font-medium block transition-colors duration-500"
+              >
+                (+998 71) 289-31-60
+              </a>
+            </InfoItem>
 
-            <div>
-              <InfoItem icon={<FaxIcon />} title={t('contact.fax') || 'Faks'}>
-                <p className="text-gray-500 text-sm font-medium">(+998 71) 289-36-65</p>
-              </InfoItem>
-            </div>
+            <InfoItem icon={<FaxIcon />} title={t('contact.fax') || 'Faks'}>
+              <p className="text-gray-500 text-sm font-medium">(+998 71) 289-36-65</p>
+            </InfoItem>
 
-            <div>
-              <InfoItem icon={<ClockIcon />} title={t('contact.workingDays') || 'Ish kunlari'}>
-                <p className="text-gray-500 text-sm">
-                  {t('contact.weekdays') || 'Du-Ju:'}{' '}
-                  <span className="font-medium text-gray-700">9:00 – 18:00</span>
-                </p>
-                <p className="text-gray-500 text-sm">
-                  {t('contact.lunch') || 'Tushlik:'}{' '}
-                  <span className="font-medium text-gray-700">13:00 – 14:00</span>
-                </p>
-              </InfoItem>
-            </div>
+            <InfoItem icon={<ClockIcon />} title={t('contact.workingDays') || 'Ish kunlari'}>
+              <p className="text-gray-500 text-sm">
+                {t('contact.weekdays') || 'Du-Ju:'}{' '}
+                <span className="font-medium text-gray-700">9:00 – 18:00</span>
+              </p>
+              <p className="text-gray-500 text-sm">
+                {t('contact.lunch') || 'Tushlik:'}{' '}
+                <span className="font-medium text-gray-700">13:00 – 14:00</span>
+              </p>
+            </InfoItem>
           </div>
         </div>
       </div>

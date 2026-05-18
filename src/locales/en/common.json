@@ -57,10 +57,38 @@
       "hukumat": "President and government documents",
       "ichki": "Institute internal documents"
     },
+    "institut": {
+      "title": "About Institute",
+      "structure": "Institute Structure",
+      "history": "Institute History",
+      "directors": "Institute Directors",
+      "charter": "Institute Charter"
+    },
+    "laboratoriyalar": {
+      "title": "Laboratories",
+      "about": "About Laboratory",
+      "staff": "Staff Profile",
+      "scientists": "Research Scientists",
+      "degrees": "Scientific Degrees",
+      "directions": "Research Directions"
+    },
+    "ilmiyFaoliyat": {
+      "title": "Scientific Activity",
+      "councilAddress": "Scientific Council Address",
+      "councilComposition": "Scientific Council Composition",
+      "councilActivities": "Scientific Council Activities",
+      "specialties": "Specialty Passports",
+      "articles": "Scientific Articles",
+      "abstracts": "Abstracts",
+      "dissertations": "Dissertations"
+    },
     "boglanish": {
-      "title": "CONTACT",
+      "title": "Contact",
       "contact": "Contact information",
-      "hotline": "Hotline"
+      "hotline": "Hotline",
+      "map": "Map",
+      "address": "Address",
+      "workingHours": "Working Hours"
     },
     "umumiy": {
       "title": "GENERAL INFORMATION",
@@ -240,7 +268,7 @@
     "weekdays": "Mon-Fri:",
     "lunch": "Lunch:",
     "address": "Address",
-    "addressValue": "100214, Tashkent, Ulugbek settlement, 1 Khuroson St",
+    "addressValue": "100214, Tashkent, Ulugbek settlement, 1 U.Gulomov St",
     "phone": "Phone",
     "fax": "Fax",
     "location": "Location",

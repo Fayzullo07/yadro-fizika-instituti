@@ -1,26 +1,20 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useGeneral } from '@/hooks/useGeneral';
-import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
-import FooterSkeleton from './FooterSkeleton';
 import logoFallback from '@/assets/logo.jpg';
+
+const ORG_NAME = 'Yadro fizika instituti';
+const ORG_DESC = "O'zbekiston Fanlar akademiyasining ilmiy-tadqiqot muassasasi";
+const CONTACT = {
+  email: 'yfi@yfi.uz',
+  phones: ['+998 71 289-31-18', '+998 71 289-31-60'],
+  fax: '+998 71 289-36-65',
+  address: "100214, Toshkent sh., Ulug'bek shaharchasi, U.G'ulomov ko'chasi, 1",
+};
 
 const Footer: React.FC = () => {
   const { t } = useLanguage();
-  const { data: generalData, loading } = useGeneral();
-
-  const organizationName = useMemo(() => {
-    const shortName = generalData?.organization_short_name
-      ? stripHtmlRegex(generalData.organization_short_name).trim()
-      : '';
-    const fullName = generalData?.organization_name
-      ? stripHtmlRegex(generalData.organization_name).trim()
-      : '';
-    return shortName || fullName || 'Yadro fizika instituti';
-  }, [generalData]);
 
   return (
     <footer className="bg-[#0f1b3d] text-gray-300 mt-auto">
@@ -30,17 +24,13 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-4">
             <img
               src={logoFallback}
-              alt={organizationName}
+              alt={ORG_NAME}
               loading="lazy"
               className="h-11 w-11 object-contain rounded-lg"
             />
             <div>
-              <h3 className="text-white font-bold text-lg leading-snug">{organizationName}</h3>
-              {generalData?.organization_desc && (
-                <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">
-                  {stripHtmlRegex(generalData.organization_desc)}
-                </p>
-              )}
+              <h3 className="text-white font-bold text-lg leading-snug">{ORG_NAME}</h3>
+              <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">{ORG_DESC}</p>
             </div>
           </div>
 
@@ -69,18 +59,7 @@ const Footer: React.FC = () => {
             <h4 className="text-white text-xs font-semibold uppercase tracking-widest mb-4">
               {t('nav.institute.about') || 'Biz haqimizda'}
             </h4>
-            {loading ? (
-              <FooterSkeleton />
-            ) : (
-              generalData?.organization_desc && (
-                <div
-                  className="text-blue-200/50 text-sm leading-relaxed line-clamp-4"
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(generalData.organization_desc),
-                  }}
-                />
-              )
-            )}
+            <p className="text-blue-200/50 text-sm leading-relaxed">{ORG_DESC}</p>
           </div>
 
           {/* Quick Links */}
@@ -109,34 +88,30 @@ const Footer: React.FC = () => {
               {t('footer.contact') || 'Aloqa'}
             </h4>
             <ul className="space-y-3">
-              {generalData?.email && (
-                <li>
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
+                >
+                  <EmailIcon />
+                  <span className="text-sm">{CONTACT.email}</span>
+                </a>
+              </li>
+              {CONTACT.phones.map((phone) => (
+                <li key={phone}>
                   <a
-                    href={`mailto:${generalData.email}`}
-                    className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
-                  >
-                    <EmailIcon />
-                    <span className="text-sm">{generalData.email}</span>
-                  </a>
-                </li>
-              )}
-              {generalData?.phone && (
-                <li>
-                  <a
-                    href={`tel:${generalData.phone}`}
+                    href={`tel:${phone.replace(/\s/g, '')}`}
                     className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
                   >
                     <PhoneIcon />
-                    <span className="text-sm">{generalData.phone}</span>
+                    <span className="text-sm">{phone}</span>
                   </a>
                 </li>
-              )}
-              {generalData?.address && (
-                <li className="flex items-start gap-3 text-blue-200/50">
-                  <LocationIcon />
-                  <span className="text-sm leading-relaxed">{generalData.address}</span>
-                </li>
-              )}
+              ))}
+              <li className="flex items-start gap-3 text-blue-200/50">
+                <LocationIcon />
+                <span className="text-sm leading-relaxed">{CONTACT.address}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -146,7 +121,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-white/5 bg-[#0a1330]">
         <div className="container mx-auto py-5">
           <p className="text-center text-blue-200/30 text-xs">
-            © {new Date().getFullYear()} {organizationName}.{' '}
+            © {new Date().getFullYear()} {ORG_NAME}.{' '}
             {t('footer.rights') || 'Barcha huquqlar himoyalangan.'}
           </p>
         </div>

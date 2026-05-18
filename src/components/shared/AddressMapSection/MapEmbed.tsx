@@ -1,5 +1,5 @@
-const LATITUDE = '41.364664';
-const LONGITUDE = '69.287714';
+const LATITUDE = '41.41320805594981';
+const LONGITUDE = '69.45051876464483';
 const MAP_ZOOM = '16';
 
 const MapEmbed: React.FC = () => (

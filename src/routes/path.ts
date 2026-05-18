@@ -4,6 +4,7 @@ export const ABOUT_PATH = '/about';
 export const SERVICES_PATH = '/services';
 export const CONTACT_PATH = '/contact';
 export const HOTLINE_PATH = '/hotline';
+export const MAP_PATH = '/contact/map';
 
 // Settings routes
 export const SETTINGS_PATH = '/settings';
@@ -11,18 +12,29 @@ export const SETTINGS_PATH = '/settings';
 // Institute routes
 export const INTERNATIONAL_PATH = '/institute/international';
 export const COUNCIL_PATH = '/institute/council';
+export const COUNCIL_COMPOSITION_PATH = '/institute/council/composition';
+export const COUNCIL_ACTIVITIES_PATH = '/institute/council/activities';
 export const STRUCTURE_PATH = '/institute/structure';
 export const DOCUMENTS_PATH = '/institute/documents';
 export const TEAM_PATH = '/institute/team';
 export const CALENDAR_PATH = '/institute/calendar';
 export const CENTRAL_OFFICE_PATH = '/institute/central-office';
 export const DEPARTMENTS_PATH = '/institute/departments';
+export const INSTITUTE_HISTORY_PATH = '/institute/history';
+export const INSTITUTE_DIRECTORS_PATH = '/institute/directors';
+export const INSTITUTE_CHARTER_PATH = '/institute/charter';
 
 // Research routes
 export const LABORATORIES_PATH = '/research/laboratories';
 export const LABORATORY_DETAIL_PATH = '/research/laboratories/:id';
 export const DOCTORATE_PATH = '/research/doctorate';
 export const CONFERENCES_PATH = '/research/conferences';
+export const RESEARCH_SCIENTISTS_PATH = '/research/scientists';
+export const RESEARCH_DEGREES_PATH = '/research/degrees';
+export const RESEARCH_DIRECTIONS_PATH = '/research/directions';
+export const SPECIALTIES_PATH = '/research/specialties';
+export const ARTICLES_PATH = '/research/articles';
+export const ABSTRACTS_PATH = '/research/abstracts';
 
 // Engineering routes
 export const PROJECT_DESIGN_PATH = '/engineering/project-design';

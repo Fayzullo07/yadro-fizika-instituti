@@ -11,6 +11,7 @@ const About = lazy(() => import('@/pages/About/About'));
 const Services = lazy(() => import('@/pages/Services/Services'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 const Hotline = lazy(() => import('@/pages/Contact/Hotline'));
+const Map = lazy(() => import('@/pages/Contact/Map'));
 const International = lazy(() => import('@/pages/Institute/International/International'));
 const Council = lazy(() => import('@/pages/Institute/Council/Council'));
 const Structure = lazy(() => import('@/pages/Institute/Structure/Structure'));
@@ -47,6 +48,19 @@ const ProjectDesign = lazy(() => import('@/pages/Engineering/ProjectDesign'));
 const InstrumentalInspection = lazy(() => import('@/pages/Engineering/InstrumentalInspection'));
 const SeismicConclusion = lazy(() => import('@/pages/Engineering/SeismicConclusion'));
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'));
+// New institute pages
+const History = lazy(() => import('@/pages/Institute/History/History'));
+const Directors = lazy(() => import('@/pages/Institute/Directors/Directors'));
+const Charter = lazy(() => import('@/pages/Institute/Charter/Charter'));
+const CouncilComposition = lazy(() => import('@/pages/Institute/Council/CouncilComposition'));
+const CouncilActivities = lazy(() => import('@/pages/Institute/Council/CouncilActivities'));
+// New research pages
+const Scientists = lazy(() => import('@/pages/Research/Scientists/Scientists'));
+const Degrees = lazy(() => import('@/pages/Research/Degrees/Degrees'));
+const Directions = lazy(() => import('@/pages/Research/Directions/Directions'));
+const Specialties = lazy(() => import('@/pages/Research/Specialties/Specialties'));
+const Articles = lazy(() => import('@/pages/Research/Articles/Articles'));
+const Abstracts = lazy(() => import('@/pages/Research/Abstracts/Abstracts'));
 
 import {
   HOME_PATH,
@@ -54,6 +68,7 @@ import {
   SERVICES_PATH,
   CONTACT_PATH,
   HOTLINE_PATH,
+  MAP_PATH,
   INTERNATIONAL_PATH,
   COUNCIL_PATH,
   STRUCTURE_PATH,
@@ -85,6 +100,17 @@ import {
   INSTRUMENTAL_INSPECTION_PATH,
   SEISMIC_CONCLUSION_PATH,
   DEPARTMENTS_PATH,
+  INSTITUTE_HISTORY_PATH,
+  INSTITUTE_DIRECTORS_PATH,
+  INSTITUTE_CHARTER_PATH,
+  COUNCIL_COMPOSITION_PATH,
+  COUNCIL_ACTIVITIES_PATH,
+  RESEARCH_SCIENTISTS_PATH,
+  RESEARCH_DEGREES_PATH,
+  RESEARCH_DIRECTIONS_PATH,
+  SPECIALTIES_PATH,
+  ARTICLES_PATH,
+  ABSTRACTS_PATH,
 } from './path';
 
 const Routers = () => {
@@ -222,6 +248,47 @@ const Routers = () => {
                 </Suspense>
               ),
             },
+            // New institute pages
+            {
+              path: INSTITUTE_HISTORY_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <History />
+                </Suspense>
+              ),
+            },
+            {
+              path: INSTITUTE_DIRECTORS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Directors />
+                </Suspense>
+              ),
+            },
+            {
+              path: INSTITUTE_CHARTER_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Charter />
+                </Suspense>
+              ),
+            },
+            {
+              path: COUNCIL_COMPOSITION_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <CouncilComposition />
+                </Suspense>
+              ),
+            },
+            {
+              path: COUNCIL_ACTIVITIES_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <CouncilActivities />
+                </Suspense>
+              ),
+            },
             // Research routes
             {
               path: LABORATORIES_PATH,
@@ -244,6 +311,55 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Conferences />
+                </Suspense>
+              ),
+            },
+            // New research pages
+            {
+              path: RESEARCH_SCIENTISTS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Scientists />
+                </Suspense>
+              ),
+            },
+            {
+              path: RESEARCH_DEGREES_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Degrees />
+                </Suspense>
+              ),
+            },
+            {
+              path: RESEARCH_DIRECTIONS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Directions />
+                </Suspense>
+              ),
+            },
+            {
+              path: SPECIALTIES_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Specialties />
+                </Suspense>
+              ),
+            },
+            {
+              path: ARTICLES_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Articles />
+                </Suspense>
+              ),
+            },
+            {
+              path: ABSTRACTS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Abstracts />
                 </Suspense>
               ),
             },
@@ -348,6 +464,14 @@ const Routers = () => {
               ),
             },
             // Contact routes
+            {
+              path: MAP_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Map />
+                </Suspense>
+              ),
+            },
             {
               path: HOTLINE_PATH,
               element: (

@@ -57,10 +57,38 @@
       "hukumat": "Prezident va Hukumat hujjatlari",
       "ichki": "Institut ichki hujjatlari"
     },
+    "institut": {
+      "title": "Institut haqida",
+      "structure": "Institut tuzilmasi",
+      "history": "Institut tarixi",
+      "directors": "Institut direktorlari",
+      "charter": "Institut nizomi"
+    },
+    "laboratoriyalar": {
+      "title": "Laboratoriyalar",
+      "about": "Laboratoriya haqida",
+      "staff": "Xodimlar profili",
+      "scientists": "Ilmiy xodimlar",
+      "degrees": "Ilmiy darajalar",
+      "directions": "Ilmiy yo'nalishlar"
+    },
+    "ilmiyFaoliyat": {
+      "title": "Ilmiy faoliyat",
+      "councilAddress": "Ilmiy kengash manzili",
+      "councilComposition": "Ilmiy kengash tarkibi",
+      "councilActivities": "Ilmiy kengash faoliyati",
+      "specialties": "Ixtisosliklar pasportlari",
+      "articles": "Ilmiy maqolalar",
+      "abstracts": "Avtoreferatlar",
+      "dissertations": "Dissertatsiyalar"
+    },
     "boglanish": {
-      "title": "BOG'LANISH",
+      "title": "Bog'lanish",
       "contact": "Aloqa maʼlumotlari",
-      "hotline": "Ishonch telefoni"
+      "hotline": "Ishonch telefoni",
+      "map": "Xarita",
+      "address": "Manzil",
+      "workingHours": "Ish kunlari"
     },
     "umumiy": {
       "title": "UMUMIY MA'LUMOTLAR",

@@ -1,9 +1,11 @@
 import {
-  ABOUT_PATH,
+  MAP_PATH,
   STRUCTURE_PATH,
   TEAM_PATH,
   TEACHERS_PATH,
   COUNCIL_PATH,
+  COUNCIL_COMPOSITION_PATH,
+  COUNCIL_ACTIVITIES_PATH,
   DEPARTMENTS_PATH,
   LABORATORIES_PATH,
   DOCTORATE_PATH,
@@ -12,95 +14,92 @@ import {
   CONTACT_PATH,
   HOTLINE_PATH,
   ANNOUNCEMENTS_PATH,
-  CONSTITUTION_PATH,
-  LAWS_PATH,
-  DECREES_PATH,
-  LEGISLATION_PATH,
-  GOVERNMENT_DOCUMENTS_PATH,
-  INTERNAL_DOCUMENTS_PATH,
-  PROJECT_DESIGN_PATH,
-  INSTRUMENTAL_INSPECTION_PATH,
-  SEISMIC_CONCLUSION_PATH,
+  INSTITUTE_HISTORY_PATH,
+  INSTITUTE_DIRECTORS_PATH,
+  INSTITUTE_CHARTER_PATH,
+  RESEARCH_SCIENTISTS_PATH,
+  RESEARCH_DEGREES_PATH,
+  RESEARCH_DIRECTIONS_PATH,
+  SPECIALTIES_PATH,
+  ARTICLES_PATH,
+  ABSTRACTS_PATH,
 } from '@/routes/path';
 import type { MenuItem } from '@/types';
 
 export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
   {
     id: 'institut',
-    label: t('nav.institute.title') || 'INSTITUT',
+    label: t('nav.institut.title') || 'Institut haqida',
     links: [
-      { label: t('nav.institute.about') || 'Institut haqida', path: ABOUT_PATH },
-      { label: t('nav.institute.services') || 'Tashkilot tuzilmasi', path: STRUCTURE_PATH },
-      { label: t('nav.institute.departments') || "Bo'limlar", path: DEPARTMENTS_PATH },
+      { label: t('nav.institut.structure') || 'Institut tuzilmasi', path: STRUCTURE_PATH },
+      { label: t('nav.institut.history') || 'Institut tarixi', path: INSTITUTE_HISTORY_PATH },
+      {
+        label: t('nav.institut.directors') || 'Institut direktorlari',
+        path: INSTITUTE_DIRECTORS_PATH,
+      },
+      { label: t('nav.institut.charter') || 'Institut nizomi', path: INSTITUTE_CHARTER_PATH },
       { label: t('nav.institute.leadership') || 'Rahbariyat', path: TEAM_PATH },
-      { label: t('nav.institute.team') || 'Institut jamoasi', path: TEACHERS_PATH },
+      { label: t('nav.institute.services') || 'Tuzilma', path: DEPARTMENTS_PATH },
     ],
   },
   {
-    id: 'tadqiqot',
-    label: t('nav.tadqiqot.title') || 'TADQIQOT',
+    id: 'laboratoriyalar',
+    label: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
     links: [
-      { label: t('nav.tadqiqot.council') || 'Ilmiy kengash', path: COUNCIL_PATH },
-      { label: t('nav.tadqiqot.laboratories') || 'Laboratoriyalar', path: LABORATORIES_PATH },
-      { label: t('nav.tadqiqot.doctorate') || 'Doktarontura', path: DOCTORATE_PATH },
+      { label: t('nav.laboratoriyalar.about') || 'Laboratoriya haqida', path: LABORATORIES_PATH },
+      { label: t('nav.laboratoriyalar.staff') || 'Xodimlar profili', path: TEACHERS_PATH },
+      {
+        label: t('nav.laboratoriyalar.scientists') || 'Ilmiy xodimlar',
+        path: RESEARCH_SCIENTISTS_PATH,
+      },
+      { label: t('nav.laboratoriyalar.degrees') || 'Ilmiy darajalar', path: RESEARCH_DEGREES_PATH },
+      {
+        label: t('nav.laboratoriyalar.directions') || "Ilmiy yo'nalishlar",
+        path: RESEARCH_DIRECTIONS_PATH,
+      },
     ],
   },
   {
-    id: 'xizmatlar',
-    label: t('nav.xizmatlar.title') || 'XIZMATLAR',
+    id: 'ilmiy-faoliyat',
+    label: t('nav.ilmiyFaoliyat.title') || 'Ilmiy faoliyat',
     links: [
-      { label: t('nav.xizmatlar.Loyihalash') || 'Konferensiyalar', path: PROJECT_DESIGN_PATH },
       {
-        label:
-          t('nav.xizmatlar.Instrumentaltexniktekshiruvniotkazish') ||
-          'Instrumental texnik tekshiruvni otkazish',
-        path: INSTRUMENTAL_INSPECTION_PATH,
+        label: t('nav.ilmiyFaoliyat.councilAddress') || 'Ilmiy kengash manzili',
+        path: COUNCIL_PATH,
       },
       {
-        label:
-          t('nav.xizmatlar.Zilzilabardoshlikboʻyichailmiyxulosaberish') ||
-          'Zilzilabardoshlik boʻyicha ilmiy xulosa berish',
-        path: SEISMIC_CONCLUSION_PATH,
+        label: t('nav.ilmiyFaoliyat.councilComposition') || 'Ilmiy kengash tarkibi',
+        path: COUNCIL_COMPOSITION_PATH,
       },
+      {
+        label: t('nav.ilmiyFaoliyat.councilActivities') || 'Ilmiy kengash faoliyati',
+        path: COUNCIL_ACTIVITIES_PATH,
+      },
+      {
+        label: t('nav.ilmiyFaoliyat.specialties') || 'Ixtisosliklar pasportlari',
+        path: SPECIALTIES_PATH,
+      },
+      { label: t('nav.ilmiyFaoliyat.articles') || 'Ilmiy maqolalar', path: ARTICLES_PATH },
+      { label: t('nav.ilmiyFaoliyat.abstracts') || 'Avtoreferatlar', path: ABSTRACTS_PATH },
+      { label: t('nav.ilmiyFaoliyat.dissertations') || 'Dissertatsiyalar', path: DOCTORATE_PATH },
     ],
   },
   {
     id: 'media',
-    label: t('nav.media.title') || 'MEDIA',
+    label: t('nav.media.title') || "Yangilik va E'lonlar",
     links: [
       { label: t('nav.media.news') || 'Yangiliklar', path: NEWS_PATH },
-      { label: t('nav.media.conferences') || 'Anjumanlar', path: CONFERENCES_PATH },
       { label: t('nav.media.announcements') || "E'lonlar", path: ANNOUNCEMENTS_PATH },
-    ],
-  },
-  {
-    id: 'normativ',
-    label: t('nav.normativ.title') || 'NORMATIV HUQUQIY-HUJJATLAR',
-    links: [
-      { label: t('nav.normativ.constitution') || 'Konstitutsiya', path: CONSTITUTION_PATH },
-      { label: t('nav.normativ.laws') || 'Qonunlar', path: LAWS_PATH },
-      { label: t('nav.normativ.decrees') || 'Prezident farmon va qarorlari', path: DECREES_PATH },
-      {
-        label:
-          t('nav.normativ.qonunchilik') || 'Institut faoliyat sohasiga oid miliy  konunchilik ',
-        path: LEGISLATION_PATH,
-      },
-      {
-        label: t('nav.normativ.hukumat') || 'Prezident va Hukumat hujjatlari',
-        path: GOVERNMENT_DOCUMENTS_PATH,
-      },
-      {
-        label: t('nav.normativ.ichki') || 'Institut ichki hujjatlari',
-        path: INTERNAL_DOCUMENTS_PATH,
-      },
+      { label: t('nav.media.conferences') || 'Konferensiyalar', path: CONFERENCES_PATH },
     ],
   },
   {
     id: 'boglanish',
-    label: t('nav.boglanish.title') || "BOG'LANISH",
+    label: t('nav.boglanish.title') || "Bog'lanish",
     links: [
-      { label: t('nav.boglanish.contact') || 'Kontaklar', path: CONTACT_PATH },
-      { label: t('nav.boglanish.hotline') || 'Ishonch telefoni', path: HOTLINE_PATH },
+      { label: t('nav.boglanish.map') || 'Xarita', path: MAP_PATH },
+      { label: t('nav.boglanish.address') || 'Manzil', path: CONTACT_PATH },
+      { label: t('nav.boglanish.workingHours') || 'Ish kunlari', path: HOTLINE_PATH },
     ],
   },
 ];
