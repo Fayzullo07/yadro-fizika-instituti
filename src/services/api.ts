@@ -8,6 +8,7 @@ import type {
   ApplicationData,
   GeneralData,
   AboutData,
+  InstituteHistoryData,
   Banner,
   ScientificCouncil,
   CouncilMember,
@@ -265,6 +266,12 @@ export const partnersApi = {
 export const structureApi = {
   get: (language: string | null = null) =>
     apiRequest<SingleResponse<StructureData>>(API_ENDPOINTS.STRUCTURE, {}, language),
+};
+
+// Institute History API
+export const instituteHistoryApi = {
+  get: (language: string | null = null) =>
+    apiRequest<SingleResponse<InstituteHistoryData>>(API_ENDPOINTS.INSTITUTE_HISTORY, {}, language),
 };
 
 // Teams API

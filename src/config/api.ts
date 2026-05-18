@@ -51,4 +51,7 @@ export const API_ENDPOINTS = {
 
   // Structure
   STRUCTURE: '/api/structure',
+
+  // Institute history
+  INSTITUTE_HISTORY: '/api/institute-history',
 };

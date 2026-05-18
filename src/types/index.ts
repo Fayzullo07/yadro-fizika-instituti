@@ -53,6 +53,13 @@ export interface AboutData {
   image: string;
 }
 
+export interface InstituteHistoryData {
+  id: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ContactUsData {
   full_name: string;
   email: string;
