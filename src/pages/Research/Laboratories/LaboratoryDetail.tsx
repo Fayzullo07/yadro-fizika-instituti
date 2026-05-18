@@ -3,7 +3,6 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLaboratory } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { useState } from 'react';
 import type { Language } from '@/types';
 
@@ -134,11 +133,14 @@ const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, imag
           to="/tadqiqot/laboratories"
           label={t('') || "Laboratoriyalar ro'yxatiga qaytish"}
         />
-        <div className="!mt-4">
-          <SectionHeader
-            title={laboratory?.name || 'Laboratoriya'}
-            subtitle={t('pages.laboratories.detail') || "Laboratoriya ma'lumotlari"}
-          />
+        <div className="mt-4 mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+              {laboratory?.name || 'Laboratoriya'}
+            </h1>
+          </div>
+          <div className="h-px bg-gray-200 mt-4" />
         </div>
 
         {showImages && (

@@ -69,6 +69,20 @@ export interface AnnouncementItem {
   updated_at: string;
 }
 
+export interface ConferenceItem {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  image: string | null;
+  file: string | null;
+  start_date: string;
+  end_date: string;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ContactUsData {
   full_name: string;
   email: string;

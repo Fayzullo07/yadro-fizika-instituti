@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useVacancies, useCreateApplication } from '@/hooks/useApplications';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import type { Vacancy } from '@/types';
 
@@ -147,13 +146,18 @@ const Vacancies: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
-        <SectionHeader
-          title={t('nav.ochiq.vacancies') || 'Vakansiyalar'}
-          subtitle={t('vacancies.subtitle') || "Mavjud vakansiyalar va ish o'rinlari"}
-        />
+    <div className="pb-10">
+      <div className="mt-4 mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            {t('nav.ochiq.vacancies') || 'Vakansiyalar'}
+          </h1>
+        </div>
+        <div className="h-px bg-gray-200 mt-4" />
+      </div>
 
+      <div>
         {vacancies.length > 0 ? (
           <div className="space-y-4">
             {vacancies.map((vacancy) => (

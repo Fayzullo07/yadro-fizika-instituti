@@ -4,7 +4,6 @@ import { useAnnouncements } from '@/hooks/useAnnouncements';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
-import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 import type { AnnouncementItem } from '@/types';
 
 const AnnouncementCard: React.FC<{
@@ -80,8 +79,6 @@ const Announcements: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <Breadcrumb />
-
       <div className="mt-4 mb-8">
         <div className="flex items-center gap-3">
           <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />

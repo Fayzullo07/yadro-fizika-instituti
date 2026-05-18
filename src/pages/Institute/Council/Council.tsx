@@ -21,19 +21,13 @@ const Council: React.FC = () => {
   return (
     <div className="min-h-screen">
       <div className=" pb-8 md:pb-12">
-        {/* Title */}
-        <div className="text-center mb-8">
-          <PageTitle>
-            {scientificCouncil?.title ? (
-              <div
-                className=""
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }}
-              />
-            ) : (
-              t('nav.institute.council') || 'ILMIY KENGASH'
-            )}
-          </PageTitle>
-        </div>
+        <PageTitle>
+          {scientificCouncil?.title ? (
+            <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }} />
+          ) : (
+            t('nav.institute.council') || 'ILMIY KENGASH'
+          )}
+        </PageTitle>
 
         {/* Header Image */}
         {scientificCouncil?.image && (

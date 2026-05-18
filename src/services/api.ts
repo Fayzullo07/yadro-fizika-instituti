@@ -10,6 +10,7 @@ import type {
   AboutData,
   InstituteHistoryData,
   AnnouncementItem,
+  ConferenceItem,
   Banner,
   ScientificCouncil,
   CouncilMember,
@@ -281,6 +282,12 @@ export const adsApi = {
     apiRequest<PaginatedResponse<AnnouncementItem>>(API_ENDPOINTS.ADS, {}, language),
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<AnnouncementItem>>(API_ENDPOINTS.ADS_BY_ID(id), {}, language),
+};
+
+// Conferences API
+export const conferencesApi = {
+  getAll: (language: string | null = null) =>
+    apiRequest<PaginatedResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES, {}, language),
 };
 
 // Teams API

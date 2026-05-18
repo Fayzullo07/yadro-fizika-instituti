@@ -58,4 +58,7 @@ export const API_ENDPOINTS = {
   // Announcements (ads)
   ADS: '/api/ads',
   ADS_BY_ID: (id: number | string) => `/api/ads/${id}`,
+
+  // Conferences
+  CONFERENCES: '/api/conferences',
 };

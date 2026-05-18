@@ -1,4 +1,3 @@
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { useGeneral } from '@/hooks/useGeneral';
 import { useLanguage } from '@/contexts/LanguageContext';
 import MapEmbed from '@/components/shared/AddressMapSection/MapEmbed';
@@ -18,15 +17,18 @@ const Contact: React.FC = () => {
     generalData?.address || "100194, Yangishahar ko'chasi 9A-uy, Toshkent shahar, Yunusobod tumani";
 
   return (
-    <div>
-      <div>
-        {/* Sarlavha */}
-        <SectionHeader
-          title={t('nav.contact') || 'Aloqa'}
-          subtitle={t('contact.subtitle') || "Biz bilan bog'laning, savollaringizga javob beramiz"}
-        />
+    <div className="pb-10">
+      <div className="mt-4 mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            {t('nav.contact') || 'Aloqa'}
+          </h1>
+        </div>
+        <div className="h-px bg-gray-200 mt-4" />
+      </div>
 
-        {/* Asosiy kontent */}
+      <div>
         <div>
           <div className="flex flex-col lg:flex-row gap-2">
             {/* Aloqa ma'lumotlari */}

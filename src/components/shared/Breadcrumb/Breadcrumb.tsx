@@ -1,28 +1,31 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getMenuItems } from '@/config/menu';
+import { HOME_PATH } from '@/routes/path';
 import {
-  HOME_PATH,
   ABOUT_PATH,
-  STRUCTURE_PATH,
-  TEAM_PATH,
-  TEACHERS_PATH,
-  COUNCIL_PATH,
-  LABORATORIES_PATH,
-  DOCTORATE_PATH,
-  INTERNATIONAL_PATH,
   VACANCIES_PATH,
-  NEWS_PATH,
+  REQUISITES_PATH,
+  RECEPTION_PATH,
+  CONSTITUTION_PATH,
+  LAWS_PATH,
+  DECREES_PATH,
+  LEGISLATION_PATH,
+  GOVERNMENT_DOCUMENTS_PATH,
+  INTERNAL_DOCUMENTS_PATH,
+  SYMBOLS_PATH,
+  TALENTED_PATH,
+  GRADUATES_PATH,
   CALENDAR_PATH,
-  CONFERENCES_PATH,
   DOCUMENTS_PATH,
-  CONTACT_PATH,
+  INTERNATIONAL_PATH,
   CENTRAL_OFFICE_PATH,
 } from '@/routes/path';
 
 interface BreadcrumbItem {
   label: string;
-  path: string;
+  path?: string;
   isCurrent?: boolean;
 }
 
@@ -30,105 +33,116 @@ const Breadcrumb: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
-  // Don't show breadcrumb on home page
-  if (location.pathname === HOME_PATH) {
-    return null;
-  }
+  if (location.pathname === HOME_PATH) return null;
 
-  // Map paths to their labels
-  const pathLabels: Record<string, string> = {
-    [ABOUT_PATH]: t('nav.institute.about') || 'Institut haqida',
-    [STRUCTURE_PATH]: t('nav.institute.services') || 'Tashkilot tuzilmasi',
-    [TEAM_PATH]: t('nav.institute.leadership') || 'Rahbariyat',
-    [TEACHERS_PATH]: t('nav.institute.team') || 'Institut jamoasi',
-    [COUNCIL_PATH]: t('nav.tadqiqot.council') || 'Ilmiy kengash',
-    [LABORATORIES_PATH]: t('nav.tadqiqot.laboratories') || 'Laboratoriyalar',
-    [DOCTORATE_PATH]: t('nav.tadqiqot.doctorate') || 'Doktarontura',
-    [INTERNATIONAL_PATH]: t('nav.institute.international') || 'Xalqaro hamkorlik',
-    [VACANCIES_PATH]: t('nav.tadqiqot.vacancies') || "Bo'sh ish o'rinlari",
-    [NEWS_PATH]: t('nav.media.news') || 'Yangiliklar',
-    [CALENDAR_PATH]: t('nav.media.calendar') || 'Voqaelar taqvimi',
-    [CONFERENCES_PATH]: t('nav.media.conferences') || 'Anjumanlar',
-    [DOCUMENTS_PATH]: t('nav.normativ.title') || 'Normativ huquqiy-hujjatlar',
-    [CONTACT_PATH]: t('nav.boglanish.contact') || 'Kontaklar',
-    [CENTRAL_OFFICE_PATH]: t('nav.institute.markaziyapparat') || 'Markaziy apparat',
-  };
+  const menuItems = getMenuItems(t);
 
-  // Build breadcrumb items
-  const buildBreadcrumbs = (): BreadcrumbItem[] => {
-    const items: BreadcrumbItem[] = [
-      {
-        label: t('nav.home') || 'Bosh sahifa',
-        path: HOME_PATH,
-      },
-    ];
-
-    // Find the current page label
-    const currentPath = location.pathname;
-    const currentLabel = pathLabels[currentPath];
-
-    if (currentLabel) {
-      // Check if current page is under a parent category
-      // For example, if on /institut/structure, we might want to show "Institut haqida" as parent
-      const parentPaths: Record<string, string | null> = {
-        [STRUCTURE_PATH]: ABOUT_PATH,
-        [TEAM_PATH]: ABOUT_PATH,
-        [TEACHERS_PATH]: ABOUT_PATH,
-        [COUNCIL_PATH]: null, // Can add parent if needed
-        [LABORATORIES_PATH]: null,
-        [DOCTORATE_PATH]: null,
-        [INTERNATIONAL_PATH]: ABOUT_PATH,
-        [VACANCIES_PATH]: null,
-        [NEWS_PATH]: null,
-        [CALENDAR_PATH]: null,
-        [CONFERENCES_PATH]: null,
-        [DOCUMENTS_PATH]: null,
-        [CONTACT_PATH]: null,
-        [CENTRAL_OFFICE_PATH]: ABOUT_PATH,
-      };
-
-      const parentPath = parentPaths[currentPath];
-      if (parentPath && parentPath !== HOME_PATH) {
-        items.push({
-          label: pathLabels[parentPath],
-          path: parentPath,
-        });
-      }
-
-      // Add current page
-      items.push({
-        label: currentLabel,
-        path: currentPath,
-        isCurrent: true,
-      });
+  // Build lookup from menu: path → { label, sectionLabel }
+  const menuMap: Record<string, { label: string; sectionLabel: string }> = {};
+  for (const section of menuItems) {
+    for (const link of section.links) {
+      menuMap[link.path] = { label: link.label, sectionLabel: section.label };
     }
+  }
 
-    return items;
+  // Extra paths not in menu
+  const extraMap: Record<string, { label: string; sectionLabel?: string }> = {
+    [ABOUT_PATH]: { label: t('nav.institut.title') || 'Institut haqida' },
+    [CALENDAR_PATH]: { label: t('nav.institute.calendar') || 'Voqealar taqvimi' },
+    [DOCUMENTS_PATH]: { label: t('nav.institute.documents') || 'Hujjatlar' },
+    [INTERNATIONAL_PATH]: { label: t('nav.institute.international') || 'Xalqaro hamkorlik' },
+    [CENTRAL_OFFICE_PATH]: { label: t('nav.institute.markaziyapparat') || 'Markaziy apparat' },
+    [VACANCIES_PATH]: { label: t('nav.ochiq.vacancies') || 'Vakansiyalar' },
+    [REQUISITES_PATH]: { label: t('nav.ochiq.requisites') || 'Rekvizitlar' },
+    [RECEPTION_PATH]: { label: t('nav.ochiq.reception') || 'Qabul kunlari' },
+    [SYMBOLS_PATH]: { label: t('nav.umumiy.symbols') || 'Davlat ramzlari' },
+    [TALENTED_PATH]: { label: t('nav.umumiy.talented') || 'Iqtidorli yoshlar' },
+    [GRADUATES_PATH]: { label: t('nav.umumiy.graduates') || 'Bitiruvchilar' },
+    [CONSTITUTION_PATH]: {
+      label: t('nav.normativ.constitution') || 'Konstitutsiya',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
+    [LAWS_PATH]: {
+      label: t('nav.normativ.laws') || 'Qonunlar',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
+    [DECREES_PATH]: {
+      label: t('nav.normativ.decrees') || 'Farmon va qarorlar',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
+    [LEGISLATION_PATH]: {
+      label: t('nav.normativ.qonunchilik') || 'Qonunchilik',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
+    [GOVERNMENT_DOCUMENTS_PATH]: {
+      label: t('nav.normativ.hukumat') || 'Hukumat hujjatlari',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
+    [INTERNAL_DOCUMENTS_PATH]: {
+      label: t('nav.normativ.ichki') || 'Ichki hujjatlar',
+      sectionLabel: t('nav.normativ.title') || 'Normativ hujjatlar',
+    },
   };
 
-  const breadcrumbs = buildBreadcrumbs();
+  // Dynamic routes: match by prefix (longest first)
+  const dynamicRoutes: Array<{ prefix: string; label: string; sectionLabel?: string }> = [
+    {
+      prefix: '/news/announcements/',
+      label: t('news.detail') || 'Batafsil',
+      sectionLabel: t('nav.media.title') || "Yangilik va E'lonlar",
+    },
+    {
+      prefix: '/news/',
+      label: t('news.detail') || 'Batafsil',
+      sectionLabel: t('nav.media.title') || "Yangilik va E'lonlar",
+    },
+    {
+      prefix: '/research/laboratories/',
+      label: t('labs.detail') || 'Laboratoriya',
+      sectionLabel: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
+    },
+  ];
 
-  if (breadcrumbs.length <= 1) {
-    return null;
+  // Resolve current page info
+  const allPaths = { ...extraMap, ...menuMap };
+  let info: { label: string; sectionLabel?: string } | undefined = allPaths[location.pathname];
+
+  if (!info) {
+    for (const route of dynamicRoutes) {
+      if (location.pathname.startsWith(route.prefix)) {
+        info = { label: route.label, sectionLabel: route.sectionLabel };
+        break;
+      }
+    }
   }
+
+  if (!info) return null;
+
+  const crumbs: BreadcrumbItem[] = [{ label: t('nav.home') || 'Bosh sahifa', path: HOME_PATH }];
+
+  if (info.sectionLabel) {
+    crumbs.push({ label: info.sectionLabel });
+  }
+
+  crumbs.push({ label: info.label, isCurrent: true });
 
   return (
-    <nav className="bg-white py-3">
-      <div>
-        <div className="flex items-center gap-2 text-sm">
-          {breadcrumbs.map((item, index) => (
-            <div key={index} className="flex items-center gap-2">
-              {index > 0 && <span className="text-[#013d8c] font-bold">›</span>}
-              {item.isCurrent ? (
-                <span className="text-gray-600 font-normal">{item.label}</span>
-              ) : (
-                <Link to={item.path} className="text-[#013d8c] font-bold hover:underline">
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
+    <nav className="py-3">
+      <div className="flex items-center gap-2 text-sm">
+        {crumbs.map((item, index) => (
+          <div key={index} className="flex items-center gap-2">
+            {index > 0 && <span className="text-[#013d8c] font-bold">›</span>}
+            {item.path && !item.isCurrent ? (
+              <Link to={item.path} className="text-[#013d8c] font-bold hover:underline">
+                {item.label}
+              </Link>
+            ) : (
+              <span className={item.isCurrent ? 'text-gray-600' : 'text-gray-500'}>
+                {item.label}
+              </span>
+            )}
+          </div>
+        ))}
       </div>
     </nav>
   );

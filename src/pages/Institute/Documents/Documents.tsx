@@ -1,5 +1,4 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 import { formatDate } from '@/utils/dateUtils';
 
 interface DocumentItem {
@@ -59,12 +58,15 @@ const Documents: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <SectionHeader
-          title={t('nav.institute.documents') || 'Ichki hujjatlar'}
-          subtitle={
-            t('pages.documents.subtitle') || 'Normativ-huquqiy hujjatlar va ichki hujjatlar'
-          }
-        />
+        <div className="mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+              {t('nav.institute.documents') || 'Ichki hujjatlar'}
+            </h1>
+          </div>
+          <div className="h-px bg-gray-200 mt-4" />
+        </div>
 
         <div className="mt-8 space-y-6">
           {documentCategories.map((category) => (

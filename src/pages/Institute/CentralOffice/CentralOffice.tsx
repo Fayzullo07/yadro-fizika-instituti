@@ -67,7 +67,7 @@ const CentralOffice = () => {
     <div className="min-h-[calc(100vh-208px)] mt-6 bg-white pb-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="flex items-start justify-between gap-4 mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#013d8c] uppercase">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
             {t('pages.markaziyApparat.title') || 'MARKAZIY APPARAT'}
           </h1>
           <button

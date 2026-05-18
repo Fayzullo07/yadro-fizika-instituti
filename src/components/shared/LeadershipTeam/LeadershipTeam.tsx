@@ -33,7 +33,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) 
   }));
 
   return (
-    <div className="min-h-screen">
+    <div className="pb-10">
       <div>
         <PageTitle>{title}</PageTitle>
         <MemberCardList

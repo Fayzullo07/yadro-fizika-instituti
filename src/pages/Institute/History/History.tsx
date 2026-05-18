@@ -1,7 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useInstituteHistory } from '@/hooks/useInstituteHistory';
 import Loading from '@/components/shared/Loading/Loading';
-import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 import DOMPurify from 'dompurify';
 
 const cleanContent = (html: string): string =>
@@ -18,8 +17,6 @@ const History: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <Breadcrumb />
-
       {/* Header */}
       <div className="mt-4 mb-10">
         <div className="flex items-center gap-3">

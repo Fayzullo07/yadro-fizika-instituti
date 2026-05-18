@@ -4,13 +4,17 @@ const Requisites: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-12 text-center">
-          {t('nav.ochiq.requisites') || 'Institut rekvizitlari'}
-        </h1>
-
+    <div className="pb-10">
+      <div className="mt-4 mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            {t('nav.ochiq.requisites') || 'Institut rekvizitlari'}
+          </h1>
+        </div>
+        <div className="h-px bg-gray-200 mt-4" />
+      </div>
+      <div>
         <div className="space-y-8">
           {/* Institut Rekvizitlari Section */}
           <div className="">

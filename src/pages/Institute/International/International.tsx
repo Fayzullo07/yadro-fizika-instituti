@@ -6,7 +6,6 @@ import ordenaLogo from '@/assets/ordena.png';
 import miaLogo from '@/assets/mia.png';
 import tuyafedLogo from '@/assets/tuyafed.png';
 import accelerationLogo from '@/assets/acceleration.jpg';
-import SectionHeader from '@/components/shared/SectionHeader/SectionHeader';
 
 interface Partner {
   id: number;
@@ -54,13 +53,15 @@ const International: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 py-5 via-white to-blue-50">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <SectionHeader
-          title={t('pages.international.title') || 'XALQARO HAMKORLIK ALOQALARI'}
-          subtitle={
-            t('pages.international.description') ||
-            "Institut raqamli texnologiyalar va sun'iy intellekt sohasidagi tashkilotlar bilan hamkorlik uchun ochiq. Quyida keltirilgan tashkilotlar bilan tuzilgan hamkorlik to'g'risidagi hujjatlar bilan tanishishingiz mumkin, buning uchun ularning tegishli logotiplari ustiga bosing."
-          }
-        />
+        <div className="mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+              {t('pages.international.title') || 'XALQARO HAMKORLIK ALOQALARI'}
+            </h1>
+          </div>
+          <div className="h-px bg-gray-200 mt-4" />
+        </div>
 
         {/* Partners Grid */}
         <div className="">
