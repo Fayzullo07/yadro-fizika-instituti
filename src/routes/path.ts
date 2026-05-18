@@ -29,6 +29,7 @@ export const LABORATORIES_PATH = '/research/laboratories';
 export const LABORATORY_DETAIL_PATH = '/research/laboratories/:id';
 export const DOCTORATE_PATH = '/research/doctorate';
 export const CONFERENCES_PATH = '/research/conferences';
+export const CONFERENCE_DETAIL_PATH = '/research/conferences/:id';
 export const RESEARCH_SCIENTISTS_PATH = '/research/scientists';
 export const RESEARCH_DEGREES_PATH = '/research/degrees';
 export const RESEARCH_DIRECTIONS_PATH = '/research/directions';

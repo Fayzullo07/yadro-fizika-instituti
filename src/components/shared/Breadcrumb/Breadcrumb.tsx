@@ -101,6 +101,11 @@ const Breadcrumb: React.FC = () => {
       label: t('labs.detail') || 'Laboratoriya',
       sectionLabel: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
     },
+    {
+      prefix: '/research/conferences/',
+      label: t('conferences.detail') || 'Konferensiya',
+      sectionLabel: t('nav.media.conferences') || 'Konferensiyalar',
+    },
   ];
 
   // Resolve current page info

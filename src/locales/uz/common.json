@@ -107,6 +107,7 @@
   "news": {
     "title": "Yangiliklar",
     "subtitle": "So'nggi yangiliklar va e'lonlar",
+    "detail": "Batafsil",
     "readMore": "Batafsil",
     "viewAll": "Barcha yangiliklar",
     "backToList": "Yangiliklar ro'yxatiga qaytish",
@@ -172,7 +173,24 @@
     },
     "conferences": {
       "subtitle": "Ilmiy konferensiyalar va ilmiy-amaliy anjumanlar",
-      "noConferences": "Hozirda konferensiyalar mavjud emas"
+      "noConferences": "Hozirda konferensiyalar mavjud emas",
+      "readMore": "Batafsil",
+      "backToList": "Konferensiyalar ro'yxatiga qaytish"
+    },
+    "graduates": {
+      "content": "Bitiruvchilar ma'lumotlari hozircha tayyorlanmoqda."
+    },
+    "symbols": {
+      "content": "Davlat ramzlari ma'lumotlari hozircha tayyorlanmoqda."
+    },
+    "talented": {
+      "content": "Iqtidorli yoshlar ma'lumotlari hozircha tayyorlanmoqda."
+    },
+    "reception": {
+      "content": "Rahbariyat qabul kunlari ma'lumotlari hozircha tayyorlanmoqda."
+    },
+    "team": {
+      "noMembers": "Jamoasi a'zolari topilmadi"
     },
     "calendar": {
       "comingSoon": "Tez orada qo'shiladi",
@@ -241,7 +259,11 @@
     "submit": "Yuborish",
     "success": "Arizangiz muvaffaqiyatli yuborildi!",
     "noVacancies": "Hozirda vakansiyalar mavjud emas",
-    "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
+    "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring",
+    "vacancy": "Vakansiya",
+    "invalidEmail": "Email manzil noto'g'ri formatda",
+    "invalidPhone": "Telefon raqam noto'g'ri formatda",
+    "fileTooLarge": "Fayl hajmi 5MB dan oshmasligi kerak"
   },
   "gallery": {
     "title": "Fotogalereya",
@@ -249,7 +271,11 @@
   },
   "labs": {
     "title": "Seysmik xavfsizlik va barqaror qurilish",
-    "subtitle": "Milliy tadqiqot instituti laboratoriyalarining asosiy vazifalari"
+    "subtitle": "Milliy tadqiqot instituti laboratoriyalarining asosiy vazifalari",
+    "detail": "Laboratoriya"
+  },
+  "conferences": {
+    "detail": "Konferensiya"
   },
   "stats": {
     "title": "INSTITUT RAQAMLARDA",
@@ -261,7 +287,9 @@
   "common": {
     "loading": "Yuklanmoqda...",
     "error": "Xatolik yuz berdi",
-    "cancel": "Bekor qilish"
+    "cancel": "Bekor qilish",
+    "downloadPdf": "PDF yuklab olish",
+    "print": "Chop etish"
   },
   "contact": {
     "workingDays": "Ish kunlari",

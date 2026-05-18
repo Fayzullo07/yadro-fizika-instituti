@@ -288,6 +288,8 @@ export const adsApi = {
 export const conferencesApi = {
   getAll: (language: string | null = null) =>
     apiRequest<PaginatedResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES, {}, language),
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES_BY_ID(id), {}, language),
 };
 
 // Teams API

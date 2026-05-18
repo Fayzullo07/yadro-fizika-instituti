@@ -107,6 +107,7 @@
   "news": {
     "title": "News",
     "subtitle": "Latest news and announcements",
+    "detail": "Read More",
     "readMore": "Read More",
     "viewAll": "View All News",
     "backToList": "Back to News List",
@@ -172,7 +173,24 @@
     },
     "conferences": {
       "subtitle": "Scientific conferences and scientific-practical conferences",
-      "noConferences": "No conferences available at the moment"
+      "noConferences": "No conferences available at the moment",
+      "readMore": "Read More",
+      "backToList": "Back to Conferences"
+    },
+    "graduates": {
+      "content": "Graduates information is being prepared."
+    },
+    "symbols": {
+      "content": "State symbols information is being prepared."
+    },
+    "talented": {
+      "content": "Talented youth information is being prepared."
+    },
+    "reception": {
+      "content": "Reception schedule information is being prepared."
+    },
+    "team": {
+      "noMembers": "No team members found"
     },
     "calendar": {
       "comingSoon": "Coming Soon",
@@ -241,11 +259,19 @@
     "submit": "Submit",
     "success": "Your application has been submitted successfully!",
     "noVacancies": "No vacancies available at the moment",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "vacancy": "Vacancy",
+    "invalidEmail": "Invalid email address format",
+    "invalidPhone": "Invalid phone number format",
+    "fileTooLarge": "File size must not exceed 5 MB"
   },
   "labs": {
     "title": "Seismic Safety and Sustainable Construction",
-    "subtitle": "Core tasks of the National Research Institute laboratories"
+    "subtitle": "Core tasks of the National Research Institute laboratories",
+    "detail": "Laboratory"
+  },
+  "conferences": {
+    "detail": "Conference"
   },
   "gallery": {
     "title": "Photo Gallery",
@@ -261,7 +287,9 @@
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "downloadPdf": "Download PDF",
+    "print": "Print"
   },
   "contact": {
     "workingDays": "Working Days",

@@ -24,6 +24,7 @@ const Laboratories = lazy(() => import('@/pages/Research/Laboratories/Laboratori
 const LaboratoryDetail = lazy(() => import('@/pages/Research/Laboratories/LaboratoryDetail'));
 const Doctorate = lazy(() => import('@/pages/Research/Doctorate/Doctorate'));
 const Conferences = lazy(() => import('@/pages/Research/Conferences/Conferences'));
+const ConferenceDetail = lazy(() => import('@/pages/Research/Conferences/ConferenceDetail'));
 const Teachers = lazy(() => import('@/pages/General/Teachers/Teachers'));
 const Talented = lazy(() => import('@/pages/General/Talented/Talented'));
 const Symbols = lazy(() => import('@/pages/General/Symbols/Symbols'));
@@ -80,6 +81,7 @@ import {
   LABORATORY_DETAIL_PATH,
   DOCTORATE_PATH,
   CONFERENCES_PATH,
+  CONFERENCE_DETAIL_PATH,
   TEACHERS_PATH,
   TALENTED_PATH,
   SYMBOLS_PATH,
@@ -313,6 +315,14 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Conferences />
+                </Suspense>
+              ),
+            },
+            {
+              path: CONFERENCE_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <ConferenceDetail />
                 </Suspense>
               ),
             },
