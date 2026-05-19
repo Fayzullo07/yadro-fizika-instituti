@@ -16,22 +16,20 @@ const BannerBackground: React.FC<BannerBackgroundProps> = memo(
 
     return (
       <div
-        className="absolute inset-0 bg-[#0f1b3d] overflow-hidden"
+        className="absolute inset-0"
         style={{
+          backgroundImage: `url(${src})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'top center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#0f1b3d',
           transform: isDrag ? `translateX(${offset}px)` : undefined,
           animation: animationName
             ? `${animationName} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards`
             : undefined,
           zIndex: 1,
         }}
-      >
-        <img
-          src={src}
-          alt=""
-          className="w-full h-full object-contain object-top"
-          draggable={false}
-        />
-      </div>
+      />
     );
   }
 );
