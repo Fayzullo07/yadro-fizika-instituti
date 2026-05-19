@@ -20,8 +20,8 @@ const Home: React.FC = () => {
         <PartnersMarquee />
       </div>
       <AboutSection />
-      <LaboratoriesTasks />
       <NewsSection />
+      {/* <LaboratoriesTasks /> */}
       <FeaturesSection />
       <GallerySection />
       <VideoGallerySection />

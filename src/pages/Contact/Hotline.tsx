@@ -8,8 +8,8 @@ interface SocialMediaLink {
 
 const PHONES = ['(+998 71) 289-31-18', '(+998 71) 289-31-60'];
 const FAX = '(+998 71) 289-36-65';
-const WEBSITE = 'www.naris.uz';
-const EMAIL = 'inp@gmail.uz';
+const WEBSITE = 'https://test.inp.uz';
+const EMAIL = 'inp@gmail.com';
 
 const SOCIAL_LINKS: SocialMediaLink[] = [
   { name: 'youtube', url: '#' },

@@ -7,7 +7,7 @@ import logoFallback from '@/assets/logo.jpg';
 const ORG_NAME = 'Yadro fizika instituti';
 const ORG_DESC = "O'zbekiston Fanlar akademiyasining ilmiy-tadqiqot muassasasi";
 const CONTACT = {
-  email: 'yfi@yfi.uz',
+  email: 'inp@gmail.com',
   phones: ['+998 71 289-31-18', '+998 71 289-31-60'],
   fax: '+998 71 289-36-65',
   address: "100214, Toshkent sh., Ulug'bek shaharchasi, U.G'ulomov ko'chasi, 1",
