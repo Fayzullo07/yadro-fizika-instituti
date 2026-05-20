@@ -19,7 +19,7 @@ const BannerBackground: React.FC<BannerBackgroundProps> = memo(
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${src})`,
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'top center',
           backgroundRepeat: 'no-repeat',
           backgroundColor: '#0f1b3d',

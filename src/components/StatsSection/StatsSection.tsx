@@ -71,20 +71,20 @@ const StatCard: React.FC<{
 
   return (
     <div
-      className={`group flex flex-col items-center text-center px-4 md:px-8 py-5 md:py-6 transition-colors duration-300 hover:bg-white/5 ${
+      className={`group flex flex-col items-center text-center px-2 sm:px-4 md:px-8 py-4 sm:py-5 md:py-6 transition-colors duration-300 hover:bg-white/5 ${
         index % 2 === 0 ? 'border-r border-white/10' : ''
       } ${index < 2 ? 'border-b lg:border-b-0 border-white/10' : ''} ${
         index !== 3 ? 'lg:border-r lg:border-white/10' : ''
       }`}
     >
-      <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-blue-500/15 flex items-center justify-center text-blue-300 mb-3 group-hover:bg-blue-500/25 group-hover:text-blue-200 transition-all duration-300">
+      <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-blue-500/15 flex items-center justify-center text-blue-300 mb-2 sm:mb-3 group-hover:bg-blue-500/25 group-hover:text-blue-200 transition-all duration-300">
         {icon}
       </div>
-      <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">
+      <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white tabular-nums">
         {count}
         {stat.suffix}
       </span>
-      <p className="text-[10px] md:text-xs text-blue-200/50 mt-1 tracking-widest uppercase font-medium">
+      <p className="text-[9px] sm:text-[10px] md:text-xs text-blue-200/50 mt-1 tracking-widest uppercase font-medium leading-tight">
         {stat.title}
       </p>
     </div>
@@ -93,13 +93,13 @@ const StatCard: React.FC<{
 
 const StatCardSkeleton: React.FC<{ index: number }> = ({ index }) => (
   <div
-    className={`flex flex-col items-center text-center px-4 md:px-8 py-5 md:py-6 ${
+    className={`flex flex-col items-center text-center px-2 sm:px-4 md:px-8 py-4 sm:py-5 md:py-6 ${
       index % 2 === 0 ? 'border-r border-white/10' : ''
     } ${index < 2 ? 'border-b lg:border-b-0 border-white/10' : ''} ${
       index !== 3 ? 'lg:border-r lg:border-white/10' : ''
     }`}
   >
-    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 mb-3 animate-pulse" />
+    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white/10 mb-2 sm:mb-3 animate-pulse" />
     <div className="h-8 w-16 bg-white/10 rounded animate-pulse mb-2" />
     <div className="h-3 w-20 bg-white/10 rounded animate-pulse" />
   </div>

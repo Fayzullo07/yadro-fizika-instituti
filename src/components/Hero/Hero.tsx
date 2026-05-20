@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { useBanners } from '@/hooks/useBanners';
-import { useGeneral } from '@/hooks/useGeneral';
-import { sanitizeHtml, stripHtmlRegex } from '@/utils/htmlUtils';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
@@ -11,13 +9,8 @@ const AUTOPLAY_INTERVAL = 5000;
 const DRAG_THRESHOLD = 50;
 
 const Hero: React.FC = () => {
-  const { data, loading, error } = useBanners({ per_page: 10 });
-  const { data: generalData } = useGeneral();
-  const organizationName = generalData
-    ? stripHtmlRegex(
-        generalData.organization_short_name || generalData.organization_name || ''
-      ).trim() || "O'z Res FA YADRO FIZIKASI INSTITUTI"
-    : "O'z Res FA YADRO FIZIKASI INSTITUTI";
+  const { data, loading } = useBanners({ per_page: 10 });
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
@@ -60,14 +53,6 @@ const Hero: React.FC = () => {
       });
     }, AUTOPLAY_INTERVAL);
   }, [banners.length]);
-
-  const goToSlide = useCallback(
-    (index: number) => {
-      changeSlide(index, index > currentIndex ? 'next' : 'prev');
-      startAutoplay();
-    },
-    [currentIndex, changeSlide, startAutoplay]
-  );
 
   // Drag handlers
   const handleDragStart = useCallback(
@@ -115,15 +100,12 @@ const Hero: React.FC = () => {
   const fallbackBanner = { id: 0, image: img1, title: '', order: 0 } as unknown as Banner;
   const activeBanners = banners.length > 0 ? banners : [fallbackBanner];
 
-  const currentBanner = activeBanners[currentIndex] ?? activeBanners[0];
-  const hasMultipleSlides = activeBanners.length > 1;
-
   const nextDragIndex = (currentIndex + 1) % activeBanners.length;
   const prevDragIndex = (currentIndex - 1 + activeBanners.length) % activeBanners.length;
 
   return (
     <div
-      className="relative h-full overflow-hidden cursor-grab active:cursor-grabbing select-none"
+      className="relative h-full min-h-30 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-100 overflow-hidden cursor-grab active:cursor-grabbing select-none"
       onMouseDown={(e) => {
         e.preventDefault();
         handleDragStart(e.clientX);
@@ -211,58 +193,7 @@ const Hero: React.FC = () => {
       })}
 
       {/* Bottom gradient overlay — sits within image area */}
-      <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-[#0f1b3d]/80 via-[#0f1b3d]/30 to-transparent z-3" />
-
-      {/* Content — overlaid on image */}
-      <div className="absolute inset-x-0 bottom-[18%] z-10 pointer-events-none">
-        <div className="container mx-auto px-6 md:px-10">
-          {/* Org name row */}
-          <div
-            key={`badge-${currentIndex}`}
-            className="flex items-center gap-3 mb-3 animate-slide-up"
-          >
-            <div className="w-6 h-px bg-blue-400/70" />
-            <span className="text-blue-300/90 text-xs font-semibold tracking-[0.2em] uppercase">
-              {organizationName}
-            </span>
-          </div>
-
-          {/* Title */}
-          {currentBanner.title && (
-            <h1
-              key={`title-${currentIndex}`}
-              className="text-2xl md:text-4xl font-bold text-white leading-snug mb-5 animate-slide-up max-w-3xl line-clamp-3 drop-shadow-md"
-              style={{ animationDelay: '80ms' }}
-              dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentBanner.title) }}
-            />
-          )}
-
-          {/* Bottom row: divider line + dots */}
-          <div
-            key={`bottom-${currentIndex}`}
-            className="flex items-center gap-4 animate-slide-up pointer-events-auto"
-            style={{ animationDelay: '160ms' }}
-          >
-            <div className="h-px flex-1 max-w-16 bg-white/20" />
-            {hasMultipleSlides && (
-              <div className="flex items-center gap-2">
-                {activeBanners.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`rounded-full transition-all duration-500 ${
-                      index === currentIndex
-                        ? 'w-6 h-1.5 bg-white'
-                        : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'
-                    }`}
-                    aria-label={`Slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      {/* <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-[#0f1b3d]/80 via-[#0f1b3d]/30 to-transparent z-3" /> */}
     </div>
   );
 };

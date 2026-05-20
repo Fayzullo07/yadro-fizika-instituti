@@ -27,17 +27,17 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between py-3">
           {/* Logo + Name */}
           <div className="flex items-center gap-3">
-            <Link to={HOME_PATH} className="flex items-center gap-3 group">
+            <Link to={HOME_PATH} className="flex items-center gap-2 sm:gap-3 group">
               <img
                 src={logoFallback}
                 alt={`${ORG_LINE1} ${ORG_LINE2}`}
-                className="h-16 w-16 object-contain rounded-lg"
+                className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 object-contain rounded-lg shrink-0"
               />
               <span className="flex flex-col">
-                <span className="text-[10px] md:text-xs font-semibold text-gray-400 tracking-wide leading-tight uppercase">
+                <span className="hidden sm:block text-[9px] md:text-xs font-semibold text-gray-400 tracking-wide leading-tight uppercase">
                   {ORG_LINE1}
                 </span>
-                <span className="text-sm md:text-base font-bold text-gray-900 leading-tight uppercase tracking-wide">
+                <span className="text-xs sm:text-sm md:text-base font-bold text-gray-900 leading-tight uppercase tracking-wide">
                   {ORG_LINE2}
                 </span>
               </span>
@@ -99,7 +99,7 @@ const Header: React.FC = () => {
       {/* Navigation bar */}
       <div className="border-t bg-[#0f1b3d] border-gray-100">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center py-2.5">
+          <div className="flex items-center justify-center md:py-2.5">
             {!isMobileMenuOpen && (
               <DesktopNavigation
                 menuItems={menuItems}
