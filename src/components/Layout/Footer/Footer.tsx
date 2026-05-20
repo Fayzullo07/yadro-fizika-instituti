@@ -2,35 +2,34 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
+import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
 import logoFallback from '@/assets/logo.jpg';
 
-const ORG_NAME = 'Yadro fizika instituti';
-const ORG_DESC = "O'zbekiston Fanlar akademiyasining ilmiy-tadqiqot muassasasi";
-const CONTACT = {
-  email: 'info@inp.uz',
-  phones: ['+998 71 289-31-18', '+998 71 289-31-60'],
-  fax: '+998 71 289-36-65',
-  address: "100214, Toshkent sh., Ulug'bek shaharchasi, U.G'ulomov ko'chasi, 1",
-};
+const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
+const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <footer className="bg-[#0f1b3d] text-gray-300 mt-auto">
       <div className="container mx-auto py-14">
         {/* Top row: branding + social */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-10 border-b border-white/10">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <img
               src={logoFallback}
-              alt={ORG_NAME}
+              alt={`${ORG_LINE1} ${ORG_LINE2}`}
               loading="lazy"
-              className="h-11 w-11 object-contain rounded-lg"
+              className="h-11 w-11 object-contain rounded-lg shrink-0"
             />
-            <div>
-              <h3 className="text-white font-bold text-lg leading-snug">{ORG_NAME}</h3>
-              <p className="text-blue-200/40 text-xs mt-1 max-w-sm line-clamp-1">{ORG_DESC}</p>
+            <div className="flex flex-col">
+              <span className="text-[9px] font-semibold text-blue-200/40 tracking-wide leading-tight uppercase">
+                {ORG_LINE1}
+              </span>
+              <span className="text-sm font-bold text-white leading-tight uppercase tracking-wide">
+                {ORG_LINE2}
+              </span>
             </div>
           </div>
 
@@ -59,7 +58,7 @@ const Footer: React.FC = () => {
             <h4 className="text-white text-xs font-semibold uppercase tracking-widest mb-4">
               {t('nav.institute.about') || 'Biz haqimizda'}
             </h4>
-            <p className="text-blue-200/50 text-sm leading-relaxed">{ORG_DESC}</p>
+            <p className="text-blue-200/50 text-sm leading-relaxed">{ORG_LINE1}</p>
           </div>
 
           {/* Quick Links */}
@@ -90,14 +89,14 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href={`mailto:${CONTACT.email}`}
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="flex items-center gap-3 text-blue-200/50 hover:text-white transition-colors duration-200"
                 >
                   <EmailIcon />
-                  <span className="text-sm">{CONTACT.email}</span>
+                  <span className="text-sm">{CONTACT_EMAIL}</span>
                 </a>
               </li>
-              {CONTACT.phones.map((phone) => (
+              {CONTACT_PHONES.map((phone) => (
                 <li key={phone}>
                   <a
                     href={`tel:${phone.replace(/\s/g, '')}`}
@@ -110,7 +109,9 @@ const Footer: React.FC = () => {
               ))}
               <li className="flex items-start gap-3 text-blue-200/50">
                 <LocationIcon />
-                <span className="text-sm leading-relaxed">{CONTACT.address}</span>
+                <span className="text-sm leading-relaxed">
+                  {CONTACT_ADDRESS[language] ?? CONTACT_ADDRESS.uz}
+                </span>
               </li>
             </ul>
           </div>
@@ -121,7 +122,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-white/5 bg-[#0a1330]">
         <div className="container mx-auto py-5">
           <p className="text-center text-blue-200/30 text-xs">
-            © {new Date().getFullYear()} {ORG_NAME}.{' '}
+            © {new Date().getFullYear()} {ORG_LINE2}.{' '}
             {t('footer.rights') || 'Barcha huquqlar himoyalangan.'}
           </p>
         </div>
