@@ -10,7 +10,8 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { SOCIAL_LINKS } from '../Footer/FooterData';
 import logoFallback from '@/assets/logo.jpg';
 
-const ORGANIZATION_NAME = "O'z Res FA Yadro fizikasi instituti";
+const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
+const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
@@ -29,11 +30,16 @@ const Header: React.FC = () => {
             <Link to={HOME_PATH} className="flex items-center gap-3 group">
               <img
                 src={logoFallback}
-                alt={ORGANIZATION_NAME}
+                alt={`${ORG_LINE1} ${ORG_LINE2}`}
                 className="h-16 w-16 object-contain rounded-lg"
               />
-              <span className="text-base md:text-lg font-bold leading-tight text-gray-900">
-                {ORGANIZATION_NAME}
+              <span className="flex flex-col">
+                <span className="text-[10px] md:text-xs font-semibold text-gray-400 tracking-wide leading-tight uppercase">
+                  {ORG_LINE1}
+                </span>
+                <span className="text-sm md:text-base font-bold text-gray-900 leading-tight uppercase tracking-wide">
+                  {ORG_LINE2}
+                </span>
               </span>
             </Link>
           </div>
