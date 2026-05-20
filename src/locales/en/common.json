@@ -302,7 +302,8 @@
     "phone": "Phone",
     "fax": "Fax",
     "location": "Location",
-    "findUs": "Find Us"
+    "findUs": "Find Us",
+    "openMap": "Open in Map"
   },
   "leadership": {
     "responsibilities": "Responsibilities",

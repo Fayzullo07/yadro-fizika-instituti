@@ -302,7 +302,8 @@
     "phone": "Телефон",
     "fax": "Факс",
     "location": "Локация",
-    "findUs": "Найдите нас"
+    "findUs": "Найдите нас",
+    "openMap": "Открыть на карте"
   },
   "leadership": {
     "responsibilities": "Обязанности",

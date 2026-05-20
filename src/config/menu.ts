@@ -101,9 +101,8 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     id: 'boglanish',
     label: t('nav.boglanish.title') || "Bog'lanish",
     links: [
+      { label: t('nav.boglanish.contact') || "Bog'lanish", path: CONTACT_PATH },
       { label: t('nav.boglanish.map') || 'Xarita', path: MAP_PATH },
-      { label: t('nav.boglanish.address') || 'Manzil', path: CONTACT_PATH },
-      { label: t('nav.boglanish.workingHours') || 'Ish kunlari', path: HOTLINE_PATH },
     ],
   },
 ];
