@@ -58,6 +58,8 @@ export const NEWS_PATH = '/news';
 export const NEWS_DETAIL_PATH = '/news/:id';
 export const ANNOUNCEMENTS_PATH = '/news/announcements';
 export const ANNOUNCEMENT_DETAIL_PATH = '/news/announcements/:id';
+export const GALLERY_PATH = '/news/gallery';
+export const VIDEO_GALLERY_PATH = '/news/video-gallery';
 
 // Documents routes
 export const CONSTITUTION_PATH = '/normativ/constitution';

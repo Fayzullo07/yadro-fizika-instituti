@@ -40,7 +40,9 @@
       "news": "Новости",
       "calendar": "Календарь событий",
       "conferences": "Конференции",
-      "announcements": "Объявления"
+      "announcements": "Объявления",
+      "gallery": "Фотогалерея",
+      "videoGallery": "Видеогалерея"
     },
     "xizmatlar": {
       "title": "УСЛУГИ",

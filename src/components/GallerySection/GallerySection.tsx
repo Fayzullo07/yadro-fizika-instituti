@@ -88,7 +88,7 @@ const Lightbox: React.FC<{
 
 const GallerySection: React.FC = () => {
   const { t } = useLanguage();
-  const { data, loading } = useGalleries({ per_page: 7 });
+  const { data, loading } = useGalleries({ per_page: 9 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const items = data?.data ?? [];
@@ -134,7 +134,7 @@ const GallerySection: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[180px] md:auto-rows-[200px]">
-            {items.slice(0, 7).map((item, i) => (
+            {items.slice(0, 9).map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => openLightbox(i)}

@@ -46,7 +46,9 @@
       "news": "News",
       "calendar": "Events Calendar",
       "conferences": "Conferences",
-      "announcements": "Announcements"
+      "announcements": "Announcements",
+      "gallery": "Photo Gallery",
+      "videoGallery": "Video Gallery"
     },
     "normativ": {
       "title": "NORMATIVE LEGAL DOCUMENTS",

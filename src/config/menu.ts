@@ -14,6 +14,8 @@ import {
   CONTACT_PATH,
   HOTLINE_PATH,
   ANNOUNCEMENTS_PATH,
+  GALLERY_PATH,
+  VIDEO_GALLERY_PATH,
   INSTITUTE_HISTORY_PATH,
   INSTITUTE_DIRECTORS_PATH,
   INSTITUTE_CHARTER_PATH,
@@ -91,6 +93,8 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
       { label: t('nav.media.news') || 'Yangiliklar', path: NEWS_PATH },
       { label: t('nav.media.announcements') || "E'lonlar", path: ANNOUNCEMENTS_PATH },
       { label: t('nav.media.conferences') || 'Konferensiyalar', path: CONFERENCES_PATH },
+      { label: t('nav.media.gallery') || 'Fotogalereya', path: GALLERY_PATH },
+      { label: t('nav.media.videoGallery') || 'Video Galereya', path: VIDEO_GALLERY_PATH },
     ],
   },
   {

@@ -36,6 +36,8 @@ const NewsList = lazy(() => import('@/pages/News/NewsList/NewsList'));
 const NewsDetail = lazy(() => import('@/pages/News/NewsDetail/NewsDetail'));
 const Announcements = lazy(() => import('@/pages/News/Announcements/Announcements'));
 const AnnouncementDetail = lazy(() => import('@/pages/News/Announcements/AnnouncementDetail'));
+const Gallery = lazy(() => import('@/pages/News/Gallery/Gallery'));
+const VideoGallery = lazy(() => import('@/pages/News/VideoGallery/VideoGallery'));
 const Constitution = lazy(() => import('@/pages/Normativ/Constitution/Constitution'));
 const Decrees = lazy(() => import('@/pages/Normativ/Decrees/Decrees'));
 const Laws = lazy(() => import('@/pages/Normativ/Laws/Laws'));
@@ -93,6 +95,8 @@ import {
   NEWS_DETAIL_PATH,
   ANNOUNCEMENTS_PATH,
   ANNOUNCEMENT_DETAIL_PATH,
+  GALLERY_PATH,
+  VIDEO_GALLERY_PATH,
   CONSTITUTION_PATH,
   DECREES_PATH,
   LAWS_PATH,
@@ -150,23 +154,15 @@ const Routers = () => {
                 </Suspense>
               ),
             },
-            {
-              path: NEWS_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <NewsDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: '*',
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <NotFound />
-                </Suspense>
-              ),
-            },
           ],
+        },
+        {
+          path: '*',
+          element: (
+            <Suspense fallback={<Loading />}>
+              <NotFound />
+            </Suspense>
+          ),
         },
         {
           element: <SidebarLayout />,
@@ -460,6 +456,14 @@ const Routers = () => {
             },
             // News routes
             {
+              path: NEWS_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <NewsDetail />
+                </Suspense>
+              ),
+            },
+            {
               path: NEWS_PATH,
               element: (
                 <Suspense fallback={<Loading />}>
@@ -480,6 +484,22 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <AnnouncementDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: GALLERY_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Gallery />
+                </Suspense>
+              ),
+            },
+            {
+              path: VIDEO_GALLERY_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <VideoGallery />
                 </Suspense>
               ),
             },
