@@ -284,5 +284,6 @@ export interface SocialMediaLink {
   id: string;
   name: string;
   href: string;
+  color?: string;
   icon: React.ReactNode;
 }

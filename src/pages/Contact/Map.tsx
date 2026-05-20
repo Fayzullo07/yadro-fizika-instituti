@@ -1,8 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-
-const LATITUDE = '41.41320805594981';
-const LONGITUDE = '69.45051876464483';
-const MAP_ZOOM = '15';
+import { MAP_LATITUDE, MAP_LONGITUDE, MAP_ZOOM, CONTACT_PHONES } from '@/config/contactData';
 
 const Map: React.FC = () => {
   const { t } = useLanguage();
@@ -24,7 +21,7 @@ const Map: React.FC = () => {
       <div className="relative w-full min-h-130 rounded-xl overflow-hidden shadow-md">
         {/* Full map */}
         <iframe
-          src={`https://yandex.com/map-widget/v1/?ll=${LONGITUDE},${LATITUDE}&z=${MAP_ZOOM}&pt=${LONGITUDE},${LATITUDE},pm2rdm&l=sat,skl`}
+          src={`https://yandex.com/map-widget/v1/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE},pm2rdm&l=sat,skl`}
           width="100%"
           height="100%"
           allowFullScreen
@@ -83,7 +80,7 @@ const Map: React.FC = () => {
           {/* Footer link */}
           <div className="px-5 py-4 border-t border-gray-100">
             <a
-              href={`https://yandex.com/maps/?ll=${LONGITUDE},${LATITUDE}&z=${MAP_ZOOM}&pt=${LONGITUDE},${LATITUDE}`}
+              href={`https://yandex.com/maps/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#013d8c] hover:bg-[#012d6a] text-white text-sm font-medium rounded-lg transition-colors"
@@ -147,12 +144,15 @@ const Map: React.FC = () => {
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
               {t('contact.phone') || 'Telefon'}
             </p>
-            <a href="tel:+998712893118" className="text-sm text-gray-700 font-medium block">
-              +(998 71) 289-31-18
-            </a>
-            <a href="tel:+998712893160" className="text-sm text-gray-700 font-medium block">
-              +(998 71) 289-31-60
-            </a>
+            {CONTACT_PHONES.map((p) => (
+              <a
+                key={p}
+                href={`tel:${p.replace(/\s/g, '')}`}
+                className="text-sm text-gray-700 font-medium block"
+              >
+                {p}
+              </a>
+            ))}
           </div>
         </div>
 

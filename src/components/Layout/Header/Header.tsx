@@ -7,7 +7,7 @@ import DesktopNavigation from './DesktopNavigation';
 import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 import LanguageSwitcher from './LanguageSwitcher';
-import { SOCIAL_LINKS } from '../Footer/FooterData';
+import { SOCIAL_LINKS, CONTACT_PHONES } from '@/config/contactData';
 import logoFallback from '@/assets/logo.jpg';
 
 const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
@@ -52,10 +52,10 @@ const Header: React.FC = () => {
                 <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
               </svg>
               <a
-                href="tel:+998712893160"
+                href={`tel:${CONTACT_PHONES[1].replace(/\s/g, '')}`}
                 className="text-sm font-bold text-gray-900 hover:text-blue-600"
               >
-                (+99871) 289-31-60
+                {CONTACT_PHONES[1]}
               </a>
             </div>
 

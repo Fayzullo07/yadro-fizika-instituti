@@ -1,4 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { CONTACT_PHONES, CONTACT_FAX } from '@/config/contactData';
 import MapEmbed from './MapEmbed';
 import InfoItem from './InfoItem';
 import { LocationIcon, PhoneIcon, ClockIcon, FaxIcon } from './Icons';
@@ -29,22 +30,19 @@ const AddressMapSection: React.FC = () => {
             </InfoItem>
 
             <InfoItem icon={<PhoneIcon />} title={t('contact.phone') || 'Telefon'}>
-              <a
-                href="tel:+998712893118"
-                className="text-gray-500 hover:text-gray-900 text-sm font-medium block transition-colors duration-500"
-              >
-                (+998 71) 289-31-18
-              </a>
-              <a
-                href="tel:+998712893160"
-                className="text-gray-500 hover:text-gray-900 text-sm font-medium block transition-colors duration-500"
-              >
-                (+998 71) 289-31-60
-              </a>
+              {CONTACT_PHONES.map((p) => (
+                <a
+                  key={p}
+                  href={`tel:${p.replace(/\s/g, '')}`}
+                  className="text-gray-500 hover:text-gray-900 text-sm font-medium block transition-colors duration-500"
+                >
+                  {p}
+                </a>
+              ))}
             </InfoItem>
 
             <InfoItem icon={<FaxIcon />} title={t('contact.fax') || 'Faks'}>
-              <p className="text-gray-500 text-sm font-medium">(+998 71) 289-36-65</p>
+              <p className="text-gray-500 text-sm font-medium">{CONTACT_FAX}</p>
             </InfoItem>
 
             <InfoItem icon={<ClockIcon />} title={t('contact.workingDays') || 'Ish kunlari'}>
