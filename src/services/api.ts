@@ -276,6 +276,16 @@ export const instituteHistoryApi = {
     apiRequest<SingleResponse<InstituteHistoryData>>(API_ENDPOINTS.INSTITUTE_HISTORY, {}, language),
 };
 
+// Institute Director API
+export const instituteDirectorApi = {
+  get: (language: string | null = null) =>
+    apiRequest<SingleResponse<InstituteHistoryData>>(
+      API_ENDPOINTS.INSTITUTE_DIRECTOR,
+      {},
+      language
+    ),
+};
+
 // Announcements (Ads) API
 export const adsApi = {
   getAll: (language: string | null = null) =>

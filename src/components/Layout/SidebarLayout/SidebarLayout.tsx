@@ -5,7 +5,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 const SidebarLayout: React.FC = () => {
   return (
     <div className="  px-10 flex relative">
-      <main className="grow border-gray-200 transition-all">
+      <main className="grow min-w-0 border-gray-200 transition-all">
         <div>
           <Breadcrumb />
           <Outlet />

@@ -54,6 +54,7 @@ export const API_ENDPOINTS = {
 
   // Institute history
   INSTITUTE_HISTORY: '/api/institute-history',
+  INSTITUTE_DIRECTOR: '/api/institute-director',
 
   // Announcements (ads)
   ADS: '/api/ads',
