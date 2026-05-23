@@ -18,14 +18,15 @@ const ArrowIcon: React.FC = () => (
 );
 
 const NewsSection: React.FC = () => {
-  const { data, loading, error } = useNews({ per_page: 4 });
+  const { data, loading } = useNews({ per_page: 4 });
   const { t } = useLanguage();
-  const news: NewsItem[] = data?.data || [];
+  const news: NewsItem[] = Array.isArray(data?.data) ? data.data : [];
 
-  if (loading) return <NewsSkeleton />;
-  if (error || !news.length) return null;
+  if (loading && !news.length) return <NewsSkeleton />;
+  if (!news.length) return null;
 
-  const showViewAll = (data?.meta?.total ?? 0) > 4;
+  const total = data?.meta?.total ?? 0;
+  const showViewAll = total > news.length || news.length >= 4;
 
   return (
     <section className="py-16 md:py-24 bg-linear-to-b from-gray-50 to-gray-100">

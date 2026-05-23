@@ -3,7 +3,6 @@ import { useBanners } from '@/hooks/useBanners';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
-import img1 from '@/assets/institut.png';
 
 const AUTOPLAY_INTERVAL = 5000;
 const DRAG_THRESHOLD = 50;
@@ -97,8 +96,13 @@ const Hero: React.FC = () => {
 
   if (loading) return <HeroSkeleton />;
 
-  const fallbackBanner = { id: 0, image: img1, title: '', order: 0 } as unknown as Banner;
-  const activeBanners = banners.length > 0 ? banners : [fallbackBanner];
+  const activeBanners = banners;
+
+  if (!activeBanners.length) {
+    return (
+      <div className="relative min-h-30 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-100 bg-gray-200" />
+    );
+  }
 
   const nextDragIndex = (currentIndex + 1) % activeBanners.length;
   const prevDragIndex = (currentIndex - 1 + activeBanners.length) % activeBanners.length;
@@ -191,9 +195,6 @@ const Hero: React.FC = () => {
 
         return null;
       })}
-
-      {/* Bottom gradient overlay — sits within image area */}
-      {/* <div className="absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-[#0f1b3d]/80 via-[#0f1b3d]/30 to-transparent z-3" /> */}
     </div>
   );
 };
