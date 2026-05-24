@@ -20,6 +20,7 @@ import type {
   ScientificActivity,
   InternationalCollaboration,
   LaboratoryTeamMember,
+  LaboratoryDirector,
   WorkActivity,
   LeadershipMember,
   NewsItem,
@@ -392,6 +393,19 @@ export const laboratoryTeamsApi = {
       ? `${API_ENDPOINTS.LABORATORY_TEAMS_LIST}?${query}`
       : API_ENDPOINTS.LABORATORY_TEAMS_LIST;
     return apiRequest<PaginatedResponse<LaboratoryTeamMember>>(endpoint, {}, language);
+  },
+};
+
+// Laboratory Director API
+export const laboratoryDirectorApi = {
+  getByLaboratory: (laboratoryId: number | string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('laboratory_id', String(laboratoryId));
+    return apiRequest<SingleResponse<LaboratoryDirector>>(
+      `${API_ENDPOINTS.LABORATORY_DIRECTOR}?${query}`,
+      {},
+      language
+    );
   },
 };
 

@@ -80,6 +80,7 @@ export const API_ENDPOINTS = {
   // Laboratory Teams
   LABORATORY_TEAMS: '/api/laboratory-teams',
   LABORATORY_TEAMS_LIST: '/api/laboratory-teams/list',
+  LABORATORY_DIRECTOR: '/api/laboratory-director',
 
   // Work Activities
   WORK_ACTIVITIES: '/api/work-activities',
