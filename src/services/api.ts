@@ -297,8 +297,13 @@ export const instituteDirectorApi = {
 
 // Announcements (Ads) API
 export const adsApi = {
-  getAll: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<AnnouncementItem>>(API_ENDPOINTS.ADS, {}, language),
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
+    const endpoint = query.toString() ? `${API_ENDPOINTS.ADS}?${query}` : API_ENDPOINTS.ADS;
+    return apiRequest<PaginatedResponse<AnnouncementItem>>(endpoint, {}, language);
+  },
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<AnnouncementItem>>(API_ENDPOINTS.ADS_BY_ID(id), {}, language),
 };
@@ -318,8 +323,15 @@ export const doctoralsApi = {
 
 // Conferences API
 export const conferencesApi = {
-  getAll: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES, {}, language),
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
+    const endpoint = query.toString()
+      ? `${API_ENDPOINTS.CONFERENCES}?${query}`
+      : API_ENDPOINTS.CONFERENCES;
+    return apiRequest<PaginatedResponse<ConferenceItem>>(endpoint, {}, language);
+  },
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES_BY_ID(id), {}, language),
 };

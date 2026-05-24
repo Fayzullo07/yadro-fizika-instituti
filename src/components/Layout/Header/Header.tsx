@@ -22,6 +22,16 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
+      {/* Test mode banner */}
+      <div className="bg-red-50 text-red-500 text-sm font-meduim overflow-hidden whitespace-nowrap">
+        <div className="animate-marquee-rtl inline-block py-1">
+          {Array.from({ length: 1 }).map((_, i) => (
+            <span key={i} className="mx-8">
+              Tizim sinov (TEST) rejimida ishlamoqda!
+            </span>
+          ))}
+        </div>
+      </div>
       {/* Top bar */}
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-3">

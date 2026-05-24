@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useConferences } from '@/hooks/useConferences';
 import { formatDate } from '@/utils/dateUtils';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { ConferenceItem } from '@/types';
+
+const PER_PAGE = 10;
 
 const ConferenceCard: React.FC<{
   item: ConferenceItem;
@@ -132,21 +135,22 @@ const ConferenceCard: React.FC<{
 
 const Conferences: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data, loading, error } = useConferences();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
+  const { data, loading, error } = useConferences(page, PER_PAGE);
 
   const items = data?.data ?? [];
+  const totalPages = Math.ceil((data?.meta?.total || 0) / PER_PAGE);
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
-            {t('nav.media.conferences') || 'Konferensiyalar'}
-          </h1>
-        </div>
-        <div className="h-px bg-gray-200 mt-4" />
-      </div>
+      <PageTitle>{t('nav.media.conferences') || 'Konferensiyalar'}</PageTitle>
 
       {loading && <Loading />}
 
@@ -163,11 +167,65 @@ const Conferences: React.FC = () => {
       )}
 
       {items.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {items.map((item, index) => (
-            <ConferenceCard key={item.id} item={item} language={language} t={t} index={index} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {items.map((item, index) => (
+              <ConferenceCard key={item.id} item={item} language={language} t={t} index={index} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="mt-12 flex justify-center items-center gap-2">
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page === 1}
+                className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                ← {t('news.previous') || 'Oldingi'}
+              </button>
+
+              <div className="flex gap-2">
+                {[...Array(totalPages)].map((_, index) => {
+                  const pageNum = index + 1;
+                  if (
+                    pageNum === 1 ||
+                    pageNum === totalPages ||
+                    (pageNum >= page - 1 && pageNum <= page + 1)
+                  ) {
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`px-4 py-2 rounded-lg transition-colors ${
+                          page === pageNum
+                            ? 'bg-[#013d8c] text-white'
+                            : 'bg-white border border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  } else if (pageNum === page - 2 || pageNum === page + 2) {
+                    return (
+                      <span key={pageNum} className="px-2">
+                        ...
+                      </span>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page === totalPages}
+                className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {t('news.next') || 'Keyingi'} →
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -83,6 +83,23 @@ body {
   animation-play-state: paused !important;
 }
 
+.animate-marquee-slow {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-rtl {
+  animation: marquee-rtl 40s linear infinite;
+}
+
 /* Hero fade-in animation */
 @keyframes fade-in {
   from {
