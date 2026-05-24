@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   DEPARTMENT_LABORATORY_BY_ID: (id: number | string) => `/api/department/laboratory/${id}/`,
   LABORATORIES: '/api/laboratories',
   LABORATORIES_BY_ID: (id: number | string) => `/api/laboratories/${id}`,
+  SCIENTIFIC_ACTIVITIES: '/api/scientific-activities',
   DEPARTMENT_LEADERSHIP: '/api/department/leadership/',
   DEPARTMENT_LEADERSHIP_BY_ID: (id: number | string) => `/api/department/leadership/${id}/`,
   LEADERSHIP: '/api/leadership',
@@ -72,4 +73,10 @@ export const API_ENDPOINTS = {
 
   // Charter
   CHARTER: '/api/charter',
+
+  // International Collaborations
+  INTERNATIONAL_COLLABORATIONS: '/api/international-collaborations',
+
+  // Laboratory Teams
+  LABORATORY_TEAMS: '/api/laboratory-teams',
 };

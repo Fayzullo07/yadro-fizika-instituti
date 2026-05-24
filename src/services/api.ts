@@ -17,6 +17,9 @@ import type {
   Department,
   Laboratory,
   LaboratoryItem,
+  ScientificActivity,
+  InternationalCollaboration,
+  LaboratoryTeamMember,
   LeadershipMember,
   NewsItem,
   TeamMember,
@@ -158,6 +161,19 @@ export const councilApi = {
       {},
       language
     ),
+};
+
+// Scientific Activities API
+export const scientificActivitiesApi = {
+  getByLaboratory: (laboratoryId: number | string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('laboratory_id', String(laboratoryId));
+    return apiRequest<SingleResponse<ScientificActivity>>(
+      `${API_ENDPOINTS.SCIENTIFIC_ACTIVITIES}?${query}`,
+      {},
+      language
+    );
+  },
 };
 
 // Laboratories API
@@ -346,6 +362,39 @@ export const conferencesApi = {
   },
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<ConferenceItem>>(API_ENDPOINTS.CONFERENCES_BY_ID(id), {}, language),
+};
+
+// Laboratory Teams API
+export const laboratoryTeamsApi = {
+  getByLaboratory: (laboratoryId: number | string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('laboratory_id', String(laboratoryId));
+    return apiRequest<PaginatedResponse<LaboratoryTeamMember>>(
+      `${API_ENDPOINTS.LABORATORY_TEAMS}?${query}`,
+      {},
+      language
+    );
+  },
+
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<LaboratoryTeamMember>>(
+      `${API_ENDPOINTS.LABORATORY_TEAMS}/${id}`,
+      {},
+      language
+    ),
+};
+
+// International Collaborations API
+export const internationalCollaborationsApi = {
+  getByLaboratory: (laboratoryId: number | string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('laboratory_id', String(laboratoryId));
+    return apiRequest<SingleResponse<InternationalCollaboration>>(
+      `${API_ENDPOINTS.INTERNATIONAL_COLLABORATIONS}?${query}`,
+      {},
+      language
+    );
+  },
 };
 
 // Teams API

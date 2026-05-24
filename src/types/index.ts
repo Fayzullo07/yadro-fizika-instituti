@@ -145,12 +145,52 @@ export interface Department {
   updated_at: string;
 }
 
+export interface ScientificActivity {
+  id: number;
+  laboratory_id: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LaboratoryTeamMember {
+  id: number;
+  laboratory_id: number;
+  full_name: string;
+  position: string;
+  degree: string;
+  image: string;
+  google_scholar: string | null;
+  web_of_science: string | null;
+  scopus: string | null;
+  researchgate: string | null;
+  orcid: string | null;
+  order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface InternationalCollaboration {
+  id: number;
+  laboratory_id: number;
+  details: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LaboratoryImage {
+  id: number;
+  url: string;
+}
+
 export interface LaboratoryItem {
   id: number;
   name: string;
   order: number;
   is_active: boolean;
   content?: string;
+  images?: LaboratoryImage[];
   created_at: string;
   updated_at: string;
 }

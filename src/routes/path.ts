@@ -27,6 +27,7 @@ export const INSTITUTE_CHARTER_PATH = '/institute/charter';
 // Research routes
 export const LABORATORIES_PATH = '/research/laboratories';
 export const LABORATORY_DETAIL_PATH = '/research/laboratories/:id';
+export const LABORATORY_STAFF_DETAIL_PATH = '/research/laboratories/:labId/staff/:memberId';
 export const DOCTORATE_PATH = '/research/doctorate';
 export const CONFERENCES_PATH = '/research/conferences';
 export const CONFERENCE_DETAIL_PATH = '/research/conferences/:id';

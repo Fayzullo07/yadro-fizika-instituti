@@ -1,12 +1,16 @@
 import DOMPurify from 'dompurify';
 
-/**
- * Sanitizes HTML using DOMPurify to prevent XSS attacks.
- * Use when rendering HTML content via dangerouslySetInnerHTML.
- */
 export const sanitizeHtml = (html: string | null | undefined): string => {
   if (!html) return '';
   return DOMPurify.sanitize(html);
+};
+
+// Allows base64 embedded images (data: URIs) in addition to normal URLs
+export const sanitizeHtmlRich = (html: string | null | undefined): string => {
+  if (!html) return '';
+  return DOMPurify.sanitize(html, {
+    ALLOWED_URI_REGEXP: /^(?:(?:f|ht)tps?|mailto|tel|data:image\/)/i,
+  });
 };
 
 /**

@@ -22,6 +22,7 @@ const Calendar = lazy(() => import('@/pages/Institute/Calendar/Calendar'));
 const CentralOffice = lazy(() => import('@/pages/Institute/CentralOffice/CentralOffice'));
 const Laboratories = lazy(() => import('@/pages/Research/Laboratories/Laboratories'));
 const LaboratoryDetail = lazy(() => import('@/pages/Research/Laboratories/LaboratoryDetail'));
+const StaffMemberDetail = lazy(() => import('@/pages/Research/Laboratories/StaffMemberDetail'));
 const Doctorate = lazy(() => import('@/pages/Research/Doctorate/Doctorate'));
 const Conferences = lazy(() => import('@/pages/Research/Conferences/Conferences'));
 const ConferenceDetail = lazy(() => import('@/pages/Research/Conferences/ConferenceDetail'));
@@ -81,6 +82,7 @@ import {
   CALENDAR_PATH,
   LABORATORIES_PATH,
   LABORATORY_DETAIL_PATH,
+  LABORATORY_STAFF_DETAIL_PATH,
   DOCTORATE_PATH,
   CONFERENCES_PATH,
   CONFERENCE_DETAIL_PATH,
@@ -151,6 +153,14 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <LaboratoryDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: LABORATORY_STAFF_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <StaffMemberDetail />
                 </Suspense>
               ),
             },

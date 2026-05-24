@@ -1,7 +1,43 @@
 import { useApi } from './useApi';
-import { departmentApi, laboratoriesApi, teamsApi } from '@/services/api';
+import {
+  departmentApi,
+  internationalCollaborationsApi,
+  laboratoriesApi,
+  laboratoryTeamsApi,
+  scientificActivitiesApi,
+  teamsApi,
+} from '@/services/api';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PaginationParams } from '@/types';
+
+export const useScientificActivity = (laboratoryId: number | string) => {
+  const { language } = useLanguage();
+  return useApi(
+    () => scientificActivitiesApi.getByLaboratory(laboratoryId, language),
+    [laboratoryId, language]
+  );
+};
+
+export const useLaboratoryTeams = (laboratoryId: number | string) => {
+  const { language } = useLanguage();
+  return useApi(
+    () => laboratoryTeamsApi.getByLaboratory(laboratoryId, language),
+    [laboratoryId, language]
+  );
+};
+
+export const useLaboratoryTeamMember = (id: number | string) => {
+  const { language } = useLanguage();
+  return useApi(() => laboratoryTeamsApi.getById(id, language), [id, language]);
+};
+
+export const useInternationalCollaboration = (laboratoryId: number | string) => {
+  const { language } = useLanguage();
+  return useApi(
+    () => internationalCollaborationsApi.getByLaboratory(laboratoryId, language),
+    [laboratoryId, language]
+  );
+};
 
 export const useDepartments = () => {
   const { language } = useLanguage();
