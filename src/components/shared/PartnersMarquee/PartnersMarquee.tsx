@@ -13,9 +13,9 @@ const SkeletonItem: React.FC = () => (
 );
 
 const TITLE: Record<string, string> = {
-  uz: 'Rasmiy hamkorlar',
-  ru: 'Официальные партнёры',
-  en: 'Official Partners',
+  uz: 'Bizning hamkorlar',
+  ru: 'Наши партнёры',
+  en: 'Our Partners',
 };
 
 const PartnersMarquee: React.FC = () => {

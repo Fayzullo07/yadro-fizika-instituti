@@ -1,7 +1,20 @@
 import { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useVideoGallery } from '@/hooks/useVideoGallery';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { VIDEO_GALLERY_PATH } from '@/routes/path';
 import type { VideoGalleryItem } from '@/types';
+
+const ArrowIcon: React.FC = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 8l4 4m0 0l-4 4m4-4H3"
+    />
+  </svg>
+);
 
 const getYouTubeId = (url: string): string | null =>
   url.match(
@@ -126,9 +139,9 @@ const VideoGallerySection: React.FC = () => {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24 bg-gray-950">
+      <section className="py-8 md:py-12 bg-gray-950">
         <div className="container mx-auto px-4">
-          <div className="mb-10">
+          <div className="mb-12">
             <div className="h-3 w-24 bg-gray-800 rounded animate-pulse mb-3" />
             <div className="h-8 w-56 bg-gray-800 rounded animate-pulse" />
           </div>
@@ -151,21 +164,42 @@ const VideoGallerySection: React.FC = () => {
 
   return (
     <>
-      <section className="py-16 md:py-24 bg-gray-950">
+      <section className="py-8 md:py-12 bg-gray-950">
         <div className="container mx-auto px-4">
-          <div className="mb-10">
-            <span className="text-sm font-medium text-blue-400 tracking-widest uppercase mb-3 block">
-              {t('videoGallery.subtitle')}
-            </span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-              {t('videoGallery.title')}
-            </h2>
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <span className="text-sm font-medium text-blue-400 tracking-widest uppercase mb-3 block">
+                {t('videoGallery.subtitle')}
+              </span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+                {t('videoGallery.title')}
+              </h2>
+            </div>
+            <Link
+              to={VIDEO_GALLERY_PATH}
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 rounded-full text-sm font-medium"
+              style={{ transition: 'color 0.5s ease, border-color 0.5s ease' }}
+            >
+              {t('videoGallery.viewAll') || 'Barcha videolar'}
+              <ArrowIcon />
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {items.slice(0, 8).map((item) => (
               <VideoCard key={item.id} item={item} onClick={() => openModal(item)} />
             ))}
+          </div>
+
+          <div className="text-center mt-10 md:hidden">
+            <Link
+              to={VIDEO_GALLERY_PATH}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full text-sm font-medium hover:bg-gray-100"
+              style={{ transition: 'background-color 0.5s ease' }}
+            >
+              {t('videoGallery.viewAll') || 'Barcha videolar'}
+              <ArrowIcon />
+            </Link>
           </div>
         </div>
       </section>

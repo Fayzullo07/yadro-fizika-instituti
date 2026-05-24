@@ -288,7 +288,8 @@
   },
   "gallery": {
     "title": "Photo Gallery",
-    "subtitle": "PHOTOS"
+    "subtitle": "PHOTOS",
+    "viewAll": "All photos"
   },
   "stats": {
     "title": "INSTITUTE IN NUMBERS",
@@ -325,6 +326,7 @@
   },
   "videoGallery": {
     "title": "Video Gallery",
-    "subtitle": "VIDEOS"
+    "subtitle": "VIDEOS",
+    "viewAll": "All videos"
   }
 }

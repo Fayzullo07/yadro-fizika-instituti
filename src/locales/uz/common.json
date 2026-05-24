@@ -280,7 +280,8 @@
   },
   "gallery": {
     "title": "Fotogalereya",
-    "subtitle": "RASMLAR"
+    "subtitle": "RASMLAR",
+    "viewAll": "Barcha rasmlar"
   },
   "labs": {
     "title": "Seysmik xavfsizlik va barqaror qurilish",
@@ -325,6 +326,7 @@
   },
   "videoGallery": {
     "title": "Video Galereya",
-    "subtitle": "VIDEOLAR"
+    "subtitle": "VIDEOLAR",
+    "viewAll": "Barcha videolar"
   }
 }
