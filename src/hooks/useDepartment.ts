@@ -1,5 +1,5 @@
 import { useApi } from './useApi';
-import { departmentApi, teamsApi } from '@/services/api';
+import { departmentApi, laboratoriesApi, teamsApi } from '@/services/api';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PaginationParams } from '@/types';
 
@@ -16,6 +16,16 @@ export const useDepartment = (id: number | string) => {
 export const useLaboratory = () => {
   const { language } = useLanguage();
   return useApi(() => departmentApi.getLaboratory(language), [language]);
+};
+
+export const useLaboratories = () => {
+  const { language } = useLanguage();
+  return useApi(() => laboratoriesApi.getAll(language), [language]);
+};
+
+export const useLaboratoryItem = (id: number | string) => {
+  const { language } = useLanguage();
+  return useApi(() => laboratoriesApi.getById(id, language), [id, language]);
 };
 
 export const useLaboratoryById = (id: number | string) => {

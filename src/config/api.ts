@@ -21,6 +21,8 @@ export const API_ENDPOINTS = {
   DEPARTMENT_BY_ID: (id: number | string) => `/api/departments/${id}`,
   DEPARTMENT_LABORATORY: '/api/department/laboratory/',
   DEPARTMENT_LABORATORY_BY_ID: (id: number | string) => `/api/department/laboratory/${id}/`,
+  LABORATORIES: '/api/laboratories',
+  LABORATORIES_BY_ID: (id: number | string) => `/api/laboratories/${id}`,
   DEPARTMENT_LEADERSHIP: '/api/department/leadership/',
   DEPARTMENT_LEADERSHIP_BY_ID: (id: number | string) => `/api/department/leadership/${id}/`,
   LEADERSHIP: '/api/leadership',

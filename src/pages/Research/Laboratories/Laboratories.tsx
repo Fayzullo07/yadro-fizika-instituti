@@ -1,152 +1,94 @@
-import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useLaboratory } from '@/hooks/useDepartment';
-import { sanitizeHtml } from '@/utils/htmlUtils';
+import { useLaboratories } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
-
-interface LaboratoryItem {
-  id: number | string;
-  name: string;
-  number?: number;
-  icon?: React.ReactNode;
-}
+import { formatDate } from '@/utils/dateUtils';
+import { LABORATORIES_PATH } from '@/routes/path';
 
 const Laboratories: React.FC = () => {
-  const { t } = useLanguage();
-  const { data: laboratoryData, loading, error } = useLaboratory();
+  const { t, language } = useLanguage();
+  const { data, loading, error } = useLaboratories();
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
-      </div>
-    );
-  }
-
-  const allLaboratories: LaboratoryItem[] = laboratoryData?.data || [];
-
-  // Default laboratoriya nomlari
-  const defaultLaboratoryNames = [
-    'Bino va inshootlarning zilzilabardoshligi laboratoriyasi',
-    "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi",
-    'Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi',
-    'Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi',
-    '"Yashil" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi',
-    "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)",
-  ];
-
-  // Agar API dan kamroq ma'lumot kelsa, 6 tagacha to'ldirish
-  const ensureSixLaboratories = (): LaboratoryItem[] => {
-    // Agar API dan ma'lumot bo'lsa, ularni ishlatamiz, aks holda default nomlarni ishlatamiz
-    if (allLaboratories.length === 0) {
-      // API dan ma'lumot kelmagan bo'lsa, barcha default nomlarni qaytaramiz
-      return defaultLaboratoryNames.map((name, index) => ({
-        id: `default-${index + 1}`,
-        name: name,
-        number: index === 5 ? 15 : 6,
-      }));
-    }
-
-    const labs = [...allLaboratories];
-
-    // Agar 6 tadan kam bo'lsa, default ma'lumotlar qo'shish
-    while (labs.length < 6) {
-      const defaultIndex = labs.length;
-      labs.push({
-        id: `default-${labs.length + 1}`,
-        name: defaultLaboratoryNames[defaultIndex] || `Laboratoriya ${labs.length + 1}`,
-        number: labs.length === 5 ? 15 : 6,
-      });
-    }
-
-    // Agar API dan 6 tadan ko'p bo'lsa, faqat birinchi 6 tasini olamiz
-    // Va agar API dan kelgan nomlar bo'sh bo'lsa, default nomlarni ishlatamiz
-    return labs.slice(0, 6).map((lab, index) => ({
-      ...lab,
-      name: lab.name || defaultLaboratoryNames[index] || `Laboratoriya ${index + 1}`,
-    }));
-  };
-
-  const laboratories = ensureSixLaboratories();
-
-  // Default iconlar (har bir laboratoriya uchun)
-  const getDefaultIcon = (index: number): React.ReactNode => {
-    // Oddiy icon SVG - har bir laboratoriya uchun bir xil icon
-    return (
-      <path
-        key={`icon-${index}`}
-        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
-        fill="currentColor"
-      />
-    );
-  };
+  const laboratories = data?.data ?? [];
 
   return (
-    <div className="min-h-screen">
-      <div className="pb-8 md:pb-12">
-        {/* Title */}
-        <PageTitle>{t('nav.tadqiqot.laboratories') || 'Laboratoriyalar'}</PageTitle>
+    <div className="pb-10">
+      <PageTitle>{t('nav.laboratoriyalar.about') || 'Laboratoriyalar'}</PageTitle>
 
-        {laboratories.length > 0 ? (
-          <div className="relative max-w-6xl mx-auto">
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-400 transform -translate-x-1/2 hidden md:block"></div>
+      {loading && <Loading />}
+      {error && <p className="text-center py-16 text-gray-500">Xatolik yuz berdi</p>}
+      {!loading && !error && laboratories.length === 0 && (
+        <p className="text-center py-16 text-gray-500">Laboratoriyalar topilmadi</p>
+      )}
+      {!loading && !error && laboratories.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {laboratories.map((lab, index) => (
+            <Link
+              key={lab.id}
+              to={`${LABORATORIES_PATH}/${lab.id}`}
+              className="group relative flex flex-col bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden"
+            >
+              {/* Top accent bar */}
+              <div className="h-1 w-full bg-[#013d8c]" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative">
-              {laboratories.map((laboratory, index) => {
-                const isLeftColumn = index % 2 === 0;
-                return (
-                  <div
-                    key={laboratory.id || index}
-                    className={`relative ${isLeftColumn ? 'md:pr-8' : 'md:pl-8'}`}
-                  >
-                    <div
-                      className={`hidden md:block absolute top-1/2 ${
-                        isLeftColumn ? 'right-0' : 'left-0'
-                      } w-8 h-0.5 bg-gray-400 transform -translate-y-1/2`}
-                    ></div>
-
-                    <Link
-                      to={`/tadqiqot/laboratories/${index + 1}`}
-                      className="block bg-white border border-gray-300 rounded-xl p-8 h-full relative hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer"
+              <div className="p-6 flex flex-col gap-4 flex-1">
+                {/* Number badge + icon */}
+                <div className="flex items-start justify-between">
+                  <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+                    <svg
+                      className="w-5 h-5 text-[#013d8c]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <div className="mb-4">
-                        <svg
-                          className="w-12 h-12 text-gray-700"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          {laboratory.icon || getDefaultIcon(index)}
-                        </svg>
-                      </div>
-
-                      <div className="mb-4">
-                        {laboratory.name ? (
-                          <div
-                            className="!text-gray-800 font-medium text-[15px] md:text-base leading-[1.7] tracking-wide "
-                            dangerouslySetInnerHTML={{ __html: sanitizeHtml(laboratory.name) }}
-                          />
-                        ) : (
-                          <span className="text-gray-400">-</span>
-                        )}
-                      </div>
-                    </Link>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M9 3v7.5L6 17.5A2 2 0 008 20h8a2 2 0 002-1.5L15 10.5V3M9 3h6"
+                      />
+                    </svg>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 py-12">
-            <p>{t('pages.laboratories.noLaboratories') || 'Laboratoriyalar topilmadi'}</p>
-          </div>
-        )}
-      </div>
+                  <span
+                    className="text-3xl font-black select-none leading-none"
+                    style={{
+                      background: 'linear-gradient(135deg, #013d8c, #60a5fa)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                {/* Name */}
+                <h3 className="text-gray-800 font-semibold text-base leading-relaxed group-hover:text-[#013d8c] transition-colors flex-1">
+                  {lab.name}
+                </h3>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <span className="text-xs text-gray-400">
+                    {formatDate(lab.created_at, language)}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs font-medium text-[#013d8c] group-hover:underline">
+                    Batafsil
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

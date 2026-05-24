@@ -16,6 +16,7 @@ import type {
   CouncilMember,
   Department,
   Laboratory,
+  LaboratoryItem,
   LeadershipMember,
   NewsItem,
   TeamMember,
@@ -157,6 +158,15 @@ export const councilApi = {
       {},
       language
     ),
+};
+
+// Laboratories API
+export const laboratoriesApi = {
+  getAll: (language: string | null = null) =>
+    apiRequest<PaginatedResponse<LaboratoryItem>>(API_ENDPOINTS.LABORATORIES, {}, language),
+
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<LaboratoryItem>>(API_ENDPOINTS.LABORATORIES_BY_ID(id), {}, language),
 };
 
 // Department API

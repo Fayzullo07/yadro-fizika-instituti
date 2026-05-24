@@ -1,165 +1,138 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useLaboratory } from '@/hooks/useDepartment';
+import { useLaboratoryItem } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
-import BackButton from '@/components/shared/BackButton/BackButton';
-import { useState } from 'react';
-import type { Language } from '@/types';
+import { sanitizeHtml } from '@/utils/htmlUtils';
+import logoFallback from '@/assets/logo.jpg';
 
-// Rasmlarni til bo'yicha import qilish
-import uzImg1 from '@/assets/pdf/laboratoriya/Суний интелект Узб-1.jpg';
-import uzImg2 from '@/assets/pdf/laboratoriya/Суний интелект Узб-2.jpg';
-import enImg1 from '@/assets/pdf/laboratoriya/Сунний интелект Англ-1.jpg';
-import enImg2 from '@/assets/pdf/laboratoriya/Сунний интелект Англ-2.jpg';
-import ruImg1 from '@/assets/pdf/laboratoriya/Сунний интелект Рус-1.jpg';
-import ruImg2 from '@/assets/pdf/laboratoriya/Сунний интелект Рус-2.jpg';
-
-interface LaboratoryInfo {
-  id: number | string;
-  name: string;
-}
-
-interface ImageModalProps {
-  src: string;
-  onClose: () => void;
-}
-
-interface ImagesViewProps {
-  laboratory: LaboratoryInfo;
-  t: (key: string) => string;
-  showImages: boolean;
-  images: string[];
-}
-
-const LANG_IMAGES: Record<Language, string[]> = {
-  uz: [uzImg1, uzImg2],
-  en: [enImg1, enImg2],
-  ru: [ruImg1, ruImg2],
-};
-
-const ImageModal: React.FC<ImageModalProps> = ({ src, onClose }) => {
-  const { t } = useLanguage();
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div className="relative max-w-5xl w-full mx-4" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={onClose}
-          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
-        >
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <img
-          src={src}
-          alt={t('pages.laboratories.gallery')}
-          loading="lazy"
-          className="w-full max-h-[90vh] object-contain"
+const TABS = [
+  {
+    key: 'about',
+    uz: 'Laboratoriya haqida',
+    ru: 'О лаборатории',
+    en: 'About Laboratory',
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+      </svg>
+    ),
+  },
+  {
+    key: 'staff',
+    uz: 'Laboratoriya tarkibi',
+    ru: 'Состав лаборатории',
+    en: 'Laboratory Staff',
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+      </svg>
+    ),
+  },
+  {
+    key: 'science',
+    uz: 'Ilmiy faoliyat',
+    ru: 'Научная деятельность',
+    en: 'Scientific Activity',
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M9 3v7.5L6 17.5A2 2 0 008 20h8a2 2 0 002-1.5L15 10.5V3M9 3h6M9 3H7m8 0h2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
         />
-      </div>
-    </div>
-  );
-};
+      </svg>
+    ),
+  },
+  {
+    key: 'international',
+    uz: 'Xalqaro hamkorlik',
+    ru: 'Международное сотрудничество',
+    en: 'International Cooperation',
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+      </svg>
+    ),
+  },
+];
 
 const LaboratoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { t, language } = useLanguage();
-  const { data: laboratoryData, loading, error } = useLaboratory();
+  const { language } = useLanguage();
+  const { data, loading, error } = useLaboratoryItem(id || '');
+  const [activeTab, setActiveTab] = useState('about');
+
+  const lab = data?.data;
 
   if (loading) return <Loading />;
 
-  if (error) {
+  if (error || !lab) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
+      <div className="text-center py-16 text-gray-500">
+        {error ? 'Xatolik yuz berdi' : "Ma'lumot topilmadi"}
       </div>
     );
   }
 
-  const defaultLaboratories: LaboratoryInfo[] = [
-    { id: 'default-1', name: 'Bino va inshootlarning zilzilabardoshligi laboratoriyasi' },
-    {
-      id: 'default-2',
-      name: "Sun'iy intellekt texnologiyalari va raqamli qurilishni rivojlantirish laboratoriyasi",
-    },
-    {
-      id: 'default-3',
-      name: 'Geotexnika, gruntlar mexanikasi va qurilish materiallari laboratoriyasi',
-    },
-    {
-      id: 'default-4',
-      name: 'Barqaror konstruktiv yechimlar, shaharsozlik va infratuzilma laboratoriyasi',
-    },
-    {
-      id: 'default-5',
-      name: '"Yashil" qurilish, energiya samarador va muqobil texnologiyalar laboratoriyasi',
-    },
-    {
-      id: 'default-6',
-      name: "Zilzilabardoshlik bo'yicha ekspertlar guruhi (shartnomalarga muvofiq jalb qilinadi)",
-    },
-  ];
-
-  const allLaboratories: LaboratoryInfo[] = laboratoryData?.data || [];
-  const laboratory: LaboratoryInfo =
-    allLaboratories.find((lab) => lab.id === parseInt(id || '0')) ||
-    defaultLaboratories.find((lab) => lab.id === id) ||
-    defaultLaboratories[parseInt(id || '1') - 1] ||
-    defaultLaboratories[0];
-
-  const numericId: number = parseInt(id || '0');
-  const showImages = numericId === 1 || id === 'default-1' || id === '1';
-  const images = LANG_IMAGES[language] || LANG_IMAGES['uz'];
-
-  return <ImagesView laboratory={laboratory} t={t} showImages={showImages} images={images} />;
-};
-
-const ImagesView: React.FC<ImagesViewProps> = ({ laboratory, t, showImages, images }) => {
-  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const tabLabel = (tab: (typeof TABS)[0]) =>
+    language === 'ru' ? tab.ru : language === 'en' ? tab.en : tab.uz;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-6 md:py-12">
-        {/* <BackButton  /> */}
-        <BackButton
-          to="/tadqiqot/laboratories"
-          label={t('') || "Laboratoriyalar ro'yxatiga qaytish"}
+    <div className="pb-10">
+      {/* Hero banner */}
+      <div
+        className="relative overflow-hidden mb-2 min-h-20 flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #0f1b3d 0%, #013d8c 60%, #1a5fb4 100%)' }}
+      >
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 50%, #4a6fa5 0%, transparent 50%), radial-gradient(circle at 80% 20%, #1a3a6b 0%, transparent 40%)',
+          }}
         />
-        <div className="mt-4 mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
-              {laboratory?.name || 'Laboratoriya'}
-            </h1>
-          </div>
-          <div className="h-px bg-gray-200 mt-4" />
+        <div className="relative z-10 text-center px-8 py-0">
+          <h1 className="text-xl md:text-2xl font-bold text-white leading-snug max-w-2xl mx-auto">
+            {lab.name}
+          </h1>
         </div>
-
-        {showImages && (
-          <div className="max-w-5xl mx-auto mt-8 flex flex-col gap-6">
-            {images.map((img, idx) => (
-              <div key={idx} className=" overflow-hidden" onClick={() => setSelectedImg(img)}>
-                <img
-                  src={img}
-                  alt={`Laboratoriya rasmi ${idx + 1}`}
-                  loading="lazy"
-                  className="w-full object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {selectedImg && <ImageModal src={selectedImg} onClose={() => setSelectedImg(null)} />}
       </div>
+
+      {/* Tabs */}
+      <div className="flex border-b border-gray-200 mb-6">
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === tab.key
+                ? 'border-[#013d8c] bg-[#013d8c] text-white'
+                : 'border-transparent text-gray-600 hover:text-[#013d8c] hover:bg-gray-50'
+            }`}
+          >
+            {tab.icon}
+            {tabLabel(tab)}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      {activeTab === 'about' &&
+        (lab.content ? (
+          <div
+            className="bg-white rounded-2xl shadow-sm p-6 prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(lab.content) }}
+          />
+        ) : (
+          <p className="text-center py-16 text-gray-400">Kontent mavjud emas</p>
+        ))}
+
+      {activeTab !== 'about' && (
+        <p className="text-center py-16 text-gray-400">Ma'lumot mavjud emas</p>
+      )}
     </div>
   );
 };

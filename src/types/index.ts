@@ -145,6 +145,16 @@ export interface Department {
   updated_at: string;
 }
 
+export interface LaboratoryItem {
+  id: number;
+  name: string;
+  order: number;
+  is_active: boolean;
+  content?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Laboratory {
   id: number;
   name: string;
