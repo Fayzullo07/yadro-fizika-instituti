@@ -54,11 +54,6 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
         label: t('nav.laboratoriyalar.scientists') || 'Ilmiy xodimlar',
         path: RESEARCH_SCIENTISTS_PATH,
       },
-      { label: t('nav.laboratoriyalar.degrees') || 'Ilmiy darajalar', path: RESEARCH_DEGREES_PATH },
-      {
-        label: t('nav.laboratoriyalar.directions') || "Ilmiy yo'nalishlar",
-        path: RESEARCH_DIRECTIONS_PATH,
-      },
     ],
   },
   {
