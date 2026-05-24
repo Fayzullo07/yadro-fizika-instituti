@@ -2,7 +2,16 @@ import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
 import { useLaboratoryDirector } from '@/hooks/useDepartment';
-import type { LaboratoryItem } from '@/types';
+import type { LaboratoryItem, LaboratoryDirector } from '@/types';
+
+const academicLinks: { key: keyof LaboratoryDirector; label: string; color: string; bg: string }[] =
+  [
+    { key: 'google_scholar', label: 'Google Scholar', color: '#4285F4', bg: '#EAF1FB' },
+    { key: 'web_of_science', label: 'Web of Science', color: '#CC0000', bg: '#FDEAEA' },
+    { key: 'scopus', label: 'Scopus', color: '#E9711C', bg: '#FEF0E6' },
+    { key: 'researchgate', label: 'ResearchGate', color: '#00CCBB', bg: '#E6FAF8' },
+    { key: 'orcid', label: 'ORCID', color: '#A6CE39', bg: '#F4FAE6' },
+  ];
 
 const AboutTab: React.FC<{ lab: LaboratoryItem }> = ({ lab }) => {
   const { data: directorData } = useLaboratoryDirector(lab.id);
@@ -44,15 +53,36 @@ const AboutTab: React.FC<{ lab: LaboratoryItem }> = ({ lab }) => {
             <div className="flex flex-1 flex-col sm:flex-row p-6 gap-8">
               <div className="flex flex-col gap-3 flex-1">
                 <p className="font-bold text-gray-900 text-lg leading-snug">{director.full_name}</p>
-                <p className="text-gray-600 text-sm">{director.position}</p>
                 {director.degree && director.degree !== "Yo'q" && (
                   <div>
                     <p className="text-sm font-semibold text-gray-800 mb-0.5">Ilmiy darajasi:</p>
                     <p className="text-sm text-gray-600">{director.degree}</p>
                   </div>
                 )}
+                <div>
+                  <p className="text-sm font-semibold text-gray-800 mb-0.5">Lavozimi:</p>
+                  <p className="text-sm text-gray-600">{director.position}</p>
+                </div>
+                {academicLinks.filter((l) => director[l.key]).length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {academicLinks
+                      .filter((l) => director[l.key])
+                      .map((l) => (
+                        <a
+                          key={l.key}
+                          href={director[l.key] as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block border px-3 py-1.5 text-xs font-medium transition-opacity hover:opacity-80"
+                          style={{ borderColor: l.color, color: l.color, background: l.bg }}
+                        >
+                          {l.label}
+                        </a>
+                      ))}
+                  </div>
+                )}
               </div>
-              <div className="flex flex-col gap-3 sm:items-start sm:min-w-40">
+              <div className="flex flex-col sm:min-w-40 sm:items-start">
                 <Link
                   to={`/research/laboratories/${lab.id}/staff/${director.id}`}
                   className="mt-auto inline-block border border-amber-400 text-amber-600 hover:bg-amber-50 transition-colors px-6 py-2 text-sm text-center cursor-pointer"
