@@ -66,4 +66,7 @@ export const API_ENDPOINTS = {
 
   // Doctorals (Specialties)
   DOCTORALS: '/api/doctorals',
+
+  // Charter
+  CHARTER: '/api/charter',
 };

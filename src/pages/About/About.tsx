@@ -19,6 +19,16 @@ const About: React.FC = () => {
   return (
     <div className="bg-white shadow-lg">
       <section className="pb-16">
+        <div className="px-3 mt-8 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+              {'Institut haqida'}
+            </h1>
+          </div>
+          <div className="h-px bg-gray-200 mt-4" />
+        </div>
+
         {loading && <p className="mt-6 text-lg text-gray-600">{t('common.loading')}</p>}
 
         {error && <p className="mt-6 text-lg text-red-600">{t('common.error')}</p>}

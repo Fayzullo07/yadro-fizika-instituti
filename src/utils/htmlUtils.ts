@@ -13,6 +13,11 @@ export const sanitizeHtml = (html: string | null | undefined): string => {
  * Strips all HTML tags and returns plain text.
  * Use for alt attributes, titles, and other plain text contexts.
  */
+export const sanitizeHtmlNoStyle = (html: string | null | undefined): string => {
+  if (!html) return '';
+  return DOMPurify.sanitize(html, { FORBID_ATTR: ['style', 'class', 'width', 'float'] });
+};
+
 export const stripHtmlRegex = (html: string | null | undefined): string => {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '').trim();

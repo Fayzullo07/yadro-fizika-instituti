@@ -26,6 +26,7 @@ import type {
   PartnerItem,
   StructureData,
   SpecialtyItem,
+  CharterData,
 } from '@/types';
 
 // Helper function for API requests
@@ -34,8 +35,9 @@ export const apiRequest = async <T = unknown>(
   options: RequestInit = {},
   language: string | null = null
 ): Promise<T> => {
-  const url = `${API_BASE_URL}${endpoint}`;
   const lang = language || getStoredLanguage();
+  const separator = endpoint.includes('?') ? '&' : '?';
+  const url = `${API_BASE_URL}${endpoint}${separator}lang=${lang}`;
 
   const config = {
     headers: {
@@ -275,6 +277,12 @@ export const structureApi = {
 export const instituteHistoryApi = {
   get: (language: string | null = null) =>
     apiRequest<SingleResponse<InstituteHistoryData>>(API_ENDPOINTS.INSTITUTE_HISTORY, {}, language),
+};
+
+// Charter API
+export const charterApi = {
+  get: (language: string | null = null) =>
+    apiRequest<SingleResponse<CharterData>>(API_ENDPOINTS.CHARTER, {}, language),
 };
 
 // Institute Director API

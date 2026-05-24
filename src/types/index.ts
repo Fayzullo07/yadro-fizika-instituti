@@ -60,6 +60,13 @@ export interface InstituteHistoryData {
   updated_at: string;
 }
 
+export interface CharterData {
+  id: number;
+  details: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface SpecialtyItem {
   id: number;
   name: string;

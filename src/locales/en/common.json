@@ -73,7 +73,8 @@
       "staff": "Staff Profile",
       "scientists": "Research Scientists",
       "degrees": "Scientific Degrees",
-      "directions": "Research Directions"
+      "directions": "Research Directions",
+      "disertatsiya": "Dissertations"
     },
     "ilmiyFaoliyat": {
       "title": "Scientific Activity",
