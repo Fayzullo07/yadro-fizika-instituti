@@ -161,9 +161,13 @@ export interface LeadershipMember {
   full_name: string;
   position: string;
   image: string;
+  photo: string;
   phone: string;
   email: string;
   reception_hours: string;
+  department_id: number;
+  department_name: string;
+  department_type: 'leaders' | 'department' | 'division' | 'other';
 }
 
 // News

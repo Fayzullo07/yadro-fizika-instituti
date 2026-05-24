@@ -1,46 +1,108 @@
-import React from 'react';
+import { useState } from 'react';
+import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLeadership } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
-import MemberCardList from '@/components/shared/MemberCardList/MemberCardList';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
-interface LeadershipTeamProps {
-  title: string;
-  emptyMessage?: string;
-}
+type DepartmentType = 'leaders' | 'department' | 'division';
 
-const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ title, emptyMessage }) => {
-  const { t } = useLanguage();
-  const { data: leadershipData, loading, error } = useLeadership();
+const TYPES: { key: DepartmentType; uz: string; ru: string; en: string }[] = [
+  { key: 'leaders', uz: 'Rahbariyat', ru: 'Руководство', en: 'Leadership' },
+  { key: 'department', uz: "Bo'lim", ru: 'Отдел', en: 'Department' },
+  { key: 'division', uz: 'Boshqarma', ru: 'Управление', en: 'Directorate' },
+];
 
-  if (loading) {
-    return <Loading />;
-  }
+const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
+  const { language } = useLanguage();
+  const [activeType, setActiveType] = useState<DepartmentType>('leaders');
+  const { data, loading, error } = useLeadership(activeType);
 
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
-      </div>
-    );
-  }
-
-  const leadership = (leadershipData?.data || []).map((member) => ({
-    ...member,
-    fullname: member.full_name,
-    photo: member.image,
-  }));
+  const members = data?.data ?? [];
 
   return (
     <div className="pb-10">
-      <div>
-        <PageTitle>{title}</PageTitle>
-        <MemberCardList
-          members={leadership}
-          showReceptionHours
-          emptyMessage={emptyMessage || "Jamoasi a'zolari topilmadi"}
-        />
+      <PageTitle>{title}</PageTitle>
+
+      <div className="flex gap-6">
+        <aside className="w-52 shrink-0">
+          <nav className="flex flex-col gap-1">
+            {TYPES.map((type) => (
+              <button
+                key={type.key}
+                onClick={() => setActiveType(type.key)}
+                className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  activeType === type.key
+                    ? 'bg-[#013d8c] text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {language === 'ru' ? type.ru : language === 'en' ? type.en : type.uz}
+              </button>
+            ))}
+          </nav>
+        </aside>
+
+        <div className="flex-1 min-w-0">
+          {loading && <Loading />}
+          {error && <p className="text-center py-16 text-gray-500">Xatolik yuz berdi</p>}
+          {!loading && !error && members.length === 0 && (
+            <p className="text-center py-16 text-gray-500">Ma'lumot topilmadi</p>
+          )}
+          {!loading && !error && members.length > 0 && (
+            <div className="flex flex-col gap-4">
+              {members.map((member) => (
+                <div
+                  key={member.id}
+                  className="flex gap-6 bg-white border border-gray-100 rounded-2xl shadow-sm p-4 hover:shadow-md transition-shadow"
+                >
+                  <div className="w-44 h-52 rounded-xl shrink-0 overflow-hidden relative bg-gray-100 flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
+                    <div
+                      className="absolute inset-0 bg-cover bg-center scale-110 blur-sm opacity-50"
+                      style={{ backgroundImage: `url(${member.photo || member.image})` }}
+                    />
+                    <div className="relative z-10 w-full h-full">
+                      <Image
+                        src={member.photo || member.image}
+                        alt={member.full_name}
+                        fallback=""
+                        placeholder={false}
+                        preview={{
+                          mask: <span className="text-white text-xs">Ko'rish</span>,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex-1 min-w-0 flex flex-col justify-start gap-2 pt-2">
+                    <h3 className="text-xl font-bold text-gray-900 leading-snug">
+                      {member.full_name}
+                    </h3>
+                    <p className="text-gray-400 text-sm">{member.position}</p>
+                    <div className="flex flex-col gap-1 mt-1">
+                      {member.phone && (
+                        <a
+                          href={`tel:${member.phone.replace(/\s/g, '')}`}
+                          className="text-sm text-gray-500 hover:text-[#013d8c]"
+                        >
+                          📞 {member.phone}
+                        </a>
+                      )}
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="text-sm text-gray-500 hover:text-[#013d8c]"
+                        >
+                          ✉️ {member.email}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

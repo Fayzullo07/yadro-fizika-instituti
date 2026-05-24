@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   DEPARTMENT_LABORATORY_BY_ID: (id: number | string) => `/api/department/laboratory/${id}/`,
   DEPARTMENT_LEADERSHIP: '/api/department/leadership/',
   DEPARTMENT_LEADERSHIP_BY_ID: (id: number | string) => `/api/department/leadership/${id}/`,
+  LEADERSHIP: '/api/leadership',
 
   // General
   GENERAL: '/api/general/',

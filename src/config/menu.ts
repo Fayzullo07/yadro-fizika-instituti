@@ -6,7 +6,6 @@ import {
   TEACHERS_PATH,
   COUNCIL_COMPOSITION_PATH,
   COUNCIL_ACTIVITIES_PATH,
-  DEPARTMENTS_PATH,
   LABORATORIES_PATH,
   DOCTORATE_PATH,
   NEWS_PATH,
@@ -39,7 +38,6 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
       },
       { label: t('nav.institut.charter') || 'Institut nizomi', path: INSTITUTE_CHARTER_PATH },
       { label: t('nav.institute.leadership') || 'Rahbariyat', path: TEAM_PATH },
-      { label: t('nav.institute.services') || 'Tuzilma', path: DEPARTMENTS_PATH },
     ],
   },
   {

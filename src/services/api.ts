@@ -177,12 +177,14 @@ export const departmentApi = {
       language
     ),
 
-  getLeadership: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<LeadershipMember>>(
-      API_ENDPOINTS.DEPARTMENT_LEADERSHIP,
-      {},
-      language
-    ),
+  getLeadership: (type?: string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (type) query.append('type', type);
+    const endpoint = query.toString()
+      ? `${API_ENDPOINTS.LEADERSHIP}?${query}`
+      : API_ENDPOINTS.LEADERSHIP;
+    return apiRequest<PaginatedResponse<LeadershipMember>>(endpoint, {}, language);
+  },
 
   getLeadershipById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<LeadershipMember>>(

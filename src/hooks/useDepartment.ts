@@ -23,9 +23,9 @@ export const useLaboratoryById = (id: number | string) => {
   return useApi(() => departmentApi.getLaboratoryById(id, language), [id, language]);
 };
 
-export const useLeadership = () => {
+export const useLeadership = (type?: string) => {
   const { language } = useLanguage();
-  return useApi(() => departmentApi.getLeadership(language), [language]);
+  return useApi(() => departmentApi.getLeadership(type, language), [type, language]);
 };
 
 export const useLeadershipById = (id: number | string) => {
