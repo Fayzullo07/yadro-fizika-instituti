@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLeadership } from '@/hooks/useDepartment';
-import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 type DepartmentType = 'leaders' | 'department' | 'division';
 
 const TYPES: { key: DepartmentType; uz: string; ru: string; en: string }[] = [
   { key: 'leaders', uz: 'Rahbariyat', ru: 'Руководство', en: 'Leadership' },
-  { key: 'department', uz: "Bo'lim", ru: 'Отдел', en: 'Department' },
   { key: 'division', uz: 'Boshqarma', ru: 'Управление', en: 'Directorate' },
+  { key: 'department', uz: "Bo'lim", ru: 'Отдел', en: 'Department' },
 ];
 
 const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
@@ -43,13 +42,14 @@ const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
           </nav>
         </aside>
 
-        <div className="flex-1 min-w-0">
-          {loading && <Loading />}
+        <div
+          className={`flex-1 min-w-0 transition-opacity duration-200 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
+        >
           {error && <p className="text-center py-16 text-gray-500">Xatolik yuz berdi</p>}
-          {!loading && !error && members.length === 0 && (
+          {!error && members.length === 0 && !loading && (
             <p className="text-center py-16 text-gray-500">Ma'lumot topilmadi</p>
           )}
-          {!loading && !error && members.length > 0 && (
+          {!error && members.length > 0 && (
             <div className="flex flex-col gap-4">
               {members.map((member) => (
                 <div
@@ -75,10 +75,15 @@ const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
                   </div>
 
                   <div className="flex-1 min-w-0 flex flex-col justify-start gap-2 pt-2">
+                    {member.department_name && (
+                      <span className="text-xl font-semibold text-blue-900 w-fit">
+                        {member.department_name}
+                      </span>
+                    )}
                     <h3 className="text-xl font-bold text-gray-900 leading-snug">
                       {member.full_name}
                     </h3>
-                    <p className="text-gray-400 text-sm">{member.position}</p>
+                    <p className="text-black text-sm">{member.position}</p>
                     <div className="flex flex-col gap-1 mt-1">
                       {member.phone && (
                         <a

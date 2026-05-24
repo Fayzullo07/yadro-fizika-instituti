@@ -40,10 +40,10 @@ const Footer: React.FC = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-blue-200/50 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition-all duration-200"
+                className={`w-9 h-9 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-80 ${social.color}`}
                 aria-label={social.name}
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                   {social.icon}
                 </svg>
               </a>

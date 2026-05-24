@@ -80,10 +80,10 @@ const Header: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-opacity duration-200 hover:opacity-80 ${social.color}`}
                   aria-label={social.name}
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
                     {social.icon}
                   </svg>
                 </a>
