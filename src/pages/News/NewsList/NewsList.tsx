@@ -1,5 +1,5 @@
 import { useNews } from '@/hooks/useNews';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import NewsCard from '@/components/NewsSection/NewsCard';
@@ -7,7 +7,7 @@ import NewsCard from '@/components/NewsSection/NewsCard';
 import type { NewsItem } from '@/types';
 
 const NewsList: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
   const perPage = 12;

@@ -92,7 +92,6 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
               <div className="flex items-start gap-2 flex-wrap">
                 {item.code && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#013d8c]/8 text-xs font-bold text-[#013d8c] tracking-wide shrink-0 mt-0.5">
-                    <span className="font-normal text-[#013d8c]/60">Kod:</span>
                     {item.code}
                   </span>
                 )}
@@ -126,6 +125,7 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
                 </button>
                 <a
                   href={item.file}
+                  target="_blank"
                   download
                   title={t('pages.specialties.download') || 'Yuklab olish'}
                   className="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"

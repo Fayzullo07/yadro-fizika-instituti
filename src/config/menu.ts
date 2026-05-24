@@ -1,9 +1,9 @@
 import {
   MAP_PATH,
+  ABOUT_PATH,
   STRUCTURE_PATH,
   TEAM_PATH,
   TEACHERS_PATH,
-  COUNCIL_PATH,
   COUNCIL_COMPOSITION_PATH,
   COUNCIL_ACTIVITIES_PATH,
   DEPARTMENTS_PATH,
@@ -12,7 +12,6 @@ import {
   NEWS_PATH,
   CONFERENCES_PATH,
   CONTACT_PATH,
-  HOTLINE_PATH,
   ANNOUNCEMENTS_PATH,
   GALLERY_PATH,
   VIDEO_GALLERY_PATH,
@@ -20,8 +19,6 @@ import {
   INSTITUTE_DIRECTORS_PATH,
   INSTITUTE_CHARTER_PATH,
   RESEARCH_SCIENTISTS_PATH,
-  RESEARCH_DEGREES_PATH,
-  RESEARCH_DIRECTIONS_PATH,
   SPECIALTIES_PATH,
   ARTICLES_PATH,
   ABSTRACTS_PATH,
@@ -33,6 +30,7 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     id: 'institut',
     label: t('nav.institut.title') || 'Institut haqida',
     links: [
+      { label: t('nav.institut.about') || 'Institut haqida', path: ABOUT_PATH },
       { label: t('nav.institut.structure') || 'Institut tuzilmasi', path: STRUCTURE_PATH },
       { label: t('nav.institut.history') || 'Institut tarixi', path: INSTITUTE_HISTORY_PATH },
       {

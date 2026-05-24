@@ -1,9 +1,56 @@
 import { useState, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useVideoGallery } from '@/hooks/useVideoGallery';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import type { VideoGalleryItem } from '@/types';
+
+const PER_PAGE = 12;
+
+const Pagination: React.FC<{
+  page: number;
+  lastPage: number;
+  onPageChange: (p: number) => void;
+}> = ({ page, lastPage, onPageChange }) => {
+  if (lastPage <= 1) return null;
+  const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
+  return (
+    <div className="flex items-center justify-center gap-1.5 mt-10">
+      <button
+        onClick={() => onPageChange(page - 1)}
+        disabled={page === 1}
+        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      {pages.map((p) => (
+        <button
+          key={p}
+          onClick={() => onPageChange(p)}
+          className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-semibold border transition-colors ${
+            p === page
+              ? 'bg-[#013d8c] text-white border-[#013d8c]'
+              : 'border-gray-200 text-gray-600 hover:border-[#013d8c] hover:text-[#013d8c]'
+          }`}
+        >
+          {p}
+        </button>
+      ))}
+      <button
+        onClick={() => onPageChange(page + 1)}
+        disabled={page === lastPage}
+        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  );
+};
 
 const getYouTubeId = (url: string): string | null =>
   url.match(
@@ -114,10 +161,18 @@ const VideoCard: React.FC<{
 
 const VideoGallery: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data, loading, error } = useVideoGallery({ per_page: 50 });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const { data, loading, error } = useVideoGallery({ page, per_page: PER_PAGE });
   const [activeItem, setActiveItem] = useState<VideoGalleryItem | null>(null);
 
   const items: VideoGalleryItem[] = data?.data ?? [];
+  const lastPage = data?.meta?.last_page ?? 1;
+
+  const handlePageChange = (p: number) => {
+    setSearchParams({ page: String(p) });
+    window.scrollTo(0, 0);
+  };
 
   const openModal = useCallback((item: VideoGalleryItem) => setActiveItem(item), []);
   const closeModal = useCallback(() => setActiveItem(null), []);
@@ -151,17 +206,20 @@ const VideoGallery: React.FC = () => {
       )}
 
       {items.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {items.map((item) => (
-            <VideoCard
-              key={item.id}
-              item={item}
-              language={language}
-              label={label}
-              onClick={() => openModal(item)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {items.map((item) => (
+              <VideoCard
+                key={item.id}
+                item={item}
+                language={language}
+                label={label}
+                onClick={() => openModal(item)}
+              />
+            ))}
+          </div>
+          <Pagination page={page} lastPage={lastPage} onPageChange={handlePageChange} />
+        </>
       )}
 
       {activeItem && <VideoModal item={activeItem} onClose={closeModal} />}

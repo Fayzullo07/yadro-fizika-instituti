@@ -8,16 +8,15 @@ import type { AboutData, SingleResponse } from '@/types';
 
 const AboutSection: React.FC = () => {
   const { t, language } = useLanguage();
-  const {
-    data: aboutResponse,
-    loading,
-    error,
-  } = useApi<SingleResponse<AboutData>>(() => generalApi.getAbout(language), [language]);
+  const { data: aboutResponse, loading } = useApi<SingleResponse<AboutData>>(
+    () => generalApi.getAbout(language),
+    [language]
+  );
 
   const data = aboutResponse?.data;
 
-  if (loading) return <AboutSkeleton />;
-  if (error || !data) return null;
+  if (loading && !data) return <AboutSkeleton />;
+  if (!data) return null;
 
   return (
     <section className="py-16 md:py-24 bg-white">
