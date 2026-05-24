@@ -383,6 +383,16 @@ export const laboratoryTeamsApi = {
       {},
       language
     ),
+
+  getList: (params: PaginationParams = {}, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
+    const endpoint = query.toString()
+      ? `${API_ENDPOINTS.LABORATORY_TEAMS_LIST}?${query}`
+      : API_ENDPOINTS.LABORATORY_TEAMS_LIST;
+    return apiRequest<PaginatedResponse<LaboratoryTeamMember>>(endpoint, {}, language);
+  },
 };
 
 // Work Activities API

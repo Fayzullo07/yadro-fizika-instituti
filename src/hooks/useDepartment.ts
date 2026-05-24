@@ -27,6 +27,14 @@ export const useLaboratoryTeams = (laboratoryId: number | string) => {
   );
 };
 
+export const useLaboratoryTeamsList = (params: PaginationParams = {}) => {
+  const { language } = useLanguage();
+  return useApi(
+    () => laboratoryTeamsApi.getList(params, language),
+    [language, params.page, params.per_page]
+  );
+};
+
 export const useLaboratoryTeamMember = (id: number | string) => {
   const { language } = useLanguage();
   return useApi(() => laboratoryTeamsApi.getById(id, language), [id, language]);
