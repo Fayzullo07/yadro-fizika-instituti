@@ -10,7 +10,7 @@ const Structure: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <PageTitle>{t('nav.institute.services')}</PageTitle>
+      <PageTitle>{t('nav.institut.structure') || 'Institut tuzilmasi'}</PageTitle>
       <article>
         {loading && <div className="w-full aspect-4/3 bg-gray-100 animate-pulse rounded" />}
         {!loading && (error || !imageUrl) && null}
