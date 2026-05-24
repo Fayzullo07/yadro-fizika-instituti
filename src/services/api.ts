@@ -25,6 +25,7 @@ import type {
   VideoGalleryItem,
   PartnerItem,
   StructureData,
+  SpecialtyItem,
 } from '@/types';
 
 // Helper function for API requests
@@ -292,6 +293,19 @@ export const adsApi = {
     apiRequest<PaginatedResponse<AnnouncementItem>>(API_ENDPOINTS.ADS, {}, language),
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<AnnouncementItem>>(API_ENDPOINTS.ADS_BY_ID(id), {}, language),
+};
+
+// Doctorals (Specialties) API
+export const doctoralsApi = {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
+    const endpoint = query.toString()
+      ? `${API_ENDPOINTS.DOCTORALS}?${query.toString()}`
+      : API_ENDPOINTS.DOCTORALS;
+    return apiRequest<PaginatedResponse<SpecialtyItem>>(endpoint, {}, language);
+  },
 };
 
 // Conferences API

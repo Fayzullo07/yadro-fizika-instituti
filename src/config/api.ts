@@ -63,4 +63,7 @@ export const API_ENDPOINTS = {
   // Conferences
   CONFERENCES: '/api/conferences',
   CONFERENCES_BY_ID: (id: number | string) => `/api/conferences/${id}`,
+
+  // Doctorals (Specialties)
+  DOCTORALS: '/api/doctorals',
 };

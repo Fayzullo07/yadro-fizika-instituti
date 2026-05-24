@@ -32,7 +32,7 @@ const PartnersMarquee: React.FC = () => {
   if (!loading && !partners.length) return null;
 
   return (
-    <section className="py-10 bg-gray-50 border-y border-gray-100">
+    <section className="py-4 bg-gray-50 border-y border-gray-100">
       <div className="text-center mb-6">
         <p className="text-base font-semibold text-gray-400 uppercase tracking-widest mb-1">
           {TITLE[language] ?? TITLE.uz}

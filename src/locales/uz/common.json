@@ -108,7 +108,7 @@
   },
   "news": {
     "title": "Yangiliklar",
-    "subtitle": "So'nggi yangiliklar va e'lonlar",
+    "subtitle": "So'nggi yangiliklar",
     "detail": "Batafsil",
     "readMore": "Batafsil",
     "viewAll": "Barcha yangiliklar",
@@ -227,6 +227,8 @@
       "comingSoonDescription": "Qonunlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha qonunlar bilan tanishishingiz mumkin bo'ladi."
     },
     "announcements": {
+      "subtitle": "So'nggi e'lonlar",
+      "viewAll": "Barcha e'lonlar",
       "comingSoon": "Tez orada qo'shiladi",
       "comingSoonDescription": "E'lonlar bo'limi hozircha tayyorlanmoqda. Tez orada bu bo'limda barcha e'lonlar bilan tanishishingiz mumkin bo'ladi."
     },
@@ -240,6 +242,13 @@
       "institutJamoasi": "Institut jamoasi",
       "biografiya": "Biografiya",
       "noMembers": "Ma'lumotlar topilmadi"
+    },
+    "specialties": {
+      "download": "Yuklab olish",
+      "fileNotAvailable": "Fayl mavjud emas",
+      "total": "ta ixtisoslik pasporti",
+      "emptyMessage": "Ixtisosliklar topilmadi",
+      "preview": "Ko'rish"
     }
   },
   "footer": {
@@ -291,7 +300,9 @@
     "error": "Xatolik yuz berdi",
     "cancel": "Bekor qilish",
     "downloadPdf": "PDF yuklab olish",
-    "print": "Chop etish"
+    "print": "Chop etish",
+    "download": "Yuklab olish",
+    "notAvailable": "Mavjud emas"
   },
   "contact": {
     "workingDays": "Ish kunlari",

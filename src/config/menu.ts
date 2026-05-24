@@ -66,10 +66,6 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     label: t('nav.ilmiyFaoliyat.title') || 'Ilmiy faoliyat',
     links: [
       {
-        label: t('nav.ilmiyFaoliyat.councilAddress') || 'Ilmiy kengash manzili',
-        path: COUNCIL_PATH,
-      },
-      {
         label: t('nav.ilmiyFaoliyat.councilComposition') || 'Ilmiy kengash tarkibi',
         path: COUNCIL_COMPOSITION_PATH,
       },

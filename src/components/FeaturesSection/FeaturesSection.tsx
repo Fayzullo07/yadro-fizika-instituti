@@ -8,10 +8,10 @@ const FeaturesSection: React.FC = () => {
   const features = getFeatures(t);
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-4 md:py-6">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-8">
           <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
             {t('features.intro') || 'Innovatsion yechimlar va zamonaviy texnologiyalar'}
           </span>
@@ -30,7 +30,7 @@ const FeaturesSection: React.FC = () => {
         </div>
 
         {/* Contact CTA */}
-        <div className="mt-14 text-center">
+        <div className="mt-8 text-center">
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 text-white font-medium rounded-full hover:bg-gray-800 text-sm"

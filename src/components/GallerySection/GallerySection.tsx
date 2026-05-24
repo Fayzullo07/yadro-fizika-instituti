@@ -99,7 +99,7 @@ const GallerySection: React.FC = () => {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-6 md:py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="mb-10">
             <div className="h-3 w-24 bg-gray-100 rounded animate-pulse mb-3" />
@@ -122,7 +122,7 @@ const GallerySection: React.FC = () => {
 
   return (
     <>
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-6 md:py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="mb-10">
             <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">

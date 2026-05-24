@@ -108,7 +108,7 @@
   },
   "news": {
     "title": "News",
-    "subtitle": "Latest news and announcements",
+    "subtitle": "Latest news",
     "detail": "Read More",
     "readMore": "Read More",
     "viewAll": "View All News",
@@ -227,6 +227,8 @@
       "comingSoonDescription": "The Laws section is currently under development. Soon you will be able to view all laws in this section."
     },
     "announcements": {
+      "subtitle": "Latest announcements",
+      "viewAll": "All announcements",
       "comingSoon": "Coming Soon",
       "comingSoonDescription": "The Announcements section is currently under development. Soon you will be able to view all announcements in this section."
     },
@@ -240,6 +242,13 @@
       "institutJamoasi": "Institute Team",
       "biografiya": "Biography",
       "noMembers": "No data found"
+    },
+    "specialties": {
+      "download": "Download",
+      "fileNotAvailable": "File not available",
+      "total": "specialty passports",
+      "emptyMessage": "No specialties found",
+      "preview": "Preview"
     }
   },
   "footer": {
@@ -291,7 +300,9 @@
     "error": "An error occurred",
     "cancel": "Cancel",
     "downloadPdf": "Download PDF",
-    "print": "Print"
+    "print": "Print",
+    "download": "Download",
+    "notAvailable": "Not available"
   },
   "contact": {
     "workingDays": "Working Days",

@@ -3,6 +3,7 @@ import AboutSection from '@/components/AboutSection/AboutSection';
 import StatsSection from '@/components/StatsSection/StatsSection';
 import FeaturesSection from '@/components/FeaturesSection/FeaturesSection';
 import NewsSection from '@/components/NewsSection/NewsSection';
+import AnnouncementsSection from '@/components/AnnouncementsSection/AnnouncementsSection';
 import PartnersMarquee from '@/components/shared/PartnersMarquee/PartnersMarquee';
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection';
 import GallerySection from '@/components/GallerySection/GallerySection';
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
       </div>
       <AboutSection />
       <NewsSection />
+      <AnnouncementsSection />
       {/* <LaboratoriesTasks /> */}
       <FeaturesSection />
       <GallerySection />
