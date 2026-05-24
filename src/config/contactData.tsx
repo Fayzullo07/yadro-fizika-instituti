@@ -50,7 +50,7 @@ export const SOCIAL_LINKS = [
   {
     id: 'facebook',
     name: 'Facebook',
-    href: '#',
+    href: 'https://www.facebook.com/profile.php?id=100079664012853',
     color: 'bg-blue-700 hover:bg-blue-800',
     icon: (
       <path d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 6 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3 1.79-4.67 4.53-4.67 1.31 0 2.69.23 2.69.23v2.95H15.83c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 18 24 12z" />

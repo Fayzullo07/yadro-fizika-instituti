@@ -69,7 +69,7 @@
     },
     "laboratoriyalar": {
       "title": "Laboratories",
-      "about": "About Laboratory",
+      "about": "Laboratories",
       "staff": "Staff Profile",
       "scientists": "Research Scientists",
       "degrees": "Scientific Degrees",
@@ -205,7 +205,7 @@
       "contact": "Contact Information",
       "contactInfo": "For more information, please contact us.",
       "noLaboratories": "No laboratories found",
-      "about": "About Laboratory",
+      "about": "Laboratories",
       "features": "Key Features",
       "feature1": "Modern equipment and technologies",
       "feature2": "Team of qualified specialists",

@@ -69,7 +69,7 @@
     },
     "laboratoriyalar": {
       "title": "Laboratoriyalar",
-      "about": "Laboratoriya haqida",
+      "about": "Laboratoriyalar",
       "staff": "Xodimlar profili",
       "scientists": "Ilmiy xodimlar",
       "degrees": "Ilmiy darajalar",
@@ -205,7 +205,7 @@
       "contact": "Aloqa ma'lumotlari",
       "contactInfo": "Batafsil ma'lumot uchun biz bilan bog'laning.",
       "noLaboratories": "Laboratoriyalar topilmadi",
-      "about": "Laboratoriya haqida",
+      "about": "Laboratoriyalar",
       "features": "Asosiy xususiyatlar",
       "feature1": "Zamonaviy uskunalar va texnologiyalar",
       "feature2": "Malakali mutaxassislar jamoasi",
