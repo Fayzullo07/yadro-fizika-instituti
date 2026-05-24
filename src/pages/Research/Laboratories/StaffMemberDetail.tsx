@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from 'antd';
-import { useLaboratoryTeamMember } from '@/hooks/useDepartment';
+import { useLaboratoryTeamMember, useWorkActivity } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
+import { sanitizeHtmlRich } from '@/utils/htmlUtils';
+
+const TABS = [{ key: 'mehnat', label: 'Mehnat faoliyati' }] as const;
+type TabKey = (typeof TABS)[number]['key'];
 
 const academicLinks = [
   {
@@ -46,8 +51,10 @@ const academicLinks = [
 ] as const;
 
 const StaffMemberDetail: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabKey>('mehnat');
   const { memberId } = useParams<{ labId: string; memberId: string }>();
   const { data, loading, error } = useLaboratoryTeamMember(memberId || '');
+  const { data: workData, loading: workLoading } = useWorkActivity(memberId || '');
 
   if (loading) return <Loading />;
   if (error || !data?.data) {
@@ -145,6 +152,37 @@ const StaffMemberDetail: React.FC = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="bg-white shadow-sm">
+        <div className="flex border-b border-gray-200">
+          {TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`px-6 py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
+                activeTab === tab.key
+                  ? 'border-[#013d8c] text-[#013d8c]'
+                  : 'border-transparent text-gray-500 hover:text-[#013d8c]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div
+          className={`transition-opacity duration-200 ${workLoading ? 'opacity-50' : 'opacity-100'}`}
+        >
+          {workData?.data?.details ? (
+            <div
+              className="p-6 w-full max-w-none [&_table]:w-full [&_img]:max-w-full"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtmlRich(workData.data.details) }}
+            />
+          ) : (
+            !workLoading && <p className="p-6 text-gray-400 text-sm">Ma'lumot mavjud emas</p>
+          )}
         </div>
       </div>
     </div>

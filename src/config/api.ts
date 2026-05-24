@@ -79,4 +79,7 @@ export const API_ENDPOINTS = {
 
   // Laboratory Teams
   LABORATORY_TEAMS: '/api/laboratory-teams',
+
+  // Work Activities
+  WORK_ACTIVITIES: '/api/work-activities',
 };

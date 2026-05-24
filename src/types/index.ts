@@ -171,6 +171,15 @@ export interface LaboratoryTeamMember {
   updated_at: string;
 }
 
+export interface WorkActivity {
+  id: number;
+  laboratory_team_id: number;
+  details: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface InternationalCollaboration {
   id: number;
   laboratory_id: number;

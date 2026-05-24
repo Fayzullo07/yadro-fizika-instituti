@@ -6,6 +6,7 @@ import {
   laboratoryTeamsApi,
   scientificActivitiesApi,
   teamsApi,
+  workActivitiesApi,
 } from '@/services/api';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PaginationParams } from '@/types';
@@ -29,6 +30,14 @@ export const useLaboratoryTeams = (laboratoryId: number | string) => {
 export const useLaboratoryTeamMember = (id: number | string) => {
   const { language } = useLanguage();
   return useApi(() => laboratoryTeamsApi.getById(id, language), [id, language]);
+};
+
+export const useWorkActivity = (laboratoryTeamId: number | string) => {
+  const { language } = useLanguage();
+  return useApi(
+    () => workActivitiesApi.getByMember(laboratoryTeamId, language),
+    [laboratoryTeamId, language]
+  );
 };
 
 export const useInternationalCollaboration = (laboratoryId: number | string) => {

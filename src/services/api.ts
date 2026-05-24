@@ -20,6 +20,7 @@ import type {
   ScientificActivity,
   InternationalCollaboration,
   LaboratoryTeamMember,
+  WorkActivity,
   LeadershipMember,
   NewsItem,
   TeamMember,
@@ -382,6 +383,19 @@ export const laboratoryTeamsApi = {
       {},
       language
     ),
+};
+
+// Work Activities API
+export const workActivitiesApi = {
+  getByMember: (laboratoryTeamId: number | string, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('laboratory_team_id', String(laboratoryTeamId));
+    return apiRequest<SingleResponse<WorkActivity>>(
+      `${API_ENDPOINTS.WORK_ACTIVITIES}?${query}`,
+      {},
+      language
+    );
+  },
 };
 
 // International Collaborations API
