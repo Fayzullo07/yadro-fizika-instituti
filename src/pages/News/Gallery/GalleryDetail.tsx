@@ -52,7 +52,6 @@ const GalleryDetail: React.FC = () => {
 
   const title = getTitle(displayItem, language as Language);
   const previewLabel = PREVIEW_LABEL[language as Language] ?? PREVIEW_LABEL.uz;
-
   const otherGalleries = (listData?.data ?? []).filter((g) => String(g.id) !== String(id));
   const showSidebar = listLoading || otherGalleries.length > 0;
 
@@ -60,40 +59,15 @@ const GalleryDetail: React.FC = () => {
     <div
       className={`pb-10 transition-opacity duration-200 ${loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}
     >
+      <BackButton to="/news/gallery" label={t('backToList')} />
+
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Main Content */}
-        <div className="flex-1 min-w-0">
-          <BackButton to="/news/gallery" label={t('backToList')} />
-
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden p-4 sm:p-6">
-            {/* Title */}
-            {title && (
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-900 leading-snug mb-2">
-                {title}
-              </h1>
-            )}
-
-            {/* Date */}
-            <div className="flex items-center gap-2 text-gray-400 text-sm mb-4 sm:mb-5">
-              <svg
-                className="w-4 h-4 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              <span>{formatDate(displayItem.created_at, language)}</span>
-            </div>
-
-            {/* Main image */}
+        <div className="flex-1 min-w-0 space-y-4">
+          <Image.PreviewGroup>
+            {/* Hero image */}
             {displayItem.image && (
-              <div className="relative overflow-hidden rounded-lg bg-gray-100 mb-5 sm:mb-6">
+              <div className="relative w-full h-56 sm:h-80 md:h-96 overflow-hidden rounded-none bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
                 <div
                   style={{
                     position: 'absolute',
@@ -101,32 +75,53 @@ const GalleryDetail: React.FC = () => {
                     backgroundImage: `url(${displayItem.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    filter: 'blur(16px)',
-                    transform: 'scale(1.1)',
+                    filter: 'blur(20px)',
+                    transform: 'scale(1.15)',
                   }}
                 />
-                <Image
-                  src={displayItem.image}
-                  alt={title}
-                  preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
-                  style={{
-                    position: 'relative',
-                    zIndex: 10,
-                    inlineSize: '100%',
-                    blockSize: 'auto',
-                  }}
-                />
+                <div className="relative z-10 w-full h-full [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
+                  <Image
+                    src={displayItem.image}
+                    alt={title}
+                    preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
+                  />
+                </div>
               </div>
             )}
 
+            {/* Title + date */}
+            <div>
+              {title && (
+                <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-1.5">
+                  {title}
+                </h1>
+              )}
+              <div className="flex items-center gap-1.5 text-gray-400 text-xs sm:text-sm">
+                <svg
+                  className="w-3.5 h-3.5 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>{formatDate(displayItem.created_at, language)}</span>
+              </div>
+            </div>
+
             {/* Sub images grid */}
             {displayItem.images.length > 0 && (
-              <Image.PreviewGroup>
+              <div className="bg-white border border-gray-200 rounded-none p-3 sm:p-4">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                   {displayItem.images.map((img) => (
                     <div
                       key={img.id}
-                      className="overflow-hidden rounded-lg aspect-video bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover"
+                      className="overflow-hidden rounded-none aspect-video bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover"
                     >
                       <Image
                         src={img.image}
@@ -136,15 +131,15 @@ const GalleryDetail: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </Image.PreviewGroup>
+              </div>
             )}
-          </div>
+          </Image.PreviewGroup>
         </div>
 
         {/* Sidebar */}
         {showSidebar && (
-          <aside className="w-full lg:w-60 shrink-0 mt-2 lg:mt-0">
-            <div className="bg-white rounded border border-gray-200 p-3 lg:sticky lg:top-27">
+          <aside className="w-full lg:w-60 shrink-0">
+            <div className="bg-white rounded-none border border-gray-200 p-3 lg:sticky lg:top-27">
               <h2 className="text-sm sm:text-base font-semibold text-gray-900 mb-3">
                 {t('gallery.title')}
               </h2>
@@ -153,10 +148,10 @@ const GalleryDetail: React.FC = () => {
                 <div className="space-y-3">
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="flex gap-2 animate-pulse">
-                      <div className="w-12 h-12 bg-gray-200 rounded shrink-0" />
+                      <div className="w-12 h-12 bg-gray-200 rounded-none shrink-0" />
                       <div className="flex-1 space-y-1.5">
-                        <div className="h-3 bg-gray-200 rounded w-full" />
-                        <div className="h-3 bg-gray-200 rounded w-2/3" />
+                        <div className="h-3 bg-gray-200 rounded-none w-full" />
+                        <div className="h-3 bg-gray-200 rounded-none w-2/3" />
                       </div>
                     </div>
                   ))}
@@ -167,13 +162,13 @@ const GalleryDetail: React.FC = () => {
                     <Link
                       key={g.id}
                       to={`/news/gallery/${g.id}`}
-                      className="flex items-center gap-2 p-2 rounded hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 p-2 rounded-none hover:bg-gray-50 transition-colors"
                     >
                       <img
                         src={g.image}
                         alt={g.title}
                         loading="lazy"
-                        className="w-12 h-12 object-cover rounded shrink-0"
+                        className="w-12 h-12 object-cover rounded-none shrink-0"
                       />
                       <div className="min-w-0">
                         {g.title && (
