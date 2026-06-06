@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useGeneral } from '@/hooks/useGeneral';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import {
   CONTACT_PHONES,
   CONTACT_FAX,
@@ -40,22 +41,14 @@ const Contact: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
-            {t('nav.boglanish.contact') || "Bog'lanish"}
-          </h1>
-        </div>
-        <div className="h-px bg-gray-200 mt-4" />
-      </div>
+      <PageTitle>{t('nav.boglanish.contact')}</PageTitle>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
         {/* Cards column */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           {/* Phone */}
           <Card
-            label={t('contact.phone') || 'Telefon'}
+            label={t('contact.phone')}
             icon={
               <svg className="w-4 h-4 text-[#013d8c]" fill="currentColor" viewBox="0 0 17.2 17.2">
                 <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
@@ -75,7 +68,7 @@ const Contact: React.FC = () => {
 
           {/* Fax */}
           <Card
-            label={t('contact.fax') || 'Faks'}
+            label={t('contact.fax')}
             icon={
               <svg
                 className="w-4 h-4 text-[#013d8c]"
@@ -150,7 +143,7 @@ const Contact: React.FC = () => {
               href={CONTACT_WEBSITE}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-[#013d8c] hover:underline"
+              className="text-sm font-semibold text-[#013d8c] hover:underline break-all"
             >
               {CONTACT_WEBSITE}
             </a>
@@ -158,7 +151,7 @@ const Contact: React.FC = () => {
 
           {/* Address */}
           <Card
-            label={t('contact.address') || 'Manzil'}
+            label={t('contact.address')}
             icon={
               <svg
                 className="w-4 h-4 text-[#013d8c]"
@@ -186,7 +179,7 @@ const Contact: React.FC = () => {
 
           {/* Working hours */}
           <Card
-            label={t('contact.workingDays') || 'Ish vaqti'}
+            label={t('contact.workingDays')}
             icon={
               <svg
                 className="w-4 h-4 text-[#013d8c]"
@@ -213,7 +206,7 @@ const Contact: React.FC = () => {
           {/* Social links */}
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
             <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-3">
-              Ijtimoiy tarmoqlar
+              {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
             </p>
             <div className="flex flex-wrap gap-2">
               {SOCIAL_LINKS.map((s) => (
@@ -248,12 +241,12 @@ const Contact: React.FC = () => {
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
               />
             </svg>
-            {t('contact.openMap') || 'Xaritada ochish'}
+            {t('contact.openMap')}
           </a>
         </div>
 
         {/* Map */}
-        <div className="lg:col-span-3 min-h-105 rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <div className="lg:col-span-3 h-72 sm:h-96 lg:min-h-105 rounded-xl overflow-hidden shadow-sm border border-gray-100">
           <iframe
             src={`https://yandex.com/map-widget/v1/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE},pm2rdm&l=sat,skl`}
             width="100%"
@@ -261,7 +254,7 @@ const Contact: React.FC = () => {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full min-h-105 border-0 block"
+            className="w-full h-full border-0 block"
             title="Manzil xaritasi"
           />
         </div>

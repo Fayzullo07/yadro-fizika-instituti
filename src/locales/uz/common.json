@@ -74,7 +74,11 @@
       "scientists": "Ilmiy xodimlar",
       "degrees": "Ilmiy darajalar",
       "directions": "Ilmiy yo'nalishlar",
-      "disertatsiya": "Dissertatsiyalar"
+      "disertatsiya": "Dissertatsiyalar",
+      "labDirector": "Laboratoriya mudiri",
+      "degree": "Ilmiy darajasi",
+      "position": "Lavozimi",
+      "images": "Rasmlar"
     },
     "ilmiyFaoliyat": {
       "title": "Ilmiy faoliyat",

@@ -132,10 +132,10 @@ const Breadcrumb: React.FC = () => {
   crumbs.push({ label: info.label, isCurrent: true });
 
   return (
-    <nav className="py-3">
-      <div className="flex items-center gap-2 text-sm">
+    <nav className="py-2 sm:py-3">
+      <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm">
         {crumbs.map((item, index) => (
-          <div key={index} className="flex items-center gap-2">
+          <div key={index} className="flex items-center gap-1 sm:gap-2">
             {index > 0 && <span className="text-[#013d8c] font-bold">›</span>}
             {item.path && !item.isCurrent ? (
               <Link to={item.path} className="text-[#013d8c] font-bold hover:underline">

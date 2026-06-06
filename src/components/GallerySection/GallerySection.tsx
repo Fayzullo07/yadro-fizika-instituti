@@ -62,7 +62,7 @@ const Lightbox: React.FC<{
       </button>
     )}
 
-    <div className="max-w-5xl max-h-[85vh] mx-16" onClick={(e) => e.stopPropagation()}>
+    <div className="max-w-5xl max-h-[85vh] mx-10 sm:mx-16" onClick={(e) => e.stopPropagation()}>
       <img
         src={items[index].image}
         alt=""
@@ -118,7 +118,7 @@ const GallerySection: React.FC = () => {
             <div className="h-3 w-24 bg-gray-200 rounded animate-pulse mb-3" />
             <div className="h-8 w-48 bg-gray-200 rounded animate-pulse" />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[180px] md:auto-rows-[200px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 auto-rows-[130px] sm:auto-rows-[160px] md:auto-rows-[200px]">
             {Array.from({ length: 7 }).map((_, i) => (
               <div
                 key={i}
@@ -137,12 +137,12 @@ const GallerySection: React.FC = () => {
     <>
       <section className="py-8 md:py-12 bg-linear-to-b from-gray-50 to-gray-100">
         <div className="container mx-auto px-4">
-          <div className="flex items-end justify-between mb-12">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
-              <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
+              <span className="text-xs sm:text-sm font-medium text-gray-400 tracking-widest uppercase mb-2 sm:mb-3 block">
                 {t('gallery.subtitle')}
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                 {t('gallery.title')}
               </h2>
             </div>
@@ -156,7 +156,7 @@ const GallerySection: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[180px] md:auto-rows-[200px]">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 auto-rows-[130px] sm:auto-rows-[160px] md:auto-rows-[200px]">
             {items.slice(0, 9).map((item, i) => (
               <button
                 key={item.id}

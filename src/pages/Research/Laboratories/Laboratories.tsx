@@ -17,12 +17,12 @@ const Laboratories: React.FC = () => {
       <PageTitle>{t('nav.laboratoriyalar.about') || 'Laboratoriyalar'}</PageTitle>
 
       {loading && <Loading />}
-      {error && <p className="text-center py-16 text-gray-500">Xatolik yuz berdi</p>}
+      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
       {!loading && !error && laboratories.length === 0 && (
-        <p className="text-center py-16 text-gray-500">Laboratoriyalar topilmadi</p>
+        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
       )}
       {!loading && !error && laboratories.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
           {laboratories.map((lab, index) => (
             <Link
               key={lab.id}
@@ -32,10 +32,10 @@ const Laboratories: React.FC = () => {
               {/* Top accent bar */}
               <div className="h-1 w-full bg-[#013d8c]" />
 
-              <div className="p-6 flex flex-col gap-4 flex-1">
+              <div className="p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 flex-1">
                 {/* Number badge + icon */}
                 <div className="flex items-start justify-between">
-                  <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center">
                     <svg
                       className="w-5 h-5 text-[#013d8c]"
                       fill="none"
@@ -51,7 +51,7 @@ const Laboratories: React.FC = () => {
                     </svg>
                   </div>
                   <span
-                    className="text-3xl font-black select-none leading-none"
+                    className="text-2xl sm:text-3xl font-black select-none leading-none"
                     style={{
                       background: 'linear-gradient(135deg, #013d8c, #60a5fa)',
                       WebkitBackgroundClip: 'text',
@@ -63,17 +63,17 @@ const Laboratories: React.FC = () => {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-gray-800 font-semibold text-base leading-relaxed group-hover:text-[#013d8c] transition-colors flex-1">
+                <h3 className="text-gray-800 font-semibold text-sm sm:text-base leading-relaxed group-hover:text-[#013d8c] transition-colors flex-1">
                   {lab.name}
                 </h3>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100">
                   <span className="text-xs text-gray-400">
                     {formatDate(lab.created_at, language)}
                   </span>
                   <span className="flex items-center gap-1 text-xs font-medium text-[#013d8c] group-hover:underline">
-                    Batafsil
+                    {t('news.detail')}
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"

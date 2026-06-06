@@ -20,7 +20,7 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, readMoreText }) => (
   <Link
     to={feature.link}
-    className="group relative flex flex-col p-6 md:p-8 lg:p-10 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-gray-200 hover:bg-gray-50"
+    className="group relative flex flex-col p-5 sm:p-6 md:p-8 lg:p-10 bg-white hover:bg-gray-50"
     style={{ transition: 'background-color 0.5s ease' }}
   >
     {/* Number */}
@@ -52,7 +52,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, readMoreText }) => (
 
     {/* Arrow */}
     <div
-      className="flex items-center gap-2 text-gray-400 group-hover:text-gray-900 mt-8"
+      className="flex items-center gap-2 text-gray-400 group-hover:text-gray-900 mt-4 md:mt-8"
       style={{ transition: 'color 0.5s ease' }}
     >
       <span className="text-sm font-medium">{readMoreText}</span>

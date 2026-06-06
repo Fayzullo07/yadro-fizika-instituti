@@ -141,11 +141,11 @@ const VideoGallerySection: React.FC = () => {
     return (
       <section className="py-8 md:py-12 bg-gray-950">
         <div className="container mx-auto px-4">
-          <div className="mb-12">
+          <div className="mb-6 md:mb-10">
             <div className="h-3 w-24 bg-gray-800 rounded animate-pulse mb-3" />
             <div className="h-8 w-56 bg-gray-800 rounded animate-pulse" />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="rounded-xl overflow-hidden bg-gray-800 animate-pulse">
                 <div className="aspect-video" />
@@ -166,12 +166,12 @@ const VideoGallerySection: React.FC = () => {
     <>
       <section className="py-8 md:py-12 bg-gray-950">
         <div className="container mx-auto px-4">
-          <div className="flex items-end justify-between mb-12">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
-              <span className="text-sm font-medium text-blue-400 tracking-widest uppercase mb-3 block">
+              <span className="text-xs sm:text-sm font-medium text-blue-400 tracking-widest uppercase mb-2 sm:mb-3 block">
                 {t('videoGallery.subtitle')}
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
                 {t('videoGallery.title')}
               </h2>
             </div>
@@ -185,7 +185,7 @@ const VideoGallerySection: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {items.slice(0, 8).map((item) => (
               <VideoCard key={item.id} item={item} onClick={() => openModal(item)} />
             ))}

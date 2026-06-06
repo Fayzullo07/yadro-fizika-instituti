@@ -74,7 +74,11 @@
       "scientists": "Научные сотрудники",
       "degrees": "Научные степени",
       "directions": "Научные направления",
-      "disertatsiya": "Диссертации"
+      "disertatsiya": "Диссертации",
+      "labDirector": "Директор лаборатории",
+      "degree": "Учёная степень",
+      "position": "Должность",
+      "images": "Фотографии"
     },
     "ilmiyFaoliyat": {
       "title": "Научная деятельность",

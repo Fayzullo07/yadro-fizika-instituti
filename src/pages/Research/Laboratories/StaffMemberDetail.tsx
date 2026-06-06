@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from 'antd';
 import { useLaboratoryTeamMember, useWorkActivity } from '@/hooks/useDepartment';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
 
@@ -19,6 +20,7 @@ const academicLinks: { key: AcademicKey; label: string; color: string; bg: strin
 
 const StaffMemberDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('mehnat');
+  const { t } = useLanguage();
   const { memberId } = useParams<{ labId: string; memberId: string }>();
   const { data, loading, error } = useLaboratoryTeamMember(memberId || '');
   const { data: workData, loading: workLoading } = useWorkActivity(memberId || '');
@@ -27,7 +29,7 @@ const StaffMemberDetail: React.FC = () => {
   if (error || !data?.data) {
     return (
       <div className="text-center py-16 text-gray-500">
-        {error ? 'Xatolik yuz berdi' : "Ma'lumot topilmadi"}
+        {error ? t('common.error') : t('common.notAvailable')}
       </div>
     );
   }
@@ -38,22 +40,24 @@ const StaffMemberDetail: React.FC = () => {
   return (
     <div className="pb-10">
       {/* Profile card */}
-      <div className="bg-white shadow-sm mb-4 p-6">
+      <div className="bg-white shadow-sm mb-4 p-4 sm:p-6">
         <div className="border border-gray-200 flex flex-col sm:flex-row overflow-hidden">
           {/* Photo */}
-          <div className="shrink-0" style={{ inlineSize: 220, blockSize: 260 }}>
+          <div className="w-full h-56 sm:w-55 sm:h-65 shrink-0 overflow-hidden relative bg-gray-100 flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
             {member.image ? (
-              <Image
-                src={member.image}
-                alt={member.full_name}
-                style={{
-                  inlineSize: 220,
-                  blockSize: 260,
-                  objectFit: 'cover',
-                  objectPosition: 'top',
-                  display: 'block',
-                }}
-              />
+              <>
+                <div
+                  className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
+                  style={{ backgroundImage: `url(${member.image})` }}
+                />
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  <Image
+                    src={member.image}
+                    alt={member.full_name}
+                    style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                  />
+                </div>
+              </>
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-blue-50">
                 <svg className="w-16 h-16 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
@@ -64,17 +68,23 @@ const StaffMemberDetail: React.FC = () => {
           </div>
 
           {/* Info */}
-          <div className="flex flex-1 p-6 gap-8">
+          <div className="flex flex-1 p-4 sm:p-6 gap-4 sm:gap-8">
             <div className="flex flex-col gap-3 flex-1">
-              <p className="font-bold text-gray-900 text-lg leading-snug">{member.full_name}</p>
+              <p className="font-bold text-gray-900 text-base sm:text-lg leading-snug">
+                {member.full_name}
+              </p>
               {member.degree && member.degree !== "Yo'q" && (
                 <div>
-                  <p className="text-sm font-semibold text-gray-800 mb-0.5">Ilmiy darajasi:</p>
+                  <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                    {t('nav.laboratoriyalar.degree')}:
+                  </p>
                   <p className="text-sm text-gray-600">{member.degree}</p>
                 </div>
               )}
               <div>
-                <p className="text-sm font-semibold text-gray-800 mb-0.5">Lavozimi:</p>
+                <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                  {t('nav.laboratoriyalar.position')}:
+                </p>
                 <p className="text-sm text-gray-600">{member.position}</p>
               </div>
               {links.length > 0 && (
@@ -100,12 +110,12 @@ const StaffMemberDetail: React.FC = () => {
 
       {/* Tabs */}
       <div className="bg-white shadow-sm">
-        <div className="flex border-b border-gray-200">
+        <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-200">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-6 py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
+              className={`shrink-0 px-4 sm:px-6 py-3 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap ${
                 activeTab === tab.key
                   ? 'border-[#013d8c] text-[#013d8c]'
                   : 'border-transparent text-gray-500 hover:text-[#013d8c]'
@@ -120,11 +130,13 @@ const StaffMemberDetail: React.FC = () => {
         >
           {workData?.data?.details ? (
             <div
-              className="p-6 w-full max-w-none [&_table]:w-full [&_img]:max-w-full"
+              className="p-4 sm:p-6 w-full max-w-none text-sm sm:text-base [&_table]:w-full [&_img]:max-w-full overflow-x-auto"
               dangerouslySetInnerHTML={{ __html: sanitizeHtmlRich(workData.data.details) }}
             />
           ) : (
-            !workLoading && <p className="p-6 text-gray-400 text-sm">Ma'lumot mavjud emas</p>
+            !workLoading && (
+              <p className="p-4 sm:p-6 text-gray-400 text-sm">{t('common.notAvailable')}</p>
+            )
           )}
         </div>
       </div>

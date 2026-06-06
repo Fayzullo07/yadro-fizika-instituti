@@ -3,6 +3,32 @@ import { useBanners } from '@/hooks/useBanners';
 import type { Banner } from '@/types';
 import HeroSkeleton from './HeroSkeleton';
 import BannerBackground from './BannerBackground';
+const FullscreenModal: React.FC<{ src: string; onClose: () => void }> = ({ src, onClose }) => (
+  <div
+    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95"
+    onClick={onClose}
+  >
+    <button
+      className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
+      onClick={onClose}
+    >
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <img
+      src={src}
+      alt=""
+      className="max-w-full max-h-full object-contain"
+      onClick={(e) => e.stopPropagation()}
+    />
+  </div>
+);
 
 const AUTOPLAY_INTERVAL = 5000;
 const DRAG_THRESHOLD = 50;
@@ -15,6 +41,7 @@ const Hero: React.FC = () => {
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [dragOffset, setDragOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [fullscreenSrc, setFullscreenSrc] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval>>(null);
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
@@ -100,7 +127,7 @@ const Hero: React.FC = () => {
 
   if (!activeBanners.length) {
     return (
-      <div className="relative min-h-30 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-100 bg-gray-200" />
+      <div className="relative min-h-48 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-140 bg-gray-200" />
     );
   }
 
@@ -109,7 +136,7 @@ const Hero: React.FC = () => {
 
   return (
     <div
-      className="relative h-full min-h-30 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-100 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+      className="relative h-full min-h-48 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-140 overflow-hidden cursor-grab active:cursor-grabbing select-none"
       onMouseDown={(e) => {
         e.preventDefault();
         handleDragStart(e.clientX);
@@ -195,6 +222,30 @@ const Hero: React.FC = () => {
 
         return null;
       })}
+
+      {/* Mobile expand button */}
+      <button
+        className="absolute bottom-3 right-3 z-20 sm:hidden flex items-center justify-center w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 text-white/80 hover:bg-black/60 hover:text-white transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          const src = activeBanners[currentIndex]?.image;
+          if (src) setFullscreenSrc(src);
+        }}
+        aria-label="To'liq ko'rish"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+          />
+        </svg>
+      </button>
+
+      {fullscreenSrc && (
+        <FullscreenModal src={fullscreenSrc} onClose={() => setFullscreenSrc(null)} />
+      )}
     </div>
   );
 };

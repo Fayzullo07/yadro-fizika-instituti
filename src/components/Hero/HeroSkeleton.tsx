@@ -1,5 +1,5 @@
 const HeroSkeleton: React.FC = () => (
-  <div className="relative h-[calc(100vh-120px)] overflow-hidden bg-gray-100">
+  <div className="relative min-h-48 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-140 overflow-hidden bg-gray-100">
     {/* White card skeleton */}
     <div className="absolute inset-y-0 left-0 z-10 flex items-center">
       <div className="bg-white p-8 md:p-12 lg:p-16 w-[90vw] md:w-[50vw] lg:w-[40vw] min-h-[50%] flex flex-col justify-center space-y-6">

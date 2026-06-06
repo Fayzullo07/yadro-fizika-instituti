@@ -6,6 +6,12 @@ import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { CouncilMember, PaginatedResponse } from '@/types';
 
+const PREVIEW_LABEL: Record<string, string> = {
+  uz: "Ko'rish",
+  ru: 'Просмотр',
+  en: 'Preview',
+};
+
 const CouncilComposition: React.FC = () => {
   const { t, language } = useLanguage();
   const { data, loading, error } = useApi<PaginatedResponse<CouncilMember>>(
@@ -48,7 +54,7 @@ const CouncilComposition: React.FC = () => {
                     preview={{
                       mask: (
                         <span className="text-white text-[10px] text-center leading-tight px-1">
-                          Ko'rish
+                          {PREVIEW_LABEL[language] ?? PREVIEW_LABEL.uz}
                         </span>
                       ),
                     }}

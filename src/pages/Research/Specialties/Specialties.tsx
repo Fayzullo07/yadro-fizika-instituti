@@ -84,10 +84,12 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
 
   return (
     <>
-      <div className="bg-white border border-gray-300 rounded-lg p-5 hover:border-gray-400 transition-colors duration-200">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-start gap-4 flex-1 min-w-0">
-            <span className="text-base font-semibold text-gray-900 shrink-0">{index + 1})</span>
+      <div className="bg-white border border-gray-300 rounded-lg p-3 sm:p-5 hover:border-gray-400 transition-colors duration-200">
+        <div className="flex items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
+            <span className="text-sm sm:text-base font-semibold text-gray-900 shrink-0">
+              {index + 1})
+            </span>
             <div className="flex-1 min-w-0">
               <div className="flex items-start gap-2 flex-wrap">
                 {item.code && (
@@ -95,7 +97,9 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
                     {item.code}
                   </span>
                 )}
-                <span className="text-base text-gray-700 leading-relaxed">"{item.name}"</span>
+                <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                  "{item.name}"
+                </span>
               </div>
             </div>
           </div>
@@ -157,7 +161,7 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
 };
 
 const SkeletonRow: React.FC = () => (
-  <div className="bg-white border border-gray-200 rounded-lg p-5 animate-pulse">
+  <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-5 animate-pulse">
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-start gap-4 flex-1">
         <div className="h-5 w-6 bg-gray-100 rounded shrink-0" />
@@ -182,7 +186,7 @@ const Pagination: React.FC<{
   if (lastPage <= 1) return null;
   const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
   return (
-    <div className="flex items-center justify-center gap-1.5 mt-10">
+    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-6 sm:mt-10">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
@@ -237,7 +241,7 @@ const Specialties: React.FC = () => {
         <PageTitle>{t('nav.ilmiyFaoliyat.specialties') || 'Ixtisosliklar pasportlari'}</PageTitle>
 
         {loading && (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <SkeletonRow key={i} />
             ))}
@@ -258,7 +262,7 @@ const Specialties: React.FC = () => {
 
         {items.length > 0 && (
           <>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {items.map((item, index) => (
                 <SpecialtyRow key={item.id} item={item} index={(page - 1) * PER_PAGE + index} />
               ))}

@@ -21,7 +21,7 @@ const AnnouncementCard: React.FC<{
       <div className="flex flex-col sm:flex-row">
         <div className="w-full sm:w-1 bg-[#013d8c] shrink-0 sm:rounded-l-xl rounded-t-xl sm:rounded-t-none min-h-1 sm:min-h-0" />
 
-        <div className="flex flex-col flex-1 p-5 gap-3">
+        <div className="flex flex-col flex-1 p-4 sm:p-5 gap-2 sm:gap-3">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 text-xs text-[#013d8c] bg-[#013d8c]/8 px-2.5 py-1 rounded-full font-medium">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,12 +36,12 @@ const AnnouncementCard: React.FC<{
             </span>
           </div>
 
-          <h2 className="text-base md:text-lg font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug">
+          <h2 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug">
             {item.title}
           </h2>
 
           {preview && (
-            <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">
+            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed line-clamp-3">
               {preview}
               {preview.length >= 180 ? '…' : ''}
             </p>
@@ -52,7 +52,7 @@ const AnnouncementCard: React.FC<{
               to={`/news/announcements/${item.id}`}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-[#013d8c] hover:gap-2.5 transition-all duration-200"
             >
-              {t('news.readMore') || 'Batafsil'}
+              {t('news.readMore')}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -86,41 +86,35 @@ const Announcements: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <PageTitle>{t('nav.media.announcements') || "E'lonlar"}</PageTitle>
+      <PageTitle>{t('nav.media.announcements')}</PageTitle>
 
       {loading && <Loading />}
 
-      {error && (
-        <p className="text-center py-16 text-gray-500">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </p>
-      )}
+      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
 
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">
-          {t('pages.announcements.comingSoon') || "E'lonlar topilmadi"}
-        </p>
+        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
       )}
 
       {items.length > 0 && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {items.map((item) => (
               <AnnouncementCard key={item.id} item={item} language={language} t={t} />
             ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="mt-12 flex justify-center items-center gap-2">
+            <div className="mt-6 sm:mt-12 flex flex-wrap justify-center items-center gap-2">
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
-                className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
-                ← {t('news.previous') || 'Oldingi'}
+                ← <span className="hidden sm:inline">{t('news.previous')}</span>
               </button>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {[...Array(totalPages)].map((_, index) => {
                   const pageNum = index + 1;
                   if (
@@ -132,7 +126,7 @@ const Announcements: React.FC = () => {
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
-                        className={`px-4 py-2 rounded-lg transition-colors ${
+                        className={`px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm ${
                           page === pageNum
                             ? 'bg-[#013d8c] text-white'
                             : 'bg-white border border-gray-300 hover:bg-gray-50'
@@ -143,7 +137,7 @@ const Announcements: React.FC = () => {
                     );
                   } else if (pageNum === page - 2 || pageNum === page + 2) {
                     return (
-                      <span key={pageNum} className="px-2">
+                      <span key={pageNum} className="px-1 sm:px-2 self-center text-sm">
                         ...
                       </span>
                     );
@@ -155,9 +149,9 @@ const Announcements: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page === totalPages}
-                className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
-                {t('news.next') || 'Keyingi'} →
+                <span className="hidden sm:inline">{t('news.next')}</span> →
               </button>
             </div>
           )}

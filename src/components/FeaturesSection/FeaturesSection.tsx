@@ -11,17 +11,17 @@ const FeaturesSection: React.FC = () => {
     <section className="py-4 md:py-6">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-8">
-          <span className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3 block">
+        <div className="text-center mb-5 md:mb-8">
+          <span className="text-xs sm:text-sm font-medium text-gray-400 tracking-widest uppercase mb-2 sm:mb-3 block">
             {t('features.intro') || 'Innovatsion yechimlar va zamonaviy texnologiyalar'}
           </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
             {t('features.title') || "ASOSIY YO'NALISHLAR"}
           </h2>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200">
           {features.map((feature) => (
             <div key={feature.id}>
               <FeatureCard feature={feature} readMoreText={t('features.readMore') || 'Batafsil'} />

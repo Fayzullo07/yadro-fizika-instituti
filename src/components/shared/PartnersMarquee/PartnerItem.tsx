@@ -5,17 +5,17 @@ const PartnerItem: React.FC<{ partner: Partner }> = ({ partner }) => (
     href={partner.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="shrink-0 mx-5 md:mx-10 flex items-center gap-3 md:gap-4 group cursor-pointer"
+    className="shrink-0 mx-3 sm:mx-6 md:mx-10 flex items-center gap-2 sm:gap-3 md:gap-4 group cursor-pointer"
   >
     <div
-      className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:shadow-md"
+      className="w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:shadow-md"
       style={{ transition: 'box-shadow 0.5s ease' }}
     >
       <img
         src={partner.image}
         alt={partner.name}
         loading="lazy"
-        className="w-12 h-12 md:w-16 md:h-16 object-contain"
+        className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain"
       />
     </div>
     <div>

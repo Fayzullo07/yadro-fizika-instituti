@@ -18,10 +18,13 @@ const ConferenceDetail: React.FC = () => {
 
   if (error || !item) {
     return (
-      <div className="text-center py-20">
-        <p className="text-gray-500 mb-4">{t('common.error') || 'Konferensiya topilmadi'}</p>
-        <Link to={CONFERENCES_PATH} className="text-[#013d8c] hover:underline font-medium">
-          ← {t('pages.conferences.backToList') || "Konferensiyalar ro'yxatiga qaytish"}
+      <div className="text-center py-16 sm:py-20">
+        <p className="text-gray-500 mb-4 text-sm sm:text-base">{t('common.error')}</p>
+        <Link
+          to={CONFERENCES_PATH}
+          className="text-[#013d8c] hover:underline font-medium text-sm sm:text-base"
+        >
+          ← {t('backToList')}
         </Link>
       </div>
     );
@@ -34,16 +37,18 @@ const ConferenceDetail: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <BackButton
-        to={CONFERENCES_PATH}
-        label={t('pages.conferences.backToList') || "Konferensiyalar ro'yxatiga qaytish"}
-      />
+      <BackButton to={CONFERENCES_PATH} label={t('backToList')} />
 
       <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <div className="bg-[#013d8c] px-6 py-5">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mb-3">
-            <span className="inline-flex items-center gap-1.5 text-white/70 text-sm">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="bg-[#013d8c] px-4 sm:px-6 py-4 sm:py-5">
+          <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1.5 mb-2 sm:mb-3">
+            <span className="inline-flex items-center gap-1.5 text-white/70 text-xs sm:text-sm">
+              <svg
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -54,8 +59,13 @@ const ConferenceDetail: React.FC = () => {
               {dateRange}
             </span>
             {item.location && (
-              <span className="inline-flex items-center gap-1.5 text-white/70 text-sm">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="inline-flex items-center gap-1.5 text-white/70 text-xs sm:text-sm">
+                <svg
+                  className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -73,17 +83,19 @@ const ConferenceDetail: React.FC = () => {
               </span>
             )}
           </div>
-          <h1 className="text-white text-xl md:text-2xl font-bold leading-snug">{item.title}</h1>
+          <h1 className="text-white text-base sm:text-xl md:text-2xl font-bold leading-snug">
+            {item.title}
+          </h1>
         </div>
 
         {item.image && (
-          <div className="overflow-hidden max-h-80">
+          <div className="overflow-hidden max-h-48 sm:max-h-64 md:max-h-80">
             <img src={item.image} alt={item.title} loading="lazy" className="w-full object-cover" />
           </div>
         )}
 
         {item.file && (
-          <div className="px-6 pt-5">
+          <div className="px-4 sm:px-6 pt-4 sm:pt-5">
             <a
               href={item.file}
               target="_blank"
@@ -103,22 +115,24 @@ const ConferenceDetail: React.FC = () => {
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
-              {t('common.downloadPdf') || 'PDF yuklab olish'}
+              {t('common.downloadPdf')}
             </a>
           </div>
         )}
 
         <div
           className="
-            px-6 py-6 text-gray-700 text-[15px] leading-relaxed
+            px-4 sm:px-6 py-4 sm:py-6 text-gray-700 text-sm sm:text-[15px] leading-relaxed
             [&_a]:text-blue-600 [&_a]:underline [&_a]:break-all [&_a:hover]:text-blue-800
             [&_blockquote]:border-l-4 [&_blockquote]:border-[#013d8c]/30
             [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
             [&_b]:font-semibold [&_strong]:font-semibold
             [&_div]:leading-relaxed
             [&_p]:mb-3
-            [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-gray-200 [&_td]:px-3 [&_td]:py-2
-            [&_th]:border [&_th]:border-gray-200 [&_th]:px-3 [&_th]:py-2 [&_th]:bg-gray-50 [&_th]:font-semibold
+            [&_img]:max-w-full
+            [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-gray-200 [&_td]:px-2 sm:[&_td]:px-3 [&_td]:py-2
+            [&_th]:border [&_th]:border-gray-200 [&_th]:px-2 sm:[&_th]:px-3 [&_th]:py-2 [&_th]:bg-gray-50 [&_th]:font-semibold
+            overflow-x-auto
           "
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
         />

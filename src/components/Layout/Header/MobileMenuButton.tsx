@@ -12,7 +12,7 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`lg:hidden p-2 rounded-lg transition-all duration-300 ${
+      className={`lg:hidden p-2.5 sm:p-2 rounded-lg transition-all duration-300 ${
         isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
       }`}
       aria-label="Menu"

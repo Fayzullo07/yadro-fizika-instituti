@@ -20,17 +20,14 @@ const NewsDetail: React.FC = () => {
 
   if (error || !newsItem) {
     return (
-      <div className="min-h-screen">
-        <div className="container mx-auto px-4 pt-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              {t('news.notFound') || 'Yangilik topilmadi'}
-            </h1>
-            <Link to="/news" className="text-blue-600 hover:text-blue-800 font-medium">
-              {t('news.backToList') || "← Yangiliklar ro'yxatiga qaytish"}
-            </Link>
-          </div>
-        </div>
+      <div className="py-16 text-center">
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-900 mb-4">{t('news.notFound')}</h1>
+        <Link
+          to="/news"
+          className="text-blue-600 hover:text-blue-800 font-medium text-sm sm:text-base"
+        >
+          {t('news.backToList')}
+        </Link>
       </div>
     );
   }
@@ -108,10 +105,10 @@ const NewsDetail: React.FC = () => {
 
         {/* Sidebar */}
         {showSidebar && (
-          <aside className="w-full lg:w-60 shrink-0">
+          <aside className="w-full lg:w-60 shrink-0 mt-2 lg:mt-0">
             <div className="bg-white rounded border border-gray-200 p-3 lg:sticky lg:top-27">
-              <h2 className="text-base font-semibold text-gray-900 mb-3">
-                {t('news.otherNews') || 'Boshqa yangiliklar'}
+              <h2 className="text-sm sm:text-base font-semibold text-gray-900 mb-3">
+                {t('news.otherNews')}
               </h2>
 
               {newsListLoading ? (
@@ -167,7 +164,7 @@ const NewsDetail: React.FC = () => {
                   to="/news"
                   className="block w-full text-center text-sm font-medium text-[#013d8c] hover:underline"
                 >
-                  {t('news.viewAll') || 'Barcha yangiliklar'}
+                  {t('news.viewAll')}
                 </Link>
               </div>
             </div>

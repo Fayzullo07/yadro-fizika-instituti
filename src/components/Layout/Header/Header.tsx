@@ -34,20 +34,20 @@ const Header: React.FC = () => {
       </div>
       {/* Top bar */}
       <div className="container mx-auto">
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-2 sm:py-3">
           {/* Logo + Name */}
-          <div className="flex items-center gap-3">
-            <Link to={HOME_PATH} className="flex items-center gap-2 sm:gap-3 group">
+          <div className="flex items-center min-w-0">
+            <Link to={HOME_PATH} className="flex items-center gap-2 sm:gap-3 group min-w-0">
               <img
                 src={logoFallback}
                 alt={`${ORG_LINE1} ${ORG_LINE2}`}
-                className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 object-contain rounded-lg shrink-0"
+                className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain rounded-lg shrink-0"
               />
-              <span className="flex flex-col">
-                <span className="hidden sm:block text-[9px] md:text-xs font-semibold text-gray-400 tracking-wide leading-tight uppercase">
+              <span className="flex flex-col min-w-0 overflow-hidden">
+                <span className="hidden md:block text-[9px] lg:text-[10px] font-semibold text-gray-400 tracking-wide leading-tight uppercase truncate">
                   {ORG_LINE1}
                 </span>
-                <span className="text-xs sm:text-sm md:text-base font-bold text-gray-900 leading-tight uppercase tracking-wide">
+                <span className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-gray-900 leading-snug uppercase tracking-wide">
                   {ORG_LINE2}
                 </span>
               </span>
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Right side: phone, social, language */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             {/* Phone */}
             <div className="hidden md:flex items-center gap-2.5">
               <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 17.2 17.2">
@@ -106,18 +106,16 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation bar */}
-      <div className="border-t bg-[#0f1b3d] border-gray-100">
+      {/* Navigation bar — desktop only */}
+      <div className="hidden lg:block border-t bg-[#0f1b3d] border-gray-100">
         <div className="container mx-auto">
-          <div className="flex items-center justify-center md:py-2.5">
-            {!isMobileMenuOpen && (
-              <DesktopNavigation
-                menuItems={menuItems}
-                openDropdown={openDropdown}
-                setOpenDropdown={setOpenDropdown}
-                isScrolled={false}
-              />
-            )}
+          <div className="flex items-center justify-center py-2.5">
+            <DesktopNavigation
+              menuItems={menuItems}
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              isScrolled={false}
+            />
           </div>
         </div>
       </div>

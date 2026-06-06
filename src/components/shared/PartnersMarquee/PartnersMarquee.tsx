@@ -32,17 +32,17 @@ const PartnersMarquee: React.FC = () => {
   if (!loading && !partners.length) return null;
 
   return (
-    <section className="py-4 bg-gray-50 border-y border-gray-100">
-      <div className="text-center mb-6">
-        <p className="text-base font-semibold text-gray-400 uppercase tracking-widest mb-1">
+    <section className="py-3 sm:py-4 bg-gray-50 border-y border-gray-100">
+      <div className="text-center mb-4 sm:mb-6">
+        <p className="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-1">
           {TITLE[language] ?? TITLE.uz}
         </p>
         <div className="w-10 h-0.5 bg-[#013d8c] mx-auto rounded-full" />
       </div>
 
       <div className="relative overflow-hidden group">
-        <div className="absolute inset-y-0 left-0 w-24 bg-linear-to-r from-gray-50 to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-linear-to-l from-gray-50 to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-8 sm:w-16 md:w-24 bg-linear-to-r from-gray-50 to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-8 sm:w-16 md:w-24 bg-linear-to-l from-gray-50 to-transparent z-10" />
 
         {loading ? (
           <div className="flex">

@@ -15,7 +15,12 @@ const Structure: React.FC = () => {
         {loading && <div className="w-full aspect-4/3 bg-gray-100 animate-pulse rounded" />}
         {!loading && (error || !imageUrl) && null}
         {!loading && imageUrl && (
-          <img src={imageUrl} alt="Institut tuzilmasi" loading="lazy" className="w-full h-auto" />
+          <img
+            src={imageUrl}
+            alt={t('nav.institut.structure')}
+            loading="lazy"
+            className="w-full h-auto"
+          />
         )}
       </article>
     </div>

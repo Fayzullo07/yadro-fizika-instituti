@@ -4,6 +4,7 @@ import { useVideoGallery } from '@/hooks/useVideoGallery';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { VideoGalleryItem } from '@/types';
 
 const PER_PAGE = 12;
@@ -16,7 +17,7 @@ const Pagination: React.FC<{
   if (lastPage <= 1) return null;
   const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
   return (
-    <div className="flex items-center justify-center gap-1.5 mt-10">
+    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-6 sm:mt-10">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
@@ -65,8 +66,12 @@ const CloseIcon = () => (
 
 const PlayOverlay = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-300">
-    <div className="w-12 h-12 rounded-full bg-white/80 group-hover:bg-white transition-colors duration-300 flex items-center justify-center shadow-lg">
-      <svg className="w-5 h-5 text-gray-800 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 group-hover:bg-white transition-colors duration-300 flex items-center justify-center shadow-lg">
+      <svg
+        className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 ml-0.5"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <path d="M8 5v14l11-7z" />
       </svg>
     </div>
@@ -81,11 +86,11 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-3 sm:p-4"
       onClick={onClose}
     >
       <button
-        className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
+        className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
         onClick={onClose}
       >
         <CloseIcon />
@@ -103,7 +108,7 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
             />
           </div>
         ) : (
-          <div className="bg-gray-900 rounded-lg p-8 text-center">
+          <div className="bg-gray-900 rounded-lg p-6 sm:p-8 text-center">
             <a
               href={item.url}
               target="_blank"
@@ -114,7 +119,9 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
             </a>
           </div>
         )}
-        <p className="mt-3 text-white/70 text-sm text-center line-clamp-2">{item.title}</p>
+        <p className="mt-3 text-white/70 text-xs sm:text-sm text-center line-clamp-2">
+          {item.title}
+        </p>
       </div>
     </div>
   );
@@ -143,13 +150,15 @@ const VideoCard: React.FC<{
         <PlayOverlay />
       </div>
 
-      <div className="p-4 flex flex-col gap-2">
+      <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
         <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">{label}</span>
-        <p className="text-sm text-gray-700 font-medium line-clamp-2 leading-snug h-10.5 overflow-hidden">
+        <p className="text-xs sm:text-sm text-gray-700 font-medium line-clamp-2 leading-snug overflow-hidden">
           {item.title}
         </p>
         <div className="flex items-center justify-between mt-auto pt-1">
-          <span className="text-sm text-gray-400">{formatDate(item.created_at, language)}</span>
+          <span className="text-xs sm:text-sm text-gray-400">
+            {formatDate(item.created_at, language)}
+          </span>
           <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
             →
           </span>
@@ -177,37 +186,21 @@ const VideoGallery: React.FC = () => {
   const openModal = useCallback((item: VideoGalleryItem) => setActiveItem(item), []);
   const closeModal = useCallback(() => setActiveItem(null), []);
 
-  const label = t('nav.media.videoGallery') || 'Video Galereya';
+  const label = t('nav.media.videoGallery');
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
-            {label}
-          </h1>
-        </div>
-        <div className="h-px bg-gray-200 mt-4" />
-      </div>
+      <PageTitle>{label}</PageTitle>
 
       {loading && <Loading />}
-
-      {error && (
-        <p className="text-center py-16 text-gray-500">
-          {t('common.error') || 'Xatolik yuz berdi'}
-        </p>
-      )}
-
+      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">
-          {t('common.noData') || "Ma'lumot topilmadi"}
-        </p>
+        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
       )}
 
       {items.length > 0 && (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
             {items.map((item) => (
               <VideoCard
                 key={item.id}

@@ -17,10 +17,13 @@ const AnnouncementDetail: React.FC = () => {
 
   if (error || !item) {
     return (
-      <div className="text-center py-20">
-        <p className="text-gray-500 mb-4">{t('common.error') || "E'lon topilmadi"}</p>
-        <Link to="/news/announcements" className="text-[#013d8c] hover:underline font-medium">
-          ← {t('backToList') || "Ro'yxatga qaytish"}
+      <div className="text-center py-16 sm:py-20">
+        <p className="text-gray-500 mb-4 text-sm sm:text-base">{t('common.error')}</p>
+        <Link
+          to="/news/announcements"
+          className="text-[#013d8c] hover:underline font-medium text-sm sm:text-base"
+        >
+          ← {t('backToList')}
         </Link>
       </div>
     );
@@ -28,11 +31,11 @@ const AnnouncementDetail: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <BackButton to="/news/announcements" label={t('backToList') || "Ro'yxatga qaytish"} />
+      <BackButton to="/news/announcements" label={t('backToList')} />
 
       <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <div className="bg-[#013d8c] px-6 py-5">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="bg-[#013d8c] px-4 sm:px-6 py-4 sm:py-5">
+          <div className="flex items-center gap-2 mb-2 sm:mb-3">
             <svg
               className="w-4 h-4 text-white/70"
               fill="none"
@@ -46,20 +49,25 @@ const AnnouncementDetail: React.FC = () => {
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            <span className="text-white/70 text-sm">{formatDate(item.created_at, language)}</span>
+            <span className="text-white/70 text-xs sm:text-sm">
+              {formatDate(item.created_at, language)}
+            </span>
           </div>
-          <h1 className="text-white text-xl md:text-2xl font-bold leading-snug">{item.title}</h1>
+          <h1 className="text-white text-base sm:text-xl md:text-2xl font-bold leading-snug">
+            {item.title}
+          </h1>
         </div>
 
         <div
           className="
-            px-6 py-6 text-gray-700 text-[15px] leading-relaxed
+            px-4 sm:px-6 py-4 sm:py-6 text-gray-700 text-sm sm:text-[15px] leading-relaxed
             [&_a]:text-blue-600 [&_a]:underline [&_a]:break-all [&_a:hover]:text-blue-800
             [&_blockquote]:border-l-4 [&_blockquote]:border-[#013d8c]/30
             [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
             [&_b]:font-semibold [&_strong]:font-semibold
             [&_div]:leading-relaxed
             [&_p]:mb-3
+            [&_img]:max-w-full [&_table]:w-full overflow-x-auto
           "
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
         />
