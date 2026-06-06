@@ -10,3 +10,8 @@ export const useGalleries = (params: PaginationParams = {}) => {
     [language, params.page, params.per_page]
   );
 };
+
+export const useGalleryById = (id: string) => {
+  const { language } = useLanguage();
+  return useApi(() => galleriesApi.getById(id, language), [id, language]);
+};

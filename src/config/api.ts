@@ -46,6 +46,7 @@ export const API_ENDPOINTS = {
 
   // Galleries
   GALLERIES: '/api/galleries',
+  GALLERIES_BY_ID: (id: number | string) => `/api/galleries/${id}`,
 
   // Video Gallery
   VIDEO_GALLERY: '/api/video-gallery',

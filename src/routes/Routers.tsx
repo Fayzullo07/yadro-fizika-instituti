@@ -38,6 +38,7 @@ const NewsDetail = lazy(() => import('@/pages/News/NewsDetail/NewsDetail'));
 const Announcements = lazy(() => import('@/pages/News/Announcements/Announcements'));
 const AnnouncementDetail = lazy(() => import('@/pages/News/Announcements/AnnouncementDetail'));
 const Gallery = lazy(() => import('@/pages/News/Gallery/Gallery'));
+const GalleryDetail = lazy(() => import('@/pages/News/Gallery/GalleryDetail'));
 const VideoGallery = lazy(() => import('@/pages/News/VideoGallery/VideoGallery'));
 const Constitution = lazy(() => import('@/pages/Normativ/Constitution/Constitution'));
 const Decrees = lazy(() => import('@/pages/Normativ/Decrees/Decrees'));
@@ -98,6 +99,7 @@ import {
   ANNOUNCEMENTS_PATH,
   ANNOUNCEMENT_DETAIL_PATH,
   GALLERY_PATH,
+  GALLERY_DETAIL_PATH,
   VIDEO_GALLERY_PATH,
   CONSTITUTION_PATH,
   DECREES_PATH,
@@ -502,6 +504,14 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Gallery />
+                </Suspense>
+              ),
+            },
+            {
+              path: GALLERY_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <GalleryDetail />
                 </Suspense>
               ),
             },

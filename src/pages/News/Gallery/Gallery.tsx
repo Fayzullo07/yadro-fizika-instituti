@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
@@ -8,99 +9,14 @@ import type { GalleryItem } from '@/types';
 
 const PER_PAGE = 12;
 
-const CloseIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
-const ChevronIcon = ({ dir }: { dir: 'left' | 'right' }) => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d={dir === 'left' ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'}
-    />
-  </svg>
-);
-
-const Lightbox: React.FC<{
-  items: GalleryItem[];
-  index: number;
-  onClose: () => void;
-  onNav: (i: number) => void;
-}> = ({ items, index, onClose, onNav }) => (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-    onClick={onClose}
-  >
-    <button
-      className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
-      onClick={onClose}
-    >
-      <CloseIcon />
-    </button>
-
-    {items.length > 1 && (
-      <button
-        className="absolute left-2 sm:left-4 text-white/70 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
-        onClick={(e) => {
-          e.stopPropagation();
-          onNav((index - 1 + items.length) % items.length);
-        }}
-      >
-        <ChevronIcon dir="left" />
-      </button>
-    )}
-
-    <div className="max-w-5xl max-h-[85vh] mx-10 sm:mx-16" onClick={(e) => e.stopPropagation()}>
-      <img
-        src={items[index].image}
-        alt=""
-        className="max-h-[82vh] max-w-full object-contain rounded-lg shadow-2xl"
-      />
-    </div>
-
-    {items.length > 1 && (
-      <button
-        className="absolute right-2 sm:right-4 text-white/70 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
-        onClick={(e) => {
-          e.stopPropagation();
-          onNav((index + 1) % items.length);
-        }}
-      >
-        <ChevronIcon dir="right" />
-      </button>
-    )}
-
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 flex-wrap justify-center max-w-xs">
-      {items.map((_, i) => (
-        <button
-          key={i}
-          onClick={(e) => {
-            e.stopPropagation();
-            onNav(i);
-          }}
-          className={`rounded-full transition-all duration-300 ${
-            i === index ? 'w-5 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/70'
-          }`}
-        />
-      ))}
-    </div>
-  </div>
-);
-
 const GalleryCard: React.FC<{
   item: GalleryItem;
-  index: number;
   language: string;
   label: string;
-  onClick: (i: number) => void;
-}> = ({ item, index, language, label, onClick }) => (
-  <button
-    onClick={() => onClick(index)}
-    className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 focus:outline-none"
+}> = ({ item, language, label }) => (
+  <Link
+    to={`/news/gallery/${item.id}`}
+    className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
   >
     <div className="relative overflow-hidden aspect-video">
       <img src={item.image} alt="" className="w-full h-full object-cover gallery-card-img" />
@@ -118,14 +34,13 @@ const GalleryCard: React.FC<{
         </span>
       </div>
     </div>
-  </button>
+  </Link>
 );
 
 const Gallery: React.FC = () => {
   const { t, language } = useLanguage();
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<GalleryItem[]>([]);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const prevLanguageRef = useRef(language);
 
@@ -162,10 +77,6 @@ const Gallery: React.FC = () => {
     return () => observer.disconnect();
   }, [hasMore, loading]);
 
-  const openLightbox = useCallback((i: number) => setLightboxIndex(i), []);
-  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-  const navLightbox = useCallback((i: number) => setLightboxIndex(i), []);
-
   return (
     <div className="pb-10">
       <PageTitle>{t('gallery.title')}</PageTitle>
@@ -177,15 +88,8 @@ const Gallery: React.FC = () => {
 
       {items.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-          {items.map((item, i) => (
-            <GalleryCard
-              key={item.id}
-              item={item}
-              index={i}
-              language={language}
-              label={item.title}
-              onClick={openLightbox}
-            />
+          {items.map((item) => (
+            <GalleryCard key={item.id} item={item} language={language} label={item.title} />
           ))}
         </div>
       )}
@@ -197,10 +101,6 @@ const Gallery: React.FC = () => {
         <div className="flex justify-center py-6">
           <div className="w-6 h-6 border-2 border-[#013d8c] border-t-transparent rounded-full animate-spin" />
         </div>
-      )}
-
-      {lightboxIndex !== null && (
-        <Lightbox items={items} index={lightboxIndex} onClose={closeLightbox} onNav={navLightbox} />
       )}
     </div>
   );

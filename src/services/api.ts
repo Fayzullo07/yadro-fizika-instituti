@@ -28,6 +28,7 @@ import type {
   Vacancy,
   StatData,
   GalleryItem,
+  GalleryDetailItem,
   VideoGalleryItem,
   PartnerItem,
   StructureData,
@@ -283,6 +284,8 @@ export const galleriesApi = {
       : API_ENDPOINTS.GALLERIES;
     return apiRequest<PaginatedResponse<GalleryItem>>(endpoint, {}, language);
   },
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<GalleryDetailItem>>(API_ENDPOINTS.GALLERIES_BY_ID(id), {}, language),
 };
 
 // Stats API

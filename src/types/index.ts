@@ -298,6 +298,17 @@ export interface GalleryItem {
   updated_at: string;
 }
 
+export interface GalleryDetailItem {
+  id: number;
+  title_uz: string;
+  title_ru: string;
+  title_en: string;
+  image: string;
+  images: { id: number; image: string }[];
+  created_at: string;
+  updated_at: string;
+}
+
 // Stats
 export interface StatData {
   id: number;
