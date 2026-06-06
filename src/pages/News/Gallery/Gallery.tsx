@@ -1,5 +1,4 @@
-import { useState, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
@@ -122,98 +121,82 @@ const GalleryCard: React.FC<{
   </button>
 );
 
-const Pagination: React.FC<{
-  page: number;
-  lastPage: number;
-  onPageChange: (p: number) => void;
-}> = ({ page, lastPage, onPageChange }) => {
-  if (lastPage <= 1) return null;
-  const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
-  return (
-    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-6 sm:mt-10">
-      <button
-        onClick={() => onPageChange(page - 1)}
-        disabled={page === 1}
-        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      {pages.map((p) => (
-        <button
-          key={p}
-          onClick={() => onPageChange(p)}
-          className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-semibold border transition-colors ${
-            p === page
-              ? 'bg-[#013d8c] text-white border-[#013d8c]'
-              : 'border-gray-200 text-gray-600 hover:border-[#013d8c] hover:text-[#013d8c]'
-          }`}
-        >
-          {p}
-        </button>
-      ))}
-      <button
-        onClick={() => onPageChange(page + 1)}
-        disabled={page === lastPage}
-        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-  );
-};
-
 const Gallery: React.FC = () => {
   const { t, language } = useLanguage();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = parseInt(searchParams.get('page') || '1', 10);
-  const { data, loading, error } = useGalleries({ page, per_page: PER_PAGE });
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState<GalleryItem[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const prevLanguageRef = useRef(language);
+
+  const { data, loading, error } = useGalleries({ page, per_page: PER_PAGE });
 
   const lastPage = data?.meta?.last_page ?? 1;
+  const hasMore = page < lastPage;
 
-  const handlePageChange = (p: number) => {
-    setSearchParams({ page: String(p) });
-    window.scrollTo(0, 0);
-  };
+  useEffect(() => {
+    if (prevLanguageRef.current !== language) {
+      prevLanguageRef.current = language;
+      setPage(1);
+      setItems([]);
+    }
+  }, [language]);
 
-  const items: GalleryItem[] = data?.data ?? [];
+  useEffect(() => {
+    if (!data?.data) return;
+    setItems((prev) => (page === 1 ? data.data : [...prev, ...data.data]));
+  }, [data]);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !loading) {
+          setPage((p) => p + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, loading]);
 
   const openLightbox = useCallback((i: number) => setLightboxIndex(i), []);
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const navLightbox = useCallback((i: number) => setLightboxIndex(i), []);
 
-  const label = t('gallery.title');
-
   return (
     <div className="pb-10">
-      <PageTitle>{label}</PageTitle>
+      <PageTitle>{t('gallery.title')}</PageTitle>
 
-      {loading && <Loading />}
       {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
       {!loading && !error && items.length === 0 && (
         <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
       )}
 
       {items.length > 0 && (
-        <>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-            {items.map((item, i) => (
-              <GalleryCard
-                key={item.id}
-                item={item}
-                index={i}
-                language={language}
-                label={item.title}
-                onClick={openLightbox}
-              />
-            ))}
-          </div>
-          <Pagination page={page} lastPage={lastPage} onPageChange={handlePageChange} />
-        </>
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+          {items.map((item, i) => (
+            <GalleryCard
+              key={item.id}
+              item={item}
+              index={i}
+              language={language}
+              label={item.title}
+              onClick={openLightbox}
+            />
+          ))}
+        </div>
+      )}
+
+      {loading && items.length === 0 && <Loading />}
+
+      <div ref={sentinelRef} className="h-1" />
+      {loading && items.length > 0 && (
+        <div className="flex justify-center py-6">
+          <div className="w-6 h-6 border-2 border-[#013d8c] border-t-transparent rounded-full animate-spin" />
+        </div>
       )}
 
       {lightboxIndex !== null && (
