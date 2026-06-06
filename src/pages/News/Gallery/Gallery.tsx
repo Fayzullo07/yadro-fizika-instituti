@@ -107,7 +107,9 @@ const GalleryCard: React.FC<{
       <img src={item.image} alt="" className="w-full h-full object-cover gallery-card-img" />
     </div>
     <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
-      <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">{label}</span>
+      <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
+        {label ? label : '-'}
+      </span>
       <div className="flex items-center justify-between mt-auto pt-1">
         <span className="text-xs sm:text-sm text-gray-400">
           {formatDate(item.created_at, language)}
@@ -205,7 +207,7 @@ const Gallery: React.FC = () => {
                 item={item}
                 index={i}
                 language={language}
-                label={label}
+                label={item.title}
                 onClick={openLightbox}
               />
             ))}
