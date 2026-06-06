@@ -40,7 +40,7 @@ const PartnersMarquee: React.FC = () => {
         <div className="w-10 h-0.5 bg-[#013d8c] mx-auto rounded-full" />
       </div>
 
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden group">
         <div className="absolute inset-y-0 left-0 w-24 bg-linear-to-r from-gray-50 to-transparent z-10" />
         <div className="absolute inset-y-0 right-0 w-24 bg-linear-to-l from-gray-50 to-transparent z-10" />
 
@@ -51,12 +51,10 @@ const PartnersMarquee: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="flex animate-marquee">
-            {[...Array(4)].flatMap((_, i) =>
-              partners.map((partner) => (
-                <PartnerItem key={`${i}-${partner.id}`} partner={partner} />
-              ))
-            )}
+          <div className="flex w-max animate-marquee-slow">
+            {[...partners, ...partners].map((partner, i) => (
+              <PartnerItem key={`${i}-${partner.id}`} partner={partner} />
+            ))}
           </div>
         )}
       </div>

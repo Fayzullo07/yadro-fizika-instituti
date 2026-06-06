@@ -84,7 +84,11 @@ body {
 }
 
 .animate-marquee-slow {
-  animation: marquee 30s linear infinite;
+  animation: marquee 12s linear infinite;
+}
+
+.group:hover .animate-marquee-slow {
+  animation-play-state: paused;
 }
 
 @keyframes marquee-rtl {
