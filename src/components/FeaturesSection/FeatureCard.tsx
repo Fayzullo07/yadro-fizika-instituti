@@ -20,7 +20,7 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, readMoreText }) => (
   <Link
     to={feature.link}
-    className="group relative flex flex-col p-5 sm:p-6 md:p-8 lg:p-10 bg-white hover:bg-gray-50"
+    className="group relative flex flex-col h-full p-5 sm:p-6 md:p-8 lg:p-10 bg-white hover:bg-gray-50"
     style={{ transition: 'background-color 0.5s ease' }}
   >
     {/* Number */}

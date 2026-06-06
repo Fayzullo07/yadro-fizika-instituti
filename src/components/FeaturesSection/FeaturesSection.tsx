@@ -21,9 +21,9 @@ const FeaturesSection: React.FC = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200 items-stretch">
           {features.map((feature) => (
-            <div key={feature.id}>
+            <div key={feature.id} className="h-full">
               <FeatureCard feature={feature} readMoreText={t('features.readMore') || 'Batafsil'} />
             </div>
           ))}
