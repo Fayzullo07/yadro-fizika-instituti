@@ -166,6 +166,14 @@ const Routers = () => {
                 </Suspense>
               ),
             },
+            {
+              path: GALLERY_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <GalleryDetail />
+                </Suspense>
+              ),
+            },
           ],
         },
         {
@@ -504,14 +512,6 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Gallery />
-                </Suspense>
-              ),
-            },
-            {
-              path: GALLERY_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <GalleryDetail />
                 </Suspense>
               ),
             },

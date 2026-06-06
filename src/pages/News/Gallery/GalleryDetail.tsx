@@ -59,87 +59,91 @@ const GalleryDetail: React.FC = () => {
     <div
       className={`pb-10 transition-opacity duration-200 ${loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}
     >
-      <BackButton to="/news/gallery" label={t('backToList')} />
-
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Main Content */}
-        <div className="flex-1 min-w-0 space-y-4">
-          <Image.PreviewGroup>
-            {/* Hero image */}
-            {displayItem.image && (
-              <div className="relative w-full h-56 sm:h-80 md:h-96 overflow-hidden rounded-none bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    backgroundImage: `url(${displayItem.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    filter: 'blur(20px)',
-                    transform: 'scale(1.15)',
-                  }}
-                />
-                <div className="relative z-10 w-full h-full [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
-                  <Image
-                    src={displayItem.image}
-                    alt={title}
-                    preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
-                  />
-                </div>
-              </div>
-            )}
+        <div className="flex-1 min-w-0">
+          <BackButton to="/news/gallery" label={t('backToList')} />
 
-            {/* Title + date */}
-            <div>
-              {title && (
-                <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-1.5">
-                  {title}
-                </h1>
+          <article className="bg-white border border-gray-200 overflow-hidden">
+            <Image.PreviewGroup>
+              {/* Hero image */}
+              {displayItem.image && (
+                <div className="relative w-full h-52 sm:h-72 md:h-96 overflow-hidden bg-gray-100">
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundImage: `url(${displayItem.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      filter: 'blur(20px)',
+                      transform: 'scale(1.15)',
+                    }}
+                  />
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <Image
+                      src={displayItem.image}
+                      alt={title}
+                      preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
+                      rootClassName="!w-full !h-full !bg-transparent"
+                      style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                    />
+                  </div>
+                </div>
               )}
-              <div className="flex items-center gap-1.5 text-gray-400 text-xs sm:text-sm">
-                <svg
-                  className="w-3.5 h-3.5 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <span>{formatDate(displayItem.created_at, language)}</span>
-              </div>
-            </div>
 
-            {/* Sub images grid */}
-            {displayItem.images.length > 0 && (
-              <div className="bg-white border border-gray-200 rounded-none p-3 sm:p-4">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
-                  {displayItem.images.map((img) => (
-                    <div
-                      key={img.id}
-                      className="overflow-hidden rounded-none aspect-video bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover"
-                    >
-                      <Image
-                        src={img.image}
-                        alt=""
-                        preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
-                      />
-                    </div>
-                  ))}
+              {/* Title + date */}
+              <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+                {title && (
+                  <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-2">
+                    {title}
+                  </h1>
+                )}
+                <div className="flex items-center gap-1.5 text-gray-400 text-xs sm:text-sm">
+                  <svg
+                    className="w-3.5 h-3.5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span>{formatDate(displayItem.created_at, language)}</span>
                 </div>
               </div>
-            )}
-          </Image.PreviewGroup>
+
+              {/* Sub images grid */}
+              {displayItem.images.length > 0 && (
+                <div className="p-4 sm:p-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+                    {displayItem.images.map((img) => (
+                      <div
+                        key={img.id}
+                        className="overflow-hidden aspect-video bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover"
+                      >
+                        <Image
+                          src={img.image}
+                          alt=""
+                          preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Image.PreviewGroup>
+          </article>
         </div>
 
         {/* Sidebar */}
         {showSidebar && (
-          <aside className="w-full lg:w-60 shrink-0">
-            <div className="bg-white rounded-none border border-gray-200 p-3 lg:sticky lg:top-27">
+          <aside className="w-full lg:w-60 shrink-0 mt-2 lg:mt-0">
+            <div className="bg-white border border-gray-200 p-3 lg:sticky lg:top-27">
               <h2 className="text-sm sm:text-base font-semibold text-gray-900 mb-3">
                 {t('gallery.title')}
               </h2>
@@ -148,10 +152,10 @@ const GalleryDetail: React.FC = () => {
                 <div className="space-y-3">
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="flex gap-2 animate-pulse">
-                      <div className="w-12 h-12 bg-gray-200 rounded-none shrink-0" />
+                      <div className="w-12 h-12 bg-gray-200 shrink-0" />
                       <div className="flex-1 space-y-1.5">
-                        <div className="h-3 bg-gray-200 rounded-none w-full" />
-                        <div className="h-3 bg-gray-200 rounded-none w-2/3" />
+                        <div className="h-3 bg-gray-200 w-full" />
+                        <div className="h-3 bg-gray-200 w-2/3" />
                       </div>
                     </div>
                   ))}
@@ -162,13 +166,13 @@ const GalleryDetail: React.FC = () => {
                     <Link
                       key={g.id}
                       to={`/news/gallery/${g.id}`}
-                      className="flex items-center gap-2 p-2 rounded-none hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 p-2 hover:bg-gray-50 transition-colors"
                     >
                       <img
                         src={g.image}
                         alt={g.title}
                         loading="lazy"
-                        className="w-12 h-12 object-cover rounded-none shrink-0"
+                        className="w-12 h-12 object-cover shrink-0"
                       />
                       <div className="min-w-0">
                         {g.title && (
