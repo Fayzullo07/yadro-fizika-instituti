@@ -70,6 +70,7 @@
     "laboratoriyalar": {
       "title": "Laboratories",
       "about": "Laboratories",
+      "uniqueObjects": "Unique Objects",
       "staff": "Staff Profile",
       "scientists": "Research Scientists",
       "degrees": "Scientific Degrees",

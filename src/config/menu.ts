@@ -7,6 +7,7 @@ import {
   COUNCIL_COMPOSITION_PATH,
   COUNCIL_ACTIVITIES_PATH,
   LABORATORIES_PATH,
+  UNIQUE_OBJECTS_PATH,
   DOCTORATE_PATH,
   NEWS_PATH,
   CONFERENCES_PATH,
@@ -44,7 +45,11 @@ export const getMenuItems = (t: (key: string) => string): MenuItem[] => [
     id: 'laboratoriyalar',
     label: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
     links: [
-      { label: t('nav.laboratoriyalar.about') || 'Laboratoriya haqida', path: LABORATORIES_PATH },
+      { label: t('nav.laboratoriyalar.about') || 'Laboratoriyalar', path: LABORATORIES_PATH },
+      {
+        label: t('nav.laboratoriyalar.uniqueObjects') || 'Noyob obyektlar',
+        path: UNIQUE_OBJECTS_PATH,
+      },
       {
         label: t('nav.laboratoriyalar.scientists') || 'Ilmiy xodimlar',
         path: RESEARCH_SCIENTISTS_PATH,

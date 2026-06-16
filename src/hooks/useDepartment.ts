@@ -3,6 +3,7 @@ import {
   departmentApi,
   internationalCollaborationsApi,
   laboratoriesApi,
+  LaboratoryType,
   laboratoryDirectorApi,
   laboratoryTeamsApi,
   scientificActivitiesApi,
@@ -83,6 +84,11 @@ export const useLaboratory = () => {
 export const useLaboratories = () => {
   const { language } = useLanguage();
   return useApi(() => laboratoriesApi.getAll(language), [language]);
+};
+
+export const useUniqueObjects = () => {
+  const { language } = useLanguage();
+  return useApi(() => laboratoriesApi.getAll(language, LaboratoryType.UniqueObject), [language]);
 };
 
 export const useLaboratoryItem = (id: number | string) => {

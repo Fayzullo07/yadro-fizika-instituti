@@ -179,10 +179,22 @@ export const scientificActivitiesApi = {
   },
 };
 
+export enum LaboratoryType {
+  Laboratory = 'laboratory',
+  UniqueObject = 'unique_object',
+}
+
 // Laboratories API
 export const laboratoriesApi = {
-  getAll: (language: string | null = null) =>
-    apiRequest<PaginatedResponse<LaboratoryItem>>(API_ENDPOINTS.LABORATORIES, {}, language),
+  getAll: (language: string | null = null, type: LaboratoryType = LaboratoryType.Laboratory) => {
+    const query = new URLSearchParams();
+    query.append('type', type);
+    return apiRequest<PaginatedResponse<LaboratoryItem>>(
+      `${API_ENDPOINTS.LABORATORIES}?${query}`,
+      {},
+      language
+    );
+  },
 
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<LaboratoryItem>>(API_ENDPOINTS.LABORATORIES_BY_ID(id), {}, language),

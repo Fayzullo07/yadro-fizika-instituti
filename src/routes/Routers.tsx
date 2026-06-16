@@ -67,6 +67,7 @@ const Directions = lazy(() => import('@/pages/Research/Directions/Directions'));
 const Specialties = lazy(() => import('@/pages/Research/Specialties/Specialties'));
 const Articles = lazy(() => import('@/pages/Research/Articles/Articles'));
 const Abstracts = lazy(() => import('@/pages/Research/Abstracts/Abstracts'));
+const UniqueObjects = lazy(() => import('@/pages/Research/UniqueObjects/UniqueObjects'));
 
 import {
   HOME_PATH,
@@ -82,6 +83,8 @@ import {
   TEAM_PATH,
   CALENDAR_PATH,
   LABORATORIES_PATH,
+  UNIQUE_OBJECTS_PATH,
+  UNIQUE_OBJECT_DETAIL_PATH,
   LABORATORY_DETAIL_PATH,
   LABORATORY_STAFF_DETAIL_PATH,
   DOCTORATE_PATH,
@@ -147,22 +150,6 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <Services />
-                </Suspense>
-              ),
-            },
-            {
-              path: LABORATORY_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <LaboratoryDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: LABORATORY_STAFF_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <StaffMemberDetail />
                 </Suspense>
               ),
             },
@@ -310,6 +297,38 @@ const Routers = () => {
               ),
             },
             // Research routes
+            {
+              path: LABORATORY_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <LaboratoryDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: UNIQUE_OBJECT_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <LaboratoryDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: LABORATORY_STAFF_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <StaffMemberDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: UNIQUE_OBJECTS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <UniqueObjects />
+                </Suspense>
+              ),
+            },
             {
               path: LABORATORIES_PATH,
               element: (

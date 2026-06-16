@@ -102,6 +102,11 @@ const Breadcrumb: React.FC = () => {
       sectionLabel: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
     },
     {
+      prefix: '/research/unique-objects/',
+      label: t('nav.laboratoriyalar.uniqueObjects') || 'Noyob obyekt',
+      sectionLabel: t('nav.laboratoriyalar.title') || 'Laboratoriyalar',
+    },
+    {
       prefix: '/research/conferences/',
       label: t('conferences.detail') || 'Konferensiya',
       sectionLabel: t('nav.media.conferences') || 'Konferensiyalar',

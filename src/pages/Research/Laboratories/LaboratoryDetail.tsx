@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
+import { UNIQUE_OBJECTS_PATH } from '@/routes/path';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLaboratoryItem } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
@@ -12,6 +13,8 @@ import InternationalTab from './tabs/InternationalTab';
 const LaboratoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { language } = useLanguage();
+  const { pathname } = useLocation();
+  const isUniqueObject = pathname.startsWith(UNIQUE_OBJECTS_PATH);
   const { data, loading, error } = useLaboratoryItem(id || '');
   const [activeTab, setActiveTab] = useState<TabKey>('about');
 
@@ -27,8 +30,16 @@ const LaboratoryDetail: React.FC = () => {
     );
   }
 
-  const tabLabel = (tab: (typeof TABS)[0]) =>
-    language === 'ru' ? tab.ru : language === 'en' ? tab.en : tab.uz;
+  const tabLabel = (tab: (typeof TABS)[0]) => {
+    if (tab.key === 'about' && isUniqueObject) {
+      return language === 'ru'
+        ? 'О уникальном объекте'
+        : language === 'en'
+          ? 'About Unique Object'
+          : 'Noyob obyekt haqida';
+    }
+    return language === 'ru' ? tab.ru : language === 'en' ? tab.en : tab.uz;
+  };
 
   return (
     <div className="pb-10">
@@ -43,12 +54,12 @@ const LaboratoryDetail: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-200 mb-4 sm:mb-6">
+      <div className="flex border-b border-gray-200 mb-4 sm:mb-6">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`shrink-0 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-3 text-xs sm:text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap ${
+            className={`flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-3 text-xs sm:text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap ${
               activeTab === tab.key
                 ? 'border-[#013d8c] bg-[#013d8c] text-white'
                 : 'border-transparent text-gray-600 hover:text-[#013d8c] hover:bg-gray-50'
