@@ -34,6 +34,7 @@ import type {
   StructureData,
   SpecialtyItem,
   CharterData,
+  PublicationItem,
 } from '@/types';
 
 // Helper function for API requests
@@ -182,6 +183,12 @@ export const scientificActivitiesApi = {
 export enum LaboratoryType {
   Laboratory = 'laboratory',
   UniqueObject = 'unique_object',
+}
+
+export enum PublicationType {
+  ScientificArticle = 'scientific_article',
+  Abstract = 'abstract',
+  Dissertation = 'dissertation',
 }
 
 // Laboratories API
@@ -467,4 +474,20 @@ export const teamsApi = {
 
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<TeamMember>>(API_ENDPOINTS.TEAMS_BY_ID(id), {}, language),
+};
+
+// Publications API
+export const publicationsApi = {
+  getAll: (type: PublicationType, language: string | null = null) => {
+    const query = new URLSearchParams();
+    query.append('type', type);
+    return apiRequest<PaginatedResponse<PublicationItem>>(
+      `${API_ENDPOINTS.PUBLICATIONS}?${query}`,
+      {},
+      language
+    );
+  },
+
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<PublicationItem>>(API_ENDPOINTS.PUBLICATIONS_BY_ID(id), {}, language),
 };

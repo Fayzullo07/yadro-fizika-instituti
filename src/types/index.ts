@@ -378,6 +378,18 @@ export interface UseMutationReturn<T, R = unknown> {
   error: string | null;
 }
 
+// Publications
+export interface PublicationItem {
+  id: number;
+  title: string;
+  type: string;
+  type_label: string;
+  file: string;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 // Navigation
 export interface MenuLink {
   label: string;

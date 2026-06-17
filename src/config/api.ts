@@ -85,4 +85,8 @@ export const API_ENDPOINTS = {
 
   // Work Activities
   WORK_ACTIVITIES: '/api/work-activities',
+
+  // Publications
+  PUBLICATIONS: '/api/publications',
+  PUBLICATIONS_BY_ID: (id: number | string) => `/api/publications/${id}`,
 };

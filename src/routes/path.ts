@@ -38,7 +38,10 @@ export const RESEARCH_DEGREES_PATH = '/research/degrees';
 export const RESEARCH_DIRECTIONS_PATH = '/research/directions';
 export const SPECIALTIES_PATH = '/research/specialties';
 export const ARTICLES_PATH = '/research/articles';
+export const ARTICLE_DETAIL_PATH = '/research/articles/:id';
 export const ABSTRACTS_PATH = '/research/abstracts';
+export const ABSTRACT_DETAIL_PATH = '/research/abstracts/:id';
+export const DOCTORATE_DETAIL_PATH = '/research/doctorate/:id';
 
 // Engineering routes
 export const PROJECT_DESIGN_PATH = '/engineering/project-design';

@@ -68,6 +68,7 @@ const Specialties = lazy(() => import('@/pages/Research/Specialties/Specialties'
 const Articles = lazy(() => import('@/pages/Research/Articles/Articles'));
 const Abstracts = lazy(() => import('@/pages/Research/Abstracts/Abstracts'));
 const UniqueObjects = lazy(() => import('@/pages/Research/UniqueObjects/UniqueObjects'));
+const PublicationDetail = lazy(() => import('@/pages/Research/Publications/PublicationDetail'));
 
 import {
   HOME_PATH,
@@ -125,7 +126,10 @@ import {
   RESEARCH_DIRECTIONS_PATH,
   SPECIALTIES_PATH,
   ARTICLES_PATH,
+  ARTICLE_DETAIL_PATH,
   ABSTRACTS_PATH,
+  ABSTRACT_DETAIL_PATH,
+  DOCTORATE_DETAIL_PATH,
 } from './path';
 
 const Routers = () => {
@@ -403,10 +407,34 @@ const Routers = () => {
               ),
             },
             {
+              path: ARTICLE_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <PublicationDetail />
+                </Suspense>
+              ),
+            },
+            {
               path: ABSTRACTS_PATH,
               element: (
                 <Suspense fallback={<Loading />}>
                   <Abstracts />
+                </Suspense>
+              ),
+            },
+            {
+              path: ABSTRACT_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <PublicationDetail />
+                </Suspense>
+              ),
+            },
+            {
+              path: DOCTORATE_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <PublicationDetail />
                 </Suspense>
               ),
             },
