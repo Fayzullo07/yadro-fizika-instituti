@@ -60,6 +60,13 @@ export const apiRequest = async <T = unknown>(
     const response = await fetch(url, config);
 
     if (!response.ok) {
+      // 404 means "no data for this resource", not a real error — the API
+      // still returns a parseable body ({ status: false, message: ... }).
+      // Returning it lets callers fall through to their normal empty-state UI
+      // instead of showing a generic error message.
+      if (response.status === 404) {
+        return await response.json();
+      }
       throw new Error(`API Error: ${response.status} ${response.statusText}`);
     }
 
