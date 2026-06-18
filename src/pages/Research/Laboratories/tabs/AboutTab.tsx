@@ -43,6 +43,8 @@ const AboutTab: React.FC<{ lab: LaboratoryItem }> = ({ lab }) => {
                     <Image
                       src={director.image}
                       alt={director.full_name}
+                      width="100%"
+                      height="100%"
                       style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
                     />
                   </div>
@@ -142,11 +144,13 @@ const AboutTab: React.FC<{ lab: LaboratoryItem }> = ({ lab }) => {
                       transform: 'scale(1.1)',
                     }}
                   />
-                  <div className="relative z-10 flex items-center justify-center h-full">
+                  <div className="relative z-10 flex items-center justify-center h-full w-full">
                     <Image
                       src={img.url}
                       alt=""
-                      style={{ maxBlockSize: '100%', maxInlineSize: '100%', objectFit: 'contain' }}
+                      width="100%"
+                      height="100%"
+                      style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
                     />
                   </div>
                 </div>

@@ -24,11 +24,13 @@ const MemberCard: React.FC<{
               transform: 'scale(1.1)',
             }}
           />
-          <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="relative z-10 flex items-center justify-center h-full w-full">
             <Image
               src={member.image}
               alt={member.full_name}
-              style={{ maxBlockSize: '100%', maxInlineSize: '100%', objectFit: 'contain' }}
+              width="100%"
+              height="100%"
+              style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
             />
           </div>
         </>

@@ -126,9 +126,7 @@ const Hero: React.FC = () => {
   const activeBanners = banners;
 
   if (!activeBanners.length) {
-    return (
-      <div className="relative min-h-48 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-140 bg-gray-200" />
-    );
+    return <div className="relative w-full bg-gray-200" style={{ aspectRatio: '1920/467' }} />;
   }
 
   const nextDragIndex = (currentIndex + 1) % activeBanners.length;
@@ -136,7 +134,8 @@ const Hero: React.FC = () => {
 
   return (
     <div
-      className="relative h-full min-h-48 sm:min-h-80 md:min-h-105 lg:min-h-130 xl:min-h-140 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+      className="relative w-full overflow-hidden cursor-grab active:cursor-grabbing select-none"
+      style={{ aspectRatio: '1920/467' }}
       onMouseDown={(e) => {
         e.preventDefault();
         handleDragStart(e.clientX);
