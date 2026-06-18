@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.jpg';
+import logo from '@/assets/logo.png';
 
 const Loading: React.FC = () => (
   <div className="fixed inset-0 flex items-center justify-center h-screen bg-white z-50">

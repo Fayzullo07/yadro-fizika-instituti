@@ -3,7 +3,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
 import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
-import logoFallback from '@/assets/logo.jpg';
+import logoFallback from '@/assets/logo.png';
 
 const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
 const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';

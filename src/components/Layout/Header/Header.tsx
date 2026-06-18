@@ -8,7 +8,7 @@ import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 import LanguageSwitcher from './LanguageSwitcher';
 import { SOCIAL_LINKS, CONTACT_PHONES } from '@/config/contactData';
-import logoFallback from '@/assets/logo.jpg';
+import logoFallback from '@/assets/logo.png';
 
 const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
 const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
