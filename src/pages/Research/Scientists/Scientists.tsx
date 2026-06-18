@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from 'antd';
 import { useLaboratoryTeamsList } from '@/hooks/useDepartment';
@@ -24,11 +25,13 @@ const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }
               transform: 'scale(1.1)',
             }}
           />
-          <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="relative z-10 flex items-center justify-center h-full w-full">
             <Image
               src={member.image}
               alt={member.full_name}
-              style={{ maxBlockSize: '100%', maxInlineSize: '100%', objectFit: 'contain' }}
+              width="100%"
+              height="100%"
+              style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
             />
           </div>
         </>
@@ -64,24 +67,76 @@ const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }
 
 const Scientists: React.FC = () => {
   const { t } = useLanguage();
-  const { data, loading, error } = useLaboratoryTeamsList();
-
-  if (loading) return <Loading />;
+  const [page, setPage] = useState(1);
+  const { data, loading, error } = useLaboratoryTeamsList({ page });
 
   const members = data?.data ?? [];
+  const lastPage = data?.meta?.last_page ?? 1;
 
   return (
     <div className="pb-10">
+      {loading && <Loading />}
       {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
-      {!error && members.length === 0 && (
+      {!loading && !error && members.length === 0 && (
         <p className="text-center py-16 text-gray-400">{t('common.notAvailable')}</p>
       )}
-      {members.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-4">
-          {members.map((member) => (
-            <MemberCard key={member.id} member={member} detailLabel={t('news.detail')} />
-          ))}
-        </div>
+      {!loading && members.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 p-3 sm:p-4">
+            {members.map((member) => (
+              <MemberCard key={member.id} member={member} detailLabel={t('news.detail')} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {lastPage > 1 && (
+            <div className="flex items-center justify-center gap-1 mt-6 flex-wrap">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+
+              {Array.from({ length: lastPage }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                    p === page
+                      ? 'bg-[#013d8c] text-white'
+                      : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setPage((p) => Math.min(lastPage, p + 1))}
+                disabled={page === lastPage}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
