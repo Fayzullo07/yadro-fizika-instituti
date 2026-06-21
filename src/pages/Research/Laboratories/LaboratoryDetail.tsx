@@ -38,6 +38,13 @@ const LaboratoryDetail: React.FC = () => {
           ? 'About Unique Object'
           : 'Noyob obyekt haqida';
     }
+    if (tab.key === 'staff' && isUniqueObject) {
+      return language === 'ru'
+        ? 'Состав службы'
+        : language === 'en'
+          ? 'Service Staff'
+          : "Xizmat bo'limi tarkibi";
+    }
     return language === 'ru' ? tab.ru : language === 'en' ? tab.en : tab.uz;
   };
 
@@ -73,7 +80,7 @@ const LaboratoryDetail: React.FC = () => {
 
       {/* Tab content */}
       <div className={activeTab === 'about' ? '' : 'hidden'}>
-        <AboutTab lab={lab} />
+        <AboutTab lab={lab} isUniqueObject={isUniqueObject} />
       </div>
       <div className={activeTab === 'staff' ? '' : 'hidden'}>
         <StaffTab laboratoryId={lab.id} />

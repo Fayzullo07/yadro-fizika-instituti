@@ -5,18 +5,10 @@ import { useLaboratoryTeamMember, useWorkActivity } from '@/hooks/useDepartment'
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
+import { AcademicLinksRow } from '@/components/shared/AcademicLinks/AcademicLinks';
 
 const TABS = [{ key: 'mehnat', label: 'Mehnat faoliyati' }] as const;
 type TabKey = (typeof TABS)[number]['key'];
-
-type AcademicKey = 'google_scholar' | 'web_of_science' | 'scopus' | 'researchgate' | 'orcid';
-const academicLinks: { key: AcademicKey; label: string; color: string; bg: string }[] = [
-  { key: 'google_scholar', label: 'Google Scholar', color: '#4285F4', bg: '#EAF1FB' },
-  { key: 'web_of_science', label: 'Web of Science', color: '#CC0000', bg: '#FDEAEA' },
-  { key: 'scopus', label: 'Scopus', color: '#E9711C', bg: '#FEF0E6' },
-  { key: 'researchgate', label: 'ResearchGate', color: '#00CCBB', bg: '#E6FAF8' },
-  { key: 'orcid', label: 'ORCID', color: '#A6CE39', bg: '#F4FAE6' },
-];
 
 const StaffMemberDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('mehnat');
@@ -35,7 +27,6 @@ const StaffMemberDetail: React.FC = () => {
   }
 
   const member = data.data;
-  const links = academicLinks.filter((l) => member[l.key as keyof typeof member]);
 
   return (
     <div className="pb-10">
@@ -87,22 +78,7 @@ const StaffMemberDetail: React.FC = () => {
                 </p>
                 <p className="text-sm text-gray-600">{member.position}</p>
               </div>
-              {links.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {links.map((l) => (
-                    <a
-                      key={l.key}
-                      href={member[l.key as keyof typeof member] as string}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block border px-3 py-1.5 text-xs font-medium transition-opacity hover:opacity-80"
-                      style={{ borderColor: l.color, color: l.color, background: l.bg }}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              )}
+              <AcademicLinksRow data={member} className="mt-1" />
             </div>
           </div>
         </div>
