@@ -47,6 +47,7 @@
       "calendar": "Events Calendar",
       "conferences": "Conferences",
       "announcements": "Announcements",
+      "events": "Events",
       "gallery": "Photo Gallery",
       "videoGallery": "Video Gallery"
     },
@@ -311,7 +312,14 @@
     "downloadPdf": "Download PDF",
     "print": "Print",
     "download": "Download",
-    "notAvailable": "Not available"
+    "notAvailable": "Not available",
+    "testModeBanner": "The system is running in TEST mode!"
+  },
+  "events": {
+    "subtitle": "Upcoming",
+    "title": "Events",
+    "viewAll": "All events",
+    "detail": "Event"
   },
   "contact": {
     "workingDays": "Working Days",

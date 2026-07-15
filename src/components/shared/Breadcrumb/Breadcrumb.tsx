@@ -92,6 +92,11 @@ const Breadcrumb: React.FC = () => {
       sectionLabel: t('nav.media.title') || "Yangilik va E'lonlar",
     },
     {
+      prefix: '/news/events/',
+      label: t('events.detail') || 'Tadbir',
+      sectionLabel: t('nav.media.title') || "Yangilik va E'lonlar",
+    },
+    {
       prefix: '/news/',
       label: t('news.detail') || 'Batafsil',
       sectionLabel: t('nav.media.title') || "Yangilik va E'lonlar",

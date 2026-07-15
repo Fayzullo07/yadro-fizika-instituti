@@ -13,6 +13,21 @@ const UZ_MONTHS = [
   'dekabr',
 ];
 
+const UZ_MONTHS_SHORT = [
+  'Yan',
+  'Fev',
+  'Mar',
+  'Apr',
+  'May',
+  'Iyun',
+  'Iyul',
+  'Avg',
+  'Sen',
+  'Okt',
+  'Noy',
+  'Dek',
+];
+
 const LOCALE_MAP: Record<string, string> = {
   ru: 'ru-RU',
   en: 'en-US',
@@ -33,4 +48,14 @@ export const formatDate = (
   } catch {
     return dateStr;
   }
+};
+
+export const getDayMonth = (dateStr: string, language = 'uz'): { day: string; month: string } => {
+  const date = new Date(dateStr);
+  const day = String(date.getDate());
+  if (language === 'uz') {
+    return { day, month: UZ_MONTHS_SHORT[date.getMonth()] };
+  }
+  const month = date.toLocaleDateString(LOCALE_MAP[language] ?? 'ru-RU', { month: 'short' });
+  return { day, month };
 };

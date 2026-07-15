@@ -37,6 +37,10 @@ export const API_ENDPOINTS = {
   NEWS: '/api/news',
   NEWS_BY_ID: (id: number | string) => `/api/news/${id}`,
 
+  // Events
+  EVENTS: '/api/events',
+  EVENTS_BY_ID: (id: number | string) => `/api/events/${id}`,
+
   // Teams
   TEAMS: '/api/teams/',
   TEAMS_BY_ID: (id: number | string) => `/api/teams/${id}/`,

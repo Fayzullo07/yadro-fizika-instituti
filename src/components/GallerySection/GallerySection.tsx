@@ -81,7 +81,11 @@ const GallerySection: React.FC = () => {
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
+                <span className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-white/95 uppercase tracking-wider line-clamp-1">
+                  <span className="w-1 h-1 rounded-full bg-amber-400 shrink-0" />
+                  {item.title ? item.title : '-'}
+                </span>
               </Link>
             ))}
           </div>

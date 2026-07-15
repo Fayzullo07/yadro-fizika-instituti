@@ -47,6 +47,7 @@
       "calendar": "Voqaelar taqvimi",
       "conferences": "Anjumanlar",
       "announcements": "E'lonlar",
+      "events": "Tadbirlar",
       "gallery": "Fotogalereya",
       "videoGallery": "Video Galereya"
     },
@@ -311,7 +312,14 @@
     "downloadPdf": "PDF yuklab olish",
     "print": "Chop etish",
     "download": "Yuklab olish",
-    "notAvailable": "Mavjud emas"
+    "notAvailable": "Mavjud emas",
+    "testModeBanner": "Tizim sinov (TEST) rejimida ishlamoqda!"
+  },
+  "events": {
+    "subtitle": "Kutilayotgan",
+    "title": "Tadbirlar",
+    "viewAll": "Barcha tadbirlar",
+    "detail": "Tadbir"
   },
   "contact": {
     "workingDays": "Ish kunlari",

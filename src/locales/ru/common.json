@@ -41,6 +41,7 @@
       "calendar": "Календарь событий",
       "conferences": "Конференции",
       "announcements": "Объявления",
+      "events": "Мероприятия",
       "gallery": "Фотогалерея",
       "videoGallery": "Видеогалерея"
     },
@@ -311,7 +312,14 @@
     "downloadPdf": "Скачать PDF",
     "print": "Печать",
     "download": "Скачать",
-    "notAvailable": "Недоступно"
+    "notAvailable": "Недоступно",
+    "testModeBanner": "Система работает в тестовом (TEST) режиме!"
+  },
+  "events": {
+    "subtitle": "Предстоящие",
+    "title": "Мероприятия",
+    "viewAll": "Все мероприятия",
+    "detail": "Мероприятие"
   },
   "contact": {
     "workingDays": "Рабочие дни",

@@ -21,7 +21,7 @@ const Map: React.FC = () => {
       <div className="relative w-full min-h-130 rounded-xl overflow-hidden shadow-md">
         {/* Full map */}
         <iframe
-          src={`https://yandex.com/map-widget/v1/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE},pm2rdm&l=sat,skl`}
+          src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
           width="100%"
           height="100%"
           allowFullScreen
@@ -80,7 +80,7 @@ const Map: React.FC = () => {
           {/* Footer link */}
           <div className="px-5 py-4 border-t border-gray-100">
             <a
-              href={`https://yandex.com/maps/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE}`}
+              href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#013d8c] hover:bg-[#012d6a] text-white text-sm font-medium rounded-lg transition-colors"

@@ -228,7 +228,7 @@ const Contact: React.FC = () => {
 
           {/* Open map button */}
           <a
-            href={`https://yandex.com/maps/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE}`}
+            href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3 bg-[#013d8c] hover:bg-[#012d6a] text-white text-sm font-medium rounded-xl transition-colors"
@@ -248,7 +248,7 @@ const Contact: React.FC = () => {
         {/* Map */}
         <div className="lg:col-span-3 h-72 sm:h-96 lg:min-h-105 rounded-xl overflow-hidden shadow-sm border border-gray-100">
           <iframe
-            src={`https://yandex.com/map-widget/v1/?ll=${MAP_LONGITUDE},${MAP_LATITUDE}&z=${MAP_ZOOM}&pt=${MAP_LONGITUDE},${MAP_LATITUDE},pm2rdm&l=sat,skl`}
+            src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
             width="100%"
             height="100%"
             allowFullScreen

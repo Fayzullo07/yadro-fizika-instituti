@@ -24,6 +24,7 @@ import type {
   WorkActivity,
   LeadershipMember,
   NewsItem,
+  EventApiItem,
   TeamMember,
   Vacancy,
   StatData,
@@ -284,6 +285,24 @@ export const newsApi = {
 
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<NewsItem>>(API_ENDPOINTS.NEWS_BY_ID(id), {}, language),
+};
+
+// Events API
+export const eventsApi = {
+  getAll: (params: PaginationParams = {}, language: string | null = null) => {
+    const queryParams = new URLSearchParams();
+    if (params.page) queryParams.append('page', String(params.page));
+    if (params.per_page) queryParams.append('per_page', String(params.per_page));
+
+    const endpoint = queryParams.toString()
+      ? `${API_ENDPOINTS.EVENTS}?${queryParams.toString()}`
+      : API_ENDPOINTS.EVENTS;
+
+    return apiRequest<PaginatedResponse<EventApiItem>>(endpoint, {}, language);
+  },
+
+  getById: (id: number | string, language: string | null = null) =>
+    apiRequest<SingleResponse<EventApiItem>>(API_ENDPOINTS.EVENTS_BY_ID(id), {}, language),
 };
 
 // Video Gallery API

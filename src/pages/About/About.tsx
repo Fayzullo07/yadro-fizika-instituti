@@ -1,3 +1,4 @@
+import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useApi } from '@/hooks/useApi';
@@ -42,17 +43,52 @@ const About: React.FC = () => {
         {!loading && !error && aboutData && (
           <div>
             {aboutData.image && (
-              <img
-                src={aboutData.image}
-                alt={t('about.heroTitle')}
-                loading="lazy"
-                className="w-full max-h-[260px] sm:max-h-[360px] md:max-h-[460px] object-cover"
-              />
+              <div className="group relative w-full h-65 sm:h-90 md:h-115 overflow-hidden [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain [&_.ant-image-mask]:bg-transparent [&_.ant-image-mask]:items-end [&_.ant-image-mask]:justify-end [&_.ant-image-mask]:p-3">
+                <div
+                  className="absolute inset-0 bg-cover bg-center scale-110 blur-xl"
+                  style={{ backgroundImage: `url(${aboutData.image})` }}
+                  aria-hidden="true"
+                />
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  <Image
+                    src={aboutData.image}
+                    alt={t('about.heroTitle')}
+                    width="100%"
+                    height="100%"
+                    style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                    preview={{
+                      mask: (
+                        <span className="flex items-center justify-center w-9 h-9 rounded-full bg-black/60 text-white">
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                            />
+                          </svg>
+                        </span>
+                      ),
+                    }}
+                  />
+                </div>
+              </div>
             )}
 
             {aboutData.content && (
               <div
-                className="mt-5 sm:mt-8 px-3 sm:px-4 text-gray-700 leading-relaxed space-y-3 sm:space-y-4 text-sm sm:text-base [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
+                className="mt-5 sm:mt-8 px-3 sm:px-4 text-gray-700 leading-relaxed text-sm sm:text-base [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(aboutData.content) }}
               />
             )}

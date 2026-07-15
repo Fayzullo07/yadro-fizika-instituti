@@ -67,6 +67,8 @@ export const ANNOUNCEMENT_DETAIL_PATH = '/news/announcements/:id';
 export const GALLERY_PATH = '/news/gallery';
 export const GALLERY_DETAIL_PATH = '/news/gallery/:id';
 export const VIDEO_GALLERY_PATH = '/news/video-gallery';
+export const EVENTS_PATH = '/news/events';
+export const EVENT_DETAIL_PATH = '/news/events/:id';
 
 // Documents routes
 export const CONSTITUTION_PATH = '/normativ/constitution';

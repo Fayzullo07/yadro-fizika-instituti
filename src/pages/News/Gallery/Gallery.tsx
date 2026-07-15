@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { GalleryItem } from '@/types';
@@ -11,9 +10,8 @@ const PER_PAGE = 12;
 
 const GalleryCard: React.FC<{
   item: GalleryItem;
-  language: string;
   label: string;
-}> = ({ item, language, label }) => (
+}> = ({ item, label }) => (
   <Link
     to={`/news/gallery/${item.id}`}
     className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
@@ -22,12 +20,9 @@ const GalleryCard: React.FC<{
       <img src={item.image} alt="" className="w-full h-full object-cover gallery-card-img" />
     </div>
     <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
-      <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
-        {label ? label : '-'}
-      </span>
       <div className="flex items-center justify-between mt-auto pt-1">
-        <span className="text-xs sm:text-sm text-gray-400">
-          {formatDate(item.created_at, language)}
+        <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
+          {label ? label : '-'}
         </span>
         <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
           →
@@ -89,7 +84,7 @@ const Gallery: React.FC = () => {
       {items.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
           {items.map((item) => (
-            <GalleryCard key={item.id} item={item} language={language} label={item.title} />
+            <GalleryCard key={item.id} item={item} label={item.title} />
           ))}
         </div>
       )}

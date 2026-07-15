@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         <div className="animate-marquee-rtl inline-block py-1">
           {Array.from({ length: 1 }).map((_, i) => (
             <span key={i} className="mx-8">
-              Tizim sinov (TEST) rejimida ishlamoqda!
+              {t('common.testModeBanner')}
             </span>
           ))}
         </div>

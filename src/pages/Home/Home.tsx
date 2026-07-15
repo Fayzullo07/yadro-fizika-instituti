@@ -1,13 +1,13 @@
 import Hero from '@/components/Hero/Hero';
 import AboutSection from '@/components/AboutSection/AboutSection';
 import StatsSection from '@/components/StatsSection/StatsSection';
-import FeaturesSection from '@/components/FeaturesSection/FeaturesSection';
 import NewsSection from '@/components/NewsSection/NewsSection';
 import AnnouncementsSection from '@/components/AnnouncementsSection/AnnouncementsSection';
 import PartnersMarquee from '@/components/shared/PartnersMarquee/PartnersMarquee';
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection';
 import GallerySection from '@/components/GallerySection/GallerySection';
 import VideoGallerySection from '@/components/VideoGallerySection/VideoGallerySection';
+import EventsSection from '@/components/EventsSection/EventsSection';
 
 const Home: React.FC = () => {
   return (
@@ -22,8 +22,9 @@ const Home: React.FC = () => {
       <AboutSection />
       <NewsSection />
       <AnnouncementsSection />
+      <EventsSection />
       {/* <LaboratoriesTasks /> */}
-      <FeaturesSection />
+      {/* <FeaturesSection /> */}
       <GallerySection />
       <VideoGallerySection />
       <AddressMapSection />

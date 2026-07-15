@@ -40,6 +40,8 @@ const AnnouncementDetail = lazy(() => import('@/pages/News/Announcements/Announc
 const Gallery = lazy(() => import('@/pages/News/Gallery/Gallery'));
 const GalleryDetail = lazy(() => import('@/pages/News/Gallery/GalleryDetail'));
 const VideoGallery = lazy(() => import('@/pages/News/VideoGallery/VideoGallery'));
+const Events = lazy(() => import('@/pages/News/Events/Events'));
+const EventDetail = lazy(() => import('@/pages/News/Events/EventDetail'));
 const Constitution = lazy(() => import('@/pages/Normativ/Constitution/Constitution'));
 const Decrees = lazy(() => import('@/pages/Normativ/Decrees/Decrees'));
 const Laws = lazy(() => import('@/pages/Normativ/Laws/Laws'));
@@ -105,6 +107,8 @@ import {
   GALLERY_PATH,
   GALLERY_DETAIL_PATH,
   VIDEO_GALLERY_PATH,
+  EVENTS_PATH,
+  EVENT_DETAIL_PATH,
   CONSTITUTION_PATH,
   DECREES_PATH,
   LAWS_PATH,
@@ -567,6 +571,22 @@ const Routers = () => {
               element: (
                 <Suspense fallback={<Loading />}>
                   <VideoGallery />
+                </Suspense>
+              ),
+            },
+            {
+              path: EVENTS_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Events />
+                </Suspense>
+              ),
+            },
+            {
+              path: EVENT_DETAIL_PATH,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <EventDetail />
                 </Suspense>
               ),
             },

@@ -266,6 +266,15 @@ export interface NewsItem {
   updated_at?: string;
 }
 
+// Events
+export interface EventApiItem {
+  id: number;
+  title: string;
+  image?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
 // Teams
 export interface TeamMember {
   id: number;
