@@ -10,20 +10,28 @@ export const useApi = <T>(
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
         const result = await apiFunction();
+        if (cancelled) return;
         setData(result);
       } catch (err: unknown) {
+        if (cancelled) return;
         setError((err as Error).message);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     fetchData();
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 

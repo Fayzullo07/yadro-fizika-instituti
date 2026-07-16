@@ -2,7 +2,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnnouncements } from '@/hooks/useAnnouncements';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { AnnouncementItem } from '@/types';
@@ -11,9 +10,8 @@ const PER_PAGE = 10;
 
 const AnnouncementCard: React.FC<{
   item: AnnouncementItem;
-  language: string;
   t: (k: string) => string;
-}> = ({ item, language, t }) => {
+}> = ({ item, t }) => {
   const preview = stripHtmlAndDecode(item.description).slice(0, 180).trim();
 
   return (
@@ -22,20 +20,6 @@ const AnnouncementCard: React.FC<{
         <div className="w-full sm:w-1 bg-[#013d8c] shrink-0 sm:rounded-l-xl rounded-t-xl sm:rounded-t-none min-h-1 sm:min-h-0" />
 
         <div className="flex flex-col flex-1 p-4 sm:p-5 gap-2 sm:gap-3">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 text-xs text-[#013d8c] bg-[#013d8c]/8 px-2.5 py-1 rounded-full font-medium">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              {formatDate(item.created_at, language)}
-            </span>
-          </div>
-
           <h2 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug">
             {item.title}
           </h2>
@@ -70,7 +54,7 @@ const AnnouncementCard: React.FC<{
 };
 
 const Announcements: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
 
@@ -100,7 +84,7 @@ const Announcements: React.FC = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {items.map((item) => (
-              <AnnouncementCard key={item.id} item={item} language={language} t={t} />
+              <AnnouncementCard key={item.id} item={item} t={t} />
             ))}
           </div>
 

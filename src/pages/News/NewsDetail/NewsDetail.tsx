@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useNewsById, useNews } from '@/hooks/useNews';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
@@ -9,7 +8,7 @@ import type { NewsImage } from '@/types';
 
 const NewsDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data: newsItemResponse, loading, error } = useNewsById(id!);
   const newsItem = newsItemResponse?.data;
   const { data: newsListData, loading: newsListLoading } = useNews({ per_page: 10 });
@@ -64,13 +63,7 @@ const NewsDetail: React.FC = () => {
                 />
               )}
 
-              <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-200">
-                {newsItem.created_at && (
-                  <span className="text-sm text-gray-500">
-                    {formatDate(newsItem.created_at, language)}
-                  </span>
-                )}
-              </div>
+              <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-200"></div>
 
               {newsItem.description && (
                 <div
@@ -148,11 +141,6 @@ const NewsDetail: React.FC = () => {
                           className="text-sm font-medium text-gray-900 line-clamp-2 mb-0.5"
                           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                         />
-                        {item.created_at && (
-                          <p className="text-xs text-gray-400">
-                            {formatDate(item.created_at, language)}
-                          </p>
-                        )}
                       </div>
                     </Link>
                   ))}

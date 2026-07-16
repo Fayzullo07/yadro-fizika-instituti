@@ -7,7 +7,7 @@ import PartnersMarquee from '@/components/shared/PartnersMarquee/PartnersMarquee
 import AddressMapSection from '@/components/shared/AddressMapSection/AddressMapSection';
 import GallerySection from '@/components/GallerySection/GallerySection';
 import VideoGallerySection from '@/components/VideoGallerySection/VideoGallerySection';
-import EventsSection from '@/components/EventsSection/EventsSection';
+// import EventsSection from '@/components/EventsSection/EventsSection';
 
 const Home: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       <AboutSection />
       <NewsSection />
       <AnnouncementsSection />
-      <EventsSection />
+      {/* <EventsSection /> */}
       {/* <LaboratoriesTasks /> */}
       {/* <FeaturesSection /> */}
       <GallerySection />

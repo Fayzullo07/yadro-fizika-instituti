@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Image } from 'antd';
 import { useLaboratoryTeams } from '@/hooks/useDepartment';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { LaboratoryTeamMember } from '@/types';
@@ -25,12 +24,11 @@ const MemberCard: React.FC<{
             }}
           />
           <div className="relative z-10 flex items-center justify-center h-full w-full">
-            <Image
+            <img
               src={member.image}
               alt={member.full_name}
-              width="100%"
-              height="100%"
-              style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+              loading="eager"
+              className="w-full h-full object-contain"
             />
           </div>
         </>

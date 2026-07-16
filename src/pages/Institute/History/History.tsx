@@ -26,7 +26,7 @@ const History: React.FC = () => {
 
         {!loading && !error && content && (
           <div
-            className="mt-5 sm:mt-8 px-3 sm:px-4 text-sm sm:text-base text-gray-700 leading-relaxed space-y-3 sm:space-y-4 [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
+            className="mt-5 sm:mt-8 px-3 sm:px-6 text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose  [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
             dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
           />
         )}

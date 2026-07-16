@@ -45,12 +45,6 @@ const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => {
 
         {/* Bottom — date + title */}
         <div>
-          {item.created_at && (
-            <span className="inline-block text-white/40 group-hover:text-white/60 text-xs font-medium tracking-wide mb-2.5">
-              {formatDate(item.created_at, language)}
-            </span>
-          )}
-
           {item.title && (
             <h4
               className="text-white/90 group-hover:text-white text-sm font-semibold leading-snug line-clamp-2 min-h-10 **:text-sm! **:font-semibold! **:leading-snug!"

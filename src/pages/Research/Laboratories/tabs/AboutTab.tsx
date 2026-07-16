@@ -25,7 +25,7 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
           <h2 className="text-lg sm:text-xl font-bold text-[#013d8c] mb-3 sm:mb-4">
             {isUniqueObject
               ? t('nav.laboratoriyalar.serviceHead') || "Xizmat boshlig'i"
-              : t('nav.laboratoriyalar.labDirector')}
+              : director.position}
           </h2>
           <div className="border border-gray-200 flex flex-col sm:flex-row overflow-hidden">
             {/* Photo */}
