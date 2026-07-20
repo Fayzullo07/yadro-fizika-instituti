@@ -1,6 +1,7 @@
 import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useScientificCouncil } from '@/hooks/useCouncil';
+import { useImageRetry } from '@/hooks/useImageRetry';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
@@ -13,6 +14,7 @@ const PREVIEW_LABEL: Record<string, string> = {
 const CouncilActivities: React.FC = () => {
   const { t, language } = useLanguage();
   const { data, loading, error } = useScientificCouncil();
+  const { retryKey, handleError } = useImageRetry();
 
   const council = data?.data;
 
@@ -41,9 +43,12 @@ const CouncilActivities: React.FC = () => {
                 />
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <Image
+                    key={retryKey}
                     src={council.image}
                     alt={council.title}
+                    placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
                     style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                    onError={handleError}
                     preview={{
                       mask: (
                         <span className="text-white text-sm">

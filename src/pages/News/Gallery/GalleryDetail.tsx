@@ -3,9 +3,11 @@ import { useRef } from 'react';
 import { Image } from 'antd';
 import { useGalleryById, useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useImageRetry } from '@/hooks/useImageRetry';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 import type { Language, GalleryDetailItem } from '@/types';
 
 const PREVIEW_LABEL: Record<Language, string> = {
@@ -23,11 +25,32 @@ const getTitle = (
   return item.title_uz;
 };
 
+const SubImage: React.FC<{ image: { id: number; image: string }; previewLabel: string }> = ({
+  image,
+  previewLabel,
+}) => {
+  const { retryKey, handleError } = useImageRetry();
+
+  return (
+    <div className="overflow-hidden aspect-video bg-gray-100 relative [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover">
+      <Image
+        key={retryKey}
+        src={image.image}
+        alt=""
+        placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+        onError={handleError}
+        preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
+      />
+    </div>
+  );
+};
+
 const GalleryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
   const { data: res, loading, error } = useGalleryById(id!);
   const { data: listData, loading: listLoading } = useGalleries({ per_page: 20 });
+  const { retryKey: heroRetryKey, handleError: handleHeroError } = useImageRetry();
 
   const prevItemRef = useRef<GalleryDetailItem | null>(null);
   const item = res?.data ?? null;
@@ -82,8 +105,11 @@ const GalleryDetail: React.FC = () => {
                   />
                   <div className="relative z-10 w-full h-full flex items-center justify-center">
                     <Image
+                      key={heroRetryKey}
                       src={displayItem.image}
                       alt={title}
+                      placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+                      onError={handleHeroError}
                       preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
                       rootClassName="!w-full !h-full !bg-transparent"
                       style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
@@ -122,16 +148,7 @@ const GalleryDetail: React.FC = () => {
                 <div className="p-4 sm:p-6">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                     {displayItem.images.map((img) => (
-                      <div
-                        key={img.id}
-                        className="overflow-hidden aspect-video bg-gray-100 [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover"
-                      >
-                        <Image
-                          src={img.image}
-                          alt=""
-                          preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
-                        />
-                      </div>
+                      <SubImage key={img.id} image={img} previewLabel={previewLabel} />
                     ))}
                   </div>
                 </div>
@@ -168,7 +185,7 @@ const GalleryDetail: React.FC = () => {
                       to={`/news/gallery/${g.id}`}
                       className="flex items-center gap-2 p-2 hover:bg-gray-50 transition-colors"
                     >
-                      <img
+                      <RetryImage
                         src={g.image}
                         alt={g.title}
                         loading="lazy"

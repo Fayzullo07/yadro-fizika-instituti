@@ -3,8 +3,41 @@ import { Link } from 'react-router-dom';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
 import { useLaboratoryDirector } from '@/hooks/useDepartment';
 import { useLanguage } from '@/contexts/LanguageContext';
-import type { LaboratoryItem } from '@/types';
+import { useImageRetry } from '@/hooks/useImageRetry';
+import type { LaboratoryItem, LaboratoryImage } from '@/types';
 import { AcademicLinksRow } from '@/components/shared/AcademicLinks/AcademicLinks';
+
+const GalleryImage: React.FC<{ image: LaboratoryImage }> = ({ image }) => {
+  const { retryKey, handleError } = useImageRetry();
+
+  return (
+    <div className="relative overflow-hidden rounded-lg shadow-sm h-28 sm:h-40">
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${image.url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(12px)',
+          transform: 'scale(1.1)',
+        }}
+      />
+      <div className="relative z-10 flex items-center justify-center h-full w-full">
+        <Image
+          key={retryKey}
+          src={image.url}
+          alt=""
+          width="100%"
+          height="100%"
+          placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+          style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+          onError={handleError}
+        />
+      </div>
+    </div>
+  );
+};
 
 const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
   lab,
@@ -13,6 +46,7 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
   const { t } = useLanguage();
   const { data: directorData } = useLaboratoryDirector(lab.id);
   const director = directorData?.data;
+  const { retryKey: directorRetryKey, handleError: handleDirectorError } = useImageRetry();
 
   if (!lab.content && !lab.images?.length && !director)
     return <p className="text-center py-16 text-gray-400">{t('common.notAvailable')}</p>;
@@ -38,11 +72,14 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
                   />
                   <div className="relative z-10 w-full h-full flex items-center justify-center">
                     <Image
+                      key={directorRetryKey}
                       src={director.image}
                       alt={director.full_name}
                       width="100%"
                       height="100%"
+                      placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
                       style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                      onError={handleDirectorError}
                     />
                   </div>
                 </>
@@ -109,31 +146,7 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
           <Image.PreviewGroup>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
               {lab.images.map((img) => (
-                <div
-                  key={img.id}
-                  className="relative overflow-hidden rounded-lg shadow-sm h-28 sm:h-40"
-                >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      backgroundImage: `url(${img.url})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      filter: 'blur(12px)',
-                      transform: 'scale(1.1)',
-                    }}
-                  />
-                  <div className="relative z-10 flex items-center justify-center h-full w-full">
-                    <Image
-                      src={img.url}
-                      alt=""
-                      width="100%"
-                      height="100%"
-                      style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
-                    />
-                  </div>
-                </div>
+                <GalleryImage key={img.id} image={img} />
               ))}
             </div>
           </Image.PreviewGroup>

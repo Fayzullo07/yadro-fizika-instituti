@@ -1,16 +1,19 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useConferenceById } from '@/hooks/useConferences';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 import { CONFERENCES_PATH } from '@/routes/path';
 
 const ConferenceDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
   const { data: detailRes, loading, error } = useConferenceById(id!);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const item = detailRes?.data;
 
@@ -89,8 +92,15 @@ const ConferenceDetail: React.FC = () => {
         </div>
 
         {item.image && (
-          <div className="overflow-hidden max-h-48 sm:max-h-64 md:max-h-80">
-            <img src={item.image} alt={item.title} loading="lazy" className="w-full object-cover" />
+          <div className="relative overflow-hidden max-h-48 sm:max-h-64 md:max-h-80 bg-gray-100">
+            {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            <RetryImage
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            />
           </div>
         )}
 

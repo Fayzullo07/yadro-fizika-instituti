@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 import type { VideoGalleryItem } from '@/types';
 
 const PER_PAGE = 12;
@@ -90,6 +91,7 @@ const VideoCard: React.FC<{
 }> = ({ item, language, label, onClick }) => {
   const ytId = getYouTubeId(item.url);
   const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg` : null;
+  const [thumbLoaded, setThumbLoaded] = useState(false);
 
   return (
     <button
@@ -98,7 +100,15 @@ const VideoCard: React.FC<{
     >
       <div className="relative overflow-hidden aspect-video bg-gray-100">
         {thumb ? (
-          <img src={thumb} alt="" className="w-full h-full object-cover video-card-img" />
+          <>
+            {!thumbLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            <RetryImage
+              src={thumb}
+              alt=""
+              onLoad={() => setThumbLoaded(true)}
+              className={`w-full h-full object-cover video-card-img transition-opacity duration-300 ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
+            />
+          </>
         ) : (
           <div className="w-full h-full bg-gray-200" />
         )}

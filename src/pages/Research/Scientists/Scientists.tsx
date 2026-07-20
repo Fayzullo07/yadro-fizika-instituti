@@ -4,64 +4,73 @@ import { useLaboratoryTeamsList } from '@/hooks/useDepartment';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { LaboratoryTeamMember } from '@/types';
 import Loading from '@/components/shared/Loading/Loading';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 
 const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }> = ({
   member,
   detailLabel,
-}) => (
-  <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-row sm:flex-col">
-    <div className="relative overflow-hidden bg-gray-100 w-28 shrink-0 sm:w-auto sm:h-60">
-      {member.image ? (
-        <>
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundImage: `url(${member.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              filter: 'blur(12px)',
-              transform: 'scale(1.1)',
-            }}
-          />
-          <div className="relative z-10 flex items-center justify-center h-full w-full">
-            <img
-              src={member.image}
-              alt={member.full_name}
-              loading="eager"
-              className="w-full h-full object-contain"
-            />
+}) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-row sm:flex-col">
+      <div className="relative overflow-hidden bg-gray-100 w-28 shrink-0 sm:w-auto sm:h-60">
+        {member.image ? (
+          <>
+            {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            {loaded && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundImage: `url(${member.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: 'blur(12px)',
+                  transform: 'scale(1.1)',
+                }}
+              />
+            )}
+            <div className="relative z-10 flex items-center justify-center h-full w-full">
+              <RetryImage
+                src={member.image}
+                alt={member.full_name}
+                loading="eager"
+                onLoad={() => setLoaded(true)}
+                className={`w-full h-full object-contain transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-blue-50">
+            <svg
+              className="w-12 h-12 sm:w-16 sm:h-16 text-blue-200"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+            </svg>
           </div>
-        </>
-      ) : (
-        <div className="w-full h-full flex items-center justify-center bg-blue-50">
-          <svg
-            className="w-12 h-12 sm:w-16 sm:h-16 text-blue-200"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-          </svg>
-        </div>
-      )}
+        )}
+      </div>
+      <div className="p-3 sm:p-4 flex flex-col gap-1 flex-1 min-w-0">
+        <p className="font-semibold text-gray-800 text-xs sm:text-sm leading-snug">
+          {member.full_name}
+        </p>
+        <p className="text-xs text-[#013d8c]">{member.position}</p>
+        {member.degree && member.degree !== "Yo'q" && (
+          <p className="text-xs text-gray-500">{member.degree}</p>
+        )}
+        <Link
+          to={`/research/laboratories/${member.laboratory_id}/staff/${member.id}`}
+          className="mt-auto pt-2 text-xs font-medium text-[#013d8c] hover:underline cursor-pointer"
+        >
+          {detailLabel} →
+        </Link>
+      </div>
     </div>
-    <div className="p-3 sm:p-4 flex flex-col gap-1 flex-1 min-w-0">
-      <p className="font-semibold text-gray-800 text-xs sm:text-sm leading-snug">
-        {member.full_name}
-      </p>
-      <p className="text-xs text-[#013d8c]">{member.position}</p>
-      {member.degree && member.degree !== "Yo'q" && (
-        <p className="text-xs text-gray-500">{member.degree}</p>
-      )}
-      <Link
-        to={`/research/laboratories/${member.laboratory_id}/staff/${member.id}`}
-        className="mt-auto pt-2 text-xs font-medium text-[#013d8c] hover:underline cursor-pointer"
-      >
-        {detailLabel} →
-      </Link>
-    </div>
-  </div>
-);
+  );
+};
 
 const Scientists: React.FC = () => {
   const { t } = useLanguage();

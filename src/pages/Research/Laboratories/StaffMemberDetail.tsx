@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Image } from 'antd';
 import { useLaboratoryTeamMember, useWorkActivity } from '@/hooks/useDepartment';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
 import { AcademicLinksRow } from '@/components/shared/AcademicLinks/AcademicLinks';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 
 const TABS = [{ key: 'mehnat', label: 'Mehnat faoliyati' }] as const;
 type TabKey = (typeof TABS)[number]['key'];
 
 const StaffMemberDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('mehnat');
+  const [photoLoaded, setPhotoLoaded] = useState(false);
   const { t } = useLanguage();
   const { memberId } = useParams<{ labId: string; memberId: string }>();
   const { data, loading, error } = useLaboratoryTeamMember(memberId || '');
@@ -37,15 +38,19 @@ const StaffMemberDetail: React.FC = () => {
           <div className="w-full h-56 sm:w-55 sm:h-65 shrink-0 overflow-hidden relative bg-gray-100 flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
             {member.image ? (
               <>
-                <div
-                  className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
-                  style={{ backgroundImage: `url(${member.image})` }}
-                />
+                {!photoLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+                {photoLoaded && (
+                  <div
+                    className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
+                    style={{ backgroundImage: `url(${member.image})` }}
+                  />
+                )}
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <Image
+                  <RetryImage
                     src={member.image}
                     alt={member.full_name}
-                    style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                    onLoad={() => setPhotoLoaded(true)}
+                    className={`w-full h-full object-contain transition-opacity duration-300 ${photoLoaded ? 'opacity-100' : 'opacity-0'}`}
                   />
                 </div>
               </>

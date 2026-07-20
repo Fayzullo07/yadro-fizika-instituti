@@ -1,14 +1,17 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useEventById } from '@/hooks/useEvents';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 
 const EventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
   const { data: detailRes, loading, error } = useEventById(id!);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const item = detailRes?.data;
 
@@ -34,8 +37,14 @@ const EventDetail: React.FC = () => {
 
       <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         {item.image && (
-          <div className="w-full aspect-video overflow-hidden">
-            <img src={item.image} alt="" className="w-full h-full object-cover" />
+          <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+            {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            <RetryImage
+              src={item.image}
+              alt=""
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            />
           </div>
         )}
 

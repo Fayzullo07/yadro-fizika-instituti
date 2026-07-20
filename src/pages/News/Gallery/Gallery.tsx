@@ -4,6 +4,7 @@ import { useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+import RetryImage from '@/components/shared/RetryImage/RetryImage';
 import type { GalleryItem } from '@/types';
 
 const PER_PAGE = 12;
@@ -11,26 +12,36 @@ const PER_PAGE = 12;
 const GalleryCard: React.FC<{
   item: GalleryItem;
   label: string;
-}> = ({ item, label }) => (
-  <Link
-    to={`/news/gallery/${item.id}`}
-    className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-  >
-    <div className="relative overflow-hidden aspect-video">
-      <img src={item.image} alt="" className="w-full h-full object-cover gallery-card-img" />
-    </div>
-    <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
-      <div className="flex items-center justify-between mt-auto pt-1">
-        <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
-          {label ? label : '-'}
-        </span>
-        <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
-          →
-        </span>
+}> = ({ item, label }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <Link
+      to={`/news/gallery/${item.id}`}
+      className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+    >
+      <div className="relative overflow-hidden aspect-video bg-gray-100">
+        {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+        <RetryImage
+          src={item.image}
+          alt=""
+          onLoad={() => setLoaded(true)}
+          className={`w-full h-full object-cover gallery-card-img transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        />
       </div>
-    </div>
-  </Link>
-);
+      <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
+        <div className="flex items-center justify-between mt-auto pt-1">
+          <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
+            {label ? label : '-'}
+          </span>
+          <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
+            →
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 const Gallery: React.FC = () => {
   const { t, language } = useLanguage();

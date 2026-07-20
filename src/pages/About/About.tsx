@@ -2,6 +2,7 @@ import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useApi } from '@/hooks/useApi';
+import { useImageRetry } from '@/hooks/useImageRetry';
 import { generalApi } from '@/services/api';
 import { CONTACT_PATH } from '@/routes/path';
 import { sanitizeHtml } from '@/utils/htmlUtils';
@@ -14,6 +15,7 @@ const About: React.FC = () => {
     loading,
     error,
   } = useApi<SingleResponse<AboutData>>(() => generalApi.getAbout(language), [language]);
+  const { retryKey, handleError } = useImageRetry();
 
   const aboutData = aboutResponse?.data;
 
@@ -51,11 +53,14 @@ const About: React.FC = () => {
                 />
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <Image
+                    key={retryKey}
                     src={aboutData.image}
                     alt={t('about.heroTitle')}
                     width="100%"
                     height="100%"
+                    placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
                     style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
+                    onError={handleError}
                     preview={{
                       mask: (
                         <span className="flex items-center justify-center w-9 h-9 rounded-full bg-black/60 text-white">
