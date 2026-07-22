@@ -20,17 +20,6 @@ const AnnouncementCard: React.FC<{ item: AnnouncementItem; language: string }> =
     >
       <div className="w-1 bg-[#013d8c] shrink-0" />
       <div className="flex flex-col flex-1 p-4 gap-2">
-        <span className="inline-flex items-center gap-1.5 text-xs text-[#013d8c] bg-[#013d8c]/8 px-2 py-0.5 rounded-full font-medium w-fit">
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-          {formatDate(item.created_at, language)}
-        </span>
         <h3 className="text-sm md:text-base font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug line-clamp-2">
           {item.title}
         </h3>
