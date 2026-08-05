@@ -246,3 +246,45 @@ body {
 .group:hover .video-card-img {
   transform: scale(1.08);
 }
+
+/* Featured video reel — a scan-line sweep on hover/focus, evoking the
+   institute's own oscilloscope and detector readouts. */
+@keyframes video-scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.video-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(140, 185, 255, 0.95), transparent);
+  box-shadow: 0 0 14px 1px rgba(100, 160, 255, 0.65);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.group:hover .video-scan-line,
+.group:focus-visible .video-scan-line {
+  animation: video-scan 1.5s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-scan-line {
+    animation: none !important;
+  }
+}

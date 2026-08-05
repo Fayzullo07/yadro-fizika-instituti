@@ -341,6 +341,9 @@
   "videoGallery": {
     "title": "Video Gallery",
     "subtitle": "VIDEOS",
-    "viewAll": "All videos"
+    "viewAll": "All videos",
+    "featured": "Now showing",
+    "watch": "Watch",
+    "openLink": "Open link"
   }
 }
