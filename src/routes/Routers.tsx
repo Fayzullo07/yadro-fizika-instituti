@@ -1,5 +1,5 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { RouterProvider, createBrowserRouter, type RouteObject } from 'react-router-dom';
+import { Suspense, lazy, type ComponentType } from 'react';
 import Loading from '@/components/shared/Loading/Loading';
 import MainLayout from '@/components/Layout/MainLayout/MainLayout';
 import SidebarLayout from '@/components/Layout/SidebarLayout/SidebarLayout';
@@ -136,526 +136,99 @@ import {
   DOCTORATE_DETAIL_PATH,
 } from './path';
 
+// Wraps a lazy page in its Suspense boundary so each route entry stays a one-liner.
+const page = (path: string, Component: ComponentType): RouteObject => ({
+  path,
+  element: (
+    <Suspense fallback={<Loading />}>
+      <Component />
+    </Suspense>
+  ),
+});
+
 const Routers = () => {
   const router = createBrowserRouter([
     {
       path: HOME_PATH,
       element: <MainLayout />,
       children: [
-        {
-          path: HOME_PATH,
-          element: (
-            <Suspense fallback={<Loading />}>
-              <Home />
-            </Suspense>
-          ),
-        },
+        page(HOME_PATH, Home),
         {
           element: <PageLayout />,
-          children: [
-            {
-              path: SERVICES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Services />
-                </Suspense>
-              ),
-            },
-            {
-              path: GALLERY_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <GalleryDetail />
-                </Suspense>
-              ),
-            },
-          ],
+          children: [page(SERVICES_PATH, Services), page(GALLERY_DETAIL_PATH, GalleryDetail)],
         },
-        {
-          path: '*',
-          element: (
-            <Suspense fallback={<Loading />}>
-              <NotFound />
-            </Suspense>
-          ),
-        },
+        page('*', NotFound),
         {
           element: <SidebarLayout />,
           children: [
-            {
-              path: ABOUT_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <About />
-                </Suspense>
-              ),
-            },
-            {
-              path: CONTACT_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Contact />
-                </Suspense>
-              ),
-            },
+            page(ABOUT_PATH, About),
+            page(CONTACT_PATH, Contact),
             // Institute routes
-            {
-              path: INTERNATIONAL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <International />
-                </Suspense>
-              ),
-            },
-            {
-              path: COUNCIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Council />
-                </Suspense>
-              ),
-            },
-            {
-              path: STRUCTURE_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Structure />
-                </Suspense>
-              ),
-            },
-            {
-              path: DOCUMENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Documents />
-                </Suspense>
-              ),
-            },
-            {
-              path: TEAM_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Team />
-                </Suspense>
-              ),
-            },
-            {
-              path: CALENDAR_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Calendar />
-                </Suspense>
-              ),
-            },
-            {
-              path: CENTRAL_OFFICE_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <CentralOffice />
-                </Suspense>
-              ),
-            },
-            {
-              path: DEPARTMENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Departments />
-                </Suspense>
-              ),
-            },
+            page(INTERNATIONAL_PATH, International),
+            page(COUNCIL_PATH, Council),
+            page(STRUCTURE_PATH, Structure),
+            page(DOCUMENTS_PATH, Documents),
+            page(TEAM_PATH, Team),
+            page(CALENDAR_PATH, Calendar),
+            page(CENTRAL_OFFICE_PATH, CentralOffice),
+            page(DEPARTMENTS_PATH, Departments),
             // New institute pages
-            {
-              path: INSTITUTE_HISTORY_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <History />
-                </Suspense>
-              ),
-            },
-            {
-              path: INSTITUTE_DIRECTORS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Directors />
-                </Suspense>
-              ),
-            },
-            {
-              path: INSTITUTE_CHARTER_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Charter />
-                </Suspense>
-              ),
-            },
-            {
-              path: COUNCIL_COMPOSITION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <CouncilComposition />
-                </Suspense>
-              ),
-            },
-            {
-              path: COUNCIL_ACTIVITIES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <CouncilActivities />
-                </Suspense>
-              ),
-            },
+            page(INSTITUTE_HISTORY_PATH, History),
+            page(INSTITUTE_DIRECTORS_PATH, Directors),
+            page(INSTITUTE_CHARTER_PATH, Charter),
+            page(COUNCIL_COMPOSITION_PATH, CouncilComposition),
+            page(COUNCIL_ACTIVITIES_PATH, CouncilActivities),
             // Research routes
-            {
-              path: LABORATORY_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <LaboratoryDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: UNIQUE_OBJECT_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <LaboratoryDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: LABORATORY_STAFF_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <StaffMemberDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: UNIQUE_OBJECTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <UniqueObjects />
-                </Suspense>
-              ),
-            },
-            {
-              path: LABORATORIES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Laboratories />
-                </Suspense>
-              ),
-            },
-            {
-              path: DOCTORATE_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Doctorate />
-                </Suspense>
-              ),
-            },
-            {
-              path: CONFERENCES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Conferences />
-                </Suspense>
-              ),
-            },
-            {
-              path: CONFERENCE_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <ConferenceDetail />
-                </Suspense>
-              ),
-            },
+            page(LABORATORY_DETAIL_PATH, LaboratoryDetail),
+            page(UNIQUE_OBJECT_DETAIL_PATH, LaboratoryDetail),
+            page(LABORATORY_STAFF_DETAIL_PATH, StaffMemberDetail),
+            page(UNIQUE_OBJECTS_PATH, UniqueObjects),
+            page(LABORATORIES_PATH, Laboratories),
+            page(DOCTORATE_PATH, Doctorate),
+            page(CONFERENCES_PATH, Conferences),
+            page(CONFERENCE_DETAIL_PATH, ConferenceDetail),
             // New research pages
-            {
-              path: RESEARCH_SCIENTISTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Scientists />
-                </Suspense>
-              ),
-            },
-            {
-              path: RESEARCH_DEGREES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Degrees />
-                </Suspense>
-              ),
-            },
-            {
-              path: RESEARCH_DIRECTIONS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Directions />
-                </Suspense>
-              ),
-            },
-            {
-              path: SPECIALTIES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Specialties />
-                </Suspense>
-              ),
-            },
-            {
-              path: ARTICLES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Articles />
-                </Suspense>
-              ),
-            },
-            {
-              path: ARTICLE_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <PublicationDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: ABSTRACTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Abstracts />
-                </Suspense>
-              ),
-            },
-            {
-              path: ABSTRACT_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <PublicationDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: DOCTORATE_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <PublicationDetail />
-                </Suspense>
-              ),
-            },
+            page(RESEARCH_SCIENTISTS_PATH, Scientists),
+            page(RESEARCH_DEGREES_PATH, Degrees),
+            page(RESEARCH_DIRECTIONS_PATH, Directions),
+            page(SPECIALTIES_PATH, Specialties),
+            page(ARTICLES_PATH, Articles),
+            page(ARTICLE_DETAIL_PATH, PublicationDetail),
+            page(ABSTRACTS_PATH, Abstracts),
+            page(ABSTRACT_DETAIL_PATH, PublicationDetail),
+            page(DOCTORATE_DETAIL_PATH, PublicationDetail),
             // Engineering routes
-            {
-              path: PROJECT_DESIGN_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <ProjectDesign />
-                </Suspense>
-              ),
-            },
-            {
-              path: INSTRUMENTAL_INSPECTION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <InstrumentalInspection />
-                </Suspense>
-              ),
-            },
-            {
-              path: SEISMIC_CONCLUSION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <SeismicConclusion />
-                </Suspense>
-              ),
-            },
+            page(PROJECT_DESIGN_PATH, ProjectDesign),
+            page(INSTRUMENTAL_INSPECTION_PATH, InstrumentalInspection),
+            page(SEISMIC_CONCLUSION_PATH, SeismicConclusion),
             // General Information routes
-            {
-              path: TEACHERS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Teachers />
-                </Suspense>
-              ),
-            },
-            {
-              path: TALENTED_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Talented />
-                </Suspense>
-              ),
-            },
-            {
-              path: SYMBOLS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Symbols />
-                </Suspense>
-              ),
-            },
-            {
-              path: GRADUATES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Graduates />
-                </Suspense>
-              ),
-            },
+            page(TEACHERS_PATH, Teachers),
+            page(TALENTED_PATH, Talented),
+            page(SYMBOLS_PATH, Symbols),
+            page(GRADUATES_PATH, Graduates),
             // Open Data routes
-            {
-              path: REQUISITES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Requisites />
-                </Suspense>
-              ),
-            },
-            {
-              path: VACANCIES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Vacancies />
-                </Suspense>
-              ),
-            },
-            {
-              path: RECEPTION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Reception />
-                </Suspense>
-              ),
-            },
+            page(REQUISITES_PATH, Requisites),
+            page(VACANCIES_PATH, Vacancies),
+            page(RECEPTION_PATH, Reception),
             // News routes
-            {
-              path: NEWS_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <NewsDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: NEWS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <NewsList />
-                </Suspense>
-              ),
-            },
-            {
-              path: ANNOUNCEMENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Announcements />
-                </Suspense>
-              ),
-            },
-            {
-              path: ANNOUNCEMENT_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <AnnouncementDetail />
-                </Suspense>
-              ),
-            },
-            {
-              path: GALLERY_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Gallery />
-                </Suspense>
-              ),
-            },
-            {
-              path: VIDEO_GALLERY_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <VideoGallery />
-                </Suspense>
-              ),
-            },
-            {
-              path: EVENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Events />
-                </Suspense>
-              ),
-            },
-            {
-              path: EVENT_DETAIL_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <EventDetail />
-                </Suspense>
-              ),
-            },
+            page(NEWS_DETAIL_PATH, NewsDetail),
+            page(NEWS_PATH, NewsList),
+            page(ANNOUNCEMENTS_PATH, Announcements),
+            page(ANNOUNCEMENT_DETAIL_PATH, AnnouncementDetail),
+            page(GALLERY_PATH, Gallery),
+            page(VIDEO_GALLERY_PATH, VideoGallery),
+            page(EVENTS_PATH, Events),
+            page(EVENT_DETAIL_PATH, EventDetail),
             // Contact routes
-            {
-              path: MAP_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Map />
-                </Suspense>
-              ),
-            },
-            {
-              path: HOTLINE_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Hotline />
-                </Suspense>
-              ),
-            },
+            page(MAP_PATH, Map),
+            page(HOTLINE_PATH, Hotline),
             // Normativ routes
-            {
-              path: CONSTITUTION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Constitution />
-                </Suspense>
-              ),
-            },
-            {
-              path: LAWS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Laws />
-                </Suspense>
-              ),
-            },
-            {
-              path: DECREES_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Decrees />
-                </Suspense>
-              ),
-            },
-            {
-              path: LEGISLATION_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Legislation />
-                </Suspense>
-              ),
-            },
-            {
-              path: GOVERNMENT_DOCUMENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <GovernmentDocuments />
-                </Suspense>
-              ),
-            },
-            {
-              path: INTERNAL_DOCUMENTS_PATH,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <InternalDocuments />
-                </Suspense>
-              ),
-            },
+            page(CONSTITUTION_PATH, Constitution),
+            page(LAWS_PATH, Laws),
+            page(DECREES_PATH, Decrees),
+            page(LEGISLATION_PATH, Legislation),
+            page(GOVERNMENT_DOCUMENTS_PATH, GovernmentDocuments),
+            page(INTERNAL_DOCUMENTS_PATH, InternalDocuments),
           ],
         },
       ],

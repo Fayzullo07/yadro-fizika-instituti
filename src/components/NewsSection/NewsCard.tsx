@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { NewsItem } from '@/types';
 
 const NewsCard: React.FC<{ item: NewsItem }> = ({ item }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   return (
     <Link
       to={`/news/${item.id}`}

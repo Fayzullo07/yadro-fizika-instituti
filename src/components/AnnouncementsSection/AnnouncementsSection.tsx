@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import { useAnnouncements } from '@/hooks/useAnnouncements';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import type { AnnouncementItem } from '@/types';
 
-const AnnouncementCard: React.FC<{ item: AnnouncementItem; language: string }> = ({
-  item,
-  language,
-}) => {
+const AnnouncementCard: React.FC<{ item: AnnouncementItem }> = ({ item }) => {
   const { t } = useLanguage();
   const preview = stripHtmlAndDecode(item.description).slice(0, 160).trim();
 
@@ -50,7 +46,7 @@ const SkeletonCard: React.FC = () => (
 );
 
 const AnnouncementsSection: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data, loading } = useAnnouncements();
   const items: AnnouncementItem[] = Array.isArray(data?.data) ? data.data.slice(0, 4) : [];
 
@@ -104,7 +100,7 @@ const AnnouncementsSection: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {items.map((item) => (
-            <AnnouncementCard key={item.id} item={item} language={language} />
+            <AnnouncementCard key={item.id} item={item} />
           ))}
         </div>
 

@@ -65,7 +65,7 @@ const Gallery: React.FC = () => {
 
   useEffect(() => {
     if (!data?.data) return;
-    setItems((prev) => (page === 1 ? data.data : [...prev, ...data.data]));
+    setItems((prev) => (data.meta.current_page === 1 ? data.data : [...prev, ...data.data]));
   }, [data]);
 
   useEffect(() => {

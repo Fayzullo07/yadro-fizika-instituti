@@ -2,13 +2,12 @@ import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnnouncementById } from '@/hooks/useAnnouncements';
 import { sanitizeHtml } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 
 const AnnouncementDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data: detailRes, loading, error } = useAnnouncementById(id!);
 
   const item = detailRes?.data;
