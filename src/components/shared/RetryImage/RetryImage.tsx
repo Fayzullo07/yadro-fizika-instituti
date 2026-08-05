@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface RetryImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   maxRetries?: number;
@@ -11,10 +11,14 @@ const RetryImage: React.FC<RetryImageProps> = ({
   ...imgProps
 }) => {
   const [attempt, setAttempt] = useState(0);
+  const [prevSrc, setPrevSrc] = useState(imgProps.src);
 
-  useEffect(() => {
+  // Reset the retry count when the image src changes, without a
+  // render -> effect -> setState -> re-render round trip.
+  if (imgProps.src !== prevSrc) {
+    setPrevSrc(imgProps.src);
     setAttempt(0);
-  }, [imgProps.src]);
+  }
 
   const handleError = () => {
     if (attempt >= maxRetries) return;

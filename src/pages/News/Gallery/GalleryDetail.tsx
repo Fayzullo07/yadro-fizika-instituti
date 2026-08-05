@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { Image } from 'antd';
 import { useGalleryById, useGalleries } from '@/hooks/useGalleries';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -52,10 +52,15 @@ const GalleryDetail: React.FC = () => {
   const { data: listData, loading: listLoading } = useGalleries({ per_page: 20 });
   const { retryKey: heroRetryKey, handleError: handleHeroError } = useImageRetry();
 
-  const prevItemRef = useRef<GalleryDetailItem | null>(null);
+  // Keep showing the last-loaded item while a new id is fetching, instead
+  // of flashing the loading state. Adjusted during render (not an effect)
+  // so it takes effect before this render commits.
+  const [prevItem, setPrevItem] = useState<GalleryDetailItem | null>(null);
   const item = res?.data ?? null;
-  if (item) prevItemRef.current = item;
-  const displayItem = item ?? prevItemRef.current;
+  if (item && item !== prevItem) {
+    setPrevItem(item);
+  }
+  const displayItem = item ?? prevItem;
 
   if (loading && !displayItem) return <Loading />;
 

@@ -142,6 +142,7 @@ const VideoGallery: React.FC = () => {
   const prevLanguageRef = useRef(language);
 
   const { data, loading, error } = useVideoGallery({ page, per_page: PER_PAGE });
+  const [prevData, setPrevData] = useState(data);
 
   const lastPage = data?.meta?.last_page ?? 1;
   const hasMore = page < lastPage;
@@ -154,10 +155,14 @@ const VideoGallery: React.FC = () => {
     }
   }, [language]);
 
-  useEffect(() => {
-    if (!data?.data) return;
-    setItems((prev) => (data.meta.current_page === 1 ? data.data : [...prev, ...data.data]));
-  }, [data]);
+  // Accumulate each new page's items as `data` arrives, adjusting state
+  // during render instead of an effect + setState round trip.
+  if (data !== prevData) {
+    setPrevData(data);
+    if (data?.data) {
+      setItems((prev) => (data.meta.current_page === 1 ? data.data : [...prev, ...data.data]));
+    }
+  }
 
   useEffect(() => {
     const sentinel = sentinelRef.current;

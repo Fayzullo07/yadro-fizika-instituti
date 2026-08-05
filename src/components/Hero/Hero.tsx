@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
   const [fullscreenSrc, setFullscreenSrc] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval>>(null);
   const dragStartX = useRef(0);
-  const isDragging = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const banners: Banner[] = data?.data || [];
 
@@ -85,21 +85,24 @@ const Hero: React.FC = () => {
     (clientX: number) => {
       if (banners.length <= 1) return;
       dragStartX.current = clientX;
-      isDragging.current = true;
+      setIsDragging(true);
       if (timerRef.current) clearInterval(timerRef.current);
     },
     [banners.length]
   );
 
-  const handleDragMove = useCallback((clientX: number) => {
-    if (!isDragging.current) return;
-    const diff = clientX - dragStartX.current;
-    setDragOffset(diff);
-  }, []);
+  const handleDragMove = useCallback(
+    (clientX: number) => {
+      if (!isDragging) return;
+      const diff = clientX - dragStartX.current;
+      setDragOffset(diff);
+    },
+    [isDragging]
+  );
 
   const handleDragEnd = useCallback(() => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
+    if (!isDragging) return;
+    setIsDragging(false);
 
     if (Math.abs(dragOffset) > DRAG_THRESHOLD) {
       if (dragOffset < 0) {
@@ -111,7 +114,7 @@ const Hero: React.FC = () => {
 
     setDragOffset(0);
     startAutoplay();
-  }, [dragOffset, banners.length, currentIndex, changeSlide, startAutoplay]);
+  }, [isDragging, dragOffset, banners.length, currentIndex, changeSlide, startAutoplay]);
 
   useEffect(() => {
     if (banners.length <= 1) return;
@@ -149,7 +152,7 @@ const Hero: React.FC = () => {
     >
       {/* Banner slides */}
       {activeBanners.map((banner, index) => {
-        const isCurrentDragging = isDragging.current && dragOffset !== 0;
+        const isCurrentDragging = isDragging && dragOffset !== 0;
 
         // Case 1: Dragging — show current + adjacent with pixel offsets
         if (isCurrentDragging) {
