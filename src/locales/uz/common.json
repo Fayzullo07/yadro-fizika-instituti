@@ -341,9 +341,6 @@
   "videoGallery": {
     "title": "Video Galereya",
     "subtitle": "VIDEOLAR",
-    "viewAll": "Barcha videolar",
-    "featured": "Hozir ko'rsatilmoqda",
-    "watch": "Ko'rish",
-    "openLink": "Havolani ochish"
+    "viewAll": "Barcha videolar"
   }
 }
