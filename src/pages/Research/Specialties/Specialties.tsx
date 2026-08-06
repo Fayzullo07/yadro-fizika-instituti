@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSpecialties } from '@/hooks/useSpecialties';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+import Pagination from '@/components/shared/Pagination';
 import type { SpecialtyItem } from '@/types';
 
 const PER_PAGE = 10;
@@ -178,50 +179,6 @@ const SkeletonRow: React.FC = () => (
   </div>
 );
 
-const Pagination: React.FC<{
-  page: number;
-  lastPage: number;
-  onPageChange: (p: number) => void;
-}> = ({ page, lastPage, onPageChange }) => {
-  if (lastPage <= 1) return null;
-  const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
-  return (
-    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-6 sm:mt-10">
-      <button
-        onClick={() => onPageChange(page - 1)}
-        disabled={page === 1}
-        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      {pages.map((p) => (
-        <button
-          key={p}
-          onClick={() => onPageChange(p)}
-          className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-semibold border transition-colors ${
-            p === page
-              ? 'bg-[#013d8c] text-white border-[#013d8c]'
-              : 'border-gray-200 text-gray-600 hover:border-[#013d8c] hover:text-[#013d8c]'
-          }`}
-        >
-          {p}
-        </button>
-      ))}
-      <button
-        onClick={() => onPageChange(page + 1)}
-        disabled={page === lastPage}
-        className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-[#013d8c] hover:text-[#013d8c] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-  );
-};
-
 const Specialties: React.FC = () => {
   const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -240,7 +197,7 @@ const Specialties: React.FC = () => {
       <div className="pb-8 md:pb-12">
         <PageTitle>{t('nav.ilmiyFaoliyat.specialties') || 'Ixtisosliklar pasportlari'}</PageTitle>
 
-        {loading && (
+        {loading && items.length === 0 && (
           <div className="space-y-3 sm:space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <SkeletonRow key={i} />
@@ -261,14 +218,16 @@ const Specialties: React.FC = () => {
         )}
 
         {items.length > 0 && (
-          <>
+          <div
+            className={`transition-opacity duration-200 ${loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}
+          >
             <div className="space-y-3 sm:space-y-4">
               {items.map((item, index) => (
                 <SpecialtyRow key={item.id} item={item} index={(page - 1) * PER_PAGE + index} />
               ))}
             </div>
             <Pagination page={page} lastPage={lastPage} onPageChange={handlePageChange} />
-          </>
+          </div>
         )}
       </div>
     </div>

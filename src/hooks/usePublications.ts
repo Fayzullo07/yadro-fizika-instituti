@@ -1,15 +1,22 @@
 import { useApi } from './useApi';
 import { publicationsApi, PublicationType } from '@/services/api';
 import { useLanguage } from '@/contexts/LanguageContext';
+import type { PaginationParams } from '@/types';
 
-export const usePublications = (type: PublicationType) => {
+export const usePublications = (type: PublicationType, params: PaginationParams = {}) => {
   const { language } = useLanguage();
-  return useApi(() => publicationsApi.getAll(type, language), [type, language]);
+  return useApi(
+    () => publicationsApi.getAll(type, params, language),
+    [type, params.page, params.per_page, language]
+  );
 };
 
-export const useDissertations = () => usePublications(PublicationType.Dissertation);
-export const useAbstracts = () => usePublications(PublicationType.Abstract);
-export const useScientificArticles = () => usePublications(PublicationType.ScientificArticle);
+export const useDissertations = (params: PaginationParams = {}) =>
+  usePublications(PublicationType.Dissertation, params);
+export const useAbstracts = (params: PaginationParams = {}) =>
+  usePublications(PublicationType.Abstract, params);
+export const useScientificArticles = (params: PaginationParams = {}) =>
+  usePublications(PublicationType.ScientificArticle, params);
 
 export const usePublicationById = (id: number | string) => {
   const { language } = useLanguage();

@@ -504,9 +504,15 @@ export const teamsApi = {
 
 // Publications API
 export const publicationsApi = {
-  getAll: (type: PublicationType, language: string | null = null) => {
+  getAll: (
+    type: PublicationType,
+    params: PaginationParams = {},
+    language: string | null = null
+  ) => {
     const query = new URLSearchParams();
     query.append('type', type);
+    if (params.page) query.append('page', String(params.page));
+    if (params.per_page) query.append('per_page', String(params.per_page));
     return apiRequest<PaginatedResponse<PublicationItem>>(
       `${API_ENDPOINTS.PUBLICATIONS}?${query}`,
       {},
