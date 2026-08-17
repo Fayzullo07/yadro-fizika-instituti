@@ -291,7 +291,15 @@
     "detail": "Laboratory"
   },
   "conferences": {
-    "detail": "Conference"
+    "detail": "Conference",
+    "status": {
+      "upcoming": "Upcoming",
+      "ongoing": "Happening now",
+      "ended": "Concluded"
+    },
+    "daysLeft": "days left",
+    "attachments": "Documents",
+    "gallery": "Gallery"
   },
   "gallery": {
     "title": "Photo Gallery",

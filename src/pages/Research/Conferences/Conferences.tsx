@@ -98,9 +98,9 @@ const ConferenceCard: React.FC<{
             </svg>
           </Link>
 
-          {item.file && (
+          {item.files?.[0] && (
             <a
-              href={item.file}
+              href={item.files[0].url}
               target="_blank"
               rel="noopener noreferrer"
               className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[#013d8c] transition-colors"

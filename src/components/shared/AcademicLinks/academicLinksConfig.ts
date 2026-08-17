@@ -5,11 +5,7 @@ import researchgateLogo from '@/assets/labarotories/researchgate.svg';
 import orcidLogo from '@/assets/labarotories/orcid.svg';
 
 export type AcademicLinkKey =
-  | 'google_scholar'
-  | 'web_of_science'
-  | 'scopus'
-  | 'researchgate'
-  | 'orcid';
+  'google_scholar' | 'web_of_science' | 'scopus' | 'researchgate' | 'orcid';
 
 export const academicLinksConfig: {
   key: AcademicLinkKey;

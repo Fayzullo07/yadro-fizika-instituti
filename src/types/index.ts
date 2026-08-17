@@ -85,13 +85,24 @@ export interface AnnouncementItem {
   updated_at: string;
 }
 
+export interface ConferenceImage {
+  id: number;
+  url: string;
+}
+
+export interface ConferenceFile {
+  id: number;
+  name: string;
+  url: string;
+}
+
 export interface ConferenceItem {
   id: number;
   title: string;
   description: string;
   location: string;
-  image: string | null;
-  file: string | null;
+  images: ConferenceImage[];
+  files: ConferenceFile[];
   start_date: string;
   end_date: string;
   order: number;

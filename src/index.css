@@ -246,3 +246,104 @@ body {
 .group:hover .video-card-img {
   transform: scale(1.08);
 }
+
+/* Conference detail — rich-text document typography.
+   Neutralizes ad-hoc Word-paste markup (random heading levels, centered
+   paragraphs) into one consistent editorial rhythm. */
+.conference-doc {
+  color: #1c2430;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+.conference-doc > *:first-child {
+  margin-top: 0 !important;
+}
+
+.conference-doc > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.conference-doc :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--default-font);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--primary-blue);
+  margin: 2.25rem 0 0.85rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e3e8ef;
+}
+
+.conference-doc p {
+  margin: 0 0 0.9rem;
+}
+
+.conference-doc strong,
+.conference-doc b {
+  font-weight: 700;
+  color: #0b1220;
+}
+
+.conference-doc a {
+  color: var(--secondary-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+.conference-doc a:hover {
+  color: var(--primary-blue);
+}
+
+.conference-doc pre {
+  font-family: inherit;
+  white-space: pre-wrap;
+  background: #f7f9fc;
+  border: 1px solid #e3e8ef;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  margin: 0.4rem 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #1c2430;
+}
+
+.conference-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+
+.conference-doc td,
+.conference-doc th {
+  border: 1px solid #e3e8ef;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.conference-doc th {
+  background: #f7f9fc;
+  font-weight: 700;
+}
+
+.conference-doc tr:nth-child(even) td {
+  background: #fbfcfe;
+}
+
+.conference-doc img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+@media (max-width: 640px) {
+  .conference-doc table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

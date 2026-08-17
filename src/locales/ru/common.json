@@ -296,7 +296,15 @@
     "detail": "Лаборатория"
   },
   "conferences": {
-    "detail": "Конференция"
+    "detail": "Конференция",
+    "status": {
+      "upcoming": "Скоро",
+      "ongoing": "Идёт сейчас",
+      "ended": "Завершена"
+    },
+    "daysLeft": "дней осталось",
+    "attachments": "Документы",
+    "gallery": "Галерея"
   },
   "stats": {
     "title": "ИНСТИТУТ В ЦИФРАХ",

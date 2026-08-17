@@ -22,6 +22,34 @@ export const sanitizeHtmlNoStyle = (html: string | null | undefined): string => 
   return DOMPurify.sanitize(html, { FORBID_ATTR: ['style', 'class', 'width', 'float'] });
 };
 
+/**
+ * Strips inline styling (style/color/font/alignment attrs, <font> tags) left over
+ * from content pasted out of MS Word, so the page's own typography takes over
+ * instead of the author's ad-hoc colors and fonts. Tags/content are kept.
+ */
+export const sanitizeDocumentHtml = (html: string | null | undefined): string => {
+  if (!html) return '';
+  return DOMPurify.sanitize(html, {
+    FORBID_TAGS: ['font'],
+    FORBID_ATTR: [
+      'style',
+      'class',
+      'width',
+      'height',
+      'align',
+      'valign',
+      'bgcolor',
+      'color',
+      'face',
+      'lang',
+      'border',
+      'cellspacing',
+      'cellpadding',
+      'size',
+    ],
+  });
+};
+
 export const stripHtmlRegex = (html: string | null | undefined): string => {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '').trim();

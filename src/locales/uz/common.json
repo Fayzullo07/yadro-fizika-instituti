@@ -296,7 +296,15 @@
     "detail": "Laboratoriya"
   },
   "conferences": {
-    "detail": "Konferensiya"
+    "detail": "Konferensiya",
+    "status": {
+      "upcoming": "Yaqinlashmoqda",
+      "ongoing": "Hozir davom etmoqda",
+      "ended": "Yakunlandi"
+    },
+    "daysLeft": "kun qoldi",
+    "attachments": "Hujjatlar",
+    "gallery": "Galereya"
   },
   "stats": {
     "title": "INSTITUT RAQAMLARDA",
