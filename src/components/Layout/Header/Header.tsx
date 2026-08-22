@@ -10,11 +10,10 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { SOCIAL_LINKS, CONTACT_PHONES } from '@/config/contactData';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 
-const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
-const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
-
 const Header: React.FC = () => {
   const { t } = useLanguage();
+  const orgAcademy = t('org.academy');
+  const orgInstitute = t('org.institute');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -40,15 +39,15 @@ const Header: React.FC = () => {
             <Link to={HOME_PATH} className="flex items-center gap-2 sm:gap-3 group min-w-0">
               <img
                 src={logoFallback}
-                alt={`${ORG_LINE1} ${ORG_LINE2}`}
+                alt={`${orgAcademy} ${orgInstitute}`}
                 className="h-10 sm:h-12 md:h-14 w-auto object-contain shrink-0"
               />
               <span className="flex flex-col min-w-0 overflow-hidden">
                 <span className="hidden md:block text-[9px] lg:text-[10px] font-semibold text-gray-400 tracking-wide leading-tight uppercase truncate">
-                  {ORG_LINE1}
+                  {orgAcademy}
                 </span>
                 <span className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-gray-900 leading-snug uppercase tracking-wide">
-                  {ORG_LINE2}
+                  {orgInstitute}
                 </span>
               </span>
             </Link>

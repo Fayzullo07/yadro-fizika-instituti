@@ -8,6 +8,10 @@
   "header": {
     "testMode": "Sayt test rejimida ishlamoqda"
   },
+  "org": {
+    "academy": "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI",
+    "institute": "YADRO FIZIKASI INSTITUTI"
+  },
   "nav": {
     "home": "Bosh sahifa",
     "about": "Biz haqimizda",

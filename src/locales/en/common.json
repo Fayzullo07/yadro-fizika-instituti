@@ -8,6 +8,10 @@
   "header": {
     "testMode": "Site is running in test mode"
   },
+  "org": {
+    "academy": "ACADEMY OF SCIENCES OF UZBEKISTAN",
+    "institute": "INSTITUTE OF NUCLEAR PHYSICS"
+  },
   "nav": {
     "home": "Home",
     "about": "About Us",

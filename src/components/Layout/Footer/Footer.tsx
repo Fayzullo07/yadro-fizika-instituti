@@ -5,11 +5,10 @@ import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
 import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 
-const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
-const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
-
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
+  const orgAcademy = t('org.academy');
+  const orgInstitute = t('org.institute');
 
   return (
     <footer className="bg-[#0f1b3d] text-gray-300 mt-auto">
@@ -19,16 +18,16 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <img
               src={logoFallback}
-              alt={`${ORG_LINE1} ${ORG_LINE2}`}
+              alt={`${orgAcademy} ${orgInstitute}`}
               loading="lazy"
               className="h-11 w-auto object-contain rounded-lg bg-white p-1 shrink-0"
             />
             <div className="flex flex-col">
               <span className="text-[9px] font-semibold text-blue-200/40 tracking-wide leading-tight uppercase">
-                {ORG_LINE1}
+                {orgAcademy}
               </span>
               <span className="text-sm font-bold text-white leading-tight uppercase tracking-wide">
-                {ORG_LINE2}
+                {orgInstitute}
               </span>
             </div>
           </div>
@@ -58,7 +57,7 @@ const Footer: React.FC = () => {
             <h4 className="text-white text-xs font-semibold uppercase tracking-widest mb-4">
               {t('nav.institute.about') || 'Biz haqimizda'}
             </h4>
-            <p className="text-blue-200/50 text-sm leading-relaxed">{ORG_LINE1}</p>
+            <p className="text-blue-200/50 text-sm leading-relaxed">{orgAcademy}</p>
           </div>
 
           {/* Quick Links */}
@@ -122,7 +121,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-white/5 bg-[#0a1330]">
         <div className="container mx-auto py-5">
           <p className="text-center text-blue-200/30 text-xs">
-            © {new Date().getFullYear()} {ORG_LINE2}.{' '}
+            © {new Date().getFullYear()} {orgInstitute}.{' '}
             {t('footer.rights') || 'Barcha huquqlar himoyalangan.'}
           </p>
         </div>
