@@ -3,7 +3,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
 import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
-import logoFallback from '@/assets/logo.png';
+import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 
 const ORG_LINE1 = "O'ZBEKISTON RESPUBLIKASI FANLAR AKADEMIYASI";
 const ORG_LINE2 = 'YADRO FIZIKASI INSTITUTI';
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
               src={logoFallback}
               alt={`${ORG_LINE1} ${ORG_LINE2}`}
               loading="lazy"
-              className="h-11 w-11 object-contain rounded-lg shrink-0"
+              className="h-11 w-auto object-contain rounded-lg bg-white p-1 shrink-0"
             />
             <div className="flex flex-col">
               <span className="text-[9px] font-semibold text-blue-200/40 tracking-wide leading-tight uppercase">
