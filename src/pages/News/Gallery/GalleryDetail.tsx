@@ -8,6 +8,7 @@ import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 import RetryImage from '@/components/shared/RetryImage/RetryImage';
+import GalleryImageTile from '@/components/shared/GalleryImageTile/GalleryImageTile';
 import type { Language, GalleryDetailItem } from '@/types';
 
 const PREVIEW_LABEL: Record<Language, string> = {
@@ -23,26 +24,6 @@ const getTitle = (
   if (language === 'ru') return item.title_ru;
   if (language === 'en') return item.title_en;
   return item.title_uz;
-};
-
-const SubImage: React.FC<{ image: { id: number; image: string }; previewLabel: string }> = ({
-  image,
-  previewLabel,
-}) => {
-  const { retryKey, handleError } = useImageRetry();
-
-  return (
-    <div className="overflow-hidden aspect-video bg-gray-100 relative [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-cover">
-      <Image
-        key={retryKey}
-        src={image.image}
-        alt=""
-        placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
-        onError={handleError}
-        preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
-      />
-    </div>
-  );
 };
 
 const GalleryDetail: React.FC = () => {
@@ -153,7 +134,7 @@ const GalleryDetail: React.FC = () => {
                 <div className="p-4 sm:p-6">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                     {displayItem.images.map((img) => (
-                      <SubImage key={img.id} image={img} previewLabel={previewLabel} />
+                      <GalleryImageTile key={img.id} src={img.image} previewLabel={previewLabel} />
                     ))}
                   </div>
                 </div>
