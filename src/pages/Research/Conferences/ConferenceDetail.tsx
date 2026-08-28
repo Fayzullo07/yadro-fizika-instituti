@@ -228,24 +228,24 @@ const ConferenceDetail: React.FC = () => {
             <p className="text-xs font-semibold tracking-wide text-gray-400 uppercase mb-2.5">
               {t('conferences.attachments')}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {files.map((file, i) => (
                 <a
                   key={file.id}
                   href={file.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2.5 rounded-lg border border-gray-200 hover:border-[#013d8c]/40 hover:bg-[#013d8c]/[0.03] pl-2.5 pr-3.5 py-2 transition-colors"
+                  className="group flex items-center gap-2.5 rounded-lg border border-gray-200 hover:border-[#013d8c]/40 hover:bg-[#013d8c]/[0.03] pl-2.5 pr-3 sm:pr-3.5 py-2 transition-colors min-w-0"
                 >
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[#013d8c]/8 text-[#013d8c] text-[10px] font-mono font-bold shrink-0">
+                  <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md bg-[#013d8c]/8 text-[#013d8c] text-[10px] font-mono font-bold shrink-0">
                     {fileExt(file.name)}
                   </span>
-                  <span className="text-sm font-medium text-gray-700 group-hover:text-[#013d8c]">
-                    {t('common.download')}
-                    {files.length > 1 ? ` ${i + 1}` : ''}
+                  <span className="flex-1 min-w-0 truncate text-xs sm:text-sm font-medium text-gray-700 group-hover:text-[#013d8c]">
+                    {file.name}
+                    {/* {files.length > 1 ? ` ${i + 1}` : ''} */}
                   </span>
                   <svg
-                    className="w-3.5 h-3.5 shrink-0 text-gray-400 group-hover:text-[#013d8c]"
+                    className="w-3.5 h-3.5 shrink-0 ml-auto text-gray-400 group-hover:text-[#013d8c]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
