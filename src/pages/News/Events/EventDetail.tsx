@@ -1,18 +1,37 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useEventById } from '@/hooks/useEvents';
+import { useImageRetry } from '@/hooks/useImageRetry';
 import { formatDate } from '@/utils/dateUtils';
 import { sanitizeDocumentHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
-import RetryImage from '@/components/shared/RetryImage/RetryImage';
+
+const PREVIEW_LABEL: Record<string, string> = {
+  uz: "Ko'rish",
+  ru: 'Просмотр',
+  en: 'Preview',
+};
+
+const FullscreenIcon = () => (
+  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4 9V5a1 1 0 011-1h4M15 4h4a1 1 0 011 1v4M20 15v4a1 1 0 01-1 1h-4M9 20H5a1 1 0 01-1-1v-4"
+    />
+  </svg>
+);
 
 const EventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
   const { data: detailRes, loading, error } = useEventById(id!);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { retryKey, handleError } = useImageRetry();
 
   const item = detailRes?.data;
 
@@ -38,14 +57,42 @@ const EventDetail: React.FC = () => {
 
       <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         {item.image && (
-          <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+          <div className="relative w-full h-96 sm:h-120 md:h-160 overflow-hidden bg-gray-100">
             {!imageLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
-            <RetryImage
-              src={item.image}
-              alt=""
-              onLoad={() => setImageLoaded(true)}
-              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
+              style={{ backgroundImage: `url(${item.image})` }}
             />
+            <div className="relative z-10 w-full h-full flex items-center justify-center">
+              <Image
+                key={retryKey}
+                src={item.image}
+                alt={item.title}
+                height="100%"
+                onLoad={() => setImageLoaded(true)}
+                onError={handleError}
+                rootClassName="[&_.ant-image-mask]:bg-transparent [&_.ant-image-mask]:opacity-100"
+                style={{
+                  opacity: imageLoaded ? 1 : 0,
+                  transition: 'opacity 300ms',
+                  inlineSize: 'auto',
+                  maxInlineSize: '100%',
+                  objectFit: 'contain',
+                }}
+                preview={{
+                  mask: (
+                    <span
+                      title={PREVIEW_LABEL[language] ?? PREVIEW_LABEL.uz}
+                      aria-label={PREVIEW_LABEL[language] ?? PREVIEW_LABEL.uz}
+                      className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-black/55 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-black/75"
+                    >
+                      <FullscreenIcon />
+                    </span>
+                  ),
+                }}
+              />
+            </div>
           </div>
         )}
 
