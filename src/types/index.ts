@@ -282,6 +282,7 @@ export interface NewsItem {
 export interface EventApiItem {
   id: number;
   title: string;
+  duties?: string;
   image?: string;
   created_at: string;
   updated_at?: string;

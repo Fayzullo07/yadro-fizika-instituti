@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useEventById } from '@/hooks/useEvents';
 import { formatDate } from '@/utils/dateUtils';
+import { sanitizeDocumentHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import BackButton from '@/components/shared/BackButton/BackButton';
 import RetryImage from '@/components/shared/RetryImage/RetryImage';
@@ -71,6 +72,26 @@ const EventDetail: React.FC = () => {
             {item.title}
           </h1>
         </div>
+
+        {item.duties && (
+          <div
+            className="
+              px-4 sm:px-6 pb-4 sm:pb-6 text-gray-700 text-sm sm:text-[15px] leading-relaxed
+              [&_a]:text-blue-600 [&_a]:underline [&_a]:break-all [&_a:hover]:text-blue-800
+              [&_blockquote]:border-l-4 [&_blockquote]:border-[#013d8c]/30
+              [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
+              [&_b]:font-semibold [&_strong]:font-semibold
+              [&_div]:leading-relaxed
+              [&_p]:mb-3 [&_p:empty]:hidden
+              [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1
+              [&_img]:max-w-full
+              [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-gray-200 [&_td]:px-2 sm:[&_td]:px-3 [&_td]:py-2
+              [&_th]:border [&_th]:border-gray-200 [&_th]:px-2 sm:[&_th]:px-3 [&_th]:py-2 [&_th]:bg-gray-50 [&_th]:font-semibold
+              overflow-x-auto
+            "
+            dangerouslySetInnerHTML={{ __html: sanitizeDocumentHtml(item.duties) }}
+          />
+        )}
       </article>
     </div>
   );
