@@ -173,6 +173,8 @@ export interface LaboratoryDirector {
   position: string;
   degree: string;
   image: string;
+  email: string | null;
+  phone: string | null;
   google_scholar: string | null;
   web_of_science: string | null;
   scopus: string | null;

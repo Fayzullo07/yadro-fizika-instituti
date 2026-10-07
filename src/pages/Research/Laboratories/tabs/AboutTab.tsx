@@ -111,6 +111,32 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
                   </p>
                   <p className="text-sm text-gray-600">{director.position}</p>
                 </div>
+                {director.email && (
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                      {t('nav.laboratoriyalar.email')}:
+                    </p>
+                    <a
+                      href={`mailto:${director.email}`}
+                      className="text-sm text-gray-600 hover:text-[#013d8c] hover:underline break-all"
+                    >
+                      {director.email}
+                    </a>
+                  </div>
+                )}
+                {director.phone && (
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                      {t('nav.laboratoriyalar.phone')}:
+                    </p>
+                    <a
+                      href={`tel:${director.phone.replace(/[^\d+]/g, '')}`}
+                      className="text-sm text-gray-600 hover:text-[#013d8c] hover:underline"
+                    >
+                      {director.phone}
+                    </a>
+                  </div>
+                )}
                 <AcademicLinksRow data={director} className="mt-1" />
               </div>
               <div className="flex flex-col sm:min-w-40 sm:items-start">

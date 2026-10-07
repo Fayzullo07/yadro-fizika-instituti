@@ -85,6 +85,8 @@
       "serviceHead": "Head of Service",
       "degree": "Academic Degree",
       "position": "Position",
+      "email": "Email",
+      "phone": "Phone",
       "images": "Photos"
     },
     "ilmiyFaoliyat": {

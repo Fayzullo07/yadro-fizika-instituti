@@ -85,6 +85,8 @@
       "serviceHead": "Начальник службы",
       "degree": "Учёная степень",
       "position": "Должность",
+      "email": "Эл. почта",
+      "phone": "Телефон",
       "images": "Фотографии"
     },
     "ilmiyFaoliyat": {
