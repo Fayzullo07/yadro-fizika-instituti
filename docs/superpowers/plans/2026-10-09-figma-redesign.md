@@ -442,3 +442,9 @@ Foydalanuvchiga taklif qiling: dizaynni React kodiga o'tkazish uchun yangi brain
 - **Spec qamrovi:** Foundations (2), Components (3-5), Home desktop/mobil (6-7), Templates desktop/mobil (8-9), muvaffaqiyat mezonlari (3, 6, 10), logo cheklovi (5), `ECONNREFUSED` xavfi (1-vazifa `create_session` bosqichida ulanish tekshiriladi).
 - **Joy egalari:** yo'q.
 - **Nomlar mosligi:** variable/style/komponent nomlari 2-5 vazifalarda bir xil ishlatilgan. Kamchilik: 7-vazifadagi `H1/Mobile` style 2-vazifa ro'yxatida yo'q va 7-vazifada kiritilishi alohida ko'rsatilgan.
+
+## Figma fayli
+
+- URL: https://www.figma.com/design/teRuBrpHAunUcu6ObxlaXw
+- FILE_KEY: `teRuBrpHAunUcu6ObxlaXw`
+- Sahifalar: Foundations (0:1), Components (1:2), Home (1:3), Templates (1:4)
