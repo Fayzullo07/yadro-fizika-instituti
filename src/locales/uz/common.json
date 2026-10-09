@@ -356,5 +356,36 @@
     "title": "Video Galereya",
     "subtitle": "VIDEOLAR",
     "viewAll": "Barcha videolar"
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "O'ZBEKISTON FANLAR AKADEMIYASI",
+      "title": "Yadro fizikasi instituti: fan va texnologiya markazi",
+      "subtitle": "Yadro fizikasi, tezlatkichlar va radiatsion texnologiyalar bo'yicha fundamental va amaliy tadqiqotlar olib boruvchi yetakchi ilmiy muassasa.",
+      "ctaAbout": "Institut haqida",
+      "ctaLabs": "Laboratoriyalar"
+    },
+    "quick": {
+      "doctorate": "Doktorantura",
+      "news": "Yangiliklar",
+      "documents": "Hujjatlar",
+      "contact": "Bog'lanish"
+    },
+    "satellites": {
+      "laboratories": "Laboratoriyalar",
+      "conferences": "Konferensiyalar",
+      "partners": "Hamkorlar",
+      "research": "Tadqiqotlar"
+    },
+    "partners": {
+      "title": "HAMKORLAR"
+    },
+    "news": {
+      "title": "Institut yangiliklari"
+    },
+    "gallery": {
+      "title": "Fotogalereya"
+    },
+    "viewAll": "Barchasi"
   }
 }

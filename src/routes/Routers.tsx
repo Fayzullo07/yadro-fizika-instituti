@@ -7,6 +7,7 @@ import PageLayout from '@/components/Layout/PageLayout/PageLayout';
 
 // Lazy-loaded pages
 const Home = lazy(() => import('@/pages/Home/Home'));
+const Landing = lazy(() => import('@/pages/Landing/Landing'));
 const About = lazy(() => import('@/pages/About/About'));
 const Services = lazy(() => import('@/pages/Services/Services'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
@@ -74,6 +75,7 @@ const PublicationDetail = lazy(() => import('@/pages/Research/Publications/Publi
 
 import {
   HOME_PATH,
+  LANDING_PATH,
   ABOUT_PATH,
   SERVICES_PATH,
   CONTACT_PATH,
@@ -153,6 +155,7 @@ const Routers = () => {
       element: <MainLayout />,
       children: [
         page(HOME_PATH, Home),
+        page(LANDING_PATH, Landing),
         {
           element: <PageLayout />,
           children: [page(SERVICES_PATH, Services), page(GALLERY_DETAIL_PATH, GalleryDetail)],

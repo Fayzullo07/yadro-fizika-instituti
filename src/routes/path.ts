@@ -1,5 +1,6 @@
 // Public routes
 export const HOME_PATH = '/';
+export const LANDING_PATH = '/landing';
 export const ABOUT_PATH = '/about';
 export const SERVICES_PATH = '/services';
 export const CONTACT_PATH = '/contact';
