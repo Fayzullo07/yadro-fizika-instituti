@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer';
 import ScrollToTop from '@/components/shared/ScrollToTop/ScrollToTop';
 import TextToSpeech from '@/components/shared/TextToSpeech/TextToSpeech';
 import { trackPageView } from '@/utils/analytics';
+import { LANDING_PATH } from '@/routes/path';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
@@ -39,7 +40,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen  flex flex-col">
-      <Header />
+      <Header variant={location.pathname === LANDING_PATH ? 'compact' : 'default'} />
       <div className="flex-grow">
         <Outlet />
       </div>

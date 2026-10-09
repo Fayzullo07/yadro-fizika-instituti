@@ -29,7 +29,7 @@ const NavMenuItem: React.FC<NavMenuItemProps> = ({
       <button
         type="button"
         onClick={() => setOpenDropdown(isOpen ? null : item.id)}
-        className={`flex items-center gap-1.5 uppercase text-xs xl:text-sm font-semibold tracking-wide px-3 py-2 rounded-lg transition-all duration-200 ${
+        className={`flex items-center gap-1.5 whitespace-nowrap uppercase text-xs xl:text-sm font-semibold tracking-wide px-3 py-2 rounded-lg transition-all duration-200 ${
           isScrolled
             ? isOpen
               ? 'text-blue-600 bg-blue-50'

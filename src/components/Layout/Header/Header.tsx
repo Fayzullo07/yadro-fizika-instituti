@@ -10,7 +10,12 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { SOCIAL_LINKS, CONTACT_PHONES } from '@/config/contactData';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  /** `compact` = a single white bar (logo, navigation, language) instead of the three-tier header. */
+  variant?: 'default' | 'compact';
+}
+
+const Header: React.FC<HeaderProps> = ({ variant = 'default' }) => {
   const { t } = useLanguage();
   const orgAcademy = t('org.academy');
   const orgInstitute = t('org.institute');
@@ -18,6 +23,68 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = useMemo(() => getMenuItems(t), [t]);
+
+  const compact = variant === 'compact';
+  const brand = (
+    <div className={`flex items-center ${compact ? 'shrink-0' : 'min-w-0'}`}>
+      <Link
+        to={HOME_PATH}
+        className={`flex items-center gap-2 sm:gap-3 group ${compact ? '' : 'min-w-0'}`}
+      >
+        <img
+          src={logoFallback}
+          alt={`${orgAcademy} ${orgInstitute}`}
+          className="h-10 sm:h-12 md:h-14 w-auto object-contain shrink-0"
+        />
+        <span className={`flex flex-col ${compact ? '' : 'min-w-0 overflow-hidden'}`}>
+          <span
+            className={`hidden ${compact ? '2xl:block' : 'md:block'} text-[9px] lg:text-[10px] font-semibold text-gray-400 tracking-wide leading-tight uppercase truncate`}
+          >
+            {orgAcademy}
+          </span>
+          <span
+            className={`text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-gray-900 leading-snug uppercase tracking-wide ${compact ? 'whitespace-nowrap' : ''}`}
+          >
+            {orgInstitute}
+          </span>
+        </span>
+      </Link>
+    </div>
+  );
+
+  if (compact) {
+    return (
+      <header className="sticky top-0 z-50 border-b border-[var(--color-neutral-100)] bg-white">
+        <div className="container mx-auto">
+          <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
+            {brand}
+            {/* tighter item padding keeps one row on laptop widths */}
+            <div className="min-w-0 [&_button]:px-2 2xl:[&_button]:px-3">
+              <DesktopNavigation
+                menuItems={menuItems}
+                openDropdown={openDropdown}
+                setOpenDropdown={setOpenDropdown}
+                isScrolled
+              />
+            </div>
+            <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+              {!isMobileMenuOpen && <LanguageSwitcher variant="desktop" isScrolled />}
+              <MobileMenuButton
+                isOpen={isMobileMenuOpen}
+                isScrolled
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </div>
+          </div>
+        </div>
+        <MobileMenu
+          menuItems={menuItems}
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -35,23 +102,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-2 sm:py-3">
           {/* Logo + Name */}
-          <div className="flex items-center min-w-0">
-            <Link to={HOME_PATH} className="flex items-center gap-2 sm:gap-3 group min-w-0">
-              <img
-                src={logoFallback}
-                alt={`${orgAcademy} ${orgInstitute}`}
-                className="h-10 sm:h-12 md:h-14 w-auto object-contain shrink-0"
-              />
-              <span className="flex flex-col min-w-0 overflow-hidden">
-                <span className="hidden md:block text-[9px] lg:text-[10px] font-semibold text-gray-400 tracking-wide leading-tight uppercase truncate">
-                  {orgAcademy}
-                </span>
-                <span className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-gray-900 leading-snug uppercase tracking-wide">
-                  {orgInstitute}
-                </span>
-              </span>
-            </Link>
-          </div>
+          {brand}
 
           {/* Right side: phone, social, language */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
