@@ -1,5 +1,7 @@
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useHeroImages } from '@/hooks/useHeroImages';
 import {
   ABOUT_PATH,
   CONTACT_PATH,
@@ -49,6 +51,7 @@ const ATOM_RINGS: AnimationSpec[] = [ringSpin(0, -180), ringSpin(60, 240), ringS
 
 const SATELLITES = [
   {
+    imageKey: 'laboratories' as const,
     labelKey: 'landing.satellites.laboratories',
     src: satelliteLaboratories,
     size: 132,
@@ -59,6 +62,7 @@ const SATELLITES = [
     phase: 200,
   },
   {
+    imageKey: 'conferences' as const,
     labelKey: 'landing.satellites.conferences',
     src: satelliteConferences,
     size: 108,
@@ -69,6 +73,7 @@ const SATELLITES = [
     phase: 290,
   },
   {
+    imageKey: 'partners' as const,
     labelKey: 'landing.satellites.partners',
     src: satellitePartners,
     size: 96,
@@ -79,6 +84,7 @@ const SATELLITES = [
     phase: 20,
   },
   {
+    imageKey: 'research' as const,
     labelKey: 'landing.satellites.research',
     src: satelliteResearch,
     size: 84,
@@ -130,25 +136,95 @@ const QUICK_LINKS = [
 ];
 
 const SHADOW_CARD = 'shadow-[var(--shadow-card)]';
+const MIN_HERO_HEIGHT = 600;
+
+/**
+ * Height that makes the sticky site header + the hero exactly one viewport:
+ * viewport minus whatever sits above the section (measured, so it follows the
+ * header's responsive height).
+ */
+const useViewportFillHeight = () => {
+  const ref = useRef<HTMLElement>(null);
+  const [height, setHeight] = useState<number>();
+
+  useLayoutEffect(() => {
+    const update = () => {
+      const top = ref.current ? ref.current.getBoundingClientRect().top + window.scrollY : 0;
+      setHeight(Math.max(window.innerHeight - top, MIN_HERO_HEIGHT));
+    };
+    update();
+
+    const header = document.querySelector('header');
+    const observer = new ResizeObserver(update);
+    if (header) observer.observe(header);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  return { ref, height };
+};
+
+/**
+ * Round satellite photo with the white ring from the design. Shows the real
+ * API image; if there is none (or it fails to load) the bundled artwork is used.
+ */
+const SatelliteImage: React.FC<{
+  size: number;
+  src?: string;
+  fallback: string;
+  contain?: boolean;
+}> = ({ size, src, fallback, contain }) => {
+  const [failed, setFailed] = useState(false);
+
+  if (src && !failed) {
+    return (
+      <img
+        src={src}
+        alt=""
+        onError={() => setFailed(true)}
+        className={`size-full rounded-full bg-[var(--color-neutral-0)] ring-4 ring-[var(--color-neutral-0)] ${
+          contain ? 'object-contain p-2' : 'object-cover'
+        }`}
+      />
+    );
+  }
+
+  return (
+    <div className="absolute" style={{ inset: `-${(4 / size) * 100}%` }}>
+      <img alt="" className="block size-full max-w-none" src={fallback} />
+    </div>
+  );
+};
 
 /* ---------- component ---------- */
 
 const HeroB2: React.FC = () => {
   const { t } = useLanguage();
+  const { ref, height } = useViewportFillHeight();
+  const { data: images, loading: imagesLoading } = useHeroImages();
 
   return (
-    <section className="relative flex min-h-[680px] flex-col items-center justify-center gap-[var(--space-6)] overflow-hidden bg-[var(--color-brand-950)] px-[var(--space-6)] py-[var(--space-16)] text-center">
-      <img
-        src={photo}
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute inset-0 size-full object-cover opacity-16"
-      />
+    <section
+      ref={ref}
+      style={{ height }}
+      className="relative flex min-h-[600px] flex-col items-center justify-center gap-[var(--space-6)] overflow-hidden bg-[var(--color-brand-950)] px-[var(--space-6)] py-[var(--space-16)] text-center"
+    >
+      {!imagesLoading && (
+        <img
+          src={images?.background ?? photo}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute inset-0 size-full object-cover opacity-16"
+        />
+      )}
 
       {/* 1440px-wide decorative stage, centred; hidden where it cannot fit */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-1/2 hidden h-[680px] w-[1440px] -translate-x-1/2 lg:block"
+        className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[680px] w-[1440px] -translate-x-1/2 -translate-y-1/2 lg:block"
       >
         <Animated animations={HERO_GLOW} className="absolute left-[420px] top-[40px] size-[600px]">
           <div className="absolute inset-[-26.67%]">
@@ -180,18 +256,22 @@ const HeroB2: React.FC = () => {
           </div>
         ))}
 
-        {SATELLITES.map((s) => (
-          <Animated
-            key={s.labelKey}
-            animations={s.motion}
-            className="absolute"
-            style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
-          >
-            <div className="absolute" style={{ inset: `-${(4 / s.size) * 100}%` }}>
-              <img alt="" className="block size-full max-w-none" src={s.src} />
-            </div>
-          </Animated>
-        ))}
+        {!imagesLoading &&
+          SATELLITES.map((s) => (
+            <Animated
+              key={s.labelKey}
+              animations={s.motion}
+              className="absolute"
+              style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
+            >
+              <SatelliteImage
+                size={s.size}
+                src={images?.[s.imageKey]}
+                fallback={s.src}
+                contain={s.imageKey === 'partners'}
+              />
+            </Animated>
+          ))}
         {SATELLITES.map((s) => (
           <Animated
             key={`chip-${s.labelKey}`}
