@@ -448,3 +448,21 @@ Foydalanuvchiga taklif qiling: dizaynni React kodiga o'tkazish uchun yangi brain
 - URL: https://www.figma.com/design/teRuBrpHAunUcu6ObxlaXw
 - FILE_KEY: `teRuBrpHAunUcu6ObxlaXw`
 - Sahifalar: Foundations (0:1), Components (1:2), Home (1:3), Templates (1:4)
+
+## Natija
+
+Figma: https://www.figma.com/design/teRuBrpHAunUcu6ObxlaXw
+
+- `Foundations`: 29 variable (Color 17, Space 9, Radius 3), 10 text style (`H1/Mobile` qo'shimcha), 2 effect style, namuna sahifa.
+- `Components`: Button (24 variant), Badge, Input (4 holat), Input/Textarea, Tabs/Item, Breadcrumb, Pagination/Item, Card/News, Card/Announcement, Card/Event, Card/Staff, Tile/Gallery, Header (desktop, mobil ochiq/yopiq), Footer (desktop, mobil), SectionHeader.
+- `Home`: `Home/Desktop` (1440) va `Home/Mobile` (390).
+- `Templates`: desktop `T/List`, `T/List-Empty`, `T/Detail`, `T/Laboratory`, `T/Documents`, `T/Staff`, `T/Contact`; mobil `T/List`, `T/Detail`, `T/Laboratory`, `T/Documents`, `T/Staff`, `T/Contact`.
+
+Tekshiruv: Home, Templates, Components sahifalarida bog'lanmagan rang/stroke/text style/radius soni 0. Mobil freymlarda 390px dan chiqish yo'q (faqat `T/Laboratory/Mobile` Tabs qatori ataylab kesilgan gorizontal scroll).
+
+Qarorlar:
+
+- Card/Announcement faqat matnli (Image varianti yo'q).
+- Statistika raqamlari (70, 12, 300+, 450+) va yangilik matnlari namuna, haqiqiy ma'lumot emas.
+- Qidiruv ikonkasi Header'ga qo'shilmagan (ikonka kutubxonasi yo'q).
+- Ruscha uzun yorliqlar bilan Header/Button sinovi o'tkazilmagan.
