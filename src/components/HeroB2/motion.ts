@@ -59,10 +59,11 @@ export const ringSpin = (fromDeg: number, toDeg: number): AnimationSpec =>
   loop([{ rotate: `${fromDeg}deg` }, { rotate: `${toDeg}deg` }]);
 
 /**
- * Atom ring half-axes. Figma draws them 590 x 200; they are scaled down so a
- * ring tilted by 60° stays inside the hero and its stars never leave the screen.
+ * Atom ring half-axes, exactly as drawn in Figma (590 x 200). The rings are
+ * large on purpose: tilted by 60° they run past the hero edge, so the stars
+ * riding them leave the frame for part of the loop — same as the design.
  */
-export const ATOM_SCALE = 0.6;
+export const ATOM_SCALE = 1;
 export const ATOM_RING = { rx: 590 * ATOM_SCALE, ry: 200 * ATOM_SCALE };
 
 /** Orbiting stars ride a tilted atom ring that itself rotates. */
