@@ -14,12 +14,12 @@ const Landing: React.FC = () => (
     <HeroB2 />
     <StatsBand />
     <AboutBlock />
+    <PartnersLanes />
     <NewsBento />
     <AnnouncementsList />
     <EventsTimeline />
     <GalleryBento />
     <VideoCinema />
-    <PartnersLanes />
     <LocationGlass />
   </div>
 );
