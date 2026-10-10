@@ -149,6 +149,17 @@ const STARS = STAR_SPECS.map((s, i) => {
 
 const HERO_GLOW: AnimationSpec[] = [pulse(5, false, [0.45, 0.9], [1, 1.25])];
 
+/** Backdrop photo fades in over the previous one (same length as the lightbox grow). */
+const BACKDROP_OPACITY = 0.16;
+const BACKDROP_FADE: AnimationSpec[] = [
+  {
+    keyframes: [{ opacity: 0 }, { opacity: BACKDROP_OPACITY }],
+    options: { duration: 800, easing: 'ease-in-out', fill: 'both' },
+  },
+];
+/** Only the newest two layers are ever needed: the old photo underneath, the new one fading in. */
+const MAX_BACKDROP_LAYERS = 2;
+
 const COPY = {
   badge: [entrance(0.3, 0.9)],
   title: [entrance(0.5, 1.4)],
@@ -241,6 +252,18 @@ const HeroB2: React.FC = () => {
   const { ref, height } = useViewportFillHeight();
   const { data: images, loading: imagesLoading } = useHeroImages();
   const [lightbox, setLightbox] = useState<LightboxPhoto | null>(null);
+  // photos picked by clicking a satellite; each one becomes the backdrop
+  const [picked, setPicked] = useState<{ id: number; src: string }[]>([]);
+  const baseBackdrop = images?.background ?? photo;
+  const backdropLayers = [{ id: 0, src: baseBackdrop }, ...picked].slice(-MAX_BACKDROP_LAYERS);
+
+  const openPhoto = (next: LightboxPhoto) => {
+    setLightbox(next);
+    const current = backdropLayers[backdropLayers.length - 1].src;
+    if (next.src !== current) {
+      setPicked((list) => [...list, { id: (list[list.length - 1]?.id ?? 0) + 1, src: next.src }]);
+    }
+  };
 
   return (
     <section
@@ -248,14 +271,18 @@ const HeroB2: React.FC = () => {
       style={{ height }}
       className="relative flex min-h-[600px] flex-col items-center justify-center gap-[var(--space-6)] overflow-hidden bg-[var(--color-brand-950)] px-[var(--space-6)] py-[var(--space-16)] text-center"
     >
-      {!imagesLoading && (
-        <img
-          src={images?.background ?? photo}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute inset-0 size-full object-cover opacity-16"
-        />
-      )}
+      {!imagesLoading &&
+        backdropLayers.map(({ id, src }) => (
+          <Animated
+            key={id}
+            as="img"
+            src={src}
+            alt=""
+            aria-hidden
+            animations={BACKDROP_FADE}
+            className="pointer-events-none absolute inset-0 size-full object-cover opacity-16"
+          />
+        ))}
 
       {/* 1440px-wide decorative stage, centred; hidden where it cannot fit */}
       <div
@@ -311,7 +338,7 @@ const HeroB2: React.FC = () => {
                 src={images?.satellites[i]}
                 fallback={s.src}
                 openLabel={t('landing.photo.open')}
-                onOpen={setLightbox}
+                onOpen={openPhoto}
               />
             </Animated>
           ))}

@@ -3,6 +3,9 @@ import type { AnimationSpec } from './motion';
 
 interface AnimatedProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
+  /** for `as="img"` */
+  src?: string;
+  alt?: string;
   /** Must be referentially stable (module-level constants) — they restart on change. */
   animations: AnimationSpec[];
 }
