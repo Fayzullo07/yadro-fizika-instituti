@@ -58,6 +58,13 @@ export const satelliteOrbit = (phaseDeg: number): AnimationSpec => {
 export const ringSpin = (fromDeg: number, toDeg: number): AnimationSpec =>
   loop([{ rotate: `${fromDeg}deg` }, { rotate: `${toDeg}deg` }]);
 
+/**
+ * Atom ring half-axes. Figma draws them 590 x 200; they are scaled down so a
+ * ring tilted by 60° stays inside the hero and its stars never leave the screen.
+ */
+export const ATOM_SCALE = 0.6;
+export const ATOM_RING = { rx: 590 * ATOM_SCALE, ry: 200 * ATOM_SCALE };
+
 /** Orbiting stars ride a tilted atom ring that itself rotates. */
 const STAR_ORBITS = [
   { ringDeg: 0, spin: 1, start: 0.5, turns: 1.5 },
@@ -65,23 +72,23 @@ const STAR_ORBITS = [
   { ringDeg: -60, spin: 1, start: 4.1, turns: 1.5 },
 ];
 
-export const starOrbit = (index: number): AnimationSpec => {
+const starPoint = (index: number, tau: number) => {
   const o = STAR_ORBITS[index];
-  return loop(
-    sample(
-      80,
-      (tau) =>
-        ellipsePoint(
-          STAGE_CENTER.x,
-          STAGE_CENTER.y,
-          590,
-          200,
-          o.ringDeg - o.spin * 180 * tau,
-          o.start + 2 * Math.PI * o.turns * tau
-        ) as [number, number]
-    )
-  );
+  return ellipsePoint(
+    STAGE_CENTER.x,
+    STAGE_CENTER.y,
+    ATOM_RING.rx,
+    ATOM_RING.ry,
+    o.ringDeg - o.spin * 180 * tau,
+    o.start + 2 * Math.PI * o.turns * tau
+  ) as [number, number];
 };
+
+/** Where an orbiting star rests (loop start), on the stage — it sits on its ring. */
+export const starRestPoint = (index: number) => starPoint(index, 0);
+
+export const starOrbit = (index: number): AnimationSpec =>
+  loop(sample(80, (tau) => starPoint(index, tau)));
 
 /** Alternating lo/hi values every half period; `startHigh` picks the first one. */
 const twinkle = (

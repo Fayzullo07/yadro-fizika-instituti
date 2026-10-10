@@ -13,6 +13,7 @@ import {
 import Animated from './Animated';
 import {
   appear,
+  ATOM_RING,
   continuousSpin,
   entrance,
   fade,
@@ -20,6 +21,7 @@ import {
   ringSpin,
   satelliteOrbit,
   starOrbit,
+  starRestPoint,
   type AnimationSpec,
 } from './motion';
 import photo from '@/assets/landing-b2/photo.jpg';
@@ -106,14 +108,28 @@ const SATELLITES = [
  */
 const STAR_SPIN_TURNS = 10;
 
-/** Orbiting stars follow a rotating atom ring; still stars only twinkle in place. */
-const STARS = [
-  { left: 1205.77, top: 403.89, period: 5, orbit: 0 },
-  { left: 374.36, top: 88.15, period: 4, orbit: 1 },
-  { left: 376.7, top: 519.88, period: 8, orbit: 2 },
+/** Orbiting stars start on their (scaled) atom ring; still stars only twinkle in place. */
+const orbitStart = (orbit: number) => {
+  const [x, y] = starRestPoint(orbit);
+  return { left: x - 32, top: y - 32 };
+};
+
+interface StarSpec {
+  left: number;
+  top: number;
+  period: number;
+  orbit?: number;
+}
+
+const STAR_SPECS: StarSpec[] = [
+  { ...orbitStart(0), period: 5, orbit: 0 },
+  { ...orbitStart(1), period: 4, orbit: 1 },
+  { ...orbitStart(2), period: 8, orbit: 2 },
   { left: 849.62, top: 104.34, period: 2.5 },
   { left: 400.42, top: 571.43, period: 4 },
-].map((s, i) => {
+];
+
+const STARS = STAR_SPECS.map((s, i) => {
   const startHigh = i % 2 === 1;
   return {
     ...s,
@@ -253,7 +269,13 @@ const HeroB2: React.FC = () => {
           <Animated
             key={i}
             animations={[spec]}
-            className="absolute left-[130px] top-[140px] h-[400px] w-[1180px]"
+            className="absolute"
+            style={{
+              left: 720 - ATOM_RING.rx,
+              top: 340 - ATOM_RING.ry,
+              width: 2 * ATOM_RING.rx,
+              height: 2 * ATOM_RING.ry,
+            }}
           >
             <img alt="" className="absolute inset-0 block size-full max-w-none" src={atom} />
           </Animated>
