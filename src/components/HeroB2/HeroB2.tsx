@@ -14,6 +14,9 @@ import Animated from './Animated';
 import {
   appear,
   ATOM_RING,
+  circleOrbit,
+  circleRestPoint,
+  type CircleOrbit,
   continuousSpin,
   entrance,
   fade,
@@ -108,43 +111,49 @@ const SATELLITES = [
  */
 const STAR_SPIN_TURNS = 10;
 
-/** Orbiting stars start on their (scaled) atom ring; still stars only twinkle in place. */
+// Every star rides an orbit line: six on the tilted atom rings, eight on the
+// round orbit circles of the design (two per circle, on opposite sides).
 const orbitStart = (orbit: number) => {
   const [x, y] = starRestPoint(orbit);
   return { left: x - 32, top: y - 32 };
 };
 
+const onCircle = (circle: CircleOrbit) => {
+  const [x, y] = circleRestPoint(circle);
+  return { left: x - 32, top: y - 32, circle };
+};
+
 interface StarSpec {
   left: number;
   top: number;
+  /** twinkle period in s; must split the 40s loop into whole half-periods (2, 2.5, 4, 5, 8, 10) */
   period: number;
   orbit?: number;
+  circle?: CircleOrbit;
 }
 
-// `period` must divide the 40s loop into whole half-periods (2, 2.5, 4, 5, 8, 10).
 const STAR_SPECS: StarSpec[] = [
   { ...orbitStart(0), period: 5, orbit: 0 },
   { ...orbitStart(1), period: 4, orbit: 1 },
   { ...orbitStart(2), period: 8, orbit: 2 },
-  { left: 849.62, top: 104.34, period: 2.5 },
-  { left: 400.42, top: 571.43, period: 4 },
+  { ...onCircle({ radius: 260, start: 0.8, turns: 1 }), period: 2.5 },
+  { ...onCircle({ radius: 260, start: 0.8 + Math.PI, turns: 1 }), period: 4 },
   { ...orbitStart(3), period: 10, orbit: 3 },
   { ...orbitStart(4), period: 2.5, orbit: 4 },
   { ...orbitStart(5), period: 5, orbit: 5 },
-  // scattered twinkling stars around the edges, clear of the copy
-  { left: 168, top: 38, period: 4 },
-  { left: 1068, top: 28, period: 5 },
-  { left: 1348, top: 198, period: 2.5 },
-  { left: 38, top: 388, period: 8 },
-  { left: 1218, top: 568, period: 2 },
-  { left: 628, top: 608, period: 10 },
+  { ...onCircle({ radius: 390, start: 2.4, turns: -1 }), period: 4 },
+  { ...onCircle({ radius: 390, start: 2.4 + Math.PI, turns: -1 }), period: 5 },
+  { ...onCircle({ radius: 520, start: 4.0, turns: 1 }), period: 2.5 },
+  { ...onCircle({ radius: 520, start: 4.0 + Math.PI, turns: 1 }), period: 8 },
+  { ...onCircle({ radius: 650, start: 5.4, turns: -1 }), period: 2 },
+  { ...onCircle({ radius: 650, start: 5.4 + Math.PI, turns: -1 }), period: 10 },
 ];
 
 const STARS = STAR_SPECS.map((s, i) => {
   const startHigh = i % 2 === 1;
   return {
     ...s,
-    travel: s.orbit === undefined ? [] : [starOrbit(s.orbit)],
+    travel: s.circle ? [circleOrbit(s.circle)] : s.orbit === undefined ? [] : [starOrbit(s.orbit)],
     glow: [pulse(s.period, startHigh, [0.15, 0.95], [0.7, 1.5])],
     star: [
       pulse(s.period, startHigh, [0.45, 1], [0.6, 1.2]),

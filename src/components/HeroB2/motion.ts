@@ -95,6 +95,26 @@ export const starRestPoint = (index: number) => starPoint(index, 0);
 export const starOrbit = (index: number): AnimationSpec =>
   loop(sample(80, (tau) => starPoint(index, tau)));
 
+/**
+ * Circular orbit lines of the design (520 / 780 / 1040 / 1300 px circles around
+ * the stage centre). `turns` are whole laps per loop so it repeats seamlessly.
+ */
+export interface CircleOrbit {
+  radius: number;
+  start: number;
+  turns: number;
+}
+
+const circlePoint = ({ radius, start, turns }: CircleOrbit, tau: number): [number, number] => {
+  const angle = start + 2 * Math.PI * turns * tau;
+  return [STAGE_CENTER.x + radius * Math.cos(angle), STAGE_CENTER.y + radius * Math.sin(angle)];
+};
+
+export const circleRestPoint = (orbit: CircleOrbit) => circlePoint(orbit, 0);
+
+export const circleOrbit = (orbit: CircleOrbit): AnimationSpec =>
+  loop(sample(90, (tau) => circlePoint(orbit, tau)));
+
 /** Alternating lo/hi values every half period; `startHigh` picks the first one. */
 const twinkle = (
   periodS: number,
