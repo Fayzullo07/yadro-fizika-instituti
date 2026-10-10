@@ -56,7 +56,6 @@ const ATOM_RINGS: AnimationSpec[] = [ringSpin(0, -180), ringSpin(60, 240), ringS
 
 const SATELLITES = [
   {
-    imageKey: 'laboratories' as const,
     src: satelliteLaboratories,
     size: 132,
     left: 52.6,
@@ -64,7 +63,6 @@ const SATELLITES = [
     phase: 200,
   },
   {
-    imageKey: 'conferences' as const,
     src: satelliteConferences,
     size: 108,
     left: 884.89,
@@ -72,7 +70,6 @@ const SATELLITES = [
     phase: 290,
   },
   {
-    imageKey: 'partners' as const,
     src: satellitePartners,
     size: 96,
     left: 1273.4,
@@ -80,7 +77,6 @@ const SATELLITES = [
     phase: 20,
   },
   {
-    imageKey: 'research' as const,
     src: satelliteResearch,
     size: 84,
     left: 459.11,
@@ -206,8 +202,7 @@ const SatelliteImage: React.FC<{
   size: number;
   src?: string;
   fallback: string;
-  contain?: boolean;
-}> = ({ size, src, fallback, contain }) => {
+}> = ({ size, src, fallback }) => {
   const [failed, setFailed] = useState(false);
 
   if (src && !failed) {
@@ -216,9 +211,7 @@ const SatelliteImage: React.FC<{
         src={src}
         alt=""
         onError={() => setFailed(true)}
-        className={`size-full rounded-full bg-[var(--color-neutral-0)] ring-4 ring-[var(--color-neutral-0)] ${
-          contain ? 'object-contain p-2' : 'object-cover'
-        }`}
+        className="size-full rounded-full bg-[var(--color-neutral-0)] object-cover ring-4 ring-[var(--color-neutral-0)]"
       />
     );
   }
@@ -294,19 +287,14 @@ const HeroB2: React.FC = () => {
         ))}
 
         {!imagesLoading &&
-          SATELLITES.map((s) => (
+          SATELLITES.map((s, i) => (
             <Animated
-              key={s.imageKey}
+              key={i}
               animations={s.motion}
               className="absolute"
               style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
             >
-              <SatelliteImage
-                size={s.size}
-                src={images?.[s.imageKey]}
-                fallback={s.src}
-                contain={s.imageKey === 'partners'}
-              />
+              <SatelliteImage size={s.size} src={images?.satellites[i]} fallback={s.src} />
             </Animated>
           ))}
 
