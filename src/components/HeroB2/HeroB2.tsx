@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useHeroImages } from '@/hooks/useHeroImages';
 import {
@@ -207,12 +208,26 @@ const SatelliteImage: React.FC<{
 
   if (src && !failed) {
     return (
-      <img
-        src={src}
-        alt=""
-        onError={() => setFailed(true)}
-        className="size-full rounded-full bg-[var(--color-neutral-0)] object-cover ring-4 ring-[var(--color-neutral-0)]"
-      />
+      // click opens antd's animated lightbox (zoom-in from the photo); the
+      // surrounding <Image.PreviewGroup> lets it page through all hero photos.
+      <div className="pointer-events-auto size-full cursor-zoom-in [&_.ant-image]:block [&_.ant-image]:size-full">
+        <Image
+          src={src}
+          alt=""
+          preview={{ mask: false }}
+          onError={() => setFailed(true)}
+          // antd injects `.ant-image .ant-image-img { height: auto }` at runtime,
+          // so the img is sized inline (same clash GalleryImageTile works around).
+          style={{
+            inlineSize: '100%',
+            blockSize: '100%',
+            objectFit: 'cover',
+            borderRadius: '9999px',
+            background: 'var(--color-neutral-0)',
+            boxShadow: '0 0 0 4px var(--color-neutral-0)',
+          }}
+        />
+      </div>
     );
   }
 
@@ -286,17 +301,20 @@ const HeroB2: React.FC = () => {
           </div>
         ))}
 
-        {!imagesLoading &&
-          SATELLITES.map((s, i) => (
-            <Animated
-              key={i}
-              animations={s.motion}
-              className="absolute"
-              style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
-            >
-              <SatelliteImage size={s.size} src={images?.satellites[i]} fallback={s.src} />
-            </Animated>
-          ))}
+        {!imagesLoading && (
+          <Image.PreviewGroup>
+            {SATELLITES.map((s, i) => (
+              <Animated
+                key={i}
+                animations={s.motion}
+                className="absolute"
+                style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
+              >
+                <SatelliteImage size={s.size} src={images?.satellites[i]} fallback={s.src} />
+              </Animated>
+            ))}
+          </Image.PreviewGroup>
+        )}
 
         {STARS.map((s) => (
           <Animated
