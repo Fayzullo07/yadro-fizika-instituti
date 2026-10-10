@@ -384,6 +384,10 @@
     "footer": {
       "name": "Institute of Nuclear Physics",
       "description": "Institute of Nuclear Physics, Academy of Sciences of the Republic of Uzbekistan"
+    },
+    "photo": {
+      "open": "Enlarge photo",
+      "close": "Close"
     }
   }
 }

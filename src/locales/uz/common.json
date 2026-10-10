@@ -384,6 +384,10 @@
     "footer": {
       "name": "Yadro fizikasi instituti",
       "description": "O'zbekiston Respublikasi Fanlar akademiyasi Yadro fizikasi instituti"
+    },
+    "photo": {
+      "open": "Rasmni kattalashtirish",
+      "close": "Yopish"
     }
   }
 }

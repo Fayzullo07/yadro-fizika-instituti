@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Image } from 'antd';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useHeroImages } from '@/hooks/useHeroImages';
 import {
@@ -12,6 +11,7 @@ import {
   NEWS_PATH,
 } from '@/routes/path';
 import Animated from './Animated';
+import PhotoLightbox, { type LightboxPhoto } from './PhotoLightbox';
 import {
   appear,
   ATOM_RING,
@@ -197,37 +197,33 @@ const useViewportFillHeight = () => {
 
 /**
  * Round satellite photo with the white ring from the design. Shows the real
- * API image; if there is none (or it fails to load) the bundled artwork is used.
+ * API image (clicking it opens the full photo); if there is none, or it fails
+ * to load, the bundled artwork is used.
  */
 const SatelliteImage: React.FC<{
   size: number;
   src?: string;
   fallback: string;
-}> = ({ size, src, fallback }) => {
+  openLabel: string;
+  onOpen: (photo: LightboxPhoto) => void;
+}> = ({ size, src, fallback, openLabel, onOpen }) => {
   const [failed, setFailed] = useState(false);
 
   if (src && !failed) {
     return (
-      // click opens antd's animated lightbox (zoom-in from the photo); the
-      // surrounding <Image.PreviewGroup> lets it page through all hero photos.
-      <div className="pointer-events-auto size-full cursor-zoom-in [&_.ant-image]:block [&_.ant-image]:size-full">
-        <Image
+      <button
+        type="button"
+        aria-label={openLabel}
+        onClick={(e) => onOpen({ src, origin: e.currentTarget.getBoundingClientRect() })}
+        className="pointer-events-auto block size-full cursor-zoom-in rounded-full bg-[var(--color-neutral-0)] ring-4 ring-[var(--color-neutral-0)]"
+      >
+        <img
           src={src}
           alt=""
-          preview={{ mask: false }}
           onError={() => setFailed(true)}
-          // antd injects `.ant-image .ant-image-img { height: auto }` at runtime,
-          // so the img is sized inline (same clash GalleryImageTile works around).
-          style={{
-            inlineSize: '100%',
-            blockSize: '100%',
-            objectFit: 'cover',
-            borderRadius: '9999px',
-            background: 'var(--color-neutral-0)',
-            boxShadow: '0 0 0 4px var(--color-neutral-0)',
-          }}
+          className="size-full rounded-full object-cover"
         />
-      </div>
+      </button>
     );
   }
 
@@ -244,6 +240,7 @@ const HeroB2: React.FC = () => {
   const { t } = useLanguage();
   const { ref, height } = useViewportFillHeight();
   const { data: images, loading: imagesLoading } = useHeroImages();
+  const [lightbox, setLightbox] = useState<LightboxPhoto | null>(null);
 
   return (
     <section
@@ -301,20 +298,23 @@ const HeroB2: React.FC = () => {
           </div>
         ))}
 
-        {!imagesLoading && (
-          <Image.PreviewGroup>
-            {SATELLITES.map((s, i) => (
-              <Animated
-                key={i}
-                animations={s.motion}
-                className="absolute"
-                style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
-              >
-                <SatelliteImage size={s.size} src={images?.satellites[i]} fallback={s.src} />
-              </Animated>
-            ))}
-          </Image.PreviewGroup>
-        )}
+        {!imagesLoading &&
+          SATELLITES.map((s, i) => (
+            <Animated
+              key={i}
+              animations={s.motion}
+              className="absolute"
+              style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
+            >
+              <SatelliteImage
+                size={s.size}
+                src={images?.satellites[i]}
+                fallback={s.src}
+                openLabel={t('landing.photo.open')}
+                onOpen={setLightbox}
+              />
+            </Animated>
+          ))}
 
         {STARS.map((s) => (
           <Animated
@@ -399,6 +399,11 @@ const HeroB2: React.FC = () => {
           </Link>
         ))}
       </Animated>
+      <PhotoLightbox
+        photo={lightbox}
+        onClose={() => setLightbox(null)}
+        closeLabel={t('landing.photo.close')}
+      />
     </section>
   );
 };
