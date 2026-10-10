@@ -100,6 +100,12 @@ const SATELLITES = [
   motion: [satelliteOrbit(s.phase), appear(1.6, 2.8)],
 }));
 
+/**
+ * Whole turns per 40s loop. A 4-point star looks identical every 90°, so the
+ * spin has to be quick (4s per turn) to read as rotation next to its glow.
+ */
+const STAR_SPIN_TURNS = 10;
+
 /** Orbiting stars follow a rotating atom ring; still stars only twinkle in place. */
 const STARS = [
   { left: 1205.77, top: 403.89, period: 5, orbit: 0 },
@@ -113,7 +119,10 @@ const STARS = [
     ...s,
     travel: s.orbit === undefined ? [] : [starOrbit(s.orbit)],
     glow: [pulse(s.period, startHigh, [0.15, 0.95], [0.7, 1.5])],
-    star: [pulse(s.period, startHigh, [0.45, 1], [0.6, 1.2]), continuousSpin(startHigh ? 4 : -4)],
+    star: [
+      pulse(s.period, startHigh, [0.45, 1], [0.6, 1.2]),
+      continuousSpin(startHigh ? STAR_SPIN_TURNS : -STAR_SPIN_TURNS),
+    ],
     core: [fade(s.period, startHigh, 0.5, 1)],
   };
 });
