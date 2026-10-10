@@ -29,7 +29,7 @@ interface BreadcrumbItem {
   isCurrent?: boolean;
 }
 
-const Breadcrumb: React.FC = () => {
+const Breadcrumb: React.FC<{ tone?: 'light' | 'dark' }> = ({ tone = 'light' }) => {
   const location = useLocation();
   const { t } = useLanguage();
 
@@ -141,20 +141,31 @@ const Breadcrumb: React.FC = () => {
 
   crumbs.push({ label: info.label, isCurrent: true });
 
+  const dark = tone === 'dark';
+
   return (
     <nav aria-label="breadcrumb" className="py-[var(--space-3)]">
       <ol className="flex flex-wrap items-center gap-x-[var(--space-2)] gap-y-[var(--space-1)] text-[13px] sm:text-[14px]">
         {crumbs.map((item, index) => (
           <li key={index} className="flex items-center gap-[var(--space-2)]">
             {index > 0 && (
-              <span aria-hidden className="text-[var(--color-neutral-300)]">
+              <span
+                aria-hidden
+                className={
+                  dark ? 'text-[var(--color-neutral-500)]' : 'text-[var(--color-neutral-300)]'
+                }
+              >
                 /
               </span>
             )}
             {item.path && !item.isCurrent ? (
               <Link
                 to={item.path}
-                className="font-semibold text-[var(--color-brand-700)] transition-colors duration-300 hover:text-[var(--color-accent-600)]"
+                className={`font-semibold transition-colors duration-300 ${
+                  dark
+                    ? 'text-[var(--color-neutral-300)] hover:text-[var(--color-accent-500)]'
+                    : 'text-[var(--color-brand-700)] hover:text-[var(--color-accent-600)]'
+                }`}
               >
                 {item.label}
               </Link>
@@ -163,8 +174,12 @@ const Breadcrumb: React.FC = () => {
                 aria-current={item.isCurrent ? 'page' : undefined}
                 className={
                   item.isCurrent
-                    ? 'font-semibold text-[var(--color-neutral-900)]'
-                    : 'text-[var(--color-neutral-500)]'
+                    ? dark
+                      ? 'font-semibold text-[var(--color-neutral-0)]'
+                      : 'font-semibold text-[var(--color-neutral-900)]'
+                    : dark
+                      ? 'text-[var(--color-neutral-300)]'
+                      : 'text-[var(--color-neutral-500)]'
                 }
               >
                 {item.label}

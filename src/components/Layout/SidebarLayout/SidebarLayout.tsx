@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useLocation, Link, Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
-import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
+import PageHero from '../PageHero/PageHero';
+import { PageHeroContext } from '../PageHero/PageHeroContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getMenuItems } from '@/config/menu';
 
@@ -47,21 +49,25 @@ const MobileNav: React.FC = () => {
 
 const SidebarLayout: React.FC = () => {
   const location = useLocation();
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+
   return (
-    <div className="flex relative">
-      <main className="grow min-w-0 transition-all">
-        <MobileNav />
-        <div className="px-3 sm:px-5 md:px-8 lg:px-10">
-          <Breadcrumb />
-          <div key={location.pathname} className="page-enter">
-            <Outlet />
+    <PageHeroContext.Provider value={slot}>
+      <PageHero slotRef={setSlot} />
+      <div className="relative flex bg-[var(--color-neutral-50)]">
+        <main className="min-w-0 grow">
+          <MobileNav />
+          <div className="px-3 py-[var(--space-8)] sm:px-5 md:px-8 lg:px-10">
+            <div key={location.pathname} className="page-enter">
+              <Outlet />
+            </div>
           </div>
+        </main>
+        <div className="hidden w-80 shrink-0 lg:block">
+          <Sidebar />
         </div>
-      </main>
-      <div className="hidden lg:block w-80 shrink-0">
-        <Sidebar />
       </div>
-    </div>
+    </PageHeroContext.Provider>
   );
 };
 
