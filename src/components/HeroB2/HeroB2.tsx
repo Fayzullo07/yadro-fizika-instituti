@@ -57,51 +57,38 @@ const ATOM_RINGS: AnimationSpec[] = [ringSpin(0, -180), ringSpin(60, 240), ringS
 const SATELLITES = [
   {
     imageKey: 'laboratories' as const,
-    labelKey: 'landing.satellites.laboratories',
     src: satelliteLaboratories,
     size: 132,
     left: 52.6,
     top: 181.65,
-    chipLeft: 64.6,
-    chipTop: 325.65,
     phase: 200,
   },
   {
     imageKey: 'conferences' as const,
-    labelKey: 'landing.satellites.conferences',
     src: satelliteConferences,
     size: 108,
     left: 884.89,
     top: 32.28,
-    chipLeft: 883.89,
-    chipTop: 152.28,
     phase: 290,
   },
   {
     imageKey: 'partners' as const,
-    labelKey: 'landing.satellites.partners',
     src: satellitePartners,
     size: 96,
     left: 1273.4,
     top: 384.35,
-    chipLeft: 1280.4,
-    chipTop: 492.35,
     phase: 20,
   },
   {
     imageKey: 'research' as const,
-    labelKey: 'landing.satellites.research',
     src: satelliteResearch,
     size: 84,
     left: 459.11,
     top: 551.72,
-    chipLeft: 457.61,
-    chipTop: 647.72,
     phase: 110,
   },
 ].map((s) => ({
   ...s,
-  // the chip travels with its satellite, so both share one motion
   motion: [satelliteOrbit(s.phase), appear(1.6, 2.8)],
 }));
 
@@ -180,7 +167,6 @@ const QUICK_LINKS = [
   { labelKey: 'landing.quick.contact', to: CONTACT_PATH },
 ];
 
-const SHADOW_CARD = 'shadow-[var(--shadow-card)]';
 const MIN_HERO_HEIGHT = 600;
 
 /**
@@ -310,7 +296,7 @@ const HeroB2: React.FC = () => {
         {!imagesLoading &&
           SATELLITES.map((s) => (
             <Animated
-              key={s.labelKey}
+              key={s.imageKey}
               animations={s.motion}
               className="absolute"
               style={{ left: s.left, top: s.top, width: s.size, height: s.size }}
@@ -323,18 +309,6 @@ const HeroB2: React.FC = () => {
               />
             </Animated>
           ))}
-        {SATELLITES.map((s) => (
-          <Animated
-            key={`chip-${s.labelKey}`}
-            animations={s.motion}
-            className={`absolute flex rounded-[var(--radius-full)] bg-[var(--color-neutral-0)] px-[var(--space-3)] py-[var(--space-1)] ${SHADOW_CARD}`}
-            style={{ left: s.chipLeft, top: s.chipTop }}
-          >
-            <span className="whitespace-nowrap text-[12px] font-semibold leading-4 text-[var(--color-neutral-900)]">
-              {t(s.labelKey)}
-            </span>
-          </Animated>
-        ))}
 
         {STARS.map((s) => (
           <Animated
