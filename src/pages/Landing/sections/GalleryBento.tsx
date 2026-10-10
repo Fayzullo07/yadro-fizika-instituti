@@ -46,7 +46,7 @@ const GalleryBento: React.FC = () => {
                       src={item.image}
                       alt={item.title ?? ''}
                       loading="lazy"
-                      className="size-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
+                      className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-110"
                     />
                     <span
                       aria-hidden

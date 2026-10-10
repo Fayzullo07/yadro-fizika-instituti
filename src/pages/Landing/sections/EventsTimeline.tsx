@@ -44,7 +44,7 @@ const EventsTimeline: React.FC = () => {
                       src={lead.image}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover opacity-60 transition-transform duration-[1800ms] ease-out group-hover:scale-105"
+                      className="absolute inset-0 size-full object-cover opacity-60 transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
                     />
                   )}
                   <span
@@ -74,9 +74,9 @@ const EventsTimeline: React.FC = () => {
                   <Reveal key={item.id} delay={(i + 1) * 120} className="flex-1">
                     <Link
                       to={`${EVENTS_PATH}/${item.id}`}
-                      className="group flex h-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-50)] p-[var(--space-4)] transition-colors duration-300 hover:bg-[var(--color-brand-50)]"
+                      className="group flex h-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-50)] p-[var(--space-4)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1 hover:bg-[var(--color-brand-50)]"
                     >
-                      <span className="flex size-16 shrink-0 flex-col items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-700)] leading-none text-[var(--color-neutral-0)] transition-transform duration-300 group-hover:scale-105">
+                      <span className="flex size-16 shrink-0 flex-col items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-700)] leading-none text-[var(--color-neutral-0)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
                         <span className="text-[24px] font-extrabold">{day}</span>
                         <span className="mt-1 text-[11px] font-semibold uppercase text-[var(--color-accent-100)]">
                           {month}
@@ -87,7 +87,7 @@ const EventsTimeline: React.FC = () => {
                       </span>
                       <span
                         aria-hidden
-                        className="text-[var(--color-brand-700)] transition-transform duration-300 group-hover:translate-x-1"
+                        className="text-[var(--color-brand-700)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
                       >
                         →
                       </span>

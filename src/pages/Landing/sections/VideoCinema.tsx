@@ -20,7 +20,7 @@ const thumbOf = (item: VideoGalleryItem, quality: 'hqdefault' | 'mqdefault') => 
 const PlayButton: React.FC<{ size: string }> = ({ size }) => (
   <span
     aria-hidden
-    className={`flex ${size} items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-accent-500)] text-[var(--color-brand-950)] shadow-lg transition-transform duration-300 group-hover:scale-110`}
+    className={`flex ${size} items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-accent-500)] text-[var(--color-brand-950)] shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110`}
   >
     <svg viewBox="0 0 24 24" className="size-1/2 translate-x-[8%]" fill="currentColor">
       <path d="M8 5v14l11-7z" />
@@ -114,7 +114,7 @@ const VideoCinema: React.FC = () => {
                       src={thumbOf(lead, 'hqdefault')}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-105"
+                      className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
                     />
                   )}
                   <span
@@ -140,7 +140,7 @@ const VideoCinema: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActive(item)}
-                    className="group flex w-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-brand-900)] p-[var(--space-3)] text-left transition-colors duration-300 hover:bg-[var(--color-brand-700)]"
+                    className="group flex w-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-brand-900)] p-[var(--space-3)] text-left transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1 hover:bg-[var(--color-brand-700)]"
                   >
                     <span className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-brand-950)]">
                       {thumbOf(item, 'mqdefault') && (
@@ -148,7 +148,7 @@ const VideoCinema: React.FC = () => {
                           src={thumbOf(item, 'mqdefault')}
                           alt=""
                           loading="lazy"
-                          className="size-full object-cover"
+                          className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-110"
                         />
                       )}
                       <span className="absolute inset-0 flex items-center justify-center bg-black/25">

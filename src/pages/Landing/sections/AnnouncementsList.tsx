@@ -42,7 +42,7 @@ const AnnouncementsList: React.FC = () => {
                     <span className="text-[28px] font-extrabold leading-none text-[var(--color-accent-500)] md:text-[40px]">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className="flex flex-col gap-[var(--space-1)] transition-transform duration-300 group-hover:translate-x-2">
+                    <span className="flex flex-col gap-[var(--space-1)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
                       <span className="line-clamp-2 text-[18px] font-semibold leading-7 text-[var(--color-neutral-0)] md:text-[22px]">
                         {stripHtmlAndDecode(item.title)}
                       </span>
@@ -52,7 +52,7 @@ const AnnouncementsList: React.FC = () => {
                     </span>
                     <span
                       aria-hidden
-                      className="flex size-11 items-center justify-center rounded-[var(--radius-full)] border border-[var(--color-brand-600)] text-[var(--color-neutral-0)] transition-colors duration-300 group-hover:border-[var(--color-accent-500)] group-hover:bg-[var(--color-accent-500)] group-hover:text-[var(--color-brand-950)]"
+                      className="flex size-11 items-center justify-center rounded-[var(--radius-full)] border border-[var(--color-brand-600)] text-[var(--color-neutral-0)] transition-colors duration-500 group-hover:border-[var(--color-accent-500)] group-hover:bg-[var(--color-accent-500)] group-hover:text-[var(--color-brand-950)]"
                     >
                       →
                     </span>

@@ -29,14 +29,19 @@ const MIN_PER_HALF = 8;
 const LogoCard: React.FC<{ logo: Logo }> = ({ logo }) => {
   const body = (
     <>
-      <img src={logo.src} alt="" loading="lazy" className="h-14 w-full object-contain" />
+      <img
+        src={logo.src}
+        alt=""
+        loading="lazy"
+        className="h-14 w-full object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-110"
+      />
       <span className="line-clamp-1 text-[12px] font-semibold leading-4 text-[var(--color-neutral-700)]">
         {logo.name}
       </span>
     </>
   );
   const cls =
-    'flex h-36 w-52 shrink-0 flex-col items-center justify-center gap-[var(--space-3)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] md:w-60';
+    'group flex h-36 w-52 shrink-0 flex-col items-center justify-center gap-[var(--space-3)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-lg md:w-60';
   return logo.link ? (
     <a href={logo.link} target="_blank" rel="noopener noreferrer" title={logo.name} className={cls}>
       {body}

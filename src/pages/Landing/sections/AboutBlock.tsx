@@ -54,14 +54,14 @@ const AboutBlock: React.FC = () => {
           <Reveal delay={280}>
             <Link
               to={ABOUT_PATH}
-              className="inline-flex items-center gap-[var(--space-2)] rounded-[var(--radius-md)] bg-[var(--color-brand-700)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-neutral-0)] hover:bg-[var(--color-brand-600)]"
+              className="inline-flex items-center gap-[var(--space-2)] rounded-[var(--radius-md)] bg-[var(--color-brand-700)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-neutral-0)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-[var(--color-brand-600)] hover:shadow-lg"
             >
               {t('about.sectionReadMore')} →
             </Link>
           </Reveal>
         </div>
 
-        <Reveal delay={160} className="relative">
+        <Reveal delay={160} className="group relative">
           <span
             aria-hidden
             className="absolute -bottom-4 -right-4 size-full rounded-[var(--radius-lg)] bg-[var(--color-accent-100)]"
@@ -72,7 +72,7 @@ const AboutBlock: React.FC = () => {
                 src={about.image}
                 alt=""
                 loading="lazy"
-                className="size-full object-cover transition-transform duration-[1500ms] ease-out hover:scale-105"
+                className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
               />
             )}
           </div>

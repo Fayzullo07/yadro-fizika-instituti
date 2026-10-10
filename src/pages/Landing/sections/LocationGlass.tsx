@@ -42,7 +42,7 @@ const LocationGlass: React.FC = () => {
                 <a
                   key={p}
                   href={`tel:${p.replace(/\s/g, '')}`}
-                  className="block hover:text-[var(--color-brand-700)]"
+                  className="block transition-colors duration-300 hover:text-[var(--color-brand-700)]"
                 >
                   {p}
                 </a>

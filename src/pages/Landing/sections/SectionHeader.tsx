@@ -47,7 +47,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         }`}
       >
         {viewAllLabel}
-        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+        <span
+          aria-hidden
+          className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
+        >
           →
         </span>
       </Link>

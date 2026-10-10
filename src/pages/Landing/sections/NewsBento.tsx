@@ -49,7 +49,7 @@ const NewsBento: React.FC = () => {
                       src={imageOf(lead)}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-105"
+                      className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
                     />
                   )}
                   <span
@@ -73,7 +73,7 @@ const NewsBento: React.FC = () => {
                 <Reveal key={item.id} delay={(i + 1) * 120} className="flex-1">
                   <Link
                     to={`${NEWS_PATH}/${item.id}`}
-                    className="group flex h-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-3)] shadow-[var(--shadow-card)] transition-transform duration-300 hover:-translate-y-1"
+                    className="group flex h-full items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-3)] shadow-[var(--shadow-card)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-lg"
                   >
                     <span className="size-24 shrink-0 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-neutral-100)] md:size-28">
                       {imageOf(item) && (
@@ -81,7 +81,7 @@ const NewsBento: React.FC = () => {
                           src={imageOf(item)}
                           alt=""
                           loading="lazy"
-                          className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-110"
                         />
                       )}
                     </span>
@@ -89,7 +89,7 @@ const NewsBento: React.FC = () => {
                       <span className="text-[12px] font-bold uppercase leading-4 text-[var(--color-accent-600)]">
                         {date(item)}
                       </span>
-                      <span className="line-clamp-3 text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)]">
+                      <span className="line-clamp-3 text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)] transition-colors duration-500 group-hover:text-[var(--color-brand-700)]">
                         {stripHtmlAndDecode(item.title)}
                       </span>
                     </span>
