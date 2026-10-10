@@ -2,127 +2,117 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useConferences } from '@/hooks/useConferences';
 import { formatDate } from '@/utils/dateUtils';
-import { stripHtmlAndDecode } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { ConferenceItem } from '@/types';
 
 const PER_PAGE = 10;
 
-const ConferenceCard: React.FC<{
-  item: ConferenceItem;
-  language: string;
-  t: (k: string) => string;
-  index: number;
-}> = ({ item, language, t, index }) => {
-  const preview = stripHtmlAndDecode(item.description).slice(0, 200).trim();
-  const isSameDay = item.start_date === item.end_date;
-  const dateLabel = isSameDay
+const dateRange = (item: ConferenceItem, language: string) =>
+  item.start_date === item.end_date
     ? formatDate(item.start_date, language)
     : `${formatDate(item.start_date, language)} — ${formatDate(item.end_date, language)}`;
 
+const EASE = 'duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]';
+
+const FeaturedConference: React.FC<{
+  item: ConferenceItem;
+  language: string;
+  t: (k: string) => string;
+}> = ({ item, language, t }) => {
+  const poster = item.images?.[0]?.url;
+  const eyebrow = [dateRange(item, language), item.location].filter(Boolean).join(' · ');
+
   return (
-    <div className="group flex flex-col bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden hover:shadow-[var(--shadow-card)] hover:border-[var(--color-brand-700)]/30 transition-all duration-300">
-      <div className="h-1 bg-[var(--color-brand-700)]" />
-
-      <div className="flex flex-col flex-1 p-4 sm:p-5 gap-2 sm:gap-3">
-        <div className="flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-brand-700)] bg-[var(--color-brand-700)]/8 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-            <svg
-              className="w-3.5 h-3.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            {dateLabel}
+    <section className="relative mb-[var(--space-10)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-brand-950)] p-[var(--space-6)] md:p-[var(--space-12)]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 -top-32 size-[520px] rounded-full bg-[var(--color-brand-600)] opacity-45 blur-[140px]"
+      />
+      <div
+        className={`relative grid items-center gap-[var(--space-8)] ${
+          poster ? 'lg:grid-cols-[1fr_420px] lg:gap-[var(--space-12)]' : ''
+        }`}
+      >
+        <div className="flex flex-col items-start gap-[var(--space-5)]">
+          <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]">
+            {eyebrow}
           </span>
-          <span className="shrink-0 w-6 h-6 rounded-full bg-[var(--color-neutral-100)] text-[var(--color-neutral-500)] text-xs font-bold flex items-center justify-center">
-            {index + 1}
-          </span>
-        </div>
-
-        <Link
-          to={`/research/conferences/${item.id}`}
-          className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug hover:underline decoration-[var(--color-brand-700)]/40"
-        >
-          {item.title}
-        </Link>
-
-        {item.location && (
-          <div className="flex items-start gap-1.5 text-xs sm:text-sm text-[var(--color-neutral-500)]">
-            <svg
-              className="w-4 h-4 mt-0.5 shrink-0 text-[var(--color-neutral-500)]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-            <span className="leading-snug">{item.location}</span>
-          </div>
-        )}
-
-        {preview && (
-          <p className="text-xs sm:text-sm text-[var(--color-neutral-500)] leading-relaxed line-clamp-2 flex-1">
-            {preview}
-            {preview.length >= 200 ? '…' : ''}
-          </p>
-        )}
-
-        <div className="flex flex-wrap items-center gap-2 pt-1 mt-auto border-t border-[var(--color-neutral-100)]">
+          <h2 className="text-[24px] font-bold leading-8 text-[var(--color-neutral-0)] md:text-[32px] md:leading-10">
+            {item.title}
+          </h2>
           <Link
             to={`/research/conferences/${item.id}`}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-brand-700)] hover:underline"
+            className={`inline-flex items-center gap-[var(--space-2)] rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] transition-all ${EASE} hover:-translate-y-0.5 hover:bg-[var(--color-accent-600)] hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0`}
           >
-            {t('news.detail')}
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            {t('news.detail')} →
           </Link>
-
-          {item.files?.[0] && (
-            <a
-              href={item.files[0].url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)] transition-colors"
-            >
-              <svg
-                className="w-3.5 h-3.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              PDF
-            </a>
-          )}
         </div>
+
+        {poster && (
+          <Link
+            to={`/research/conferences/${item.id}`}
+            className="group block overflow-hidden rounded-[var(--radius-lg)] border-[3px] border-[var(--color-accent-500)] shadow-[0_0_48px_rgba(245,158,11,0.35)]"
+          >
+            <img
+              src={poster}
+              alt=""
+              loading="lazy"
+              className={`aspect-[420/300] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100`}
+            />
+          </Link>
+        )}
       </div>
+    </section>
+  );
+};
+
+const ConferenceRow: React.FC<{ item: ConferenceItem; language: string }> = ({
+  item,
+  language,
+}) => {
+  const file = item.files?.[0];
+
+  return (
+    <div
+      className={`group flex flex-col gap-[var(--space-2)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all ${EASE} hover:translate-x-1 hover:bg-[var(--color-brand-50)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:flex-row sm:items-center sm:gap-[var(--space-6)]`}
+    >
+      <span className="text-[14px] font-bold leading-5 text-[var(--color-brand-700)] sm:w-[200px] sm:shrink-0">
+        {dateRange(item, language)}
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <h4 className="text-[16px] font-bold leading-6 text-[var(--color-neutral-900)]">
+          <Link
+            to={`/research/conferences/${item.id}`}
+            className="hover:text-[var(--color-brand-700)] hover:underline"
+          >
+            {item.title}
+          </Link>
+        </h4>
+        {item.location && (
+          <p className="text-[14px] leading-5 text-[var(--color-neutral-500)]">{item.location}</p>
+        )}
+      </div>
+
+      {file && (
+        <a
+          href={file.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)]"
+        >
+          PDF
+        </a>
+      )}
+
+      <Link
+        to={`/research/conferences/${item.id}`}
+        aria-label={item.title}
+        className="hidden shrink-0 text-[24px] font-bold leading-none text-[var(--color-brand-700)] sm:block"
+      >
+        →
+      </Link>
     </div>
   );
 };
@@ -135,6 +125,8 @@ const Conferences: React.FC = () => {
   const { data, loading, error } = useConferences(page, PER_PAGE);
 
   const items = data?.data ?? [];
+  const featured = page === 1 ? items[0] : undefined;
+  const rest = featured ? items.slice(1) : items;
   const totalPages = Math.ceil((data?.meta?.total || 0) / PER_PAGE);
 
   const handlePageChange = (newPage: number) => {
@@ -158,11 +150,20 @@ const Conferences: React.FC = () => {
 
       {items.length > 0 && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-            {items.map((item, index) => (
-              <ConferenceCard key={item.id} item={item} language={language} t={t} index={index} />
-            ))}
-          </div>
+          {featured && <FeaturedConference item={featured} language={language} t={t} />}
+
+          {rest.length > 0 && (
+            <>
+              <h3 className="mb-[var(--space-4)] text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-neutral-500)]">
+                {t('conferences.past')}
+              </h3>
+              <div className="flex flex-col gap-[var(--space-3)]">
+                {rest.map((item) => (
+                  <ConferenceRow key={item.id} item={item} language={language} />
+                ))}
+              </div>
+            </>
+          )}
 
           {totalPages > 1 && (
             <div className="mt-6 sm:mt-12 flex flex-wrap justify-center items-center gap-2">

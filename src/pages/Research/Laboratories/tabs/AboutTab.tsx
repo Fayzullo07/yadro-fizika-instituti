@@ -58,7 +58,7 @@ const AboutTab: React.FC<{ lab: LaboratoryItem; isUniqueObject?: boolean }> = ({
     );
 
   return (
-    <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
+    <div className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
       {/* Director card */}
       {director && (
         <div className="p-4 sm:p-6 border-b border-[var(--color-neutral-100)]">

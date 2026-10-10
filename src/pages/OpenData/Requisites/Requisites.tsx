@@ -1,90 +1,63 @@
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const Field: React.FC<{
+  label: string;
+  mono?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}> = ({ label, mono, className = '', children }) => (
+  <section
+    className={`rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] ${className}`}
+  >
+    <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+      {label}
+    </span>
+    <p
+      className={`mt-[var(--space-2)] text-[16px] font-semibold leading-7 text-[var(--color-neutral-900)] md:text-[18px] ${
+        mono ? 'font-mono text-[var(--color-brand-700)]' : ''
+      }`}
+    >
+      {children}
+    </p>
+  </section>
+);
 
 const Requisites: React.FC = () => {
   const { t } = useLanguage();
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-            {t('nav.ochiq.requisites') || 'Institut rekvizitlari'}
-          </h1>
-        </div>
-        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
-      </div>
-      <div>
-        <div className="space-y-8">
-          {/* Institut Rekvizitlari Section */}
-          <div className="">
-            <h2 className="text-2xl md:text-3xl font-semibold text-[var(--color-neutral-900)] mb-6">
-              Institut rekvizitlari
-            </h2>
+      <PageTitle>{t('nav.ochiq.requisites') || 'Institut rekvizitlari'}</PageTitle>
 
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                  Institut nomi:
-                </p>
-                <p className="text-base md:text-lg text-[var(--color-neutral-900)] leading-relaxed">
-                  O'zbekiston Respublikasi Raqamli texnologiyalar vazirligi huzuridagi Raqamli
-                  texnologiyalar va sun'iy intellektni rivojlantirish ilmiy-tadqiqot instituti
-                </p>
-              </div>
+      <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-2">
+        <Field label="Institut nomi" className="md:col-span-2">
+          O'zbekiston Respublikasi Raqamli texnologiyalar vazirligi huzuridagi Raqamli
+          texnologiyalar va sun'iy intellektni rivojlantirish ilmiy-tadqiqot instituti
+        </Field>
 
-              <div>
-                <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                  Manzil:
-                </p>
-                <p className="text-base md:text-lg text-[var(--color-neutral-900)]">
-                  100125, Toshkent sh., Mirzo Ulug'bek tumani, Bo'z-2, 17A
-                </p>
-              </div>
+        <Field label="Manzil" className="md:col-span-2">
+          100125, Toshkent sh., Mirzo Ulug'bek tumani, Bo'z-2, 17A
+        </Field>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                    STIR:
-                  </p>
-                  <p className="text-base md:text-lg text-[var(--color-neutral-900)] font-mono">
-                    308927120
-                  </p>
-                </div>
+        <Field label="STIR" mono>
+          308927120
+        </Field>
 
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                    OKONX:
-                  </p>
-                  <p className="text-base md:text-lg text-[var(--color-neutral-900)] font-mono">
-                    95120
-                  </p>
-                </div>
+        <Field label="OKONX" mono>
+          95120
+        </Field>
 
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                    IFUT:
-                  </p>
-                  <p className="text-base md:text-lg text-[var(--color-neutral-900)] font-mono">
-                    72190{' '}
-                    <span className="text-sm text-[var(--color-neutral-700)] font-normal">
-                      (Tabiiy fanlar va injeneriya sohasidagi boshqa tadqiqotlar va ishlanmalar)
-                    </span>
-                  </p>
-                </div>
+        <Field label="IFUT" mono>
+          72190{' '}
+          <span className="font-sans text-[14px] font-normal leading-5 text-[var(--color-neutral-500)]">
+            (Tabiiy fanlar va injeneriya sohasidagi boshqa tadqiqotlar va ishlanmalar)
+          </span>
+        </Field>
 
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-neutral-700)] mb-1">
-                    KTUT:
-                  </p>
-                  <p className="text-base md:text-lg text-[var(--color-neutral-900)] font-mono">
-                    31222444
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Field label="KTUT" mono>
+          31222444
+        </Field>
       </div>
     </div>
   );

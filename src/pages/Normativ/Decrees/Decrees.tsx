@@ -1,4 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 const Decrees: React.FC = () => {
   const { t } = useLanguage();
@@ -7,86 +8,48 @@ const Decrees: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-              Oʻzbekiston Respublikasi Prezidentining
-            </h1>
-            <p className="text-lg font-bold text-[var(--color-brand-700)] uppercase tracking-wide">
-              Qarori
-            </p>
-          </div>
-        </div>
-        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
-      </div>
+      <PageTitle>Oʻzbekiston Respublikasi Prezidentining Qarori</PageTitle>
 
       <div className="max-w-4xl">
         {/* SUBTITLE */}
-        <section className="mb-8">
-          <h3 className="text-xl md:text-2xl font-semibold text-[var(--color-neutral-900)] mb-6 text-center">
+        <section className="rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] md:p-[var(--space-10)]">
+          <h2 className="mb-[var(--space-6)] text-[20px] font-bold leading-7 text-[var(--color-neutral-900)] md:text-[24px] md:leading-8">
             Toshkent arxitektura-qurilish universiteti huzurida Seysmik xavfsizlik va barqaror
             qurilish milliy tadqiqot instituti faoliyatini tashkil etish chora-tadbirlari
             toʻgʻrisida
-          </h3>
+          </h2>
 
-          <p className="text-[var(--color-neutral-700)] text-[16px] md:text-lg leading-[1.9] tracking-wide whitespace-pre-line">
+          <p className="whitespace-pre-line text-[16px] leading-[1.9] text-[var(--color-neutral-700)] md:text-lg">
             {decreeText}
           </p>
         </section>
 
         {/* LINK BLOCK */}
-        <section className="border-t border-[var(--color-neutral-100)] pt-8">
-          <div className="bg-[var(--color-neutral-50)] flex justify-between items-center border border-[var(--color-neutral-100)] rounded p-4 md:p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-[var(--color-brand-700)]/10 flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-[var(--color-brand-700)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                  />
-                </svg>
-              </div>
-
-              <div>
-                <h4 className="text-lg font-semibold text-[var(--color-neutral-900)]">
-                  {t('pages.decrees.fullText') || "To'liq matn"}
-                </h4>
-                <p className="text-[var(--color-neutral-700)] text-sm">
-                  {t('pages.decrees.fullTextDescription') ||
-                    "Qarorning rasmiy va to'liq matni bilan tanishish"}
-                </p>
-              </div>
-            </div>
-
-            <a
-              href="https://www.lex.uz/docs/-7777579"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-[var(--radius-md)]
-                  bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] font-medium
-                  hover:bg-[#012f6c] transition"
-            >
-              {t('pages.decrees.viewFullText') || "To'liq matnni ochish"}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 3h7m0 0v7m0-7L10 14"
-                />
-              </svg>
-            </a>
+        <a
+          href="https://www.lex.uz/docs/-7777579"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mt-[var(--space-6)] flex items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1 hover:bg-[var(--color-brand-50)] motion-reduce:transition-none motion-reduce:hover:translate-x-0"
+        >
+          <span className="flex size-14 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-50)] text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-brand-700)]">
+            LEX
+          </span>
+          <div className="min-w-0 flex-1">
+            <h4 className="text-[16px] font-bold leading-6 text-[var(--color-neutral-900)]">
+              {t('pages.decrees.fullText') || "To'liq matn"}
+            </h4>
+            <p className="text-[14px] leading-5 text-[var(--color-neutral-500)]">
+              {t('pages.decrees.fullTextDescription') ||
+                "Qarorning rasmiy va to'liq matni bilan tanishish"}
+            </p>
           </div>
-        </section>
+          <span
+            aria-hidden
+            className="shrink-0 text-[24px] font-bold leading-none text-[var(--color-brand-700)]"
+          >
+            ↗
+          </span>
+        </a>
       </div>
     </div>
   );

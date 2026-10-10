@@ -19,7 +19,7 @@ const CouncilActivities: React.FC = () => {
   const council = data?.data;
 
   return (
-    <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
+    <div>
       <section className="pb-10 sm:pb-16">
         <PageTitle>
           {t('nav.ilmiyFaoliyat.councilActivities') || 'Ilmiy kengash faoliyati'}
@@ -36,7 +36,7 @@ const CouncilActivities: React.FC = () => {
         )}
 
         {!loading && !error && council && (
-          <div>
+          <div className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
             {council.image && (
               <div className="relative w-full h-52 sm:h-80 md:h-115 overflow-hidden flex items-center justify-center bg-[var(--color-neutral-100)] [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
                 <div
@@ -66,14 +66,14 @@ const CouncilActivities: React.FC = () => {
             )}
 
             {council.title && (
-              <h2 className="mt-4 sm:mt-8 px-3 text-base sm:text-xl font-semibold text-[var(--color-neutral-900)]">
+              <h2 className="mt-4 sm:mt-8 px-4 sm:px-8 text-base sm:text-xl font-semibold text-[var(--color-neutral-900)]">
                 {council.title}
               </h2>
             )}
 
             {council.council_duties && (
               <div
-                className="mt-3 sm:mt-4 px-3 text-sm sm:text-base text-[var(--color-neutral-700)] leading-relaxed space-y-3 sm:space-y-4 [&_h2]:text-lg sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-[var(--color-neutral-900)] [&_h2]:mt-4 sm:[&_h2]:mt-8 [&_p]:mt-2 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full overflow-x-auto"
+                className="mt-3 sm:mt-4 px-4 sm:px-8 pb-6 sm:pb-8 text-sm sm:text-base text-[var(--color-neutral-700)] leading-relaxed space-y-3 sm:space-y-4 [&_h2]:text-lg sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-[var(--color-neutral-900)] [&_h2]:mt-4 sm:[&_h2]:mt-8 [&_p]:mt-2 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full overflow-x-auto"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(council.council_duties) }}
               />
             )}

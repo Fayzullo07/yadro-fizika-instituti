@@ -1,25 +1,76 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { MAP_LATITUDE, MAP_LONGITUDE, MAP_ZOOM, CONTACT_PHONES } from '@/config/contactData';
 
 const Map: React.FC = () => {
   const { t } = useLanguage();
 
+  const tiles = [
+    {
+      label: t('contact.address') || 'Manzil',
+      body: (
+        <p className="text-[18px] font-bold leading-7 text-[var(--color-neutral-0)]">
+          {t('contact.addressValue') ||
+            "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
+        </p>
+      ),
+    },
+    {
+      label: t('contact.phone') || 'Telefon',
+      body: (
+        <>
+          {CONTACT_PHONES.map((p) => (
+            <a
+              key={p}
+              href={`tel:${p.replace(/\s/g, '')}`}
+              className="block text-[18px] font-bold leading-7 text-[var(--color-neutral-0)] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-[var(--color-accent-500)] motion-reduce:transition-none"
+            >
+              {p}
+            </a>
+          ))}
+        </>
+      ),
+    },
+    {
+      label: t('contact.workingDays') || 'Ish kunlari',
+      body: (
+        <>
+          <p className="text-[18px] font-bold leading-7 text-[var(--color-neutral-0)]">
+            {t('contact.weekdays') || 'Du–Ju:'} 9:00 – 18:00
+          </p>
+          <p className="text-[16px] leading-6 text-[var(--color-neutral-300)]">
+            {t('contact.lunch') || 'Tushlik:'} 13:00 – 14:00
+          </p>
+        </>
+      ),
+    },
+  ];
+
   return (
     <div className="pb-10">
-      {/* Page title */}
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-            {t('nav.boglanish.map') || 'Xarita'}
-          </h1>
-        </div>
-        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
+      <PageTitle>{t('nav.boglanish.map') || 'Xarita'}</PageTitle>
+
+      <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-3">
+        {tiles.map((tile) => (
+          <div
+            key={tile.label}
+            className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-brand-700)] bg-[var(--color-brand-950)] p-[var(--space-6)]"
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-10 -top-16 size-[200px] rounded-full bg-[var(--color-brand-600)] opacity-40 blur-[80px]"
+            />
+            <div className="relative flex flex-col gap-[var(--space-2)]">
+              <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]">
+                {tile.label}
+              </span>
+              {tile.body}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Map + Info */}
-      <div className="relative w-full min-h-130 rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)]">
-        {/* Full map */}
+      <div className="mt-[var(--space-6)] h-80 overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)] sm:h-[420px] lg:h-[560px]">
         <iframe
           src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
           width="100%"
@@ -27,169 +78,29 @@ const Map: React.FC = () => {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 w-full h-full min-h-130 border-0"
+          className="block h-full w-full border-0"
           title="Manzil xaritasi"
         />
-
-        {/* Info card overlay */}
-        <div className="absolute  left-4 bottom-4 w-72 bg-[var(--color-neutral-0)]/95 backdrop-blur-sm rounded-[var(--radius-lg)] shadow-xl flex flex-col overflow-hidden z-10 hidden sm:flex">
-          {/* Card header */}
-          <div className="bg-[var(--color-brand-700)] px-5 py-4">
-            <p className="text-xs font-semibold text-[var(--color-brand-100)] uppercase tracking-widest mb-1">
-              {t('contact.location') || 'Lokatsiya'}
-            </p>
-          </div>
-
-          {/* Info items */}
-          <div className="flex flex-col gap-5 p-5 flex-1 overflow-y-auto">
-            {/* Address */}
-            <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0 mt-0.5">
-                <svg
-                  className="w-4 h-4 text-[var(--color-brand-700)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
-                  {t('contact.address') || 'Manzil'}
-                </p>
-                <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">
-                  {t('contact.addressValue') ||
-                    "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer link */}
-          <div className="px-5 py-4 border-t border-[var(--color-neutral-100)]">
-            <a
-              href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[var(--color-brand-700)] hover:bg-[#012d6a] text-[var(--color-neutral-0)] text-sm font-medium rounded-[var(--radius-md)] transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-              {t('contact.openMap') || 'Xaritada ochish'}
-            </a>
-          </div>
-        </div>
       </div>
 
-      {/* Mobile info cards */}
-      <div className="mt-6 grid grid-cols-1 sm:hidden gap-4">
-        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
-            <svg
-              className="w-4 h-4 text-[var(--color-brand-700)]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
-              {t('contact.address') || 'Manzil'}
-            </p>
-            <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">
-              {t('contact.addressValue') ||
-                "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
-            </p>
-          </div>
+      <div className="mt-[var(--space-6)] flex flex-col gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 flex-col gap-[var(--space-1)]">
+          <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+            {t('contact.location') || 'Lokatsiya'}
+          </span>
+          <p className="text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)]">
+            {t('contact.addressValue') ||
+              "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
+          </p>
         </div>
-
-        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
-            <svg
-              className="w-4 h-4 text-[var(--color-brand-700)]"
-              fill="currentColor"
-              viewBox="0 0 17.2 17.2"
-            >
-              <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
-              {t('contact.phone') || 'Telefon'}
-            </p>
-            {CONTACT_PHONES.map((p) => (
-              <a
-                key={p}
-                href={`tel:${p.replace(/\s/g, '')}`}
-                className="text-sm text-[var(--color-neutral-700)] font-medium block"
-              >
-                {p}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
-            <svg
-              className="w-4 h-4 text-[var(--color-brand-700)]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
-              {t('contact.workingDays') || 'Ish kunlari'}
-            </p>
-            <p className="text-sm text-[var(--color-neutral-700)]">
-              {t('contact.weekdays') || 'Du–Ju:'}{' '}
-              <span className="font-semibold">9:00 – 18:00</span>
-            </p>
-            <p className="text-sm text-[var(--color-neutral-500)]">
-              {t('contact.lunch') || 'Tushlik:'}{' '}
-              <span className="font-medium text-[var(--color-neutral-700)]">13:00 – 14:00</span>
-            </p>
-          </div>
-        </div>
+        <a
+          href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex shrink-0 items-center justify-center gap-[var(--space-2)] rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-[var(--color-accent-600)] hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+        >
+          {t('contact.openMap') || 'Xaritada ochish'} →
+        </a>
       </div>
     </div>
   );

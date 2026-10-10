@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+import Reveal from '@/pages/Landing/sections/Reveal';
 import RetryImage from '@/components/shared/RetryImage/RetryImage';
 import type { VideoGalleryItem } from '@/types';
 
@@ -20,18 +21,17 @@ const CloseIcon = () => (
   </svg>
 );
 
-const PlayOverlay = () => (
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-300">
-    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[var(--color-neutral-0)]/80 group-hover:bg-[var(--color-neutral-0)] transition-colors duration-300 flex items-center justify-center shadow-[var(--shadow-card)]">
-      <svg
-        className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-neutral-900)] ml-0.5"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path d="M8 5v14l11-7z" />
-      </svg>
-    </div>
-  </div>
+const EASE = 'ease-[cubic-bezier(0.22,1,0.36,1)]';
+
+const PlayButton: React.FC<{ size: string }> = ({ size }) => (
+  <span
+    aria-hidden
+    className={`flex ${size} items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-accent-500)] text-[var(--color-brand-950)] shadow-lg transition-transform duration-500 ${EASE} group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100`}
+  >
+    <svg viewBox="0 0 24 24" className="size-1/2 translate-x-[8%]" fill="currentColor">
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  </span>
 );
 
 const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
@@ -83,57 +83,92 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
   );
 };
 
+const VideoThumb: React.FC<{ item: VideoGalleryItem; quality: string }> = ({ item, quality }) => {
+  const ytId = getYouTubeId(item.url);
+  const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/${quality}.jpg` : null;
+  const [loaded, setLoaded] = useState(false);
+
+  if (!thumb) return null;
+  return (
+    <>
+      {!loaded && <div className="absolute inset-0 animate-pulse bg-[var(--color-neutral-100)]" />}
+      <RetryImage
+        src={thumb}
+        alt=""
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 size-full object-cover transition-[transform,opacity] duration-[900ms] ${EASE} will-change-transform group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      />
+    </>
+  );
+};
+
+const FeaturedVideo: React.FC<{
+  item: VideoGalleryItem;
+  language: string;
+  onClick: () => void;
+}> = ({ item, language, onClick }) => (
+  <div className="relative isolate overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-brand-950)] p-[var(--space-4)] md:p-[var(--space-6)]">
+    <span
+      aria-hidden
+      className="pointer-events-none absolute -left-24 -top-24 -z-10 size-[420px] rounded-[var(--radius-full)] bg-[var(--color-accent-500)] opacity-20 blur-[120px]"
+    />
+    <button
+      type="button"
+      onClick={onClick}
+      className="group block w-full text-left focus:outline-none"
+    >
+      <span className="relative block aspect-video w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-brand-900)]">
+        <VideoThumb item={item} quality="hqdefault" />
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-[rgba(10,19,48,0.55)] to-transparent"
+        />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <PlayButton size="size-16 md:size-20" />
+        </span>
+      </span>
+      <span className="mt-[var(--space-4)] block px-[var(--space-1)] pb-[var(--space-1)]">
+        <span className="block text-[13px] text-[var(--color-neutral-300)]">
+          {formatDate(item.created_at, language)}
+        </span>
+        <span className="mt-[var(--space-1)] line-clamp-2 block text-[20px] font-bold leading-7 text-[var(--color-neutral-0)] md:text-[24px] md:leading-8">
+          {item.title}
+        </span>
+      </span>
+    </button>
+  </div>
+);
+
 const VideoCard: React.FC<{
   item: VideoGalleryItem;
   language: string;
-  label: string;
   onClick: () => void;
-}> = ({ item, language, label, onClick }) => {
-  const ytId = getYouTubeId(item.url);
-  const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg` : null;
-  const [thumbLoaded, setThumbLoaded] = useState(false);
-
-  return (
-    <button
-      onClick={onClick}
-      className="group text-left bg-[var(--color-neutral-0)] overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-shadow duration-300 focus:outline-none"
-    >
-      <div className="relative overflow-hidden aspect-video bg-[var(--color-neutral-100)]">
-        {thumb ? (
-          <>
-            {!thumbLoaded && (
-              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
-            )}
-            <RetryImage
-              src={thumb}
-              alt=""
-              onLoad={() => setThumbLoaded(true)}
-              className={`w-full h-full object-cover video-card-img transition-opacity duration-300 ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
-            />
-          </>
-        ) : (
-          <div className="w-full h-full bg-[var(--color-neutral-100)]" />
-        )}
-        <PlayOverlay />
-      </div>
-
-      <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
-        <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">{label}</span>
-        <p className="text-xs sm:text-sm text-[var(--color-neutral-700)] font-medium line-clamp-2 leading-snug overflow-hidden">
-          {item.title}
-        </p>
-        <div className="flex items-center justify-between mt-auto pt-1">
-          <span className="text-xs sm:text-sm text-[var(--color-neutral-500)]">
-            {formatDate(item.created_at, language)}
-          </span>
-          <span className="text-[var(--color-neutral-500)] group-hover:text-[var(--color-neutral-700)] transition-colors text-base leading-none">
-            →
-          </span>
-        </div>
-      </div>
-    </button>
-  );
-};
+}> = ({ item, language, onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="group flex flex-col gap-[var(--space-3)] text-left focus:outline-none"
+  >
+    <span className="relative block aspect-video w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-100)]">
+      <VideoThumb item={item} quality="mqdefault" />
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-black/10 transition-colors duration-500 group-hover:bg-black/25"
+      />
+      <span className="absolute bottom-[var(--space-3)] left-[var(--space-3)]">
+        <PlayButton size="size-10" />
+      </span>
+    </span>
+    <span className="flex flex-col gap-[var(--space-1)]">
+      <span className="line-clamp-2 text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)] transition-colors duration-500 group-hover:text-[var(--color-brand-700)]">
+        {item.title}
+      </span>
+      <span className="text-[13px] text-[var(--color-neutral-500)]">
+        {formatDate(item.created_at, language)}
+      </span>
+    </span>
+  </button>
+);
 
 const VideoGallery: React.FC = () => {
   const { t, language } = useLanguage();
@@ -200,16 +235,23 @@ const VideoGallery: React.FC = () => {
       )}
 
       {items.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-          {items.map((item) => (
-            <VideoCard
-              key={item.id}
-              item={item}
+        <div className="flex flex-col gap-[var(--space-10)] pt-[var(--space-6)]">
+          <Reveal>
+            <FeaturedVideo
+              item={items[0]}
               language={language}
-              label={label}
-              onClick={() => openModal(item)}
+              onClick={() => openModal(items[0])}
             />
-          ))}
+          </Reveal>
+          {items.length > 1 && (
+            <div className="grid grid-cols-1 gap-x-[var(--space-6)] gap-y-[var(--space-8)] sm:grid-cols-2 lg:grid-cols-3">
+              {items.slice(1).map((item, i) => (
+                <Reveal key={item.id} delay={(i % 3) * 80}>
+                  <VideoCard item={item} language={language} onClick={() => openModal(item)} />
+                </Reveal>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

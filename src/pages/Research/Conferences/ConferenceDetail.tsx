@@ -7,6 +7,7 @@ import { sanitizeHtml } from '@/utils/htmlUtils';
 import { formatDate } from '@/utils/dateUtils';
 import { useImageRetry } from '@/hooks/useImageRetry';
 import Loading from '@/components/shared/Loading/Loading';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import BackButton from '@/components/shared/BackButton/BackButton';
 import { CONFERENCES_PATH } from '@/routes/path';
 import type { ConferenceImage } from '@/types';
@@ -141,69 +142,32 @@ const ConferenceDetail: React.FC = () => {
     <div className="pb-10">
       <BackButton to={CONFERENCES_PATH} label={t('backToList')} />
 
-      <article className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden">
-        <header className="relative overflow-hidden bg-[var(--color-brand-700)] px-5 sm:px-8 py-7 sm:py-10">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.08]"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-              backgroundSize: '18px 18px',
-            }}
-          />
+      <PageTitle>{item.title}</PageTitle>
 
-          <div className="relative">
-            <h1 className="font-serif text-base sm:text-xl md:text-2xl font-semibold leading-tight tracking-tight text-[var(--color-neutral-0)] max-w-3xl">
-              {item.title}
-            </h1>
-
-            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs sm:text-sm text-[var(--color-neutral-0)]/70">
-              <span className="inline-flex items-center gap-2">
-                <svg
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                {dateRange}
-              </span>
-              {item.location && (
-                <span className="inline-flex items-center gap-2">
-                  <svg
-                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                  {item.location}
-                </span>
-              )}
-            </div>
+      <div className="flex flex-col gap-[var(--space-6)]">
+        <section className="flex flex-wrap gap-x-[var(--space-8)] gap-y-[var(--space-3)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
+          <div className="flex flex-col gap-[var(--space-1)]">
+            <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+              {t('conferences.detail')}
+            </span>
+            <span className="text-[18px] font-bold leading-7 text-[var(--color-brand-700)]">
+              {dateRange}
+            </span>
           </div>
-        </header>
+          {item.location && (
+            <div className="flex flex-col gap-[var(--space-1)]">
+              <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+                {t('contact.location')}
+              </span>
+              <span className="text-[18px] font-bold leading-7 text-[var(--color-neutral-900)]">
+                {item.location}
+              </span>
+            </div>
+          )}
+        </section>
 
         {images.length > 0 && (
-          <div className="border-t border-[var(--color-neutral-100)]">
+          <section className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
             <Image.PreviewGroup>
               <Carousel
                 arrows={images.length > 1}
@@ -227,16 +191,16 @@ const ConferenceDetail: React.FC = () => {
                 ))}
               </Carousel>
             </Image.PreviewGroup>
-          </div>
+          </section>
         )}
 
         {files.length > 0 && (
-          <div className="px-4 sm:px-6 py-4 sm:py-5 border-t border-[var(--color-neutral-100)]">
-            <p className="text-xs font-semibold tracking-wide text-[var(--color-neutral-500)] uppercase mb-2.5">
+          <section className="rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
+            <p className="mb-[var(--space-3)] text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
               {t('conferences.attachments')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {files.map((file, i) => (
+              {files.map((file) => (
                 <a
                   key={file.id}
                   href={file.url}
@@ -249,7 +213,6 @@ const ConferenceDetail: React.FC = () => {
                   </span>
                   <span className="flex-1 min-w-0 truncate text-xs sm:text-sm font-medium text-[var(--color-neutral-700)] group-hover:text-[var(--color-brand-700)]">
                     {file.name}
-                    {/* {files.length > 1 ? ` ${i + 1}` : ''} */}
                   </span>
                   <svg
                     className="w-3.5 h-3.5 shrink-0 ml-auto text-[var(--color-neutral-500)] group-hover:text-[var(--color-brand-700)]"
@@ -267,12 +230,12 @@ const ConferenceDetail: React.FC = () => {
                 </a>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
-        <div
+        <section
           className="
-            px-4 sm:px-6 py-4 sm:py-6 text-[var(--color-neutral-700)] text-sm sm:text-[15px] leading-relaxed
+            rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)] p-[var(--space-6)] text-[var(--color-neutral-700)] text-sm sm:text-[15px] leading-relaxed
             [&_a]:text-[var(--color-brand-600)] [&_a]:underline [&_a]:break-all [&_a:hover]:text-[var(--color-brand-700)]
             [&_blockquote]:border-l-4 [&_blockquote]:border-[var(--color-brand-700)]/30
             [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[var(--color-neutral-500)] [&_blockquote]:my-4
@@ -286,7 +249,7 @@ const ConferenceDetail: React.FC = () => {
           "
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
         />
-      </article>
+      </div>
     </div>
   );
 };

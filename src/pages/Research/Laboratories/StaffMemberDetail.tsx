@@ -5,14 +5,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
 import { sanitizeHtmlRich } from '@/utils/htmlUtils';
 import { AcademicLinksRow } from '@/components/shared/AcademicLinks/AcademicLinks';
-import RetryImage from '@/components/shared/RetryImage/RetryImage';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 const TABS = [{ key: 'mehnat', label: 'Mehnat faoliyati' }] as const;
 type TabKey = (typeof TABS)[number]['key'];
 
 const StaffMemberDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('mehnat');
-  const [photoLoaded, setPhotoLoaded] = useState(false);
+  const [photoFailed, setPhotoFailed] = useState(false);
   const { t } = useLanguage();
   const { memberId } = useParams<{ labId: string; memberId: string }>();
   const { data, loading, error } = useLaboratoryTeamMember(memberId || '');
@@ -29,82 +29,63 @@ const StaffMemberDetail: React.FC = () => {
 
   const member = data.data;
 
+  const initials = member.full_name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
+
   return (
     <div className="pb-10">
-      {/* Profile card */}
-      <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)] mb-4 p-4 sm:p-6">
-        <div className="border border-[var(--color-neutral-100)] flex flex-col sm:flex-row overflow-hidden">
-          {/* Photo */}
-          <div className="w-full h-56 sm:w-55 sm:h-65 shrink-0 overflow-hidden relative bg-[var(--color-neutral-100)] flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
-            {member.image ? (
-              <>
-                {!photoLoaded && (
-                  <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
-                )}
-                {photoLoaded && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
-                    style={{ backgroundImage: `url(${member.image})` }}
-                  />
-                )}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <RetryImage
-                    src={member.image}
-                    alt={member.full_name}
-                    onLoad={() => setPhotoLoaded(true)}
-                    className={`w-full h-full object-contain transition-opacity duration-300 ${photoLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  />
-                </div>
-              </>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-[var(--color-brand-50)]">
-                <svg
-                  className="w-16 h-16 text-[var(--color-brand-100)]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                </svg>
-              </div>
-            )}
-          </div>
+      <PageTitle>{member.full_name}</PageTitle>
 
-          {/* Info */}
-          <div className="flex flex-1 p-4 sm:p-6 gap-4 sm:gap-8">
-            <div className="flex flex-col gap-3 flex-1">
-              <p className="font-bold text-[var(--color-neutral-900)] text-base sm:text-lg leading-snug">
-                {member.full_name}
-              </p>
-              {member.degree && member.degree !== "Yo'q" && (
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-neutral-900)] mb-0.5">
-                    {t('nav.laboratoriyalar.degree')}:
-                  </p>
-                  <p className="text-sm text-[var(--color-neutral-700)]">{member.degree}</p>
-                </div>
-              )}
-              <div>
-                <p className="text-sm font-semibold text-[var(--color-neutral-900)] mb-0.5">
-                  {t('nav.laboratoriyalar.position')}:
-                </p>
-                <p className="text-sm text-[var(--color-neutral-700)]">{member.position}</p>
-              </div>
-              <AcademicLinksRow data={member} className="mt-1" />
-            </div>
+      {/* Profile card */}
+      <div className="mb-[var(--space-6)] flex flex-col gap-[var(--space-6)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-6 shadow-[var(--shadow-card)] sm:flex-row sm:items-start sm:p-8">
+        <div className="relative flex h-40 w-40 shrink-0 items-center justify-center self-center overflow-hidden rounded-[var(--radius-full)] bg-[var(--color-brand-100)] text-4xl font-extrabold text-[var(--color-brand-700)] sm:self-start">
+          {member.image && !photoFailed ? (
+            <img
+              src={member.image}
+              alt={member.full_name}
+              onError={() => setPhotoFailed(true)}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            initials
+          )}
+        </div>
+
+        <div className="flex min-w-0 flex-1 flex-col gap-[var(--space-4)]">
+          <div>
+            <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-[var(--color-accent-600)]">
+              {t('nav.laboratoriyalar.position')}
+            </p>
+            <p className="text-lg font-bold leading-snug text-[var(--color-neutral-900)]">
+              {member.position}
+            </p>
           </div>
+          {member.degree && member.degree !== "Yo'q" && (
+            <div>
+              <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-[var(--color-accent-600)]">
+                {t('nav.laboratoriyalar.degree')}
+              </p>
+              <p className="text-base text-[var(--color-neutral-700)]">{member.degree}</p>
+            </div>
+          )}
+          <AcademicLinksRow data={member} className="mt-1" />
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
-        <div className="flex overflow-x-auto scrollbar-hide border-b border-[var(--color-neutral-100)]">
+      <div className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
+        <div className="flex overflow-x-auto scrollbar-hide border-b border-[var(--color-neutral-300)]">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`shrink-0 px-4 sm:px-6 py-3 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap ${
+              className={`shrink-0 px-4 sm:px-6 py-3 text-sm font-semibold border-b-[3px] -mb-px transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none whitespace-nowrap ${
                 activeTab === tab.key
-                  ? 'border-[var(--color-brand-700)] text-[var(--color-brand-700)]'
+                  ? 'border-[var(--color-accent-500)] text-[var(--color-brand-700)]'
                   : 'border-transparent text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)]'
               }`}
             >

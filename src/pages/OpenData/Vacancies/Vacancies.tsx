@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useVacancies, useCreateApplication } from '@/hooks/useApplications';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Loading from '@/components/shared/Loading/Loading';
-import { sanitizeHtml } from '@/utils/htmlUtils';
+import { sanitizeHtml, stripHtmlAndDecode } from '@/utils/htmlUtils';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { Vacancy } from '@/types';
 
 interface VacancyFormData {
@@ -18,6 +19,7 @@ const Vacancies: React.FC = () => {
   const { mutate: createApplication, loading: submitting } = useCreateApplication();
 
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [formData, setFormData] = useState<VacancyFormData>({
     fullname: '',
@@ -30,6 +32,7 @@ const Vacancies: React.FC = () => {
   const [formSuccess, setFormSuccess] = useState<boolean>(false);
 
   const vacancies: Vacancy[] = vacanciesData?.data || [];
+  const active = vacancies.find((v) => v.id === activeId) ?? vacancies[0];
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -134,12 +137,18 @@ const Vacancies: React.FC = () => {
   };
 
   if (loading) {
-    return <Loading />;
+    return (
+      <>
+        <PageTitle>{t('nav.ochiq.vacancies') || 'Vakansiyalar'}</PageTitle>
+        <Loading />
+      </>
+    );
   }
 
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
+        <PageTitle>{t('nav.ochiq.vacancies') || 'Vakansiyalar'}</PageTitle>
         <div className="text-center text-red-600">{t('common.error') || 'Xatolik yuz berdi'}</div>
       </div>
     );
@@ -147,59 +156,109 @@ const Vacancies: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-            {t('nav.ochiq.vacancies') || 'Vakansiyalar'}
-          </h1>
-        </div>
-        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
-      </div>
+      <PageTitle>{t('nav.ochiq.vacancies') || 'Vakansiyalar'}</PageTitle>
 
       <div>
-        {vacancies.length > 0 ? (
-          <div className="space-y-4">
-            {vacancies.map((vacancy) => (
-              <div
-                key={vacancy.id}
-                className="border border-[var(--color-neutral-300)] rounded p-6 hover:border-[var(--color-neutral-500)] transition-colors"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    {vacancy.name && (
-                      <h3
-                        className="text-lg font-semibold text-[var(--color-neutral-900)] mb-2"
-                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.name) }}
-                      />
-                    )}
+        {active ? (
+          <div className="flex flex-col gap-[var(--space-6)] lg:flex-row lg:items-start">
+            <ul className="flex flex-col gap-[var(--space-2)] lg:w-[460px] lg:shrink-0">
+              {vacancies.map((vacancy) => {
+                const isActive = vacancy.id === active.id;
+                return (
+                  <li key={vacancy.id}>
+                    <button
+                      type="button"
+                      onClick={() => setActiveId(vacancy.id)}
+                      aria-current={isActive}
+                      className={`block w-full rounded-[var(--radius-md)] border-l-[3px] px-[var(--space-4)] py-[var(--space-3)] text-left transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                        isActive
+                          ? 'border-[var(--color-brand-700)] bg-[var(--color-brand-50)]'
+                          : 'border-transparent bg-[var(--color-neutral-0)] hover:bg-[var(--color-brand-50)]'
+                      }`}
+                    >
+                      <span className="block text-[16px] font-bold leading-6 text-[var(--color-neutral-900)]">
+                        {stripHtmlAndDecode(vacancy.name)}
+                      </span>
+                      {vacancy.created_at && (
+                        <span className="mt-[var(--space-1)] block text-[14px] leading-5 text-[var(--color-neutral-500)]">
+                          {vacancy.created_at}
+                        </span>
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
 
-                    {vacancy.desc && (
-                      <div
-                        className="text-[var(--color-neutral-700)] mb-3"
-                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.desc) }}
-                      />
-                    )}
+            <article
+              key={active.id}
+              className="min-w-0 flex-1 rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] md:p-[var(--space-10)] lg:sticky lg:top-[var(--space-6)]"
+            >
+              <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+                {t('vacancies.vacancy') || 'Vakansiya'}
+              </span>
+              {active.name && (
+                <h2
+                  className="mt-[var(--space-2)] text-[24px] font-bold leading-8 text-[var(--color-neutral-900)] md:text-[32px] md:leading-10"
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(active.name) }}
+                />
+              )}
 
-                    {vacancy.created_at && (
-                      <p className="text-sm text-[var(--color-neutral-500)]">
-                        {vacancy.created_at}
-                      </p>
-                    )}
-                  </div>
+              {(active.salary || active.deadline) && (
+                <dl className="mt-[var(--space-4)] flex flex-wrap gap-x-[var(--space-8)] gap-y-[var(--space-3)]">
+                  {active.salary && (
+                    <div>
+                      <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-neutral-500)]">
+                        {t('vacancies.salary')}
+                      </dt>
+                      <dd className="text-[16px] font-bold leading-6 text-[var(--color-brand-700)]">
+                        {active.salary}
+                      </dd>
+                    </div>
+                  )}
+                  {active.deadline && (
+                    <div>
+                      <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-neutral-500)]">
+                        {t('vacancies.deadline')}
+                      </dt>
+                      <dd className="text-[16px] font-bold leading-6 text-[var(--color-brand-700)]">
+                        {active.deadline}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              )}
 
-                  <button
-                    onClick={() => openApplicationModal(vacancy)}
-                    className="px-6 py-2 border border-[var(--color-neutral-300)] rounded hover:bg-[var(--color-neutral-50)] transition-colors text-sm font-medium whitespace-nowrap"
-                  >
-                    {t('vacancies.apply') || 'Ariza yuborish'}
-                  </button>
+              {active.desc && (
+                <div
+                  className="mt-[var(--space-6)] text-[16px] leading-7 text-[var(--color-neutral-700)]"
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(active.desc) }}
+                />
+              )}
+
+              {active.requirements && (
+                <div className="mt-[var(--space-6)]">
+                  <h3 className="mb-[var(--space-2)] text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+                    {t('vacancies.requirements')}
+                  </h3>
+                  <div
+                    className="text-[16px] leading-7 text-[var(--color-neutral-700)]"
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(active.requirements) }}
+                  />
                 </div>
-              </div>
-            ))}
+              )}
+
+              <button
+                type="button"
+                onClick={() => openApplicationModal(active)}
+                className="mt-[var(--space-8)] inline-flex items-center gap-[var(--space-2)] rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-[var(--color-accent-600)] hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
+                {t('vacancies.apply') || 'Ariza yuborish'} →
+              </button>
+            </article>
           </div>
         ) : (
-          <div className="text-center text-[var(--color-neutral-500)] py-12">
+          <div className="rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] py-[var(--space-12)] text-center text-[var(--color-neutral-500)] shadow-[var(--shadow-card)]">
             <p>{t('vacancies.noVacancies') || 'Hozirda vakansiyalar mavjud emas'}</p>
           </div>
         )}

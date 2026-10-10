@@ -289,7 +289,10 @@
     "vacancy": "Vakansiya",
     "invalidEmail": "Email manzil noto'g'ri formatda",
     "invalidPhone": "Telefon raqam noto'g'ri formatda",
-    "fileTooLarge": "Fayl hajmi 5MB dan oshmasligi kerak"
+    "fileTooLarge": "Fayl hajmi 5MB dan oshmasligi kerak",
+    "requirements": "Talablar",
+    "salary": "Maosh",
+    "deadline": "Muddat"
   },
   "gallery": {
     "title": "Fotogalereya",
@@ -310,6 +313,7 @@
     },
     "daysLeft": "kun qoldi",
     "attachments": "Hujjatlar",
+    "past": "O'TGAN KONFERENSIYALAR",
     "gallery": "Galereya"
   },
   "stats": {
@@ -327,6 +331,7 @@
     "print": "Chop etish",
     "download": "Yuklab olish",
     "notAvailable": "Mavjud emas",
+    "all": "Barchasi",
     "testModeBanner": "Tizim sinov (TEST) rejimida ishlamoqda!"
   },
   "events": {

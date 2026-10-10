@@ -289,7 +289,10 @@
     "vacancy": "Vacancy",
     "invalidEmail": "Invalid email address format",
     "invalidPhone": "Invalid phone number format",
-    "fileTooLarge": "File size must not exceed 5 MB"
+    "fileTooLarge": "File size must not exceed 5 MB",
+    "requirements": "Requirements",
+    "salary": "Salary",
+    "deadline": "Deadline"
   },
   "labs": {
     "title": "Seismic Safety and Sustainable Construction",
@@ -305,6 +308,7 @@
     },
     "daysLeft": "days left",
     "attachments": "Documents",
+    "past": "PAST CONFERENCES",
     "gallery": "Gallery"
   },
   "gallery": {
@@ -327,6 +331,7 @@
     "print": "Print",
     "download": "Download",
     "notAvailable": "Not available",
+    "all": "All",
     "testModeBanner": "The system is running in TEST mode!"
   },
   "events": {

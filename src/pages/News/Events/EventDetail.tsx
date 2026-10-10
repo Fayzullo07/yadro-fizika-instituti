@@ -7,6 +7,7 @@ import { useImageRetry } from '@/hooks/useImageRetry';
 import { formatDate } from '@/utils/dateUtils';
 import { sanitizeDocumentHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import BackButton from '@/components/shared/BackButton/BackButton';
 
 const PREVIEW_LABEL: Record<string, string> = {
@@ -55,9 +56,10 @@ const EventDetail: React.FC = () => {
 
   return (
     <div className="pb-10">
+      <PageTitle>{item.title}</PageTitle>
       <BackButton to="/news/events" label={t('backToList')} />
 
-      <article className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden">
+      <article className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
         {item.image && (
           <div className="relative w-full h-96 sm:h-120 md:h-160 overflow-hidden bg-[var(--color-neutral-100)]">
             {!imageLoaded && (
@@ -100,34 +102,16 @@ const EventDetail: React.FC = () => {
           </div>
         )}
 
-        <div className="px-4 sm:px-6 py-4 sm:py-5">
-          <div className="flex items-center gap-2 mb-2 sm:mb-3">
-            <svg
-              className="w-4 h-4 text-[var(--color-brand-700)]/70"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <span className="text-[var(--color-neutral-500)] text-xs sm:text-sm">
-              {formatDate(item.created_at, language)}
-            </span>
-          </div>
-          <h1 className="text-[var(--color-neutral-900)] text-base sm:text-xl md:text-2xl font-bold leading-snug">
-            {item.title}
-          </h1>
+        <div className="px-4 py-4 sm:px-6 sm:py-5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
+            {formatDate(item.created_at, language)}
+          </span>
         </div>
 
         {item.duties && (
           <div
             className="
-              px-4 sm:px-6 pb-4 sm:pb-6 text-[var(--color-neutral-700)] text-sm sm:text-[15px] leading-relaxed
+              px-4 sm:px-6 pb-4 sm:pb-6 text-[var(--color-neutral-700)] text-sm sm:text-base leading-7
               [&_a]:text-[var(--color-brand-600)] [&_a]:underline [&_a]:break-all [&_a:hover]:text-[var(--color-brand-700)]
               [&_blockquote]:border-l-4 [&_blockquote]:border-[var(--color-brand-700)]/30
               [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[var(--color-neutral-500)] [&_blockquote]:my-4

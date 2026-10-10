@@ -1,84 +1,65 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLaboratoryTeams } from '@/hooks/useDepartment';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { LaboratoryTeamMember } from '@/types';
-import RetryImage from '@/components/shared/RetryImage/RetryImage';
+
+const initialsOf = (name: string): string =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
 
 const MemberCard: React.FC<{
   member: LaboratoryTeamMember;
   labId: number;
   detailLabel: string;
 }> = ({ member, labId, detailLabel }) => {
-  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const showPhoto = !!member.image && !failed;
 
   return (
-    <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-shadow flex flex-row sm:flex-col">
-      <div className="relative overflow-hidden bg-[var(--color-neutral-100)] w-28 shrink-0 sm:w-auto sm:h-55">
-        {member.image ? (
-          <>
-            {!loaded && (
-              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
-            )}
-            {loaded && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: `url(${member.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  filter: 'blur(12px)',
-                  transform: 'scale(1.1)',
-                }}
-              />
-            )}
-            <div className="relative z-10 flex items-center justify-center h-full w-full">
-              <RetryImage
-                src={member.image}
-                alt={member.full_name}
-                loading="eager"
-                onLoad={() => setLoaded(true)}
-                className={`w-full h-full object-contain transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-              />
-            </div>
-          </>
+    <Link
+      to={`/research/laboratories/${labId}/staff/${member.id}`}
+      className="group flex items-start gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-5 shadow-[var(--shadow-card)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+    >
+      <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-full)] bg-[var(--color-brand-100)] text-xl font-bold text-[var(--color-brand-700)]">
+        {showPhoto ? (
+          <img
+            src={member.image}
+            alt={member.full_name}
+            loading="lazy"
+            onError={() => setFailed(true)}
+            className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105 motion-reduce:transition-none"
+          />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-[var(--color-brand-50)]">
-            <svg
-              className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--color-brand-100)]"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-            </svg>
-          </div>
+          initialsOf(member.full_name)
         )}
       </div>
-      <div className="p-3 sm:p-4 flex flex-col gap-1 flex-1 min-w-0">
-        <p className="font-semibold text-[var(--color-neutral-900)] text-xs sm:text-sm leading-snug">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <h4 className="text-base font-bold leading-snug text-[var(--color-neutral-900)]">
           {member.full_name}
-        </p>
-        <p className="text-xs text-[var(--color-brand-700)]">{member.position}</p>
+        </h4>
+        <p className="text-sm text-[var(--color-neutral-500)]">{member.position}</p>
         {member.degree && member.degree !== "Yo'q" && (
-          <p className="text-xs text-[var(--color-neutral-500)]">{member.degree}</p>
+          <p className="text-sm text-[var(--color-neutral-500)]">{member.degree}</p>
         )}
-        <Link
-          to={`/research/laboratories/${labId}/staff/${member.id}`}
-          className="mt-auto pt-2 text-xs font-medium text-[var(--color-brand-700)] hover:underline cursor-pointer"
-        >
+        <span className="mt-1 text-sm font-semibold text-[var(--color-brand-700)]">
           {detailLabel} →
-        </Link>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
-const StaffTab: React.FC<{ laboratoryId: number }> = ({ laboratoryId }) => {
+const StaffTab: React.FC<{
+  laboratoryId: number;
+  members: LaboratoryTeamMember[];
+  loading: boolean;
+  error: boolean;
+}> = ({ laboratoryId, members, loading, error }) => {
   const { t } = useLanguage();
-  const { data, loading, error } = useLaboratoryTeams(laboratoryId);
-
-  const members = data?.data ?? [];
 
   return (
     <div
@@ -93,17 +74,15 @@ const StaffTab: React.FC<{ laboratoryId: number }> = ({ laboratoryId }) => {
         </p>
       )}
       {members.length > 0 && (
-        <div className="p-3 sm:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-            {members.map((member) => (
-              <MemberCard
-                key={member.id}
-                member={member}
-                labId={laboratoryId}
-                detailLabel={t('news.detail')}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-2 lg:grid-cols-3">
+          {members.map((member) => (
+            <MemberCard
+              key={member.id}
+              member={member}
+              labId={laboratoryId}
+              detailLabel={t('news.detail')}
+            />
+          ))}
         </div>
       )}
     </div>

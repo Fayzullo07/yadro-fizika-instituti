@@ -3,11 +3,11 @@ import { useUniqueObjects } from '@/hooks/useDepartment';
 import Loading from '@/components/shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
-import { formatDate } from '@/utils/dateUtils';
+import Reveal from '@/pages/Landing/sections/Reveal';
 import { UNIQUE_OBJECTS_PATH } from '@/routes/path';
 
 const UniqueObjects: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data, loading, error } = useUniqueObjects();
 
   const items = data?.data ?? [];
@@ -26,66 +26,26 @@ const UniqueObjects: React.FC = () => {
         </p>
       )}
       {!loading && !error && items.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
+        <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-2 md:gap-[var(--space-6)]">
           {items.map((item, index) => (
-            <Link
-              key={item.id}
-              to={`${UNIQUE_OBJECTS_PATH}/${item.id}`}
-              className="group relative flex flex-col bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-all duration-300 overflow-hidden"
-            >
-              <div className="h-1 w-full bg-[var(--color-brand-700)]" />
-
-              <div className="p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 flex-1">
-                <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[var(--radius-lg)] bg-[var(--color-brand-50)] flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-[var(--color-brand-700)]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M9 3v7.5L6 17.5A2 2 0 008 20h8a2 2 0 002-1.5L15 10.5V3M9 3h6"
-                      />
-                    </svg>
-                  </div>
-                  <span
-                    className="text-2xl sm:text-3xl font-black select-none leading-none"
-                    style={{
-                      background: 'linear-gradient(135deg, var(--color-brand-700), #60a5fa)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >
-                    {String(index + 1).padStart(2, '0')}
+            <Reveal key={item.id} delay={Math.min(index, 5) * 60}>
+              <Link
+                to={`${UNIQUE_OBJECTS_PATH}/${item.id}`}
+                className="group flex h-full items-center gap-[var(--space-6)] rounded-[var(--radius-lg)] bg-gradient-to-br from-[var(--color-brand-700)] to-[var(--color-brand-950)] p-6 text-[var(--color-neutral-0)] shadow-[var(--shadow-card)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8"
+              >
+                <span className="shrink-0 select-none text-5xl font-extrabold leading-none text-[var(--color-accent-500)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100 sm:text-6xl">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="flex min-w-0 flex-col gap-[var(--space-3)]">
+                  <h3 className="text-lg font-bold leading-snug text-[var(--color-neutral-0)] sm:text-xl">
+                    {item.name}
+                  </h3>
+                  <span className="text-sm font-semibold text-[var(--color-accent-500)]">
+                    {t('news.detail')} →
                   </span>
-                </div>
-
-                <h3 className="text-[var(--color-neutral-900)] font-semibold text-sm sm:text-base leading-relaxed group-hover:text-[var(--color-brand-700)] transition-colors flex-1">
-                  {item.name}
-                </h3>
-
-                <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-[var(--color-neutral-100)]">
-                  <span className="text-xs text-[var(--color-neutral-500)]">
-                    {formatDate(item.created_at, language)}
-                  </span>
-                  <span className="flex items-center gap-1 text-xs font-medium text-[var(--color-brand-700)] group-hover:underline">
-                    {t('news.detail')}
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </Link>
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </div>
       )}

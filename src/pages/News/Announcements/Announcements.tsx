@@ -2,59 +2,103 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnnouncements } from '@/hooks/useAnnouncements';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
+import { formatDate, getDayMonth } from '@/utils/dateUtils';
+import Pagination from '@/components/shared/Pagination';
+import Reveal from '@/pages/Landing/sections/Reveal';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { AnnouncementItem } from '@/types';
 
 const PER_PAGE = 10;
 
-const AnnouncementCard: React.FC<{
+const EASE = 'ease-[cubic-bezier(0.22,1,0.36,1)]';
+
+const ArrowIcon: React.FC<{ className?: string }> = ({ className = 'size-5' }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 8l4 4m0 0l-4 4m4-4H3"
+    />
+  </svg>
+);
+
+const FeaturedAnnouncement: React.FC<{
   item: AnnouncementItem;
   t: (k: string) => string;
-}> = ({ item, t }) => {
-  const preview = stripHtmlAndDecode(item.description).slice(0, 180).trim();
+  language: string;
+}> = ({ item, t, language }) => {
+  const preview = stripHtmlAndDecode(item.description).slice(0, 260).trim();
 
   return (
-    <article className="group bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden hover:shadow-[var(--shadow-card)] hover:border-[var(--color-brand-700)]/30 transition-all duration-300">
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-1 bg-[var(--color-brand-700)] shrink-0 sm:rounded-l-xl rounded-t-xl sm:rounded-t-none min-h-1 sm:min-h-0" />
-
-        <div className="flex flex-col flex-1 p-4 sm:p-5 gap-2 sm:gap-3">
-          <h2 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug">
-            {item.title}
-          </h2>
-
-          {preview && (
-            <p className="text-xs sm:text-sm text-[var(--color-neutral-500)] leading-relaxed line-clamp-3">
-              {preview}
-              {preview.length >= 180 ? '…' : ''}
-            </p>
-          )}
-
-          <div className="mt-auto pt-2">
-            <Link
-              to={`/news/announcements/${item.id}`}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-brand-700)] hover:gap-2.5 transition-all duration-200"
-            >
-              {t('news.readMore')}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
+    <div className="relative overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-brand-950)] p-[var(--space-6)] sm:p-[var(--space-10)]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-[var(--color-accent-500)] opacity-20 blur-3xl"
+      />
+      <div className="relative max-w-3xl">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-500)]">
+          {formatDate(item.created_at, language)}
+        </span>
+        <h2 className="mt-3 text-2xl font-bold leading-tight text-[var(--color-neutral-0)] sm:text-3xl">
+          {item.title}
+        </h2>
+        {preview && (
+          <p className="mt-4 line-clamp-3 text-base leading-7 text-[var(--color-neutral-100)]/80">
+            {preview}
+            {preview.length >= 260 ? '…' : ''}
+          </p>
+        )}
+        <Link
+          to={`/news/announcements/${item.id}`}
+          className={`group mt-[var(--space-6)] inline-flex h-12 items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-6 text-sm font-semibold text-[var(--color-brand-950)] transition-all duration-500 ${EASE} hover:-translate-y-0.5 hover:bg-[var(--color-accent-600)]`}
+        >
+          {t('news.readMore')}
+          <ArrowIcon
+            className={`size-4 transition-transform duration-500 ${EASE} group-hover:translate-x-1`}
+          />
+        </Link>
       </div>
-    </article>
+    </div>
+  );
+};
+
+const AnnouncementRow: React.FC<{
+  item: AnnouncementItem;
+  language: string;
+}> = ({ item, language }) => {
+  const preview = stripHtmlAndDecode(item.description).slice(0, 180).trim();
+  const { day, month } = getDayMonth(item.created_at, language);
+
+  return (
+    <Link
+      to={`/news/announcements/${item.id}`}
+      className={`group flex items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ${EASE} hover:-translate-y-0.5 sm:gap-[var(--space-5)] sm:p-[var(--space-5)]`}
+    >
+      <div className="flex size-16 shrink-0 flex-col items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-700)] leading-none text-[var(--color-neutral-0)] sm:size-[72px]">
+        <span className="text-xl font-bold sm:text-2xl">{day}</span>
+        <span className="mt-1 text-[10px] font-semibold uppercase tracking-wide">{month}</span>
+      </div>
+      <div className="min-w-0 flex-1">
+        <h2 className="line-clamp-2 text-base font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)] sm:text-lg">
+          {item.title}
+        </h2>
+        {preview && (
+          <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--color-neutral-500)]">
+            {preview}
+          </p>
+        )}
+      </div>
+      <ArrowIcon
+        className={`size-5 shrink-0 text-[var(--color-brand-700)] transition-transform duration-500 ${EASE} group-hover:translate-x-1`}
+      />
+    </Link>
   );
 };
 
 const Announcements: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
 
@@ -86,63 +130,21 @@ const Announcements: React.FC = () => {
 
       {items.length > 0 && (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-            {items.map((item) => (
-              <AnnouncementCard key={item.id} item={item} t={t} />
-            ))}
-          </div>
+          <Reveal>
+            <FeaturedAnnouncement item={items[0]} t={t} language={language} />
+          </Reveal>
 
-          {totalPages > 1 && (
-            <div className="mt-6 sm:mt-12 flex flex-wrap justify-center items-center gap-2">
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page === 1}
-                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
-              >
-                ← <span className="hidden sm:inline">{t('news.previous')}</span>
-              </button>
-
-              <div className="flex flex-wrap gap-2">
-                {[...Array(totalPages)].map((_, index) => {
-                  const pageNum = index + 1;
-                  if (
-                    pageNum === 1 ||
-                    pageNum === totalPages ||
-                    (pageNum >= page - 1 && pageNum <= page + 1)
-                  ) {
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => handlePageChange(pageNum)}
-                        className={`px-3 sm:px-4 py-2 rounded-[var(--radius-md)] transition-colors text-sm ${
-                          page === pageNum
-                            ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
-                            : 'bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] hover:bg-[var(--color-neutral-50)]'
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  } else if (pageNum === page - 2 || pageNum === page + 2) {
-                    return (
-                      <span key={pageNum} className="px-1 sm:px-2 self-center text-sm">
-                        ...
-                      </span>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page === totalPages}
-                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
-              >
-                <span className="hidden sm:inline">{t('news.next')}</span> →
-              </button>
+          {items.length > 1 && (
+            <div className="mt-[var(--space-5)] flex flex-col gap-[var(--space-3)] sm:gap-[var(--space-4)]">
+              {items.slice(1).map((item, i) => (
+                <Reveal key={item.id} delay={(i % 4) * 70}>
+                  <AnnouncementRow item={item} language={language} />
+                </Reveal>
+              ))}
             </div>
           )}
+
+          <Pagination page={page} lastPage={totalPages} onPageChange={handlePageChange} />
         </>
       )}
     </div>

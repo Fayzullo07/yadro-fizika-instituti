@@ -13,23 +13,34 @@ import {
   SOCIAL_LINKS,
 } from '@/config/contactData';
 
-const Card: React.FC<{ icon: React.ReactNode; label: string; children: React.ReactNode }> = ({
-  icon,
-  label,
-  children,
-}) => (
-  <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] shadow-[var(--shadow-card)] p-4 flex gap-3.5">
-    <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0 mt-0.5">
-      {icon}
-    </div>
-    <div className="min-w-0">
-      <p className="text-[11px] font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
+const Tile: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
+  <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-brand-700)] bg-[var(--color-brand-950)] p-[var(--space-6)]">
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-10 -top-16 size-[200px] rounded-full bg-[var(--color-brand-600)] opacity-40 blur-[80px]"
+    />
+    <div className="relative flex flex-col gap-[var(--space-2)]">
+      <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]">
         {label}
-      </p>
+      </span>
       {children}
     </div>
   </div>
 );
+
+const tileLink =
+  'block text-[18px] font-bold leading-7 text-[var(--color-neutral-0)] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-[var(--color-accent-500)] motion-reduce:transition-none break-words';
+
+const InfoItem: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
+  <div className="flex min-w-0 flex-col gap-[var(--space-1)]">
+    <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+      {label}
+    </span>
+    {children}
+  </div>
+);
+
+const valueCls = 'text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)] break-words';
 
 const Contact: React.FC = () => {
   const { t, language } = useLanguage();
@@ -43,228 +54,104 @@ const Contact: React.FC = () => {
     <div className="pb-10">
       <PageTitle>{t('nav.boglanish.contact')}</PageTitle>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
-        {/* Cards column */}
-        <div className="lg:col-span-2 flex flex-col gap-3">
-          {/* Phone */}
-          <Card
-            label={t('contact.phone')}
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="currentColor"
-                viewBox="0 0 17.2 17.2"
-              >
-                <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
-              </svg>
-            }
-          >
-            {CONTACT_PHONES.map((p) => (
-              <a
-                key={p}
-                href={`tel:${p.replace(/\s/g, '')}`}
-                className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline block"
-              >
-                {p}
-              </a>
-            ))}
-          </Card>
-
-          {/* Fax */}
-          <Card
-            label={t('contact.fax')}
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                />
-              </svg>
-            }
-          >
-            <a
-              href={`tel:${CONTACT_FAX.replace(/\s/g, '')}`}
-              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline"
-            >
-              {CONTACT_FAX}
+      <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-3">
+        <Tile label={t('contact.phone')}>
+          {CONTACT_PHONES.map((p) => (
+            <a key={p} href={`tel:${p.replace(/\s/g, '')}`} className={tileLink}>
+              {p}
             </a>
-          </Card>
+          ))}
+        </Tile>
 
-          {/* Email */}
-          <Card
-            label="Email"
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            }
-          >
-            <a
-              href={`mailto:${email}`}
-              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline break-all"
-            >
-              {email}
-            </a>
-          </Card>
+        <Tile label="Email">
+          <a href={`mailto:${email}`} className={tileLink}>
+            {email}
+          </a>
+        </Tile>
 
-          {/* Website */}
-          <Card
-            label="Veb-sayt"
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                />
-              </svg>
-            }
-          >
-            <a
-              href={CONTACT_WEBSITE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline break-all"
-            >
-              {CONTACT_WEBSITE}
-            </a>
-          </Card>
-
-          {/* Address */}
-          <Card
-            label={t('contact.address')}
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-            }
-          >
-            <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">{address}</p>
-          </Card>
-
-          {/* Working hours */}
-          <Card
-            label={t('contact.workingDays')}
-            icon={
-              <svg
-                className="w-4 h-4 text-[var(--color-brand-700)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            }
-          >
-            {hours.map((h) => (
-              <p key={h} className="text-sm text-[var(--color-neutral-700)]">
-                {h}
-              </p>
-            ))}
-          </Card>
-
-          {/* Social links */}
-          <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] shadow-[var(--shadow-card)] p-4">
-            <p className="text-[11px] font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-3">
-              {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
+        <Tile label={t('contact.workingDays')}>
+          {hours.map((h) => (
+            <p key={h} className="text-[18px] font-bold leading-7 text-[var(--color-neutral-0)]">
+              {h}
             </p>
-            <div className="flex flex-wrap gap-2">
-              {SOCIAL_LINKS.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={s.name}
-                  className={`w-9 h-9 rounded-full ${s.color} flex items-center justify-center transition-colors`}
-                >
-                  <svg
-                    className="w-4 h-4 text-[var(--color-neutral-0)]"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    {s.icon}
-                  </svg>
-                </a>
-              ))}
-            </div>
-          </div>
+          ))}
+        </Tile>
+      </div>
 
-          {/* Open map button */}
+      {/* Map */}
+      <div className="mt-[var(--space-6)] h-80 overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)] sm:h-[420px] lg:h-[520px]">
+        <iframe
+          src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
+          width="100%"
+          height="100%"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="block h-full w-full border-0"
+          title="Manzil xaritasi"
+        />
+      </div>
+
+      {/* Address row */}
+      <div className="mt-[var(--space-6)] grid grid-cols-1 items-start gap-[var(--space-6)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_auto]">
+        <InfoItem label={t('contact.address')}>
+          <p className={valueCls}>{address}</p>
+        </InfoItem>
+
+        <InfoItem label={t('contact.fax')}>
           <a
-            href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
+            href={`tel:${CONTACT_FAX.replace(/\s/g, '')}`}
+            className={`${valueCls} hover:text-[var(--color-brand-700)]`}
+          >
+            {CONTACT_FAX}
+          </a>
+        </InfoItem>
+
+        <InfoItem label="Veb-sayt">
+          <a
+            href={CONTACT_WEBSITE}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 bg-[var(--color-brand-700)] hover:bg-[#012d6a] text-[var(--color-neutral-0)] text-sm font-medium rounded-[var(--radius-lg)] transition-colors"
+            className={`${valueCls} hover:text-[var(--color-brand-700)]`}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-            {t('contact.openMap')}
+            {CONTACT_WEBSITE}
           </a>
-        </div>
+        </InfoItem>
 
-        {/* Map */}
-        <div className="lg:col-span-3 h-72 sm:h-96 lg:min-h-105 rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)]">
-          <iframe
-            src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
-            width="100%"
-            height="100%"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full border-0 block"
-            title="Manzil xaritasi"
-          />
+        <a
+          href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-[var(--space-2)] self-center rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:bg-[var(--color-accent-600)] hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+        >
+          {t('contact.openMap')} →
+        </a>
+      </div>
+
+      {/* Social links */}
+      <div className="mt-[var(--space-4)] flex flex-wrap items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
+        <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+          {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
+        </span>
+        <div className="flex flex-wrap gap-[var(--space-2)]">
+          {SOCIAL_LINKS.map((s) => (
+            <a
+              key={s.name}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={s.name}
+              className={`flex size-9 items-center justify-center rounded-full ${s.color} transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none`}
+            >
+              <svg
+                className="size-4 text-[var(--color-neutral-0)]"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                {s.icon}
+              </svg>
+            </a>
+          ))}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Reception: React.FC = () => {
@@ -5,20 +6,15 @@ const Reception: React.FC = () => {
 
   return (
     <div className="pb-10">
-      <div className="mt-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-            {t('nav.ochiq.reception') || 'Rahbariyat qabul kunlari'}
-          </h1>
-        </div>
-        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
-      </div>
-      <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-md)] shadow-[var(--shadow-card)] p-8">
-        <p className="text-lg text-[var(--color-neutral-700)]">
+      <PageTitle>{t('nav.ochiq.reception') || 'Rahbariyat qabul kunlari'}</PageTitle>
+      <section className="rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] md:p-[var(--space-10)]">
+        <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+          {t('contact.workingDays') || 'Qabul kunlari'}
+        </span>
+        <p className="mt-[var(--space-2)] text-[18px] leading-8 text-[var(--color-neutral-700)]">
           {t('pages.reception.content') || "Rahbariyat qabul kunlari ma'lumotlari..."}
         </p>
-      </div>
+      </section>
     </div>
   );
 };

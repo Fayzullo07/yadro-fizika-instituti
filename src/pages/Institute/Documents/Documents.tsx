@@ -1,5 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useState } from 'react';
 import { formatDate } from '@/utils/dateUtils';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 
 interface DocumentItem {
   id: number;
@@ -16,6 +18,7 @@ interface DocumentCategory {
 
 const Documents: React.FC = () => {
   const { t, language } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
   // Mock data - keyinroq API dan olinadi
   const documentCategories: DocumentCategory[] = [
@@ -55,87 +58,100 @@ const Documents: React.FC = () => {
     },
   ];
 
-  return (
-    <div className="min-h-screen bg-[var(--color-neutral-50)]">
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
-            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-              {t('nav.institute.documents') || 'Ichki hujjatlar'}
-            </h1>
-          </div>
-          <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
-        </div>
+  const rows = documentCategories
+    .filter((category) => activeCategory === null || category.id === activeCategory)
+    .flatMap((category) => category.documents.map((doc) => ({ ...doc, category: category.title })));
 
-        <div className="mt-8 space-y-6">
-          {documentCategories.map((category) => (
-            <div
-              key={category.id}
-              className="bg-[var(--color-neutral-0)] rounded-[var(--radius-md)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] overflow-hidden"
-            >
-              <div className="bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] px-6 py-4">
-                <h2 className="text-xl font-semibold">{category.title}</h2>
+  const groups = Object.entries(
+    rows.reduce<Record<string, typeof rows>>((acc, doc) => {
+      const year = doc.date ? doc.date.slice(0, 4) : '';
+      (acc[year] ||= []).push(doc);
+      return acc;
+    }, {})
+  ).sort(([a], [b]) => b.localeCompare(a));
+
+  const chipBase =
+    'rounded-[var(--radius-full)] px-[var(--space-4)] py-[var(--space-2)] text-[14px] font-semibold transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none';
+
+  return (
+    <div className="pb-10">
+      <PageTitle>{t('nav.institute.documents') || 'Ichki hujjatlar'}</PageTitle>
+
+      <div className="mb-[var(--space-8)] flex flex-wrap gap-[var(--space-2)]">
+        <button
+          type="button"
+          onClick={() => setActiveCategory(null)}
+          aria-pressed={activeCategory === null}
+          className={`${chipBase} ${
+            activeCategory === null
+              ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+              : 'bg-[var(--color-neutral-0)] text-[var(--color-neutral-700)] hover:bg-[var(--color-brand-50)]'
+          }`}
+        >
+          {t('common.all')}
+        </button>
+        {documentCategories.map((category) => (
+          <button
+            key={category.id}
+            type="button"
+            onClick={() => setActiveCategory(category.id)}
+            aria-pressed={activeCategory === category.id}
+            className={`${chipBase} ${
+              activeCategory === category.id
+                ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                : 'bg-[var(--color-neutral-0)] text-[var(--color-neutral-700)] hover:bg-[var(--color-brand-50)]'
+            }`}
+          >
+            {category.title}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-[var(--space-10)]">
+        {groups.map(([year, docs]) => (
+          <section
+            key={year || 'none'}
+            className="flex flex-col gap-[var(--space-4)] md:flex-row md:gap-[var(--space-8)]"
+          >
+            {year && (
+              <div className="md:w-[220px] md:shrink-0">
+                <span
+                  aria-label={year}
+                  className="block text-[56px] font-extrabold leading-none text-transparent [-webkit-text-stroke:2px_var(--color-brand-700)] md:text-[72px]"
+                >
+                  {year}
+                </span>
               </div>
-              <div className="p-6">
-                <div className="space-y-3">
-                  {category.documents.map((doc) => (
-                    <div
-                      key={doc.id}
-                      className="flex items-center justify-between p-4 bg-[var(--color-neutral-50)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-100)] transition-colors border border-[var(--color-neutral-100)]"
-                    >
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="bg-[var(--color-brand-100)] p-3 rounded-[var(--radius-md)]">
-                          <svg
-                            className="w-6 h-6 text-[var(--color-brand-600)]"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-medium text-[var(--color-neutral-900)] mb-1">
-                            {doc.name}
-                          </h3>
-                          <p className="text-sm text-[var(--color-neutral-500)]">
-                            {formatDate(doc.date, language)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs bg-[var(--color-neutral-100)] text-[var(--color-neutral-700)] px-2 py-1 rounded uppercase">
-                          {doc.type}
-                        </span>
-                        <button className="p-2 text-[var(--color-brand-600)] hover:bg-[var(--color-brand-50)] rounded-[var(--radius-md)] transition-colors">
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+            )}
+            <div className="flex min-w-0 flex-1 flex-col gap-[var(--space-3)]">
+              {docs.map((doc) => (
+                <div
+                  key={doc.id}
+                  className="group flex items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1 hover:bg-[var(--color-brand-50)] motion-reduce:transition-none motion-reduce:hover:translate-x-0"
+                >
+                  <span className="flex size-14 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-50)] text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-brand-700)]">
+                    {doc.type}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-[16px] font-bold leading-6 text-[var(--color-neutral-900)]">
+                      {doc.name}
+                    </h4>
+                    <p className="text-[14px] leading-5 text-[var(--color-neutral-500)]">
+                      {doc.category} · {formatDate(doc.date, language)}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label={t('common.download')}
+                    className="shrink-0 text-[24px] font-bold leading-none text-[var(--color-brand-700)]"
+                  >
+                    ↓
+                  </button>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </section>
+        ))}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLeadership, useTeams } from '@/hooks/useDepartment';
+import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import Loading from '@/components/shared/Loading/Loading';
 import MemberCardList from '@/components/shared/MemberCardList/MemberCardList';
 
@@ -64,16 +65,14 @@ const CentralOffice = () => {
   ];
 
   return (
-    <div className="min-h-[calc(100vh-208px)] mt-6 bg-[var(--color-neutral-0)] pb-12">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="flex items-start justify-between gap-4 mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
-            {t('pages.markaziyApparat.title') || 'MARKAZIY APPARAT'}
-          </h1>
+    <div className="pb-12">
+      <PageTitle>{t('pages.markaziyApparat.title') || 'MARKAZIY APPARAT'}</PageTitle>
+      <div>
+        <div className="mb-[var(--space-4)] flex justify-end">
           <button
             type="button"
             onClick={handlePrint}
-            className="flex-shrink-0 p-2 text-[var(--color-neutral-700)] hover:text-[var(--color-brand-700)] hover:bg-[var(--color-neutral-100)] rounded transition-colors print:hidden"
+            className="flex-shrink-0 rounded-[var(--radius-md)] p-2 text-[var(--color-neutral-700)] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-brand-700)] motion-reduce:transition-none print:hidden"
             aria-label={t('common.print') || 'Chop etish'}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,21 +86,24 @@ const CentralOffice = () => {
           </button>
         </div>
 
-        <div className="">
+        <div className="flex flex-col gap-[var(--space-4)]">
           {accordionSections.map(({ key, labelKey, members, showReceptionHours }) => {
             const isOpen = openSection === key;
             return (
-              <div key={key} className="">
+              <div
+                key={key}
+                className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]"
+              >
                 <button
                   type="button"
                   onClick={() => toggleSection(key)}
-                  className="w-full flex items-center justify-between py-4 px-5 text-left bg-[#f9f9f9]"
+                  className="w-full flex items-center justify-between py-4 px-5 text-left transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[var(--color-neutral-50)] motion-reduce:transition-none"
                 >
                   <span className="text-base md:text-lg font-semibold text-[var(--color-neutral-900)] uppercase">
                     {t(labelKey)}
                   </span>
                   <svg
-                    className={`w-5 h-5 text-[var(--color-neutral-700)] flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    className={`w-5 h-5 text-[var(--color-neutral-700)] flex-shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -115,7 +117,7 @@ const CentralOffice = () => {
                   </svg>
                 </button>
                 {isOpen && (
-                  <div className="px-2 !py-4 pt-0 bg-[var(--color-neutral-50)]/50">
+                  <div className="px-2 !py-4 pt-0 border-t border-[var(--color-neutral-100)]">
                     <MemberCardList
                       members={members as never[]}
                       showReceptionHours={showReceptionHours}

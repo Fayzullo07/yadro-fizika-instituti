@@ -1,9 +1,112 @@
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useScientificCouncil, useCouncilMembers } from '@/hooks/useCouncil';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import type { ScientificCouncil, CouncilMember } from '@/types';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+
+const initialsOf = (name: string): string =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
+
+const Avatar: React.FC<{ photo?: string; name: string; size: number; className?: string }> = ({
+  photo,
+  name,
+  size,
+  className = '',
+}) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div
+      style={{ width: size, height: size }}
+      className={`flex shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-full)] font-bold ${className}`}
+    >
+      {photo && !failed ? (
+        <img
+          src={photo}
+          alt={name}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105 motion-reduce:transition-none"
+        />
+      ) : (
+        <span style={{ fontSize: size / 3 }}>{initialsOf(name)}</span>
+      )}
+    </div>
+  );
+};
+
+const SpotlightCard: React.FC<{ member: CouncilMember }> = ({ member }) => (
+  <div className="group flex flex-col items-center gap-[var(--space-6)] rounded-[var(--radius-lg)] bg-[var(--color-brand-950)] p-8 text-center shadow-[var(--shadow-card)] sm:flex-row sm:p-10 sm:text-left">
+    <Avatar
+      photo={member.photo}
+      name={member.fullname}
+      size={180}
+      className="bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]"
+    />
+    <div className="min-w-0">
+      {member.position && (
+        <p className="mb-[var(--space-2)] text-sm font-semibold uppercase tracking-wide text-[var(--color-accent-500)]">
+          {member.position}
+        </p>
+      )}
+      <h2 className="text-3xl font-extrabold leading-tight text-[var(--color-neutral-0)] sm:text-4xl">
+        {member.fullname}
+      </h2>
+      {member.degree && (
+        <p className="mt-[var(--space-3)] text-base leading-relaxed text-[var(--color-neutral-300)]">
+          {member.degree}
+        </p>
+      )}
+    </div>
+  </div>
+);
+
+const PersonCard: React.FC<{ member: CouncilMember }> = ({ member }) => (
+  <div className="group flex items-start gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-5 shadow-[var(--shadow-card)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <Avatar
+      photo={member.photo}
+      name={member.fullname}
+      size={72}
+      className="bg-[var(--color-brand-100)] text-[var(--color-brand-700)]"
+    />
+    <div className="min-w-0">
+      <h4 className="text-base font-bold leading-snug text-[var(--color-neutral-900)] break-words">
+        {member.fullname}
+      </h4>
+      {member.position && (
+        <p className="mt-1 text-sm text-[var(--color-neutral-500)] break-words">
+          {member.position}
+        </p>
+      )}
+      {member.degree && (
+        <p className="mt-1 text-sm text-[var(--color-neutral-500)] break-words">{member.degree}</p>
+      )}
+    </div>
+  </div>
+);
+
+const MembersBlock: React.FC<{ members: CouncilMember[] }> = ({ members }) => {
+  const [first, ...rest] = members;
+  if (!first) return null;
+  return (
+    <div className="flex flex-col gap-[var(--space-6)]">
+      <SpotlightCard member={first} />
+      {rest.length > 0 && (
+        <div className="grid grid-cols-1 gap-[var(--space-4)] md:grid-cols-2 lg:grid-cols-3">
+          {rest.map((m) => (
+            <PersonCard key={m.id} member={m} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Council: React.FC = () => {
   const { t } = useLanguage();
@@ -19,8 +122,8 @@ const Council: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className=" pb-8 md:pb-12">
+    <div>
+      <div className="pb-8 md:pb-12">
         <PageTitle>
           {scientificCouncil?.title ? (
             <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.title) }} />
@@ -31,7 +134,7 @@ const Council: React.FC = () => {
 
         {/* Header Image */}
         {scientificCouncil?.image && (
-          <div className="mb-12 overflow-hidden shadow-[var(--shadow-card)]">
+          <div className="mb-[var(--space-6)] overflow-hidden rounded-[var(--radius-lg)] shadow-[var(--shadow-card)]">
             <img
               src={scientificCouncil.image}
               alt="Ilmiy kengash"
@@ -43,7 +146,7 @@ const Council: React.FC = () => {
 
         {/* Council Description */}
         {scientificCouncil?.council_duties && (
-          <div className="max-w-4xl mx-auto mb-12">
+          <div className="mb-[var(--space-8)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-6 shadow-[var(--shadow-card)] sm:p-8">
             <div
               className="prose prose-lg max-w-none text-[var(--color-neutral-700)] leading-relaxed [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-[var(--color-neutral-900)] [&_h3]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_li]:text-base [&_li]:md:text-lg [&_em]:not-italic"
               dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.council_duties) }}
@@ -52,65 +155,7 @@ const Council: React.FC = () => {
         )}
 
         {/* Council Members Section */}
-        {members.length > 0 && (
-          <div className="mt-16">
-            {/* <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-neutral-900)] mb-8 text-center">
-              {t('pages.council.members') || 'Ilmiy kengash tarkibi:'}
-            </h2> */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
-              {members.map((member) => (
-                <div key={member.id} className="">
-                  <div className="flex items-center gap-4">
-                    {/* Photo */}
-                    <div className="flex-shrink-0">
-                      {member.photo ? (
-                        <img
-                          src={member.photo}
-                          alt={member.fullname}
-                          loading="lazy"
-                          className="w-32 h-32 md:w-36 md:h-36 object-cover rounded"
-                        />
-                      ) : (
-                        <div className="w-28 h-28 md:w-32 md:h-32 bg-[var(--color-neutral-100)] rounded-[var(--radius-md)] flex items-center justify-center">
-                          <svg
-                            className="w-16 h-16 text-[var(--color-neutral-500)]"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                            />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg md:text-2xl font-semibold text-[var(--color-neutral-900)] mb-2 break-words">
-                        {member.fullname}
-                      </h3>
-                      {member.degree && (
-                        <p className="text-sm md:text-base text-[var(--color-neutral-700)] mb-2 break-words">
-                          {member.degree}
-                        </p>
-                      )}
-                      {member.position && (
-                        <p className="text-sm md:text-base text-[var(--color-brand-600)] font-semibold break-words">
-                          {member.position}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {members.length > 0 && <MembersBlock members={members} />}
       </div>
     </div>
   );
