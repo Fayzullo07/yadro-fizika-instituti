@@ -11,7 +11,7 @@ import {
   NEWS_PATH,
 } from '@/routes/path';
 import Animated from './Animated';
-import PhotoLightbox, { type LightboxPhoto } from './PhotoLightbox';
+import PhotoLightbox, { type LightboxState } from './PhotoLightbox';
 import {
   appear,
   ATOM_RING,
@@ -216,7 +216,7 @@ const SatelliteImage: React.FC<{
   src?: string;
   fallback: string;
   openLabel: string;
-  onOpen: (photo: LightboxPhoto) => void;
+  onOpen: (photo: { src: string; origin: DOMRect }) => void;
 }> = ({ size, src, fallback, openLabel, onOpen }) => {
   const [failed, setFailed] = useState(false);
 
@@ -251,18 +251,27 @@ const HeroB2: React.FC = () => {
   const { t } = useLanguage();
   const { ref, height } = useViewportFillHeight();
   const { data: images, loading: imagesLoading } = useHeroImages();
-  const [lightbox, setLightbox] = useState<LightboxPhoto | null>(null);
-  // photos picked by clicking a satellite; each one becomes the backdrop
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
+  // photos shown in the viewer; each one also becomes the backdrop
   const [picked, setPicked] = useState<{ id: number; src: string }[]>([]);
   const baseBackdrop = images?.background ?? photo;
   const backdropLayers = [{ id: 0, src: baseBackdrop }, ...picked].slice(-MAX_BACKDROP_LAYERS);
 
-  const openPhoto = (next: LightboxPhoto) => {
-    setLightbox(next);
-    const current = backdropLayers[backdropLayers.length - 1].src;
-    if (next.src !== current) {
-      setPicked((list) => [...list, { id: (list[list.length - 1]?.id ?? 0) + 1, src: next.src }]);
-    }
+  const showBackdrop = (src: string) => {
+    if (src === backdropLayers[backdropLayers.length - 1].src) return;
+    setPicked((list) => [...list, { id: (list[list.length - 1]?.id ?? 0) + 1, src }]);
+  };
+
+  const openPhoto = ({ src, origin }: { src: string; origin: DOMRect }) => {
+    const all = images?.all ?? [];
+    const slides = all.includes(src) ? all : [src, ...all];
+    setLightbox({ slides, index: slides.indexOf(src), origin });
+    showBackdrop(src);
+  };
+
+  const changePhoto = (index: number) => {
+    setLightbox((current) => (current ? { ...current, index } : current));
+    if (lightbox) showBackdrop(lightbox.slides[index]);
   };
 
   return (
@@ -427,9 +436,14 @@ const HeroB2: React.FC = () => {
         ))}
       </Animated>
       <PhotoLightbox
-        photo={lightbox}
+        state={lightbox}
+        onIndexChange={changePhoto}
         onClose={() => setLightbox(null)}
-        closeLabel={t('landing.photo.close')}
+        labels={{
+          close: t('landing.photo.close'),
+          prev: t('landing.photo.prev'),
+          next: t('landing.photo.next'),
+        }}
       />
     </section>
   );

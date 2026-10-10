@@ -7,6 +7,8 @@ export interface HeroImages {
   background?: string;
   /** one photo per orbiting satellite, in order */
   satellites: (string | undefined)[];
+  /** every banner photo; the lightbox slider pages through these */
+  all: string[];
 }
 
 const SATELLITE_COUNT = 4;
@@ -25,6 +27,7 @@ export const useHeroImages = () => {
     const images = (response?.data ?? []).map((banner) => banner.image).filter(Boolean);
 
     return {
+      all: images,
       background: images[0],
       satellites: Array.from({ length: SATELLITE_COUNT }, (_, i) =>
         images.length ? images[(i + 1) % images.length] : undefined

@@ -387,7 +387,9 @@
     },
     "photo": {
       "open": "Rasmni kattalashtirish",
-      "close": "Yopish"
+      "close": "Yopish",
+      "prev": "Oldingi rasm",
+      "next": "Keyingi rasm"
     }
   }
 }

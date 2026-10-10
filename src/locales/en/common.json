@@ -387,7 +387,9 @@
     },
     "photo": {
       "open": "Enlarge photo",
-      "close": "Close"
+      "close": "Close",
+      "prev": "Previous photo",
+      "next": "Next photo"
     }
   }
 }
