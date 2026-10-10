@@ -121,12 +121,23 @@ interface StarSpec {
   orbit?: number;
 }
 
+// `period` must divide the 40s loop into whole half-periods (2, 2.5, 4, 5, 8, 10).
 const STAR_SPECS: StarSpec[] = [
   { ...orbitStart(0), period: 5, orbit: 0 },
   { ...orbitStart(1), period: 4, orbit: 1 },
   { ...orbitStart(2), period: 8, orbit: 2 },
   { left: 849.62, top: 104.34, period: 2.5 },
   { left: 400.42, top: 571.43, period: 4 },
+  { ...orbitStart(3), period: 10, orbit: 3 },
+  { ...orbitStart(4), period: 2.5, orbit: 4 },
+  { ...orbitStart(5), period: 5, orbit: 5 },
+  // scattered twinkling stars around the edges, clear of the copy
+  { left: 168, top: 38, period: 4 },
+  { left: 1068, top: 28, period: 5 },
+  { left: 1348, top: 198, period: 2.5 },
+  { left: 38, top: 388, period: 8 },
+  { left: 1218, top: 568, period: 2 },
+  { left: 628, top: 608, period: 10 },
 ];
 
 const STARS = STAR_SPECS.map((s, i) => {

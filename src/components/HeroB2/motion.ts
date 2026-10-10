@@ -71,6 +71,10 @@ const STAR_ORBITS = [
   { ringDeg: 0, spin: 1, start: 0.5, turns: 1.5 },
   { ringDeg: 60, spin: -1, start: 2.2, turns: -1.5 },
   { ringDeg: -60, spin: 1, start: 4.1, turns: 1.5 },
+  // second star per ring, half an orbit apart from the first
+  { ringDeg: 0, spin: 1, start: 0.5 + Math.PI, turns: 1.5 },
+  { ringDeg: 60, spin: -1, start: 2.2 + Math.PI, turns: -1.5 },
+  { ringDeg: -60, spin: 1, start: 4.1 + Math.PI, turns: 1.5 },
 ];
 
 const starPoint = (index: number, tau: number) => {
