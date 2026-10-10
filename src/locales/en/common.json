@@ -386,6 +386,10 @@
     "gallery": {
       "title": "Photo gallery"
     },
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "footer": {
+      "name": "Institute of Nuclear Physics",
+      "description": "Institute of Nuclear Physics, Academy of Sciences of the Republic of Uzbekistan"
+    }
   }
 }

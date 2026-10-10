@@ -4,11 +4,97 @@ import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
 import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
 import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
+import logo from '@/assets/logo.png';
+import { ABOUT_PATH, CONTACT_PATH, HOME_PATH, LABORATORIES_PATH, NEWS_PATH } from '@/routes/path';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  /** `landing` = the single dark block from the Figma landing design. */
+  variant?: 'default' | 'landing';
+}
+
+const LANDING_LINKS = [
+  { to: HOME_PATH, labelKey: 'nav.home' },
+  { to: ABOUT_PATH, labelKey: 'nav.about' },
+  { to: LABORATORIES_PATH, labelKey: 'nav.laboratoriyalar.title' },
+  { to: NEWS_PATH, labelKey: 'nav.media.title' },
+  { to: CONTACT_PATH, labelKey: 'nav.contact' },
+];
+
+/** Social networks listed (in this order) by the landing design. */
+const LANDING_SOCIALS = ['telegram', 'youtube', 'facebook', 'instagram'];
+
+const FOOTER_LINK =
+  'text-[14px] leading-5 text-[var(--color-neutral-300)] hover:text-[var(--color-neutral-0)]';
+const FOOTER_HEADING = 'text-[20px] font-semibold leading-7 text-[var(--color-neutral-0)]';
+
+const Footer: React.FC<FooterProps> = ({ variant = 'default' }) => {
   const { t, language } = useLanguage();
   const orgAcademy = t('org.academy');
   const orgInstitute = t('org.institute');
+
+  if (variant === 'landing') {
+    const socials = LANDING_SOCIALS.map((id) => SOCIAL_LINKS.find((s) => s.id === id)).filter(
+      (s): s is (typeof SOCIAL_LINKS)[number] => Boolean(s)
+    );
+    const name = t('landing.footer.name');
+
+    return (
+      <footer className="mt-auto bg-[var(--color-brand-950)] px-[var(--space-6)] pb-[var(--space-8)] pt-[var(--space-16)] lg:px-[var(--space-24)]">
+        <div className="flex flex-col gap-[var(--space-12)]">
+          <div className="grid grid-cols-1 gap-[var(--space-8)] sm:grid-cols-2 lg:grid-cols-4 lg:gap-[var(--space-16)]">
+            <div className="flex flex-col gap-[var(--space-4)]">
+              <Link to={HOME_PATH} className="flex items-center gap-[var(--space-3)]">
+                <img src={logo} alt="" className="h-[50px] w-12 object-contain" />
+                <span className={FOOTER_HEADING}>{name}</span>
+              </Link>
+              <p className={FOOTER_LINK}>{t('landing.footer.description')}</p>
+            </div>
+
+            <div className="flex flex-col gap-[var(--space-3)]">
+              <h4 className={FOOTER_HEADING}>{t('footer.quickLinks')}</h4>
+              {LANDING_LINKS.map(({ to, labelKey }) => (
+                <Link key={to} to={to} className={FOOTER_LINK}>
+                  {t(labelKey)}
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-[var(--space-3)]">
+              <h4 className={FOOTER_HEADING}>{t('footer.contact')}</h4>
+              <p className={FOOTER_LINK}>{CONTACT_ADDRESS[language] ?? CONTACT_ADDRESS.uz}</p>
+              <a href={`tel:${CONTACT_PHONES[0].replace(/\s/g, '')}`} className={FOOTER_LINK}>
+                {CONTACT_PHONES[0]}
+              </a>
+              <a href={`mailto:${CONTACT_EMAIL}`} className={FOOTER_LINK}>
+                {CONTACT_EMAIL}
+              </a>
+            </div>
+
+            <div className="flex flex-col gap-[var(--space-3)]">
+              <h4 className={FOOTER_HEADING}>{t('footer.socialMedia')}</h4>
+              {socials.map((social) => (
+                <a
+                  key={social.id}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={FOOTER_LINK}
+                >
+                  {social.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-t border-[var(--color-brand-900)] py-[var(--space-6)]">
+            <p className="text-[12px] font-semibold leading-4 text-[var(--color-neutral-300)]">
+              © {new Date().getFullYear()} {name}. {t('footer.rights')}
+            </p>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer className="bg-[#0f1b3d] text-gray-300 mt-auto">

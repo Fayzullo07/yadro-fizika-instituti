@@ -386,6 +386,10 @@
     "gallery": {
       "title": "Fotogalereya"
     },
-    "viewAll": "Barchasi"
+    "viewAll": "Barchasi",
+    "footer": {
+      "name": "Yadro fizikasi instituti",
+      "description": "O'zbekiston Respublikasi Fanlar akademiyasi Yadro fizikasi instituti"
+    }
   }
 }

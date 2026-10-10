@@ -44,7 +44,7 @@ const MainLayout: React.FC = () => {
       <div className="flex-grow">
         <Outlet />
       </div>
-      <Footer />
+      <Footer variant={location.pathname === LANDING_PATH ? 'landing' : 'default'} />
       <ScrollToTop />
       <TextToSpeech />
     </div>
