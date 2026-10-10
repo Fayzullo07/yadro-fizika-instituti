@@ -18,10 +18,12 @@ const GalleryCard: React.FC<{
   return (
     <Link
       to={`/news/gallery/${item.id}`}
-      className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+      className="group text-left bg-[var(--color-neutral-0)] overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-shadow duration-300"
     >
-      <div className="relative overflow-hidden aspect-video bg-gray-100">
-        {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+      <div className="relative overflow-hidden aspect-video bg-[var(--color-neutral-100)]">
+        {!loaded && (
+          <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+        )}
         <RetryImage
           src={item.image}
           alt=""
@@ -34,7 +36,7 @@ const GalleryCard: React.FC<{
           <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">
             {label ? label : '-'}
           </span>
-          <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
+          <span className="text-[var(--color-neutral-500)] group-hover:text-[var(--color-neutral-700)] transition-colors text-base leading-none">
             →
           </span>
         </div>
@@ -92,9 +94,13 @@ const Gallery: React.FC = () => {
     <div className="pb-10">
       <PageTitle>{t('gallery.title')}</PageTitle>
 
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
 
       {items.length > 0 && (
@@ -110,7 +116,7 @@ const Gallery: React.FC = () => {
       <div ref={sentinelRef} className="h-1" />
       {loading && items.length > 0 && (
         <div className="flex justify-center py-6">
-          <div className="w-6 h-6 border-2 border-[#013d8c] border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-[var(--color-brand-700)] border-t-transparent rounded-full animate-spin" />
         </div>
       )}
     </div>

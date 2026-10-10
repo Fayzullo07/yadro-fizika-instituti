@@ -31,7 +31,7 @@ const ScrollToTop: React.FC = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 bg-[#013d8c] hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          className="fixed bottom-8 right-8 z-50 bg-[var(--color-brand-700)] hover:bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] p-3 rounded-full shadow-[var(--shadow-card)] transition-all duration-300 hover:scale-110"
           aria-label="Scroll to top"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

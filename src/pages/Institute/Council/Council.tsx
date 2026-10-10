@@ -31,7 +31,7 @@ const Council: React.FC = () => {
 
         {/* Header Image */}
         {scientificCouncil?.image && (
-          <div className="mb-12 overflow-hidden shadow-lg">
+          <div className="mb-12 overflow-hidden shadow-[var(--shadow-card)]">
             <img
               src={scientificCouncil.image}
               alt="Ilmiy kengash"
@@ -45,7 +45,7 @@ const Council: React.FC = () => {
         {scientificCouncil?.council_duties && (
           <div className="max-w-4xl mx-auto mb-12">
             <div
-              className="prose prose-lg max-w-none text-gray-700 leading-relaxed [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_li]:text-base [&_li]:md:text-lg [&_em]:not-italic"
+              className="prose prose-lg max-w-none text-[var(--color-neutral-700)] leading-relaxed [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-[var(--color-neutral-900)] [&_h3]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_li]:text-base [&_li]:md:text-lg [&_em]:not-italic"
               dangerouslySetInnerHTML={{ __html: sanitizeHtml(scientificCouncil.council_duties) }}
             />
           </div>
@@ -54,7 +54,7 @@ const Council: React.FC = () => {
         {/* Council Members Section */}
         {members.length > 0 && (
           <div className="mt-16">
-            {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+            {/* <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-neutral-900)] mb-8 text-center">
               {t('pages.council.members') || 'Ilmiy kengash tarkibi:'}
             </h2> */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
@@ -71,9 +71,9 @@ const Council: React.FC = () => {
                           className="w-32 h-32 md:w-36 md:h-36 object-cover rounded"
                         />
                       ) : (
-                        <div className="w-28 h-28 md:w-32 md:h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <div className="w-28 h-28 md:w-32 md:h-32 bg-[var(--color-neutral-100)] rounded-[var(--radius-md)] flex items-center justify-center">
                           <svg
-                            className="w-16 h-16 text-gray-400"
+                            className="w-16 h-16 text-[var(--color-neutral-500)]"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -91,16 +91,16 @@ const Council: React.FC = () => {
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg md:text-2xl font-semibold text-gray-900 mb-2 break-words">
+                      <h3 className="text-lg md:text-2xl font-semibold text-[var(--color-neutral-900)] mb-2 break-words">
                         {member.fullname}
                       </h3>
                       {member.degree && (
-                        <p className="text-sm md:text-base text-gray-700 mb-2 break-words">
+                        <p className="text-sm md:text-base text-[var(--color-neutral-700)] mb-2 break-words">
                           {member.degree}
                         </p>
                       )}
                       {member.position && (
-                        <p className="text-sm md:text-base text-blue-600 font-semibold break-words">
+                        <p className="text-sm md:text-base text-[var(--color-brand-600)] font-semibold break-words">
                           {member.position}
                         </p>
                       )}

@@ -9,16 +9,16 @@ const Map: React.FC = () => {
       {/* Page title */}
       <div className="mt-4 mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
             {t('nav.boglanish.map') || 'Xarita'}
           </h1>
         </div>
-        <div className="h-px bg-gray-200 mt-4" />
+        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
       </div>
 
       {/* Map + Info */}
-      <div className="relative w-full min-h-130 rounded-xl overflow-hidden shadow-md">
+      <div className="relative w-full min-h-130 rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)]">
         {/* Full map */}
         <iframe
           src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
@@ -32,10 +32,10 @@ const Map: React.FC = () => {
         />
 
         {/* Info card overlay */}
-        <div className="absolute  left-4 bottom-4 w-72 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl flex flex-col overflow-hidden z-10 hidden sm:flex">
+        <div className="absolute  left-4 bottom-4 w-72 bg-[var(--color-neutral-0)]/95 backdrop-blur-sm rounded-[var(--radius-lg)] shadow-xl flex flex-col overflow-hidden z-10 hidden sm:flex">
           {/* Card header */}
-          <div className="bg-[#013d8c] px-5 py-4">
-            <p className="text-xs font-semibold text-blue-200 uppercase tracking-widest mb-1">
+          <div className="bg-[var(--color-brand-700)] px-5 py-4">
+            <p className="text-xs font-semibold text-[var(--color-brand-100)] uppercase tracking-widest mb-1">
               {t('contact.location') || 'Lokatsiya'}
             </p>
           </div>
@@ -44,9 +44,9 @@ const Map: React.FC = () => {
           <div className="flex flex-col gap-5 p-5 flex-1 overflow-y-auto">
             {/* Address */}
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-8 h-8 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0 mt-0.5">
                 <svg
-                  className="w-4 h-4 text-[#013d8c]"
+                  className="w-4 h-4 text-[var(--color-brand-700)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -66,10 +66,10 @@ const Map: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
                   {t('contact.address') || 'Manzil'}
                 </p>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">
                   {t('contact.addressValue') ||
                     "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
                 </p>
@@ -78,12 +78,12 @@ const Map: React.FC = () => {
           </div>
 
           {/* Footer link */}
-          <div className="px-5 py-4 border-t border-gray-100">
+          <div className="px-5 py-4 border-t border-[var(--color-neutral-100)]">
             <a
               href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#013d8c] hover:bg-[#012d6a] text-white text-sm font-medium rounded-lg transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[var(--color-brand-700)] hover:bg-[#012d6a] text-[var(--color-neutral-0)] text-sm font-medium rounded-[var(--radius-md)] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -101,10 +101,10 @@ const Map: React.FC = () => {
 
       {/* Mobile info cards */}
       <div className="mt-6 grid grid-cols-1 sm:hidden gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
+          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
             <svg
-              className="w-4 h-4 text-[#013d8c]"
+              className="w-4 h-4 text-[var(--color-brand-700)]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -124,31 +124,35 @@ const Map: React.FC = () => {
             </svg>
           </div>
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
               {t('contact.address') || 'Manzil'}
             </p>
-            <p className="text-sm text-gray-700 leading-relaxed">
+            <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">
               {t('contact.addressValue') ||
                 "Toshkent shahar, Ulug'bek tumani, Movarounnahar ko'chasi, 1-uy"}
             </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
-            <svg className="w-4 h-4 text-[#013d8c]" fill="currentColor" viewBox="0 0 17.2 17.2">
+        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
+          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
+            <svg
+              className="w-4 h-4 text-[var(--color-brand-700)]"
+              fill="currentColor"
+              viewBox="0 0 17.2 17.2"
+            >
               <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
             </svg>
           </div>
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
               {t('contact.phone') || 'Telefon'}
             </p>
             {CONTACT_PHONES.map((p) => (
               <a
                 key={p}
                 href={`tel:${p.replace(/\s/g, '')}`}
-                className="text-sm text-gray-700 font-medium block"
+                className="text-sm text-[var(--color-neutral-700)] font-medium block"
               >
                 {p}
               </a>
@@ -156,10 +160,10 @@ const Map: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex gap-3">
-          <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+        <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 flex gap-3">
+          <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0">
             <svg
-              className="w-4 h-4 text-[#013d8c]"
+              className="w-4 h-4 text-[var(--color-brand-700)]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -173,16 +177,16 @@ const Map: React.FC = () => {
             </svg>
           </div>
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
               {t('contact.workingDays') || 'Ish kunlari'}
             </p>
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-[var(--color-neutral-700)]">
               {t('contact.weekdays') || 'Du–Ju:'}{' '}
               <span className="font-semibold">9:00 – 18:00</span>
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[var(--color-neutral-500)]">
               {t('contact.lunch') || 'Tushlik:'}{' '}
-              <span className="font-medium text-gray-700">13:00 – 14:00</span>
+              <span className="font-medium text-[var(--color-neutral-700)]">13:00 – 14:00</span>
             </p>
           </div>
         </div>

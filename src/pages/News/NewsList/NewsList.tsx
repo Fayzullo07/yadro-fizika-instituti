@@ -50,7 +50,7 @@ const NewsList: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 ← <span className="hidden sm:inline">{t('news.previous')}</span>
               </button>
@@ -67,10 +67,10 @@ const NewsList: React.FC = () => {
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
-                        className={`px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm ${
+                        className={`px-3 sm:px-4 py-2 rounded-[var(--radius-md)] transition-colors text-sm ${
                           page === pageNum
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-white border border-gray-300 hover:bg-gray-50'
+                            ? 'bg-[var(--color-brand-600)] text-[var(--color-neutral-0)]'
+                            : 'bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] hover:bg-[var(--color-neutral-50)]'
                         }`}
                       >
                         {pageNum}
@@ -90,7 +90,7 @@ const NewsList: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page === totalPages}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 <span className="hidden sm:inline">{t('news.next')}</span> →
               </button>
@@ -98,7 +98,7 @@ const NewsList: React.FC = () => {
           )}
         </>
       ) : (
-        <div className="text-center text-gray-500 py-12 text-sm sm:text-base">
+        <div className="text-center text-[var(--color-neutral-500)] py-12 text-sm sm:text-base">
           <p>{t('news.noNews')}</p>
         </div>
       )}

@@ -48,10 +48,12 @@ const GalleryDetail: React.FC = () => {
   if (error || !displayItem) {
     return (
       <div className="text-center py-16 sm:py-20">
-        <p className="text-gray-500 mb-4 text-sm sm:text-base">{t('common.error')}</p>
+        <p className="text-[var(--color-neutral-500)] mb-4 text-sm sm:text-base">
+          {t('common.error')}
+        </p>
         <Link
           to="/news/gallery"
-          className="text-[#013d8c] hover:underline font-medium text-sm sm:text-base"
+          className="text-[var(--color-brand-700)] hover:underline font-medium text-sm sm:text-base"
         >
           ← {t('backToList')}
         </Link>
@@ -73,11 +75,11 @@ const GalleryDetail: React.FC = () => {
         <div className="flex-1 min-w-0">
           <BackButton to="/news/gallery" label={t('backToList')} />
 
-          <article className="bg-white border border-gray-200 overflow-hidden">
+          <article className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] overflow-hidden">
             <Image.PreviewGroup>
               {/* Hero image */}
               {displayItem.image && (
-                <div className="relative w-full h-52 sm:h-72 md:h-96 overflow-hidden bg-gray-100">
+                <div className="relative w-full h-52 sm:h-72 md:h-96 overflow-hidden bg-[var(--color-neutral-100)]">
                   <div
                     style={{
                       position: 'absolute',
@@ -94,7 +96,9 @@ const GalleryDetail: React.FC = () => {
                       key={heroRetryKey}
                       src={displayItem.image}
                       alt={title}
-                      placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+                      placeholder={
+                        <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+                      }
                       onError={handleHeroError}
                       preview={{ mask: <span className="text-xs sm:text-sm">{previewLabel}</span> }}
                       rootClassName="!w-full !h-full !bg-transparent"
@@ -105,13 +109,13 @@ const GalleryDetail: React.FC = () => {
               )}
 
               {/* Title + date */}
-              <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+              <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-[var(--color-neutral-100)]">
                 {title && (
-                  <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-2">
+                  <h1 className="text-base sm:text-xl md:text-2xl font-bold text-[var(--color-neutral-900)] leading-snug mb-2">
                     {title}
                   </h1>
                 )}
-                <div className="flex items-center gap-1.5 text-gray-400 text-xs sm:text-sm">
+                <div className="flex items-center gap-1.5 text-[var(--color-neutral-500)] text-xs sm:text-sm">
                   <svg
                     className="w-3.5 h-3.5 shrink-0"
                     fill="none"
@@ -146,8 +150,8 @@ const GalleryDetail: React.FC = () => {
         {/* Sidebar */}
         {showSidebar && (
           <aside className="w-full lg:w-60 shrink-0 mt-2 lg:mt-0">
-            <div className="bg-white border border-gray-200 p-3 lg:sticky lg:top-27">
-              <h2 className="text-sm sm:text-base font-semibold text-gray-900 mb-3">
+            <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] p-3 lg:sticky lg:top-27">
+              <h2 className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] mb-3">
                 {t('gallery.title')}
               </h2>
 
@@ -155,10 +159,10 @@ const GalleryDetail: React.FC = () => {
                 <div className="space-y-3">
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="flex gap-2 animate-pulse">
-                      <div className="w-12 h-12 bg-gray-200 shrink-0" />
+                      <div className="w-12 h-12 bg-[var(--color-neutral-100)] shrink-0" />
                       <div className="flex-1 space-y-1.5">
-                        <div className="h-3 bg-gray-200 w-full" />
-                        <div className="h-3 bg-gray-200 w-2/3" />
+                        <div className="h-3 bg-[var(--color-neutral-100)] w-full" />
+                        <div className="h-3 bg-[var(--color-neutral-100)] w-2/3" />
                       </div>
                     </div>
                   ))}
@@ -169,7 +173,7 @@ const GalleryDetail: React.FC = () => {
                     <Link
                       key={g.id}
                       to={`/news/gallery/${g.id}`}
-                      className="flex items-center gap-2 p-2 hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 p-2 hover:bg-[var(--color-neutral-50)] transition-colors"
                     >
                       <RetryImage
                         src={g.image}
@@ -179,11 +183,11 @@ const GalleryDetail: React.FC = () => {
                       />
                       <div className="min-w-0">
                         {g.title && (
-                          <p className="text-sm font-medium text-gray-900 line-clamp-2 mb-0.5">
+                          <p className="text-sm font-medium text-[var(--color-neutral-900)] line-clamp-2 mb-0.5">
                             {g.title}
                           </p>
                         )}
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-[var(--color-neutral-500)]">
                           {formatDate(g.created_at, language)}
                         </p>
                       </div>
@@ -192,10 +196,10 @@ const GalleryDetail: React.FC = () => {
                 </div>
               )}
 
-              <div className="mt-4 pt-3 border-t border-gray-200">
+              <div className="mt-4 pt-3 border-t border-[var(--color-neutral-100)]">
                 <Link
                   to="/news/gallery"
-                  className="block w-full text-center text-sm font-medium text-[#013d8c] hover:underline"
+                  className="block w-full text-center text-sm font-medium text-[var(--color-brand-700)] hover:underline"
                 >
                   {t('gallery.viewAll')}
                 </Link>

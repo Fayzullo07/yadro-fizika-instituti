@@ -42,7 +42,12 @@ const CarouselArrow: React.FC<{
       direction === 'left' ? 'left-3!' : 'right-3!'
     }`}
   >
-    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      className="w-5 h-5 text-[var(--color-neutral-0)]"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -62,8 +67,8 @@ const CarouselSlide: React.FC<{ image: ConferenceImage; alt: string; label: stri
   const { retryKey, handleError } = useImageRetry();
 
   return (
-    <div className="relative w-full aspect-video sm:aspect-[21/9] bg-gray-900 overflow-hidden">
-      {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+    <div className="relative w-full aspect-video sm:aspect-[21/9] bg-[var(--color-neutral-900)] overflow-hidden">
+      {!loaded && <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />}
       {loaded && (
         <div
           className="absolute inset-0 bg-cover bg-center scale-110 blur-xl opacity-60"
@@ -86,7 +91,7 @@ const CarouselSlide: React.FC<{ image: ConferenceImage; alt: string; label: stri
           }}
           preview={{
             mask: (
-              <span className="flex items-center gap-1.5 text-white text-xs sm:text-sm">
+              <span className="flex items-center gap-1.5 text-[var(--color-neutral-0)] text-xs sm:text-sm">
                 <ZoomIcon />
                 {label}
               </span>
@@ -112,10 +117,12 @@ const ConferenceDetail: React.FC = () => {
   if (error || !item) {
     return (
       <div className="text-center py-16 sm:py-20">
-        <p className="text-gray-500 mb-4 text-sm sm:text-base">{t('common.error')}</p>
+        <p className="text-[var(--color-neutral-500)] mb-4 text-sm sm:text-base">
+          {t('common.error')}
+        </p>
         <Link
           to={CONFERENCES_PATH}
-          className="text-[#013d8c] hover:underline font-medium text-sm sm:text-base"
+          className="text-[var(--color-brand-700)] hover:underline font-medium text-sm sm:text-base"
         >
           ← {t('backToList')}
         </Link>
@@ -134,8 +141,8 @@ const ConferenceDetail: React.FC = () => {
     <div className="pb-10">
       <BackButton to={CONFERENCES_PATH} label={t('backToList')} />
 
-      <article className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-        <header className="relative overflow-hidden bg-[#013d8c] px-5 sm:px-8 py-7 sm:py-10">
+      <article className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden">
+        <header className="relative overflow-hidden bg-[var(--color-brand-700)] px-5 sm:px-8 py-7 sm:py-10">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-[0.08]"
@@ -146,11 +153,11 @@ const ConferenceDetail: React.FC = () => {
           />
 
           <div className="relative">
-            <h1 className="font-serif text-base sm:text-xl md:text-2xl font-semibold leading-tight tracking-tight text-white max-w-3xl">
+            <h1 className="font-serif text-base sm:text-xl md:text-2xl font-semibold leading-tight tracking-tight text-[var(--color-neutral-0)] max-w-3xl">
               {item.title}
             </h1>
 
-            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs sm:text-sm text-white/70">
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs sm:text-sm text-[var(--color-neutral-0)]/70">
               <span className="inline-flex items-center gap-2">
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
@@ -196,7 +203,7 @@ const ConferenceDetail: React.FC = () => {
         </header>
 
         {images.length > 0 && (
-          <div className="border-t border-gray-100">
+          <div className="border-t border-[var(--color-neutral-100)]">
             <Image.PreviewGroup>
               <Carousel
                 arrows={images.length > 1}
@@ -206,7 +213,7 @@ const ConferenceDetail: React.FC = () => {
                 nextArrow={<CarouselArrow direction="right" />}
                 className="[&_.slick-dots]:bottom-4 [&_.slick-dots_li]:w-2 [&_.slick-dots_li]:h-2 [&_.slick-dots_li]:mx-1
                   [&_.slick-dots_li_button]:w-2 [&_.slick-dots_li_button]:h-2 [&_.slick-dots_li_button]:rounded-full
-                  [&_.slick-dots_li_button]:bg-white [&_.slick-dots_li_button]:opacity-60
+                  [&_.slick-dots_li_button]:bg-[var(--color-neutral-0)] [&_.slick-dots_li_button]:opacity-60
                   [&_.slick-dots_li.slick-active_button]:opacity-100 [&_.slick-dots_li.slick-active_button]:w-6
                   [&_.slick-dots_li.slick-active_button]:rounded-full [&_.slick-dots_li_button]:transition-all"
               >
@@ -224,8 +231,8 @@ const ConferenceDetail: React.FC = () => {
         )}
 
         {files.length > 0 && (
-          <div className="px-4 sm:px-6 py-4 sm:py-5 border-t border-gray-100">
-            <p className="text-xs font-semibold tracking-wide text-gray-400 uppercase mb-2.5">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-t border-[var(--color-neutral-100)]">
+            <p className="text-xs font-semibold tracking-wide text-[var(--color-neutral-500)] uppercase mb-2.5">
               {t('conferences.attachments')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -235,17 +242,17 @@ const ConferenceDetail: React.FC = () => {
                   href={file.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 rounded-lg border border-gray-200 hover:border-[#013d8c]/40 hover:bg-[#013d8c]/[0.03] pl-2.5 pr-3 sm:pr-3.5 py-2 transition-colors min-w-0"
+                  className="group flex items-center gap-2.5 rounded-[var(--radius-md)] border border-[var(--color-neutral-100)] hover:border-[var(--color-brand-700)]/40 hover:bg-[var(--color-brand-700)]/[0.03] pl-2.5 pr-3 sm:pr-3.5 py-2 transition-colors min-w-0"
                 >
-                  <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-md bg-[#013d8c]/8 text-[#013d8c] text-[10px] font-mono font-bold shrink-0">
+                  <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-[var(--radius-md)] bg-[var(--color-brand-700)]/8 text-[var(--color-brand-700)] text-[10px] font-mono font-bold shrink-0">
                     {fileExt(file.name)}
                   </span>
-                  <span className="flex-1 min-w-0 truncate text-xs sm:text-sm font-medium text-gray-700 group-hover:text-[#013d8c]">
+                  <span className="flex-1 min-w-0 truncate text-xs sm:text-sm font-medium text-[var(--color-neutral-700)] group-hover:text-[var(--color-brand-700)]">
                     {file.name}
                     {/* {files.length > 1 ? ` ${i + 1}` : ''} */}
                   </span>
                   <svg
-                    className="w-3.5 h-3.5 shrink-0 ml-auto text-gray-400 group-hover:text-[#013d8c]"
+                    className="w-3.5 h-3.5 shrink-0 ml-auto text-[var(--color-neutral-500)] group-hover:text-[var(--color-brand-700)]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -265,16 +272,16 @@ const ConferenceDetail: React.FC = () => {
 
         <div
           className="
-            px-4 sm:px-6 py-4 sm:py-6 text-gray-700 text-sm sm:text-[15px] leading-relaxed
-            [&_a]:text-blue-600 [&_a]:underline [&_a]:break-all [&_a:hover]:text-blue-800
-            [&_blockquote]:border-l-4 [&_blockquote]:border-[#013d8c]/30
-            [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_blockquote]:my-4
+            px-4 sm:px-6 py-4 sm:py-6 text-[var(--color-neutral-700)] text-sm sm:text-[15px] leading-relaxed
+            [&_a]:text-[var(--color-brand-600)] [&_a]:underline [&_a]:break-all [&_a:hover]:text-[var(--color-brand-700)]
+            [&_blockquote]:border-l-4 [&_blockquote]:border-[var(--color-brand-700)]/30
+            [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[var(--color-neutral-500)] [&_blockquote]:my-4
             [&_b]:font-semibold [&_strong]:font-semibold
             [&_div]:leading-relaxed
             [&_p]:mb-3
             [&_img]:max-w-full
-            [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-gray-200 [&_td]:px-2 sm:[&_td]:px-3 [&_td]:py-2
-            [&_th]:border [&_th]:border-gray-200 [&_th]:px-2 sm:[&_th]:px-3 [&_th]:py-2 [&_th]:bg-gray-50 [&_th]:font-semibold
+            [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-[var(--color-neutral-100)] [&_td]:px-2 sm:[&_td]:px-3 [&_td]:py-2
+            [&_th]:border [&_th]:border-[var(--color-neutral-100)] [&_th]:px-2 sm:[&_th]:px-3 [&_th]:py-2 [&_th]:bg-[var(--color-neutral-50)] [&_th]:font-semibold
             overflow-x-auto
           "
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}

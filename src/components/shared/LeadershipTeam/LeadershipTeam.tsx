@@ -28,9 +28,9 @@ const LeaderCard: React.FC<{ member: LeadershipMember; language: string }> = ({
   const photo = member.photo || member.image;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white border border-gray-100 rounded-2xl shadow-sm p-3 sm:p-4 hover:shadow-md transition-shadow">
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] p-3 sm:p-4 hover:shadow-[var(--shadow-card)] transition-shadow">
       {/* Photo */}
-      <div className="w-full h-56 sm:w-44 sm:h-52 rounded-xl shrink-0 overflow-hidden relative bg-gray-100 flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
+      <div className="w-full h-56 sm:w-44 sm:h-52 rounded-[var(--radius-lg)] shrink-0 overflow-hidden relative bg-[var(--color-neutral-100)] flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
         <div
           className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
           style={{ backgroundImage: `url(${photo})` }}
@@ -41,12 +41,14 @@ const LeaderCard: React.FC<{ member: LeadershipMember; language: string }> = ({
             src={photo}
             alt={member.full_name}
             fallback=""
-            placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            placeholder={
+              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+            }
             style={{ inlineSize: '100%', blockSize: '100%', objectFit: 'contain' }}
             onError={handleError}
             preview={{
               mask: (
-                <span className="text-white text-xs">
+                <span className="text-[var(--color-neutral-0)] text-xs">
                   {PREVIEW_LABEL[language] ?? PREVIEW_LABEL.uz}
                 </span>
               ),
@@ -58,19 +60,19 @@ const LeaderCard: React.FC<{ member: LeadershipMember; language: string }> = ({
       {/* Info */}
       <div className="flex-1 min-w-0 flex flex-col justify-start gap-1.5 sm:gap-2 sm:pt-2">
         {member.department_name && (
-          <span className="text-base sm:text-xl font-semibold text-blue-900">
+          <span className="text-base sm:text-xl font-semibold text-[var(--color-brand-900)]">
             {member.department_name}
           </span>
         )}
-        <h3 className="text-base sm:text-xl font-bold text-gray-900 leading-snug">
+        <h3 className="text-base sm:text-xl font-bold text-[var(--color-neutral-900)] leading-snug">
           {member.full_name}
         </h3>
-        <p className="text-gray-600 text-xs sm:text-sm">{member.position}</p>
+        <p className="text-[var(--color-neutral-700)] text-xs sm:text-sm">{member.position}</p>
         <div className="flex flex-col gap-1 mt-1">
           {member.phone && (
             <a
               href={`tel:${member.phone.replace(/\s/g, '')}`}
-              className="text-xs sm:text-sm text-gray-500 hover:text-[#013d8c]"
+              className="text-xs sm:text-sm text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)]"
             >
               📞 {member.phone}
             </a>
@@ -78,7 +80,7 @@ const LeaderCard: React.FC<{ member: LeadershipMember; language: string }> = ({
           {member.email && (
             <a
               href={`mailto:${member.email}`}
-              className="text-xs sm:text-sm text-gray-500 hover:text-[#013d8c]"
+              className="text-xs sm:text-sm text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)]"
             >
               ✉️ {member.email}
             </a>
@@ -104,15 +106,15 @@ const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
       <PageTitle>{title}</PageTitle>
 
       {/* Mobile: horizontal scroll tabs */}
-      <div className="md:hidden flex overflow-x-auto scrollbar-hide border-b border-gray-200 mb-4">
+      <div className="md:hidden flex overflow-x-auto scrollbar-hide border-b border-[var(--color-neutral-100)] mb-4">
         {TYPES.map((type) => (
           <button
             key={type.key}
             onClick={() => setActiveType(type.key)}
             className={`shrink-0 px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
               activeType === type.key
-                ? 'border-[#013d8c] text-[#013d8c]'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+                ? 'border-[var(--color-brand-700)] text-[var(--color-brand-700)]'
+                : 'border-transparent text-[var(--color-neutral-500)] hover:text-[var(--color-neutral-900)]'
             }`}
           >
             {label(type)}
@@ -128,10 +130,10 @@ const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
               <button
                 key={type.key}
                 onClick={() => setActiveType(type.key)}
-                className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                className={`text-left px-4 py-3 rounded-[var(--radius-md)] text-sm font-medium transition-colors ${
                   activeType === type.key
-                    ? 'bg-[#013d8c] text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
+                    ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                    : 'text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-100)]'
                 }`}
               >
                 {label(type)}
@@ -144,9 +146,13 @@ const LeadershipTeam: React.FC<{ title: string }> = ({ title }) => {
         <div
           className={`flex-1 min-w-0 transition-opacity duration-200 ${loading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
         >
-          {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+          {error && (
+            <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+          )}
           {!error && members.length === 0 && !loading && (
-            <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+            <p className="text-center py-16 text-[var(--color-neutral-500)]">
+              {t('common.notAvailable')}
+            </p>
           )}
           {!error && members.length > 0 && (
             <div className="flex flex-col gap-3 sm:gap-4">

@@ -21,7 +21,7 @@ const StaffMemberDetail: React.FC = () => {
   if (loading) return <Loading />;
   if (error || !data?.data) {
     return (
-      <div className="text-center py-16 text-gray-500">
+      <div className="text-center py-16 text-[var(--color-neutral-500)]">
         {error ? t('common.error') : t('common.notAvailable')}
       </div>
     );
@@ -32,13 +32,15 @@ const StaffMemberDetail: React.FC = () => {
   return (
     <div className="pb-10">
       {/* Profile card */}
-      <div className="bg-white shadow-sm mb-4 p-4 sm:p-6">
-        <div className="border border-gray-200 flex flex-col sm:flex-row overflow-hidden">
+      <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)] mb-4 p-4 sm:p-6">
+        <div className="border border-[var(--color-neutral-100)] flex flex-col sm:flex-row overflow-hidden">
           {/* Photo */}
-          <div className="w-full h-56 sm:w-55 sm:h-65 shrink-0 overflow-hidden relative bg-gray-100 flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
+          <div className="w-full h-56 sm:w-55 sm:h-65 shrink-0 overflow-hidden relative bg-[var(--color-neutral-100)] flex items-center justify-center [&_.ant-image]:w-full [&_.ant-image]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:object-contain">
             {member.image ? (
               <>
-                {!photoLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+                {!photoLoaded && (
+                  <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+                )}
                 {photoLoaded && (
                   <div
                     className="absolute inset-0 bg-cover bg-center scale-110 blur-md opacity-40"
@@ -55,8 +57,12 @@ const StaffMemberDetail: React.FC = () => {
                 </div>
               </>
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-blue-50">
-                <svg className="w-16 h-16 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
+              <div className="w-full h-full flex items-center justify-center bg-[var(--color-brand-50)]">
+                <svg
+                  className="w-16 h-16 text-[var(--color-brand-100)]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                 </svg>
               </div>
@@ -66,22 +72,22 @@ const StaffMemberDetail: React.FC = () => {
           {/* Info */}
           <div className="flex flex-1 p-4 sm:p-6 gap-4 sm:gap-8">
             <div className="flex flex-col gap-3 flex-1">
-              <p className="font-bold text-gray-900 text-base sm:text-lg leading-snug">
+              <p className="font-bold text-[var(--color-neutral-900)] text-base sm:text-lg leading-snug">
                 {member.full_name}
               </p>
               {member.degree && member.degree !== "Yo'q" && (
                 <div>
-                  <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                  <p className="text-sm font-semibold text-[var(--color-neutral-900)] mb-0.5">
                     {t('nav.laboratoriyalar.degree')}:
                   </p>
-                  <p className="text-sm text-gray-600">{member.degree}</p>
+                  <p className="text-sm text-[var(--color-neutral-700)]">{member.degree}</p>
                 </div>
               )}
               <div>
-                <p className="text-sm font-semibold text-gray-800 mb-0.5">
+                <p className="text-sm font-semibold text-[var(--color-neutral-900)] mb-0.5">
                   {t('nav.laboratoriyalar.position')}:
                 </p>
-                <p className="text-sm text-gray-600">{member.position}</p>
+                <p className="text-sm text-[var(--color-neutral-700)]">{member.position}</p>
               </div>
               <AcademicLinksRow data={member} className="mt-1" />
             </div>
@@ -90,16 +96,16 @@ const StaffMemberDetail: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white shadow-sm">
-        <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-200">
+      <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
+        <div className="flex overflow-x-auto scrollbar-hide border-b border-[var(--color-neutral-100)]">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`shrink-0 px-4 sm:px-6 py-3 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap ${
                 activeTab === tab.key
-                  ? 'border-[#013d8c] text-[#013d8c]'
-                  : 'border-transparent text-gray-500 hover:text-[#013d8c]'
+                  ? 'border-[var(--color-brand-700)] text-[var(--color-brand-700)]'
+                  : 'border-transparent text-[var(--color-neutral-500)] hover:text-[var(--color-brand-700)]'
               }`}
             >
               {tab.label}
@@ -116,7 +122,9 @@ const StaffMemberDetail: React.FC = () => {
             />
           ) : (
             !workLoading && (
-              <p className="p-4 sm:p-6 text-gray-400 text-sm">{t('common.notAvailable')}</p>
+              <p className="p-4 sm:p-6 text-[var(--color-neutral-500)] text-sm">
+                {t('common.notAvailable')}
+              </p>
             )
           )}
         </div>

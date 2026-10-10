@@ -51,16 +51,16 @@ const International: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 py-5 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-[var(--color-neutral-50)] py-5 via-white to-[var(--color-brand-50)]">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
               {t('pages.international.title') || 'XALQARO HAMKORLIK ALOQALARI'}
             </h1>
           </div>
-          <div className="h-px bg-gray-200 mt-4" />
+          <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
         </div>
 
         {/* Partners Grid */}
@@ -70,7 +70,7 @@ const International: React.FC = () => {
               <div
                 key={partner.id}
                 onClick={() => setSelectedPartner(partner)}
-                className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 md:p-8 cursor-pointer transform hover:scale-103 border border-gray-200 hover:border-blue-300"
+                className="bg-[var(--color-neutral-0)] rounded-[var(--radius-md)] shadow-[var(--shadow-card)] hover:shadow-xl transition-all duration-300 p-6 md:p-8 cursor-pointer transform hover:scale-103 border border-[var(--color-neutral-100)] hover:border-blue-300"
               >
                 <div className="flex items-center justify-center h-32 md:h-40 mb-4">
                   <img
@@ -85,7 +85,7 @@ const International: React.FC = () => {
                     }}
                   />
                 </div>
-                <p className="text-center text-sm md:text-base text-gray-600 font-medium mt-4">
+                <p className="text-center text-sm md:text-base text-[var(--color-neutral-700)] font-medium mt-4">
                   {partner.name}
                 </p>
               </div>
@@ -100,16 +100,16 @@ const International: React.FC = () => {
             onClick={() => setSelectedPartner(null)}
           >
             <div
-              className="bg-white rounded-lg shadow-2xl max-w-2xl w-full p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+              className="bg-[var(--color-neutral-0)] rounded-[var(--radius-md)] shadow-2xl max-w-2xl w-full p-6 md:p-8 max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)]">
                   {selectedPartner.name}
                 </h2>
                 <button
                   onClick={() => setSelectedPartner(null)}
-                  className="text-gray-500 hover:text-gray-700 transition"
+                  className="text-[var(--color-neutral-500)] hover:text-[var(--color-neutral-700)] transition"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -134,14 +134,14 @@ const International: React.FC = () => {
                   }}
                 />
               </div>
-              <div className="text-gray-700">
+              <div className="text-[var(--color-neutral-700)]">
                 <p className="mb-4">
                   {t('pages.international.partnerInfo') ||
                     "Hamkorlik to'g'risidagi hujjatlar va ma'lumotlar..."}
                 </p>
                 <a
                   href="#"
-                  className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-block px-6 py-3 bg-[var(--color-brand-600)] text-[var(--color-neutral-0)] rounded-[var(--radius-md)] hover:bg-[var(--color-brand-700)] transition-colors"
                 >
                   {t('pages.international.viewDocuments') || "Hujjatlarni ko'rish"}
                 </a>

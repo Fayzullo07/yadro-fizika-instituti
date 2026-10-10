@@ -13,11 +13,13 @@ const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-row sm:flex-col">
-      <div className="relative overflow-hidden bg-gray-100 w-28 shrink-0 sm:w-auto sm:h-60">
+    <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-shadow flex flex-row sm:flex-col">
+      <div className="relative overflow-hidden bg-[var(--color-neutral-100)] w-28 shrink-0 sm:w-auto sm:h-60">
         {member.image ? (
           <>
-            {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            {!loaded && (
+              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+            )}
             {loaded && (
               <div
                 style={{
@@ -42,9 +44,9 @@ const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }
             </div>
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-blue-50">
+          <div className="w-full h-full flex items-center justify-center bg-[var(--color-brand-50)]">
             <svg
-              className="w-12 h-12 sm:w-16 sm:h-16 text-blue-200"
+              className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--color-brand-100)]"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -54,16 +56,16 @@ const MemberCard: React.FC<{ member: LaboratoryTeamMember; detailLabel: string }
         )}
       </div>
       <div className="p-3 sm:p-4 flex flex-col gap-1 flex-1 min-w-0">
-        <p className="font-semibold text-gray-800 text-xs sm:text-sm leading-snug">
+        <p className="font-semibold text-[var(--color-neutral-900)] text-xs sm:text-sm leading-snug">
           {member.full_name}
         </p>
-        <p className="text-xs text-[#013d8c]">{member.position}</p>
+        <p className="text-xs text-[var(--color-brand-700)]">{member.position}</p>
         {member.degree && member.degree !== "Yo'q" && (
-          <p className="text-xs text-gray-500">{member.degree}</p>
+          <p className="text-xs text-[var(--color-neutral-500)]">{member.degree}</p>
         )}
         <Link
           to={`/research/laboratories/${member.laboratory_id}/staff/${member.id}`}
-          className="mt-auto pt-2 text-xs font-medium text-[#013d8c] hover:underline cursor-pointer"
+          className="mt-auto pt-2 text-xs font-medium text-[var(--color-brand-700)] hover:underline cursor-pointer"
         >
           {detailLabel} →
         </Link>
@@ -83,9 +85,13 @@ const Scientists: React.FC = () => {
   return (
     <div className="pb-10">
       {loading && <Loading />}
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
       {!loading && !error && members.length === 0 && (
-        <p className="text-center py-16 text-gray-400">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
       {!loading && members.length > 0 && (
         <>
@@ -101,7 +107,7 @@ const Scientists: React.FC = () => {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-neutral-100)] text-[var(--color-neutral-500)] hover:bg-[var(--color-neutral-50)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -117,10 +123,10 @@ const Scientists: React.FC = () => {
                 <button
                   key={p}
                   onClick={() => setPage(p)}
-                  className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-9 h-9 flex items-center justify-center rounded-[var(--radius-md)] text-sm font-medium transition-colors ${
                     p === page
-                      ? 'bg-[#013d8c] text-white'
-                      : 'border border-gray-200 text-gray-600 hover:bg-gray-50'
+                      ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                      : 'border border-[var(--color-neutral-100)] text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-50)]'
                   }`}
                 >
                   {p}
@@ -130,7 +136,7 @@ const Scientists: React.FC = () => {
               <button
                 onClick={() => setPage((p) => Math.min(lastPage, p + 1))}
                 disabled={page === lastPage}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-neutral-100)] text-[var(--color-neutral-500)] hover:bg-[var(--color-neutral-50)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

@@ -18,7 +18,9 @@ const Departments: React.FC = () => {
       {error && <p className="text-center text-red-600 py-8">{t('common.error')}</p>}
 
       {!error && departments.length === 0 && (
-        <p className="text-center text-gray-500 py-8">{t('pages.departments.empty')}</p>
+        <p className="text-center text-[var(--color-neutral-500)] py-8">
+          {t('pages.departments.empty')}
+        </p>
       )}
 
       {departments.length > 0 && (
@@ -26,12 +28,12 @@ const Departments: React.FC = () => {
           {departments.map((dept) => (
             <div
               key={dept.id}
-              className="group bg-white border border-gray-200 rounded-xl p-6 hover:border-[#013d8c] hover:shadow-md transition-all duration-300"
+              className="group bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] p-6 hover:border-[var(--color-brand-700)] hover:shadow-[var(--shadow-card)] transition-all duration-300"
             >
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+                <div className="shrink-0 w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-brand-50)] flex items-center justify-center">
                   <svg
-                    className="w-5 h-5 text-[#013d8c]"
+                    className="w-5 h-5 text-[var(--color-brand-700)]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -45,11 +47,11 @@ const Departments: React.FC = () => {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug">
+                  <h3 className="text-base font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug">
                     {dept.name}
                   </h3>
                   {dept.type && (
-                    <span className="inline-block mt-2 text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full capitalize">
+                    <span className="inline-block mt-2 text-xs font-medium text-[var(--color-brand-600)] bg-[var(--color-brand-50)] px-2.5 py-0.5 rounded-full capitalize">
                       {dept.type}
                     </span>
                   )}

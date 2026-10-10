@@ -10,12 +10,12 @@ const Directors: React.FC = () => {
   const content = data?.data?.content;
 
   return (
-    <div className="bg-white shadow-lg">
+    <div className="bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
       <section className="pb-10 md:pb-16">
         <PageTitle>{t('nav.institut.directors') || 'Institut direktorlari'}</PageTitle>
 
         {loading && (
-          <p className="mt-6 px-3 sm:px-4 text-base sm:text-lg text-gray-600">
+          <p className="mt-6 px-3 sm:px-4 text-base sm:text-lg text-[var(--color-neutral-700)]">
             {t('common.loading')}
           </p>
         )}
@@ -26,7 +26,7 @@ const Directors: React.FC = () => {
 
         {!loading && !error && content && (
           <div
-            className="mt-5 sm:mt-8 px-3 sm:px-6 text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose space-y-3 sm:space-y-4 wrap-break-word [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
+            className="mt-5 sm:mt-8 px-3 sm:px-6 text-sm sm:text-base text-[var(--color-neutral-700)] leading-relaxed sm:leading-loose space-y-3 sm:space-y-4 wrap-break-word [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-[var(--color-neutral-900)] [&_h2]:mt-6 sm:[&_h2]:mt-8 [&_p]:mt-3 sm:[&_p]:mt-4 [&_img]:max-w-full [&_table]:w-full [&_table]:overflow-x-auto"
             dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
           />
         )}

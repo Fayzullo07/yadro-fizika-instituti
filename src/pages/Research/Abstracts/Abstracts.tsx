@@ -29,9 +29,13 @@ const Abstracts: React.FC = () => {
       <PageTitle>{t('nav.ilmiyFaoliyat.abstracts') || 'Avtoreferatlar'}</PageTitle>
 
       {loading && items.length === 0 && <Loading />}
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
       {items.length > 0 && (
         <>
@@ -40,26 +44,26 @@ const Abstracts: React.FC = () => {
               <Link
                 key={item.id}
                 to={`${ABSTRACTS_PATH}/${item.id}`}
-                className="group relative flex items-center gap-4 bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden pl-5 pr-4 sm:pr-5 py-4"
+                className="group relative flex items-center gap-4 bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-all duration-300 overflow-hidden pl-5 pr-4 sm:pr-5 py-4"
               >
                 {/* Left accent bar */}
-                <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-[#013d8c] to-[#60a5fa] group-hover:w-2 transition-all duration-300" />
+                <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-[var(--color-brand-700)] to-[#60a5fa] group-hover:w-2 transition-all duration-300" />
 
                 {/* Document badge */}
                 <div className="relative shrink-0">
-                  <div className="w-12 h-14 rounded-md bg-linear-to-br from-red-50 to-red-100 border border-red-100 flex items-end justify-center pb-1.5 relative overflow-hidden">
+                  <div className="w-12 h-14 rounded-[var(--radius-md)] bg-linear-to-br from-red-50 to-red-100 border border-red-100 flex items-end justify-center pb-1.5 relative overflow-hidden">
                     {/* folded corner */}
-                    <span className="absolute top-0 right-0 w-3 h-3 bg-white border-b border-l border-red-100" />
+                    <span className="absolute top-0 right-0 w-3 h-3 bg-[var(--color-neutral-0)] border-b border-l border-red-100" />
                     <span className="text-[9px] font-bold text-red-500 tracking-wide">PDF</span>
                   </div>
                 </div>
 
                 {/* Title + meta */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-[#013d8c] transition-colors leading-snug line-clamp-2">
+                  <p className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug line-clamp-2">
                     {item.title}
                   </p>
-                  <p className="mt-1 text-xs text-gray-400">{item.type_label}</p>
+                  <p className="mt-1 text-xs text-[var(--color-neutral-500)]">{item.type_label}</p>
                 </div>
 
                 {/* Actions */}
@@ -69,7 +73,7 @@ const Abstracts: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center justify-center w-10 h-10 rounded-full text-[#013d8c] bg-blue-50 hover:bg-blue-100 transition-colors"
+                    className="flex items-center justify-center w-10 h-10 rounded-full text-[var(--color-brand-700)] bg-[var(--color-brand-50)] hover:bg-[var(--color-brand-100)] transition-colors"
                     title={t('news.detail') || "Ko'rish"}
                   >
                     <svg
@@ -96,7 +100,7 @@ const Abstracts: React.FC = () => {
                     href={item.file}
                     download
                     onClick={(e) => e.stopPropagation()}
-                    className="hidden sm:flex items-center gap-1.5 px-4 h-10 rounded-full text-sm font-medium text-white bg-linear-to-r from-[#013d8c] to-[#1a5fb4] hover:opacity-90 shadow-sm transition-opacity"
+                    className="hidden sm:flex items-center gap-1.5 px-4 h-10 rounded-full text-sm font-medium text-[var(--color-neutral-0)] bg-linear-to-r from-[var(--color-brand-700)] to-[#1a5fb4] hover:opacity-90 shadow-[var(--shadow-card)] transition-opacity"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -112,7 +116,7 @@ const Abstracts: React.FC = () => {
                     href={item.file}
                     download
                     onClick={(e) => e.stopPropagation()}
-                    className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full text-white bg-linear-to-r from-[#013d8c] to-[#1a5fb4] shadow-sm"
+                    className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full text-[var(--color-neutral-0)] bg-linear-to-r from-[var(--color-brand-700)] to-[#1a5fb4] shadow-[var(--shadow-card)]"
                   >
                     <svg
                       className="w-4.5 h-4.5"

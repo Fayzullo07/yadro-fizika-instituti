@@ -26,7 +26,7 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
 
   if (members.length === 0) {
     return (
-      <div className="text-center text-gray-500 py-12">
+      <div className="text-center text-[var(--color-neutral-500)] py-12">
         <p>{emptyMessage || "Jamoasi a'zolari topilmadi"}</p>
       </div>
     );
@@ -37,7 +37,7 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
       {members.map((member) => (
         <div
           key={member.id}
-          className="bg-white border border-gray-300 rounded-[1px] p-7 flex items-center gap-6"
+          className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[1px] p-7 flex items-center gap-6"
         >
           <div className="flex-shrink-0">
             {member.photo ? (
@@ -48,9 +48,9 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
                 className="w-26 h-26 md:w-32 md:h-32 object-cover rounded-full"
               />
             ) : (
-              <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-200 rounded-full flex items-center justify-center">
+              <div className="w-24 h-24 md:w-28 md:h-28 bg-[var(--color-neutral-100)] rounded-full flex items-center justify-center">
                 <svg
-                  className="w-12 h-12 md:w-16 md:h-16 text-gray-400"
+                  className="w-12 h-12 md:w-16 md:h-16 text-[var(--color-neutral-500)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -66,26 +66,26 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-1 break-words">
+            <h3 className="text-xl md:text-2xl font-bold text-[var(--color-neutral-900)] mb-1 break-words">
               {member.fullname}
             </h3>
             {member.position && (
-              <p className="text-sm md:text-base text-gray-600 mb-3 break-words">
+              <p className="text-sm md:text-base text-[var(--color-neutral-700)] mb-3 break-words">
                 {member.position}
               </p>
             )}
             <button
               type="button"
-              className="bg-[#013d8c] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#0152a3] transition-colors"
+              className="bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] px-4 py-2 rounded-[var(--radius-md)] text-sm font-medium hover:bg-[#0152a3] transition-colors"
             >
               {t('leadership.responsibilities') || 'Vazifalari'}
             </button>
           </div>
           <div className="flex-shrink-0 flex flex-col gap-3 text-sm">
             {member.phone && (
-              <div className="flex items-center gap-2 text-gray-700">
+              <div className="flex items-center gap-2 text-[var(--color-neutral-700)]">
                 <svg
-                  className="w-5 h-5 text-[#013d8c]"
+                  className="w-5 h-5 text-[var(--color-brand-700)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -99,16 +99,16 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
                 </svg>
                 <a
                   href={`tel:${member.phone.replace(/\s/g, '')}`}
-                  className="hover:text-[#013d8c] transition-colors"
+                  className="hover:text-[var(--color-brand-700)] transition-colors"
                 >
                   {member.phone}
                 </a>
               </div>
             )}
             {member.email && (
-              <div className="flex items-center gap-2 text-gray-700">
+              <div className="flex items-center gap-2 text-[var(--color-neutral-700)]">
                 <svg
-                  className="w-5 h-5 text-[#013d8c]"
+                  className="w-5 h-5 text-[var(--color-brand-700)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -122,16 +122,16 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
                 </svg>
                 <a
                   href={`mailto:${member.email}`}
-                  className="hover:text-[#013d8c] transition-colors"
+                  className="hover:text-[var(--color-brand-700)] transition-colors"
                 >
                   {member.email}
                 </a>
               </div>
             )}
             {showReceptionHours && (
-              <div className="flex items-center gap-2 text-gray-700">
+              <div className="flex items-center gap-2 text-[var(--color-neutral-700)]">
                 <svg
-                  className="w-5 h-5 text-[#013d8c]"
+                  className="w-5 h-5 text-[var(--color-brand-700)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -147,15 +147,19 @@ const MemberCardList: React.FC<MemberCardListProps> = ({
               </div>
             )}
             {!showReceptionHours && member.linkedin && (
-              <div className="flex items-center gap-2 text-gray-700">
-                <svg className="w-5 h-5 text-[#013d8c]" fill="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-2 text-[var(--color-neutral-700)]">
+                <svg
+                  className="w-5 h-5 text-[var(--color-brand-700)]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 <a
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#013d8c] transition-colors"
+                  className="hover:text-[var(--color-brand-700)] transition-colors"
                 >
                   LinkedIn
                 </a>

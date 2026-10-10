@@ -27,10 +27,12 @@ const PublicationDetail: React.FC = () => {
   if (error || !item) {
     return (
       <div className="text-center py-16 sm:py-20">
-        <p className="text-gray-500 mb-4 text-sm sm:text-base">{t('common.error')}</p>
+        <p className="text-[var(--color-neutral-500)] mb-4 text-sm sm:text-base">
+          {t('common.error')}
+        </p>
         <Link
           to={backPath}
-          className="text-[#013d8c] hover:underline font-medium text-sm sm:text-base"
+          className="text-[var(--color-brand-700)] hover:underline font-medium text-sm sm:text-base"
         >
           ← {t('backToList')}
         </Link>
@@ -44,11 +46,11 @@ const PublicationDetail: React.FC = () => {
     <div className="pb-10">
       <BackButton to={backPath} label={t('backToList')} />
 
-      <article className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+      <article className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden">
         {/* Header */}
-        <div className="bg-[#013d8c] px-4 sm:px-6 py-4 sm:py-5">
+        <div className="bg-[var(--color-brand-700)] px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1.5 mb-2 sm:mb-3">
-            <span className="inline-flex items-center gap-1.5 text-white/70 text-xs sm:text-sm">
+            <span className="inline-flex items-center gap-1.5 text-[var(--color-neutral-0)]/70 text-xs sm:text-sm">
               <svg
                 className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                 fill="none"
@@ -64,7 +66,7 @@ const PublicationDetail: React.FC = () => {
               </svg>
               {item.type_label}
             </span>
-            <span className="inline-flex items-center gap-1.5 text-white/70 text-xs sm:text-sm">
+            <span className="inline-flex items-center gap-1.5 text-[var(--color-neutral-0)]/70 text-xs sm:text-sm">
               <svg
                 className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                 fill="none"
@@ -81,7 +83,9 @@ const PublicationDetail: React.FC = () => {
               {formatDate(item.created_at, language)}
             </span>
           </div>
-          <h1 className="text-white font-bold text-lg sm:text-2xl leading-snug">{item.title}</h1>
+          <h1 className="text-[var(--color-neutral-0)] font-bold text-lg sm:text-2xl leading-snug">
+            {item.title}
+          </h1>
         </div>
 
         {/* Body */}
@@ -92,7 +96,7 @@ const PublicationDetail: React.FC = () => {
               href={item.file}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 h-10 rounded-lg text-sm font-medium text-[#013d8c] bg-blue-50 hover:bg-blue-100 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 h-10 rounded-[var(--radius-md)] text-sm font-medium text-[var(--color-brand-700)] bg-[var(--color-brand-50)] hover:bg-[var(--color-brand-100)] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -107,7 +111,7 @@ const PublicationDetail: React.FC = () => {
             <a
               href={item.file}
               download
-              className="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg text-sm font-medium text-white bg-[#013d8c] hover:bg-[#012d6a] transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 h-10 rounded-[var(--radius-md)] text-sm font-medium text-[var(--color-neutral-0)] bg-[var(--color-brand-700)] hover:bg-[#012d6a] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -123,7 +127,7 @@ const PublicationDetail: React.FC = () => {
 
           {/* Document viewer */}
           <div
-            className="w-full rounded-lg overflow-hidden border border-gray-200 bg-[#f5f5f5]"
+            className="w-full rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-neutral-100)] bg-[#f5f5f5]"
             style={{ blockSize: '78vh' }}
           >
             <iframe src={viewerSrc} className="w-full h-full border-0" title={item.title} />

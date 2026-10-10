@@ -15,17 +15,17 @@ const AnnouncementCard: React.FC<{
   const preview = stripHtmlAndDecode(item.description).slice(0, 180).trim();
 
   return (
-    <article className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md hover:border-[#013d8c]/30 transition-all duration-300">
+    <article className="group bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] overflow-hidden hover:shadow-[var(--shadow-card)] hover:border-[var(--color-brand-700)]/30 transition-all duration-300">
       <div className="flex flex-col sm:flex-row">
-        <div className="w-full sm:w-1 bg-[#013d8c] shrink-0 sm:rounded-l-xl rounded-t-xl sm:rounded-t-none min-h-1 sm:min-h-0" />
+        <div className="w-full sm:w-1 bg-[var(--color-brand-700)] shrink-0 sm:rounded-l-xl rounded-t-xl sm:rounded-t-none min-h-1 sm:min-h-0" />
 
         <div className="flex flex-col flex-1 p-4 sm:p-5 gap-2 sm:gap-3">
-          <h2 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug">
+          <h2 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug">
             {item.title}
           </h2>
 
           {preview && (
-            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed line-clamp-3">
+            <p className="text-xs sm:text-sm text-[var(--color-neutral-500)] leading-relaxed line-clamp-3">
               {preview}
               {preview.length >= 180 ? '…' : ''}
             </p>
@@ -34,7 +34,7 @@ const AnnouncementCard: React.FC<{
           <div className="mt-auto pt-2">
             <Link
               to={`/news/announcements/${item.id}`}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#013d8c] hover:gap-2.5 transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-brand-700)] hover:gap-2.5 transition-all duration-200"
             >
               {t('news.readMore')}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,10 +74,14 @@ const Announcements: React.FC = () => {
 
       {loading && <Loading />}
 
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
 
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
 
       {items.length > 0 && (
@@ -93,7 +97,7 @@ const Announcements: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 ← <span className="hidden sm:inline">{t('news.previous')}</span>
               </button>
@@ -110,10 +114,10 @@ const Announcements: React.FC = () => {
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
-                        className={`px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm ${
+                        className={`px-3 sm:px-4 py-2 rounded-[var(--radius-md)] transition-colors text-sm ${
                           page === pageNum
-                            ? 'bg-[#013d8c] text-white'
-                            : 'bg-white border border-gray-300 hover:bg-gray-50'
+                            ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                            : 'bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] hover:bg-[var(--color-neutral-50)]'
                         }`}
                       >
                         {pageNum}
@@ -133,7 +137,7 @@ const Announcements: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page === totalPages}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 <span className="hidden sm:inline">{t('news.next')}</span> →
               </button>

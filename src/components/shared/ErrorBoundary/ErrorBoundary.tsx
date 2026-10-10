@@ -26,10 +26,12 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-center justify-center bg-[var(--color-neutral-50)]">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Kutilmagan xatolik yuz berdi</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-2xl font-bold text-[var(--color-neutral-900)] mb-4">
+              Kutilmagan xatolik yuz berdi
+            </h1>
+            <p className="text-[var(--color-neutral-700)] mb-6">
               Iltimos, sahifani qayta yuklang yoki keyinroq urinib ko'ring.
             </p>
             <button
@@ -37,7 +39,7 @@ class ErrorBoundary extends Component<Props, State> {
                 this.setState({ hasError: false });
                 window.location.href = '/';
               }}
-              className="px-6 py-3 bg-[#013d8c] text-white rounded hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] rounded hover:bg-[var(--color-brand-700)] transition-colors"
             >
               Bosh sahifaga qaytish
             </button>

@@ -8,14 +8,12 @@ import Footer from '../Footer/Footer';
 import ScrollToTop from '@/components/shared/ScrollToTop/ScrollToTop';
 import TextToSpeech from '@/components/shared/TextToSpeech/TextToSpeech';
 import { trackPageView } from '@/utils/analytics';
-import { HOME_PATH, LANDING_PATH } from '@/routes/path';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
   useLanguage();
 
   const lenisRef = useRef<Lenis | null>(null);
-  const isLanding = location.pathname === HOME_PATH || location.pathname === LANDING_PATH;
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -41,11 +39,11 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen  flex flex-col">
-      <Header variant={isLanding ? 'compact' : 'default'} />
+      <Header variant="compact" />
       <div className="flex-grow">
         <Outlet />
       </div>
-      <Footer variant={isLanding ? 'landing' : 'default'} />
+      <Footer variant="landing" />
       <ScrollToTop />
       <TextToSpeech />
     </div>

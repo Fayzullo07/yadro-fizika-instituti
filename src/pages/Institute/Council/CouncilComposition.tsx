@@ -20,8 +20,8 @@ const MemberCard: React.FC<{ member: CouncilMember; language: string }> = ({
   const { retryKey, handleError } = useImageRetry();
 
   return (
-    <div className="flex gap-4 bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
-      <div className="w-20 h-20 rounded-lg shrink-0 overflow-hidden relative flex items-center justify-center bg-gray-100">
+    <div className="flex gap-4 bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] p-4 hover:shadow-[var(--shadow-card)] transition-shadow">
+      <div className="w-20 h-20 rounded-[var(--radius-md)] shrink-0 overflow-hidden relative flex items-center justify-center bg-[var(--color-neutral-100)]">
         <div
           className="absolute inset-0 bg-cover bg-center scale-110 blur-sm opacity-60"
           style={{ backgroundImage: `url(${member.photo})` }}
@@ -32,11 +32,13 @@ const MemberCard: React.FC<{ member: CouncilMember; language: string }> = ({
             src={member.photo}
             alt={member.fullname}
             fallback=""
-            placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            placeholder={
+              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+            }
             onError={handleError}
             preview={{
               mask: (
-                <span className="text-white text-[10px] text-center leading-tight px-1">
+                <span className="text-[var(--color-neutral-0)] text-[10px] text-center leading-tight px-1">
                   {PREVIEW_LABEL[language] ?? PREVIEW_LABEL.uz}
                 </span>
               ),
@@ -45,9 +47,11 @@ const MemberCard: React.FC<{ member: CouncilMember; language: string }> = ({
         </div>
       </div>
       <div className="flex flex-col justify-center min-w-0">
-        <h3 className="font-semibold text-gray-900 text-sm leading-snug">{member.fullname}</h3>
-        <p className="text-[#013d8c] text-xs mt-1 leading-snug">{member.position}</p>
-        <p className="text-gray-500 text-xs mt-1 leading-snug">{member.degree}</p>
+        <h3 className="font-semibold text-[var(--color-neutral-900)] text-sm leading-snug">
+          {member.fullname}
+        </h3>
+        <p className="text-[var(--color-brand-700)] text-xs mt-1 leading-snug">{member.position}</p>
+        <p className="text-[var(--color-neutral-500)] text-xs mt-1 leading-snug">{member.degree}</p>
       </div>
     </div>
   );
@@ -69,7 +73,7 @@ const CouncilComposition: React.FC = () => {
       {loading && <Loading />}
 
       {error && (
-        <p className="text-center py-16 text-gray-500">
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
           {t('common.error') || 'Xatolik yuz berdi'}
         </p>
       )}

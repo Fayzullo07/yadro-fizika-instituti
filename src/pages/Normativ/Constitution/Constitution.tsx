@@ -18,41 +18,45 @@ ushbu Konstitutsiyani qabul qilamiz va eʼlon qilamiz.`;
     <div className="pb-10">
       <div className="mt-4 mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
+          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
               Oʻzbekiston Respublikasi
             </h1>
-            <p className="text-lg font-bold text-[#013d8c] uppercase tracking-wide">
+            <p className="text-lg font-bold text-[var(--color-brand-700)] uppercase tracking-wide">
               Konstitutsiyasi
             </p>
           </div>
         </div>
-        <div className="h-px bg-gray-200 mt-4" />
+        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
       </div>
 
       <div className="max-w-4xl">
         {/* MUQADDIMA */}
         <section className="mb-8">
           <div className="flex items-center gap-4 mb-8">
-            <span className="text-sm font-semibold tracking-widest text-[#013d8c]">I-BO‘LIM</span>
-            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="text-sm font-semibold tracking-widest text-[var(--color-brand-700)]">
+              I-BO‘LIM
+            </span>
+            <div className="flex-1 h-px bg-[var(--color-neutral-300)]"></div>
           </div>
 
-          <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">Muqaddima</h3>
+          <h3 className="text-xl md:text-2xl font-semibold text-[var(--color-neutral-900)] mb-6">
+            Muqaddima
+          </h3>
 
-          <p className="text-gray-700 text-[16px] md:text-lg leading-[1.9] tracking-wide whitespace-pre-line">
+          <p className="text-[var(--color-neutral-700)] text-[16px] md:text-lg leading-[1.9] tracking-wide whitespace-pre-line">
             {muqaddima}
           </p>
         </section>
 
         {/* LINK BLOCK */}
-        <section className="border-t border-gray-200 pt-8">
-          <div className="bg-gray-50 flex justify-between items-center border border-gray-200 rounded p-4 md:p-6">
+        <section className="border-t border-[var(--color-neutral-100)] pt-8">
+          <div className="bg-[var(--color-neutral-50)] flex justify-between items-center border border-[var(--color-neutral-100)] rounded p-4 md:p-6">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-[#013d8c]/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[var(--color-brand-700)]/10 flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-[#013d8c]"
+                  className="w-5 h-5 text-[var(--color-brand-700)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -67,10 +71,10 @@ ushbu Konstitutsiyani qabul qilamiz va eʼlon qilamiz.`;
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold text-gray-900">
+                <h4 className="text-lg font-semibold text-[var(--color-neutral-900)]">
                   {t('pages.constitution.fullText') || 'To‘liq matn'}
                 </h4>
-                <p className="text-gray-600 text-sm">
+                <p className="text-[var(--color-neutral-700)] text-sm">
                   {t('pages.constitution.fullTextDescription') ||
                     'Konstitutsiyaning rasmiy va to‘liq matni bilan tanishish'}
                 </p>
@@ -81,8 +85,8 @@ ushbu Konstitutsiyani qabul qilamiz va eʼlon qilamiz.`;
               href="https://lex.uz/docs/-6445145"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-lg
-                  bg-[#013d8c] text-white font-medium
+              className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-[var(--radius-md)]
+                  bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] font-medium
                   hover:bg-[#012f6c] transition"
             >
               To‘liq matnni ochish

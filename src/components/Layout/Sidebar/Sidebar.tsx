@@ -31,45 +31,38 @@ const Sidebar: React.FC = () => {
   }
 
   return (
-    <aside className="sticky right-0 top-37 w-80 min-h-[calc(100vh-208px)] max-h-[calc(100vh-208px)] overflow-y-auto z-40">
-      <div className="p-4">
-        {/* Active Menu Header */}
-        {/* <div className="bg-[#013d8c] text-white px-4 py-3 mb-2 rounded">
-          <h3 className="font-semibold text-sm uppercase">{activeMenu.label}</h3>
-        </div> */}
-
-        <div>
-          {activeMenu.links.map((link, index) => {
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={index}
-                to={link.path}
-                className={`flex items-center gap-2 px-4 py-3 transition-colors ${
-                  isActive
-                    ? 'bg-[#013d8c] text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
-                }`}
+    <aside className="sticky right-0 top-[97px] z-40 max-h-[calc(100vh-113px)] w-80 overflow-y-auto">
+      <nav className="flex flex-col gap-[var(--space-1)] p-[var(--space-4)]">
+        {activeMenu.links.map((link, index) => {
+          const isActive = location.pathname === link.path;
+          return (
+            <Link
+              key={index}
+              to={link.path}
+              className={`group flex items-center gap-[var(--space-3)] rounded-[var(--radius-md)] border-l-[3px] px-[var(--space-4)] py-[var(--space-3)] text-[15px] font-semibold transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                isActive
+                  ? 'border-[var(--color-accent-500)] bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                  : 'border-transparent bg-[var(--color-neutral-50)] text-[var(--color-neutral-700)] hover:translate-x-1 hover:bg-[var(--color-brand-50)] hover:text-[var(--color-brand-700)]'
+              }`}
+            >
+              <svg
+                className="size-4 shrink-0 transition-transform duration-500 group-hover:translate-x-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <svg
-                  className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-600'}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-                <span className="text-base font-medium">{link.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+              <span>{link.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </aside>
   );
 };

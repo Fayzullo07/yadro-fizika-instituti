@@ -16,7 +16,7 @@ const Structure: React.FC = () => {
       <PageTitle>{t('nav.institut.structure') || 'Institut tuzilmasi'}</PageTitle>
       <article className="relative">
         {(loading || (imageUrl && !imageLoaded)) && (
-          <div className="w-full aspect-4/3 bg-gray-100 animate-pulse rounded absolute inset-0" />
+          <div className="w-full aspect-4/3 bg-[var(--color-neutral-100)] animate-pulse rounded absolute inset-0" />
         )}
         {!loading && (error || !imageUrl) && null}
         {!loading && imageUrl && (

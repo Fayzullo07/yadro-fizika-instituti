@@ -13,12 +13,14 @@ const GalleryImageTile: React.FC<GalleryImageTileProps> = ({ src, alt = '', prev
   const { retryKey, handleError } = useImageRetry();
 
   return (
-    <div className="overflow-hidden aspect-video bg-gray-100 relative [&_.ant-image]:w-full [&_.ant-image]:h-full">
+    <div className="overflow-hidden aspect-video bg-[var(--color-neutral-100)] relative [&_.ant-image]:w-full [&_.ant-image]:h-full">
       <Image
         key={retryKey}
         src={src}
         alt={alt}
-        placeholder={<div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+        placeholder={
+          <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+        }
         onError={handleError}
         preview={{ mask: <span className="text-xs">{previewLabel}</span> }}
         // antd injects `.ant-image .ant-image-img { height: auto }` at runtime, after

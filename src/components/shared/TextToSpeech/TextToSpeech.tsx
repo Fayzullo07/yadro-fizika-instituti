@@ -155,7 +155,7 @@ const TextToSpeech: React.FC = () => {
   return (
     <button
       onClick={speakText}
-      className="text-to-speech-button fixed z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-all hover:scale-110 flex items-center justify-center"
+      className="text-to-speech-button fixed z-50 bg-[var(--color-brand-600)] hover:bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] p-2 rounded-full shadow-[var(--shadow-card)] transition-all hover:scale-110 flex items-center justify-center"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,

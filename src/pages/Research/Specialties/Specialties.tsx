@@ -20,10 +20,10 @@ const PdfModal: React.FC<{ url: string; title: string; onClose: () => void }> = 
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl flex flex-col w-full max-w-4xl h-[90vh]"
+        className="relative bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] shadow-2xl flex flex-col w-full max-w-4xl h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[var(--color-neutral-100)]">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="shrink-0 flex flex-col items-center justify-center w-8 h-9 rounded bg-red-50 border border-red-100">
               <svg className="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 24 24">
@@ -34,13 +34,15 @@ const PdfModal: React.FC<{ url: string; title: string; onClose: () => void }> = 
                 PDF
               </span>
             </div>
-            <p className="text-sm font-semibold text-gray-800 truncate">{title}</p>
+            <p className="text-sm font-semibold text-[var(--color-neutral-900)] truncate">
+              {title}
+            </p>
           </div>
           <div className="flex items-center gap-2 shrink-0 ml-3">
             <a
               href={url}
               download
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#013d8c] border border-[#013d8c]/25 px-3 py-1.5 rounded-lg hover:bg-[#013d8c] hover:text-white transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-brand-700)] border border-[var(--color-brand-700)]/25 px-3 py-1.5 rounded-[var(--radius-md)] hover:bg-[var(--color-brand-700)] hover:text-[var(--color-neutral-0)] transition-all duration-200"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -54,7 +56,7 @@ const PdfModal: React.FC<{ url: string; title: string; onClose: () => void }> = 
             </a>
             <button
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-neutral-500)] hover:text-[var(--color-neutral-700)] hover:bg-[var(--color-neutral-100)] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -85,20 +87,20 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
 
   return (
     <>
-      <div className="bg-white border border-gray-300 rounded-lg p-3 sm:p-5 hover:border-gray-400 transition-colors duration-200">
+      <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] p-3 sm:p-5 hover:border-[var(--color-neutral-500)] transition-colors duration-200">
         <div className="flex items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
-            <span className="text-sm sm:text-base font-semibold text-gray-900 shrink-0">
+            <span className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] shrink-0">
               {index + 1})
             </span>
             <div className="flex-1 min-w-0">
               <div className="flex items-start gap-2 flex-wrap">
                 {item.code && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#013d8c]/8 text-xs font-bold text-[#013d8c] tracking-wide shrink-0 mt-0.5">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[var(--color-brand-700)]/8 text-xs font-bold text-[var(--color-brand-700)] tracking-wide shrink-0 mt-0.5">
                     {item.code}
                   </span>
                 )}
-                <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                <span className="text-sm sm:text-base text-[var(--color-neutral-700)] leading-relaxed">
                   "{item.name}"
                 </span>
               </div>
@@ -111,7 +113,7 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
                 <button
                   onClick={() => setShowPreview(true)}
                   title={t('pages.specialties.preview') || "Ko'rish"}
-                  className="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-[#013d8c] transition-colors"
+                  className="w-8 h-8 flex items-center justify-center text-[var(--color-neutral-700)] hover:text-[var(--color-brand-700)] transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -133,7 +135,7 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
                   target="_blank"
                   download
                   title={t('pages.specialties.download') || 'Yuklab olish'}
-                  className="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center text-[var(--color-neutral-700)] hover:text-[var(--color-neutral-900)] transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -146,7 +148,7 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
                 </a>
               </>
             ) : (
-              <span className="text-xs text-gray-300">
+              <span className="text-xs text-[var(--color-neutral-300)]">
                 {t('pages.specialties.fileNotAvailable') || "Fayl yo'q"}
               </span>
             )}
@@ -162,18 +164,18 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
 };
 
 const SkeletonRow: React.FC = () => (
-  <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-5 animate-pulse">
+  <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-md)] p-3 sm:p-5 animate-pulse">
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-start gap-4 flex-1">
-        <div className="h-5 w-6 bg-gray-100 rounded shrink-0" />
+        <div className="h-5 w-6 bg-[var(--color-neutral-100)] rounded shrink-0" />
         <div className="flex-1 space-y-2">
-          <div className="h-4 bg-gray-100 rounded w-full" />
-          <div className="h-4 bg-gray-100 rounded w-3/4" />
+          <div className="h-4 bg-[var(--color-neutral-100)] rounded w-full" />
+          <div className="h-4 bg-[var(--color-neutral-100)] rounded w-3/4" />
         </div>
       </div>
       <div className="flex gap-2 shrink-0">
-        <div className="w-8 h-8 bg-gray-100 rounded" />
-        <div className="w-8 h-8 bg-gray-100 rounded" />
+        <div className="w-8 h-8 bg-[var(--color-neutral-100)] rounded" />
+        <div className="w-8 h-8 bg-[var(--color-neutral-100)] rounded" />
       </div>
     </div>
   </div>
@@ -206,13 +208,13 @@ const Specialties: React.FC = () => {
         )}
 
         {error && (
-          <p className="text-center py-20 text-sm text-gray-400">
+          <p className="text-center py-20 text-sm text-[var(--color-neutral-500)]">
             {t('common.error') || 'Xatolik yuz berdi'}
           </p>
         )}
 
         {!loading && !error && items.length === 0 && (
-          <p className="text-center py-20 text-sm text-gray-400">
+          <p className="text-center py-20 text-sm text-[var(--color-neutral-500)]">
             {t('pages.specialties.emptyMessage') || "Ma'lumot topilmadi"}
           </p>
         )}

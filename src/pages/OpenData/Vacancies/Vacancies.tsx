@@ -149,12 +149,12 @@ const Vacancies: React.FC = () => {
     <div className="pb-10">
       <div className="mt-4 mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+          <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
             {t('nav.ochiq.vacancies') || 'Vakansiyalar'}
           </h1>
         </div>
-        <div className="h-px bg-gray-200 mt-4" />
+        <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
       </div>
 
       <div>
@@ -163,32 +163,34 @@ const Vacancies: React.FC = () => {
             {vacancies.map((vacancy) => (
               <div
                 key={vacancy.id}
-                className="border border-gray-300 rounded p-6 hover:border-gray-400 transition-colors"
+                className="border border-[var(--color-neutral-300)] rounded p-6 hover:border-[var(--color-neutral-500)] transition-colors"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     {vacancy.name && (
                       <h3
-                        className="text-lg font-semibold text-gray-900 mb-2"
+                        className="text-lg font-semibold text-[var(--color-neutral-900)] mb-2"
                         dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.name) }}
                       />
                     )}
 
                     {vacancy.desc && (
                       <div
-                        className="text-gray-700 mb-3"
+                        className="text-[var(--color-neutral-700)] mb-3"
                         dangerouslySetInnerHTML={{ __html: sanitizeHtml(vacancy.desc) }}
                       />
                     )}
 
                     {vacancy.created_at && (
-                      <p className="text-sm text-gray-500">{vacancy.created_at}</p>
+                      <p className="text-sm text-[var(--color-neutral-500)]">
+                        {vacancy.created_at}
+                      </p>
                     )}
                   </div>
 
                   <button
                     onClick={() => openApplicationModal(vacancy)}
-                    className="px-6 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm font-medium whitespace-nowrap"
+                    className="px-6 py-2 border border-[var(--color-neutral-300)] rounded hover:bg-[var(--color-neutral-50)] transition-colors text-sm font-medium whitespace-nowrap"
                   >
                     {t('vacancies.apply') || 'Ariza yuborish'}
                   </button>
@@ -197,7 +199,7 @@ const Vacancies: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center text-gray-500 py-12">
+          <div className="text-center text-[var(--color-neutral-500)] py-12">
             <p>{t('vacancies.noVacancies') || 'Hozirda vakansiyalar mavjud emas'}</p>
           </div>
         )}
@@ -205,10 +207,10 @@ const Vacancies: React.FC = () => {
         {/* Application Modal */}
         {showModal && selectedVacancy && (
           <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded border border-gray-300 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-[var(--color-neutral-0)] rounded border border-[var(--color-neutral-300)] max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-                  <h2 className="text-xl font-semibold text-gray-900">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-[var(--color-neutral-100)]">
+                  <h2 className="text-xl font-semibold text-[var(--color-neutral-900)]">
                     {t('vacancies.applyFor') || 'Ariza yuborish'}
                   </h2>
                   <button
@@ -218,7 +220,7 @@ const Vacancies: React.FC = () => {
                       setFormError(null);
                       setFormSuccess(false);
                     }}
-                    className="text-gray-500 hover:text-gray-700"
+                    className="text-[var(--color-neutral-500)] hover:text-[var(--color-neutral-700)]"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -232,12 +234,12 @@ const Vacancies: React.FC = () => {
                 </div>
 
                 {selectedVacancy.name && (
-                  <div className="mb-4 pb-4 border-b border-gray-200">
-                    <p className="text-sm text-gray-600 mb-1">
+                  <div className="mb-4 pb-4 border-b border-[var(--color-neutral-100)]">
+                    <p className="text-sm text-[var(--color-neutral-700)] mb-1">
                       {t('vacancies.vacancy') || 'Vakansiya'}:
                     </p>
                     <div
-                      className="text-gray-900 font-medium"
+                      className="text-[var(--color-neutral-900)] font-medium"
                       dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedVacancy.name) }}
                     />
                   </div>
@@ -245,14 +247,14 @@ const Vacancies: React.FC = () => {
 
                 {formSuccess ? (
                   <div className="text-center py-8">
-                    <p className="text-base text-gray-700 mb-2">
+                    <p className="text-base text-[var(--color-neutral-700)] mb-2">
                       {t('vacancies.success') || 'Arizangiz muvaffaqiyatli yuborildi!'}
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[var(--color-neutral-700)] mb-1">
                         {t('vacancies.fullname') || "To'liq ism"} *
                       </label>
                       <input
@@ -260,13 +262,13 @@ const Vacancies: React.FC = () => {
                         name="fullname"
                         value={formData.fullname}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                        className="w-full px-3 py-2 border border-[var(--color-neutral-300)] rounded focus:outline-none focus:border-[var(--color-neutral-500)]"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[var(--color-neutral-700)] mb-1">
                         {t('vacancies.email') || 'Email'} *
                       </label>
                       <input
@@ -274,13 +276,13 @@ const Vacancies: React.FC = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                        className="w-full px-3 py-2 border border-[var(--color-neutral-300)] rounded focus:outline-none focus:border-[var(--color-neutral-500)]"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[var(--color-neutral-700)] mb-1">
                         {t('vacancies.phone') || 'Telefon'} *
                       </label>
                       <input
@@ -288,13 +290,13 @@ const Vacancies: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                        className="w-full px-3 py-2 border border-[var(--color-neutral-300)] rounded focus:outline-none focus:border-[var(--color-neutral-500)]"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[var(--color-neutral-700)] mb-1">
                         {t('vacancies.comment') || 'Izoh'}
                       </label>
                       <textarea
@@ -302,19 +304,19 @@ const Vacancies: React.FC = () => {
                         value={formData.comment}
                         onChange={handleInputChange}
                         rows={4}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                        className="w-full px-3 py-2 border border-[var(--color-neutral-300)] rounded focus:outline-none focus:border-[var(--color-neutral-500)]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-[var(--color-neutral-700)] mb-1">
                         {t('vacancies.resume') || 'Rezyume (fayl)'}
                       </label>
                       <input
                         type="file"
                         accept=".pdf,.doc,.docx"
                         onChange={handleFileChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
+                        className="w-full px-3 py-2 border border-[var(--color-neutral-300)] rounded focus:outline-none focus:border-[var(--color-neutral-500)]"
                       />
                     </div>
 
@@ -328,7 +330,7 @@ const Vacancies: React.FC = () => {
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 px-4 py-2 border border-[var(--color-neutral-300)] rounded hover:bg-[var(--color-neutral-50)] transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {submitting
                           ? t('common.loading') || 'Yuborilmoqda...'
@@ -341,7 +343,7 @@ const Vacancies: React.FC = () => {
                           setSelectedVacancy(null);
                           setFormError(null);
                         }}
-                        className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 transition-colors text-sm font-medium"
+                        className="px-4 py-2 border border-[var(--color-neutral-300)] rounded hover:bg-[var(--color-neutral-50)] transition-colors text-sm font-medium"
                       >
                         {t('common.cancel') || 'Bekor qilish'}
                       </button>

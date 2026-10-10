@@ -17,9 +17,13 @@ const UniqueObjects: React.FC = () => {
       <PageTitle>{t('nav.laboratoriyalar.uniqueObjects') || 'Noyob obyektlar'}</PageTitle>
 
       {loading && <Loading />}
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
       {!loading && !error && items.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
@@ -27,15 +31,15 @@ const UniqueObjects: React.FC = () => {
             <Link
               key={item.id}
               to={`${UNIQUE_OBJECTS_PATH}/${item.id}`}
-              className="group relative flex flex-col bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden"
+              className="group relative flex flex-col bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-lg)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-all duration-300 overflow-hidden"
             >
-              <div className="h-1 w-full bg-[#013d8c]" />
+              <div className="h-1 w-full bg-[var(--color-brand-700)]" />
 
               <div className="p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 flex-1">
                 <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[var(--radius-lg)] bg-[var(--color-brand-50)] flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-[#013d8c]"
+                      className="w-5 h-5 text-[var(--color-brand-700)]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -51,7 +55,7 @@ const UniqueObjects: React.FC = () => {
                   <span
                     className="text-2xl sm:text-3xl font-black select-none leading-none"
                     style={{
-                      background: 'linear-gradient(135deg, #013d8c, #60a5fa)',
+                      background: 'linear-gradient(135deg, var(--color-brand-700), #60a5fa)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                     }}
@@ -60,15 +64,15 @@ const UniqueObjects: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="text-gray-800 font-semibold text-sm sm:text-base leading-relaxed group-hover:text-[#013d8c] transition-colors flex-1">
+                <h3 className="text-[var(--color-neutral-900)] font-semibold text-sm sm:text-base leading-relaxed group-hover:text-[var(--color-brand-700)] transition-colors flex-1">
                   {item.name}
                 </h3>
 
-                <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100">
-                  <span className="text-xs text-gray-400">
+                <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-[var(--color-neutral-100)]">
+                  <span className="text-xs text-[var(--color-neutral-500)]">
                     {formatDate(item.created_at, language)}
                   </span>
-                  <span className="flex items-center gap-1 text-xs font-medium text-[#013d8c] group-hover:underline">
+                  <span className="flex items-center gap-1 text-xs font-medium text-[var(--color-brand-700)] group-hover:underline">
                     {t('news.detail')}
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path

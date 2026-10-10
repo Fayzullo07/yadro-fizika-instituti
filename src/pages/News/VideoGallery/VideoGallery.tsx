@@ -22,9 +22,9 @@ const CloseIcon = () => (
 
 const PlayOverlay = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-300">
-    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 group-hover:bg-white transition-colors duration-300 flex items-center justify-center shadow-lg">
+    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[var(--color-neutral-0)]/80 group-hover:bg-[var(--color-neutral-0)] transition-colors duration-300 flex items-center justify-center shadow-[var(--shadow-card)]">
       <svg
-        className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800 ml-0.5"
+        className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-neutral-900)] ml-0.5"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -46,7 +46,7 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
       onClick={onClose}
     >
       <button
-        className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
+        className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[var(--color-neutral-0)]/70 hover:text-[var(--color-neutral-0)] p-2 rounded-full bg-[var(--color-neutral-0)]/10 hover:bg-[var(--color-neutral-0)]/20 transition-colors z-10"
         onClick={onClose}
       >
         <CloseIcon />
@@ -54,7 +54,7 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
 
       <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
         {ytId ? (
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl">
+          <div className="relative w-full aspect-video rounded-[var(--radius-md)] overflow-hidden shadow-2xl">
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${ytId}?rel=0&modestbranding=1&autoplay=1`}
               title={item.title}
@@ -64,18 +64,18 @@ const VideoModal: React.FC<{ item: VideoGalleryItem; onClose: () => void }> = ({
             />
           </div>
         ) : (
-          <div className="bg-gray-900 rounded-lg p-6 sm:p-8 text-center">
+          <div className="bg-[var(--color-neutral-900)] rounded-[var(--radius-md)] p-6 sm:p-8 text-center">
             <a
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-brand-600)] hover:bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] rounded-[var(--radius-md)] transition-colors"
             >
               {item.title}
             </a>
           </div>
         )}
-        <p className="mt-3 text-white/70 text-xs sm:text-sm text-center line-clamp-2">
+        <p className="mt-3 text-[var(--color-neutral-0)]/70 text-xs sm:text-sm text-center line-clamp-2">
           {item.title}
         </p>
       </div>
@@ -96,12 +96,14 @@ const VideoCard: React.FC<{
   return (
     <button
       onClick={onClick}
-      className="group text-left bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 focus:outline-none"
+      className="group text-left bg-[var(--color-neutral-0)] overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card)] transition-shadow duration-300 focus:outline-none"
     >
-      <div className="relative overflow-hidden aspect-video bg-gray-100">
+      <div className="relative overflow-hidden aspect-video bg-[var(--color-neutral-100)]">
         {thumb ? (
           <>
-            {!thumbLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+            {!thumbLoaded && (
+              <div className="absolute inset-0 bg-[var(--color-neutral-100)] animate-pulse" />
+            )}
             <RetryImage
               src={thumb}
               alt=""
@@ -110,21 +112,21 @@ const VideoCard: React.FC<{
             />
           </>
         ) : (
-          <div className="w-full h-full bg-gray-200" />
+          <div className="w-full h-full bg-[var(--color-neutral-100)]" />
         )}
         <PlayOverlay />
       </div>
 
       <div className="p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2">
         <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">{label}</span>
-        <p className="text-xs sm:text-sm text-gray-700 font-medium line-clamp-2 leading-snug overflow-hidden">
+        <p className="text-xs sm:text-sm text-[var(--color-neutral-700)] font-medium line-clamp-2 leading-snug overflow-hidden">
           {item.title}
         </p>
         <div className="flex items-center justify-between mt-auto pt-1">
-          <span className="text-xs sm:text-sm text-gray-400">
+          <span className="text-xs sm:text-sm text-[var(--color-neutral-500)]">
             {formatDate(item.created_at, language)}
           </span>
-          <span className="text-gray-400 group-hover:text-gray-700 transition-colors text-base leading-none">
+          <span className="text-[var(--color-neutral-500)] group-hover:text-[var(--color-neutral-700)] transition-colors text-base leading-none">
             →
           </span>
         </div>
@@ -188,9 +190,13 @@ const VideoGallery: React.FC = () => {
     <div className="pb-10">
       <PageTitle>{label}</PageTitle>
 
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
 
       {items.length > 0 && (
@@ -212,7 +218,7 @@ const VideoGallery: React.FC = () => {
       <div ref={sentinelRef} className="h-1" />
       {loading && items.length > 0 && (
         <div className="flex justify-center py-6">
-          <div className="w-6 h-6 border-2 border-[#013d8c] border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-[var(--color-brand-700)] border-t-transparent rounded-full animate-spin" />
         </div>
       )}
 

@@ -18,7 +18,7 @@ const EventCard: React.FC<{ item: EventApiItem; language: string; t: (k: string)
   return (
     <Link
       to={`/news/events/${item.id}`}
-      className="group flex bg-white border border-gray-200  overflow-hidden hover:border-[#013d8c]/30 transition-colors duration-300"
+      className="group flex bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)]  overflow-hidden hover:border-[var(--color-brand-700)]/30 transition-colors duration-300"
     >
       {item.image && (
         <div className="relative w-24 sm:w-36 shrink-0 overflow-hidden">
@@ -31,15 +31,15 @@ const EventCard: React.FC<{ item: EventApiItem; language: string; t: (k: string)
         </div>
       )}
       <div className="flex-1 flex gap-3 p-3 sm:p-4 items-start min-w-0">
-        <div className="flex flex-col items-center justify-center leading-none rounded-lg bg-[#013d8c]/8 text-[#013d8c] px-2.5 py-2 shrink-0">
+        <div className="flex flex-col items-center justify-center leading-none rounded-[var(--radius-md)] bg-[var(--color-brand-700)]/8 text-[var(--color-brand-700)] px-2.5 py-2 shrink-0">
           <span className="text-lg sm:text-xl font-bold">{day}</span>
           <span className="text-[10px] uppercase tracking-wide mt-0.5">{month}</span>
         </div>
         <div className="min-w-0 pt-0.5">
-          <h2 className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-[#013d8c] transition-colors leading-snug line-clamp-3">
+          <h2 className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] group-hover:text-[var(--color-brand-700)] transition-colors leading-snug line-clamp-3">
             {item.title}
           </h2>
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#013d8c] mt-2 group-hover:gap-2.5 transition-all">
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-brand-700)] mt-2 group-hover:gap-2.5 transition-all">
             {t('news.readMore')}
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -72,10 +72,14 @@ const Events: React.FC = () => {
 
       {loading && <Loading />}
 
-      {error && <p className="text-center py-16 text-gray-500">{t('common.error')}</p>}
+      {error && (
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">{t('common.error')}</p>
+      )}
 
       {!loading && !error && items.length === 0 && (
-        <p className="text-center py-16 text-gray-500">{t('common.notAvailable')}</p>
+        <p className="text-center py-16 text-[var(--color-neutral-500)]">
+          {t('common.notAvailable')}
+        </p>
       )}
 
       {items.length > 0 && (
@@ -91,7 +95,7 @@ const Events: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 ← <span className="hidden sm:inline">{t('news.previous')}</span>
               </button>
@@ -108,10 +112,10 @@ const Events: React.FC = () => {
                       <button
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
-                        className={`px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm ${
+                        className={`px-3 sm:px-4 py-2 rounded-[var(--radius-md)] transition-colors text-sm ${
                           page === pageNum
-                            ? 'bg-[#013d8c] text-white'
-                            : 'bg-white border border-gray-300 hover:bg-gray-50'
+                            ? 'bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                            : 'bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] hover:bg-[var(--color-neutral-50)]'
                         }`}
                       >
                         {pageNum}
@@ -131,7 +135,7 @@ const Events: React.FC = () => {
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page === totalPages}
-                className="px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-3 sm:px-4 py-2 bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-50)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 <span className="hidden sm:inline">{t('news.next')}</span> →
               </button>

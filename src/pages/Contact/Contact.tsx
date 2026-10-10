@@ -18,12 +18,12 @@ const Card: React.FC<{ icon: React.ReactNode; label: string; children: React.Rea
   label,
   children,
 }) => (
-  <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex gap-3.5">
-    <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+  <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] shadow-[var(--shadow-card)] p-4 flex gap-3.5">
+    <div className="w-9 h-9 rounded-full bg-[var(--color-brand-50)] flex items-center justify-center shrink-0 mt-0.5">
       {icon}
     </div>
     <div className="min-w-0">
-      <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
+      <p className="text-[11px] font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-1">
         {label}
       </p>
       {children}
@@ -50,7 +50,11 @@ const Contact: React.FC = () => {
           <Card
             label={t('contact.phone')}
             icon={
-              <svg className="w-4 h-4 text-[#013d8c]" fill="currentColor" viewBox="0 0 17.2 17.2">
+              <svg
+                className="w-4 h-4 text-[var(--color-brand-700)]"
+                fill="currentColor"
+                viewBox="0 0 17.2 17.2"
+              >
                 <path d="M15.82 11.29a9.8 9.8 0 0 1-3.067-.488 1.4 1.4 0 0 0-1.363.287l-1.934 1.46a10.7 10.7 0 0 1-4.805-4.8l1.416-1.888a1.39 1.39 0 0 0 .342-1.409 9.8 9.8 0 0 1-.49-3.072A1.38 1.38 0 0 0 4.539 0H1.38A1.38 1.38 0 0 0 0 1.38 15.84 15.84 0 0 0 15.82 17.2a1.38 1.38 0 0 0 1.38-1.38v-3.15a1.38 1.38 0 0 0-1.38-1.38" />
               </svg>
             }
@@ -59,7 +63,7 @@ const Contact: React.FC = () => {
               <a
                 key={p}
                 href={`tel:${p.replace(/\s/g, '')}`}
-                className="text-sm font-semibold text-[#013d8c] hover:underline block"
+                className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline block"
               >
                 {p}
               </a>
@@ -71,7 +75,7 @@ const Contact: React.FC = () => {
             label={t('contact.fax')}
             icon={
               <svg
-                className="w-4 h-4 text-[#013d8c]"
+                className="w-4 h-4 text-[var(--color-brand-700)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -87,7 +91,7 @@ const Contact: React.FC = () => {
           >
             <a
               href={`tel:${CONTACT_FAX.replace(/\s/g, '')}`}
-              className="text-sm font-semibold text-[#013d8c] hover:underline"
+              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline"
             >
               {CONTACT_FAX}
             </a>
@@ -98,7 +102,7 @@ const Contact: React.FC = () => {
             label="Email"
             icon={
               <svg
-                className="w-4 h-4 text-[#013d8c]"
+                className="w-4 h-4 text-[var(--color-brand-700)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -114,7 +118,7 @@ const Contact: React.FC = () => {
           >
             <a
               href={`mailto:${email}`}
-              className="text-sm font-semibold text-[#013d8c] hover:underline break-all"
+              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline break-all"
             >
               {email}
             </a>
@@ -125,7 +129,7 @@ const Contact: React.FC = () => {
             label="Veb-sayt"
             icon={
               <svg
-                className="w-4 h-4 text-[#013d8c]"
+                className="w-4 h-4 text-[var(--color-brand-700)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -143,7 +147,7 @@ const Contact: React.FC = () => {
               href={CONTACT_WEBSITE}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-[#013d8c] hover:underline break-all"
+              className="text-sm font-semibold text-[var(--color-brand-700)] hover:underline break-all"
             >
               {CONTACT_WEBSITE}
             </a>
@@ -154,7 +158,7 @@ const Contact: React.FC = () => {
             label={t('contact.address')}
             icon={
               <svg
-                className="w-4 h-4 text-[#013d8c]"
+                className="w-4 h-4 text-[var(--color-brand-700)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -174,7 +178,7 @@ const Contact: React.FC = () => {
               </svg>
             }
           >
-            <p className="text-sm text-gray-700 leading-relaxed">{address}</p>
+            <p className="text-sm text-[var(--color-neutral-700)] leading-relaxed">{address}</p>
           </Card>
 
           {/* Working hours */}
@@ -182,7 +186,7 @@ const Contact: React.FC = () => {
             label={t('contact.workingDays')}
             icon={
               <svg
-                className="w-4 h-4 text-[#013d8c]"
+                className="w-4 h-4 text-[var(--color-brand-700)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -197,15 +201,15 @@ const Contact: React.FC = () => {
             }
           >
             {hours.map((h) => (
-              <p key={h} className="text-sm text-gray-700">
+              <p key={h} className="text-sm text-[var(--color-neutral-700)]">
                 {h}
               </p>
             ))}
           </Card>
 
           {/* Social links */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-3">
+          <div className="bg-[var(--color-neutral-0)] rounded-[var(--radius-lg)] border border-[var(--color-neutral-100)] shadow-[var(--shadow-card)] p-4">
+            <p className="text-[11px] font-semibold text-[var(--color-neutral-500)] uppercase tracking-wide mb-3">
               {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -218,7 +222,11 @@ const Contact: React.FC = () => {
                   title={s.name}
                   className={`w-9 h-9 rounded-full ${s.color} flex items-center justify-center transition-colors`}
                 >
-                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    className="w-4 h-4 text-[var(--color-neutral-0)]"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     {s.icon}
                   </svg>
                 </a>
@@ -231,7 +239,7 @@ const Contact: React.FC = () => {
             href={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 bg-[#013d8c] hover:bg-[#012d6a] text-white text-sm font-medium rounded-xl transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-[var(--color-brand-700)] hover:bg-[#012d6a] text-[var(--color-neutral-0)] text-sm font-medium rounded-[var(--radius-lg)] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -246,7 +254,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Map */}
-        <div className="lg:col-span-3 h-72 sm:h-96 lg:min-h-105 rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <div className="lg:col-span-3 h-72 sm:h-96 lg:min-h-105 rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)]">
           <iframe
             src={`https://www.google.com/maps?q=${MAP_LATITUDE},${MAP_LONGITUDE}&z=${MAP_ZOOM}&t=h&output=embed`}
             width="100%"

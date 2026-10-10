@@ -11,7 +11,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, classNam
   return (
     <div className={`text-center mb-8 ${className}`}>
       <PageTitle>{title}</PageTitle>
-      {subtitle && <p className="text-gray-600 max-w-2xl mx-auto">{subtitle}</p>}
+      {subtitle && <p className="text-[var(--color-neutral-700)] max-w-2xl mx-auto">{subtitle}</p>}
     </div>
   );
 };

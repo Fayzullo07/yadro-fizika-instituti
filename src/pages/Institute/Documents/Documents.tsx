@@ -56,25 +56,25 @@ const Documents: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-neutral-50)]">
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-[#013d8c] rounded-full shrink-0" />
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide">
+            <div className="w-1 h-8 bg-[var(--color-brand-700)] rounded-full shrink-0" />
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-neutral-900)] uppercase tracking-wide">
               {t('nav.institute.documents') || 'Ichki hujjatlar'}
             </h1>
           </div>
-          <div className="h-px bg-gray-200 mt-4" />
+          <div className="h-px bg-[var(--color-neutral-100)] mt-4" />
         </div>
 
         <div className="mt-8 space-y-6">
           {documentCategories.map((category) => (
             <div
               key={category.id}
-              className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden"
+              className="bg-[var(--color-neutral-0)] rounded-[var(--radius-md)] shadow-[var(--shadow-card)] border border-[var(--color-neutral-100)] overflow-hidden"
             >
-              <div className="bg-[#013d8c] text-white px-6 py-4">
+              <div className="bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] px-6 py-4">
                 <h2 className="text-xl font-semibold">{category.title}</h2>
               </div>
               <div className="p-6">
@@ -82,12 +82,12 @@ const Documents: React.FC = () => {
                   {category.documents.map((doc) => (
                     <div
                       key={doc.id}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200"
+                      className="flex items-center justify-between p-4 bg-[var(--color-neutral-50)] rounded-[var(--radius-md)] hover:bg-[var(--color-neutral-100)] transition-colors border border-[var(--color-neutral-100)]"
                     >
                       <div className="flex items-center gap-4 flex-1">
-                        <div className="bg-blue-100 p-3 rounded-lg">
+                        <div className="bg-[var(--color-brand-100)] p-3 rounded-[var(--radius-md)]">
                           <svg
-                            className="w-6 h-6 text-blue-600"
+                            className="w-6 h-6 text-[var(--color-brand-600)]"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -101,15 +101,19 @@ const Documents: React.FC = () => {
                           </svg>
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-medium text-gray-900 mb-1">{doc.name}</h3>
-                          <p className="text-sm text-gray-500">{formatDate(doc.date, language)}</p>
+                          <h3 className="font-medium text-[var(--color-neutral-900)] mb-1">
+                            {doc.name}
+                          </h3>
+                          <p className="text-sm text-[var(--color-neutral-500)]">
+                            {formatDate(doc.date, language)}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded uppercase">
+                        <span className="text-xs bg-[var(--color-neutral-100)] text-[var(--color-neutral-700)] px-2 py-1 rounded uppercase">
                           {doc.type}
                         </span>
-                        <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                        <button className="p-2 text-[var(--color-brand-600)] hover:bg-[var(--color-brand-50)] rounded-[var(--radius-md)] transition-colors">
                           <svg
                             className="w-5 h-5"
                             fill="none"

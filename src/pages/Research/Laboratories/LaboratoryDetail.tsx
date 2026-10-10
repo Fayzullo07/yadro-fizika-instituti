@@ -24,7 +24,7 @@ const LaboratoryDetail: React.FC = () => {
 
   if (error || !lab) {
     return (
-      <div className="text-center py-16 text-gray-500">
+      <div className="text-center py-16 text-[var(--color-neutral-500)]">
         {error ? 'Xatolik yuz berdi' : "Ma'lumot topilmadi"}
       </div>
     );
@@ -53,23 +53,26 @@ const LaboratoryDetail: React.FC = () => {
       {/* Hero banner */}
       <div
         className="relative overflow-hidden mb-2 min-h-20 flex items-center justify-center"
-        style={{ background: 'linear-gradient(135deg, #0f1b3d 0%, #013d8c 60%, #1a5fb4 100%)' }}
+        style={{
+          background:
+            'linear-gradient(135deg, #0f1b3d 0%, var(--color-brand-700) 60%, #1a5fb4 100%)',
+        }}
       >
-        <h1 className="relative z-10 text-base sm:text-xl md:text-2xl font-bold text-white text-center px-4 sm:px-8 py-5 sm:py-6 max-w-3xl mx-auto leading-snug">
+        <h1 className="relative z-10 text-base sm:text-xl md:text-2xl font-bold text-[var(--color-neutral-0)] text-center px-4 sm:px-8 py-5 sm:py-6 max-w-3xl mx-auto leading-snug">
           {lab.name}
         </h1>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-4 sm:mb-6">
+      <div className="flex border-b border-[var(--color-neutral-100)] mb-4 sm:mb-6">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={`flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-3 text-xs sm:text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap ${
               activeTab === tab.key
-                ? 'border-[#013d8c] bg-[#013d8c] text-white'
-                : 'border-transparent text-gray-600 hover:text-[#013d8c] hover:bg-gray-50'
+                ? 'border-[var(--color-brand-700)] bg-[var(--color-brand-700)] text-[var(--color-neutral-0)]'
+                : 'border-transparent text-[var(--color-neutral-700)] hover:text-[var(--color-brand-700)] hover:bg-[var(--color-neutral-50)]'
             }`}
           >
             {tab.icon}

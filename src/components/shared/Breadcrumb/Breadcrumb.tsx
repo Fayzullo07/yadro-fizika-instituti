@@ -142,23 +142,37 @@ const Breadcrumb: React.FC = () => {
   crumbs.push({ label: info.label, isCurrent: true });
 
   return (
-    <nav className="py-2 sm:py-3">
-      <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+    <nav aria-label="breadcrumb" className="py-[var(--space-3)]">
+      <ol className="flex flex-wrap items-center gap-x-[var(--space-2)] gap-y-[var(--space-1)] text-[13px] sm:text-[14px]">
         {crumbs.map((item, index) => (
-          <div key={index} className="flex items-center gap-1 sm:gap-2">
-            {index > 0 && <span className="text-[#013d8c] font-bold">›</span>}
+          <li key={index} className="flex items-center gap-[var(--space-2)]">
+            {index > 0 && (
+              <span aria-hidden className="text-[var(--color-neutral-300)]">
+                /
+              </span>
+            )}
             {item.path && !item.isCurrent ? (
-              <Link to={item.path} className="text-[#013d8c] font-bold hover:underline">
+              <Link
+                to={item.path}
+                className="font-semibold text-[var(--color-brand-700)] transition-colors duration-300 hover:text-[var(--color-accent-600)]"
+              >
                 {item.label}
               </Link>
             ) : (
-              <span className={item.isCurrent ? 'text-gray-600' : 'text-gray-500'}>
+              <span
+                aria-current={item.isCurrent ? 'page' : undefined}
+                className={
+                  item.isCurrent
+                    ? 'font-semibold text-[var(--color-neutral-900)]'
+                    : 'text-[var(--color-neutral-500)]'
+                }
+              >
                 {item.label}
               </span>
             )}
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </nav>
   );
 };
