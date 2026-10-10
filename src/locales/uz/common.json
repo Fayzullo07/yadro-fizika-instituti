@@ -372,7 +372,9 @@
       "contact": "Bog'lanish"
     },
     "partners": {
-      "title": "HAMKORLAR"
+      "title": "HAMKORLAR",
+      "eyebrow": "HAMKORLARIMIZ",
+      "heading": "Bizning hamkorlar"
     },
     "news": {
       "title": "Institut yangiliklari"
@@ -390,6 +392,20 @@
       "close": "Yopish",
       "prev": "Oldingi rasm",
       "next": "Keyingi rasm"
+    },
+    "stats": {
+      "eyebrow": "INSTITUT RAQAMLARDA"
+    },
+    "about": {
+      "year": "1956",
+      "yearLabel": "tashkil etilgan yil",
+      "anniversary": "70 yil"
+    },
+    "events": {
+      "next": "Eng yaqin tadbir"
+    },
+    "video": {
+      "now": "Hozir ko‘rilmoqda"
     }
   }
 }

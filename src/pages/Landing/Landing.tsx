@@ -1,14 +1,26 @@
 import HeroB2 from '@/components/HeroB2';
-import PartnersStrip from './sections/PartnersStrip';
-import NewsCards from './sections/NewsCards';
-import GalleryTiles from './sections/GalleryTiles';
+import StatsBand from './sections/StatsBand';
+import AboutBlock from './sections/AboutBlock';
+import NewsBento from './sections/NewsBento';
+import AnnouncementsList from './sections/AnnouncementsList';
+import EventsTimeline from './sections/EventsTimeline';
+import GalleryBento from './sections/GalleryBento';
+import VideoCinema from './sections/VideoCinema';
+import PartnersLanes from './sections/PartnersLanes';
+import LocationGlass from './sections/LocationGlass';
 
 const Landing: React.FC = () => (
   <div className="w-full">
     <HeroB2 />
-    <PartnersStrip />
-    <NewsCards />
-    <GalleryTiles />
+    <StatsBand />
+    <AboutBlock />
+    <NewsBento />
+    <AnnouncementsList />
+    <EventsTimeline />
+    <GalleryBento />
+    <VideoCinema />
+    <PartnersLanes />
+    <LocationGlass />
   </div>
 );
 

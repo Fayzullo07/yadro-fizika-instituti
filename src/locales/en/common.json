@@ -372,7 +372,9 @@
       "contact": "Contacts"
     },
     "partners": {
-      "title": "PARTNERS"
+      "title": "PARTNERS",
+      "eyebrow": "OUR PARTNERS",
+      "heading": "Our partners"
     },
     "news": {
       "title": "Institute news"
@@ -390,6 +392,20 @@
       "close": "Close",
       "prev": "Previous photo",
       "next": "Next photo"
+    },
+    "stats": {
+      "eyebrow": "THE INSTITUTE IN NUMBERS"
+    },
+    "about": {
+      "year": "1956",
+      "yearLabel": "year founded",
+      "anniversary": "70 years"
+    },
+    "events": {
+      "next": "Next event"
+    },
+    "video": {
+      "now": "Now playing"
     }
   }
 }

@@ -1,26 +1,58 @@
 import { Link } from 'react-router-dom';
+import Reveal from './Reveal';
 
 interface SectionHeaderProps {
+  eyebrow?: string;
   title: string;
-  to: string;
-  viewAllLabel: string;
+  to?: string;
+  viewAllLabel?: string;
+  /** light text for dark sections */
+  dark?: boolean;
+  centered?: boolean;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, to, viewAllLabel }) => (
-  <div className="flex items-end justify-between gap-[var(--space-4)]">
-    <div className="flex flex-col gap-[var(--space-3)]">
-      <h2 className="text-3xl font-bold leading-tight text-[var(--color-neutral-900)] md:text-[40px] md:leading-[48px]">
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+  eyebrow,
+  title,
+  to,
+  viewAllLabel,
+  dark = false,
+  centered = false,
+}) => (
+  <Reveal
+    className={`flex flex-col gap-[var(--space-4)] ${
+      centered ? 'items-center text-center' : 'md:flex-row md:items-end md:justify-between'
+    }`}
+  >
+    <div className={`flex flex-col gap-[var(--space-3)] ${centered ? 'items-center' : ''}`}>
+      {eyebrow && (
+        <span className="flex items-center gap-[var(--space-3)] text-[12px] font-bold uppercase leading-4 tracking-[0.14em] text-[var(--color-accent-500)]">
+          <span className="h-[3px] w-8 rounded-[var(--radius-full)] bg-[var(--color-accent-500)]" />
+          {eyebrow}
+        </span>
+      )}
+      <h2
+        className={`text-[32px] font-extrabold leading-[1.1] tracking-tight md:text-[48px] ${
+          dark ? 'text-[var(--color-neutral-0)]' : 'text-[var(--color-neutral-900)]'
+        }`}
+      >
         {title}
       </h2>
-      <div className="h-1 w-12 rounded-[var(--radius-full)] bg-[var(--color-accent-500)]" />
     </div>
-    <Link
-      to={to}
-      className="shrink-0 rounded-[var(--radius-md)] border border-[var(--color-brand-700)] px-[var(--space-4)] py-[var(--space-2)] text-[16px] font-semibold leading-6 text-[var(--color-brand-700)] hover:bg-[var(--color-brand-50)]"
-    >
-      {viewAllLabel}
-    </Link>
-  </div>
+    {to && viewAllLabel && (
+      <Link
+        to={to}
+        className={`group inline-flex shrink-0 items-center gap-[var(--space-2)] text-[16px] font-semibold leading-6 ${
+          dark ? 'text-[var(--color-accent-500)]' : 'text-[var(--color-brand-700)]'
+        }`}
+      >
+        {viewAllLabel}
+        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+      </Link>
+    )}
+  </Reveal>
 );
 
 export default SectionHeader;

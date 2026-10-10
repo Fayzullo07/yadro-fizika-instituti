@@ -378,3 +378,57 @@ body {
     white-space: nowrap;
   }
 }
+
+/* Landing — scroll reveal and partner lanes */
+.lp-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--lp-delay, 0ms),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--lp-delay, 0ms);
+}
+
+.lp-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes lp-lane-left {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes lp-lane-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.lp-lane {
+  animation: lp-lane-left 50s linear infinite;
+}
+
+.lp-lane-reverse {
+  animation-name: lp-lane-right;
+}
+
+.lp-lane-wrap:hover .lp-lane {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .lp-lane {
+    animation: none;
+  }
+}
