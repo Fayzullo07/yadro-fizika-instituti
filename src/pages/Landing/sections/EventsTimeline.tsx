@@ -5,6 +5,7 @@ import { EVENTS_PATH } from '@/routes/path';
 import { getDayMonth } from '@/utils/dateUtils';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
 import type { EventApiItem } from '@/types';
+import EventSpotlight from './EventSpotlight';
 import { CONTAINER, SECTION_PAD } from './layout';
 import Reveal from './Reveal';
 import SectionHeader from './SectionHeader';
@@ -15,6 +16,7 @@ const EventsTimeline: React.FC = () => {
   const items: EventApiItem[] = Array.isArray(data?.data) ? data.data.slice(0, 4) : [];
 
   if (!loading && !items.length) return null;
+  if (!loading && items.length === 1) return <EventSpotlight item={items[0]} />;
 
   const [lead, ...rest] = items;
   const leadDate = lead ? getDayMonth(lead.created_at, language) : null;

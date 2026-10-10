@@ -402,7 +402,12 @@
       "anniversary": "70 years"
     },
     "events": {
-      "next": "Next event"
+      "next": "Next event",
+      "days": "DAYS",
+      "hours": "HOURS",
+      "minutes": "MINUTES",
+      "seconds": "SECONDS",
+      "startsIn": "STARTS IN"
     },
     "video": {
       "now": "Now playing"

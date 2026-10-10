@@ -402,7 +402,12 @@
       "anniversary": "70 yil"
     },
     "events": {
-      "next": "Eng yaqin tadbir"
+      "next": "Eng yaqin tadbir",
+      "days": "KUN",
+      "hours": "SOAT",
+      "minutes": "DAQIQA",
+      "seconds": "SONIYA",
+      "startsIn": "BOSHLANISHIGA"
     },
     "video": {
       "now": "Hozir ko‘rilmoqda"
