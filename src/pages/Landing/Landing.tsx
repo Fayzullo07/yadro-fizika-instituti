@@ -15,9 +15,9 @@ const Landing: React.FC = () => (
     <StatsBand />
     <AboutBlock />
     <PartnersLanes />
+    <EventsTimeline />
     <NewsBento />
     <AnnouncementsList />
-    <EventsTimeline />
     <GalleryBento />
     <VideoCinema />
     <LocationGlass />

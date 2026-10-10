@@ -25,7 +25,7 @@ const NewsBento: React.FC = () => {
   };
 
   return (
-    <section className={`bg-[var(--color-neutral-0)] ${SECTION_PAD}`}>
+    <section className={`bg-[var(--color-neutral-50)] ${SECTION_PAD}`}>
       <div className={`${CONTAINER} flex flex-col gap-[var(--space-12)]`}>
         <SectionHeader
           eyebrow={t('news.subtitle')}
