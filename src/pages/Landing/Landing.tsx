@@ -5,7 +5,7 @@ import NewsBento from './sections/NewsBento';
 import AnnouncementsList from './sections/AnnouncementsList';
 import EventsTimeline from './sections/EventsTimeline';
 import GalleryBento from './sections/GalleryBento';
-import VideoCinema from './sections/VideoCinema';
+import VideoOrbit from './sections/VideoOrbit';
 import PartnersLanes from './sections/PartnersLanes';
 import LocationGlass from './sections/LocationGlass';
 
@@ -19,7 +19,7 @@ const Landing: React.FC = () => (
     <NewsBento />
     <AnnouncementsList />
     <GalleryBento />
-    <VideoCinema />
+    <VideoOrbit />
     <LocationGlass />
   </div>
 );

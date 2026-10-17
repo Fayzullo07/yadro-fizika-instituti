@@ -609,3 +609,39 @@ body {
     animation: none;
   }
 }
+
+/* Landing video orbit */
+@keyframes vo-word {
+  from {
+    transform: translateY(115%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes vo-kenburns {
+  from {
+    transform: scale(1.1);
+  }
+
+  to {
+    transform: scale(1.22) translate(-1.5%, -1%);
+  }
+}
+
+.vo-word {
+  animation: vo-word 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vo-kenburns {
+  animation: vo-kenburns 18s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vo-word,
+  .vo-kenburns {
+    animation: none;
+  }
+}
