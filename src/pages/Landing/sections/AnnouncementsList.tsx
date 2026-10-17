@@ -25,15 +25,12 @@ const STARS: Array<[number, number, number, number]> = [
   [40, 52, 2, 3.3],
 ];
 
-const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 const AnnouncementsList: React.FC = () => {
   const { t } = useLanguage();
   const { data, loading } = useAnnouncements(1, 4);
   const items: AnnouncementItem[] = Array.isArray(data?.data) ? data.data.slice(0, 4) : [];
 
   const wrapRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
 
   const hasItems = items.length > 0;
@@ -79,51 +76,6 @@ const AnnouncementsList: React.FC = () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
-    };
-  }, [hasItems]);
-
-  // magnetic cursor disc that trails the pointer and swells over a row
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    const cur = cursorRef.current;
-    if (!wrap || !cur || reduced()) return;
-    let tx = 0;
-    let ty = 0;
-    let x = 0;
-    let y = 0;
-    let raf = 0;
-    let visible = false;
-    const tick = () => {
-      x += (tx - x) * 0.16;
-      y += (ty - y) * 0.16;
-      cur.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-      raf = requestAnimationFrame(tick);
-    };
-    const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== 'mouse') return;
-      const r = wrap.getBoundingClientRect();
-      tx = e.clientX - r.left;
-      ty = e.clientY - r.top;
-      if (!visible) {
-        visible = true;
-        x = tx;
-        y = ty;
-        cur.style.opacity = '1';
-        raf = requestAnimationFrame(tick);
-      }
-      cur.dataset.over = (e.target as HTMLElement).closest('a') ? '1' : '0';
-    };
-    const onLeave = () => {
-      visible = false;
-      cur.style.opacity = '0';
-      cancelAnimationFrame(raf);
-    };
-    wrap.addEventListener('pointermove', onMove);
-    wrap.addEventListener('pointerleave', onLeave);
-    return () => {
-      cancelAnimationFrame(raf);
-      wrap.removeEventListener('pointermove', onMove);
-      wrap.removeEventListener('pointerleave', onLeave);
     };
   }, [hasItems]);
 
@@ -282,18 +234,6 @@ const AnnouncementsList: React.FC = () => {
                   </li>
                 ))}
           </ol>
-
-          {/* magnetic cursor disc */}
-          <div
-            ref={cursorRef}
-            aria-hidden
-            data-over="0"
-            className="group/cur pointer-events-none absolute left-0 top-0 z-20 hidden opacity-0 transition-opacity duration-300 md:block"
-          >
-            <span className="flex size-3 items-center justify-center rounded-full bg-[var(--color-accent-500)] text-[0px] shadow-[0_0_20px_4px_rgba(245,158,11,0.6)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-data-[over='1']/cur:size-24 group-data-[over='1']/cur:text-[20px] group-data-[over='1']/cur:font-bold group-data-[over='1']/cur:text-[var(--color-brand-950)] group-data-[over='1']/cur:shadow-[0_0_60px_10px_rgba(245,158,11,0.45)]">
-              →
-            </span>
-          </div>
         </div>
       </div>
     </section>
