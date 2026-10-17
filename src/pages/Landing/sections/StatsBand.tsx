@@ -61,7 +61,7 @@ const Odometer: React.FC<{ text: string; active: boolean; done: boolean }> = ({
 }) => (
   <span
     aria-label={text}
-    className={`flex text-[44px] font-bold leading-none tracking-tight tabular-nums text-[var(--color-neutral-0)] ${
+    className={`flex text-[44px] font-bold leading-none tracking-tight tabular-nums text-[var(--color-neutral-900)] ${
       done ? 'st-flash' : ''
     }`}
   >
@@ -118,14 +118,14 @@ const Stat: React.FC<{ stat: StatData; active: boolean; done: boolean; index: nu
       }}
     >
       <Odometer text={text} active={active} done={done} />
-      <span className="pb-1 text-[15px] leading-5 text-[var(--color-neutral-300)] transition-colors duration-500 group-hover:text-[var(--color-neutral-0)]">
+      <span className="pb-1 text-[15px] leading-5 text-[var(--color-neutral-500)] transition-colors duration-500 group-hover:text-[var(--color-neutral-900)]">
         {stat.title}
       </span>
 
       {/* baseline that draws itself, carrying a comet */}
       <span className="absolute inset-x-0 bottom-0 h-px overflow-hidden">
         <span
-          className="absolute inset-0 origin-left bg-white/20"
+          className="absolute inset-0 origin-left bg-[var(--color-neutral-300)]"
           style={{
             transform: active ? 'scaleX(1)' : 'scaleX(0)',
             transition: `transform 1400ms ${EASE} ${delay + 200}ms`,
@@ -147,7 +147,7 @@ const Stat: React.FC<{ stat: StatData; active: boolean; done: boolean; index: nu
 
 /** Heading whose words slide up out of a mask, one after another. */
 const MaskedWords: React.FC<{ text: string; active: boolean }> = ({ text, active }) => (
-  <h2 className="flex flex-wrap gap-x-[0.28em] text-[28px] font-bold leading-[1.15] text-[var(--color-neutral-0)] md:text-[32px]">
+  <h2 className="flex flex-wrap gap-x-[0.28em] text-[28px] font-bold leading-[1.15] text-[var(--color-neutral-900)] md:text-[32px]">
     {text.split(' ').map((word, i) => (
       <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
         <span
@@ -179,7 +179,7 @@ const Rings: React.FC = () => (
         className={`absolute ${cls}`}
         style={{ width: w, height: h, animationDuration: speed }}
       >
-        <div className="size-full rounded-[50%] border border-white/[0.12]" />
+        <div className="size-full rounded-[50%] border border-[var(--color-brand-700)]/[0.14]" />
         <span
           className={`absolute top-1/2 size-[9px] -translate-y-1/2 rounded-full bg-[var(--color-accent-500)] shadow-[0_0_16px_4px_rgba(245,158,11,0.7)] ${
             dot === 'right' ? '-right-[4px]' : '-left-[4px]'
@@ -249,23 +249,23 @@ const StatsBand: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[var(--color-brand-950)]"
+      className="relative overflow-hidden bg-[var(--color-neutral-0)]"
       style={{ '--mx': '50%', '--my': '50%', '--spot': '0' } as CSSProperties}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-1/3 size-[420px] rounded-full bg-[var(--color-brand-600)] opacity-35 blur-[120px]"
+        className="pointer-events-none absolute -left-24 top-1/3 size-[420px] rounded-full bg-[var(--color-brand-100)] opacity-80 blur-[120px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 -top-24 size-[360px] rounded-full bg-[var(--color-accent-500)] opacity-[0.10] blur-[110px]"
+        className="pointer-events-none absolute -right-20 -top-24 size-[360px] rounded-full bg-[var(--color-accent-100)] opacity-80 blur-[110px]"
       />
       <Rings />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         {STARS.map(([x, y, s, d], i) => (
           <span
             key={i}
-            className="st-star absolute rounded-full bg-white"
+            className="st-star absolute rounded-full bg-[var(--color-brand-600)]"
             style={{ left: `${x}%`, top: `${y}%`, width: s, height: s, animationDelay: `${d}s` }}
           />
         ))}
@@ -276,7 +276,7 @@ const StatsBand: React.FC = () => {
         style={{
           opacity: 'var(--spot)',
           background:
-            'radial-gradient(520px circle at var(--mx) var(--my), rgba(0,79,182,0.38), transparent 62%)',
+            'radial-gradient(520px circle at var(--mx) var(--my), rgba(0,79,182,0.10), transparent 62%)',
         }}
       />
 
@@ -284,7 +284,7 @@ const StatsBand: React.FC = () => {
         className={`${CONTAINER} relative grid items-center gap-[var(--space-12)] py-[var(--space-16)] md:py-[var(--space-24)] lg:grid-cols-[380px_1fr] lg:gap-[var(--space-16)]`}
       >
         <div className="flex flex-col gap-[var(--space-3)]">
-          <span className="flex items-center gap-[var(--space-3)] text-[12px] font-bold uppercase leading-4 tracking-[0.14em] text-[var(--color-accent-500)]">
+          <span className="flex items-center gap-[var(--space-3)] text-[12px] font-bold uppercase leading-4 tracking-[0.14em] text-[var(--color-accent-600)]">
             <span
               className="h-[3px] w-7 origin-left rounded-[var(--radius-full)] bg-[var(--color-accent-500)]"
               style={{
@@ -309,7 +309,7 @@ const StatsBand: React.FC = () => {
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-14 animate-pulse rounded-[var(--radius-md)] bg-white/10"
+                  className="h-14 animate-pulse rounded-[var(--radius-md)] bg-[var(--color-neutral-100)]"
                 />
               ))
             : items.map((stat, i) => (
