@@ -7,6 +7,8 @@ interface DesktopNavigationProps {
   openDropdown: string | null;
   setOpenDropdown: (id: string | null) => void;
   isScrolled?: boolean;
+  /** breakpoint from which the full navigation replaces the burger menu */
+  switchAt?: 'lg' | 'xl';
 }
 
 const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
@@ -14,6 +16,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   openDropdown,
   setOpenDropdown,
   isScrolled = true,
+  switchAt = 'lg',
 }) => {
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
 
@@ -32,7 +35,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   }, [setOpenDropdown]);
 
   return (
-    <div className="hidden lg:flex items-center">
+    <div className={`hidden ${switchAt === 'xl' ? 'xl:flex' : 'lg:flex'} items-center`}>
       <nav>
         <ul className="flex items-center gap-1">
           {menuItems.map((item) => (

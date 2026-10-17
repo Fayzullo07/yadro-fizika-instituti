@@ -1,18 +1,21 @@
 interface MobileMenuButtonProps {
   isOpen: boolean;
   isScrolled?: boolean;
+  /** breakpoint at which the burger hides (the full navigation takes over) */
+  hideAt?: 'lg' | 'xl';
   onClick: () => void;
 }
 
 const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
   isOpen,
   isScrolled = true,
+  hideAt = 'lg',
   onClick,
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`lg:hidden p-2.5 sm:p-2 rounded-lg transition-all duration-300 ${
+      className={`${hideAt === 'xl' ? 'xl:hidden' : 'lg:hidden'} p-2.5 sm:p-2 rounded-lg transition-all duration-300 ${
         isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
       }`}
       aria-label="Menu"

@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'default' }) => {
     return (
       <header className="sticky top-0 z-50 border-b border-[var(--color-neutral-100)] bg-white">
         <div className="container mx-auto">
-          <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
+          <div className="flex h-16 items-center justify-between gap-2 sm:gap-4 lg:h-20">
             {brand}
             {/* tighter item padding keeps one row on laptop widths */}
             <div className="min-w-0 [&_button]:px-2 2xl:[&_button]:px-3">
@@ -65,13 +65,15 @@ const Header: React.FC<HeaderProps> = ({ variant = 'default' }) => {
                 openDropdown={openDropdown}
                 setOpenDropdown={setOpenDropdown}
                 isScrolled
+                switchAt="xl"
               />
             </div>
-            <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+            <div className="flex shrink-0 items-center gap-1 sm:gap-4">
               {!isMobileMenuOpen && <LanguageSwitcher variant="desktop" isScrolled />}
               <MobileMenuButton
                 isOpen={isMobileMenuOpen}
                 isScrolled
+                hideAt="xl"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               />
             </div>

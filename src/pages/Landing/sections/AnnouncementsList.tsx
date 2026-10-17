@@ -175,7 +175,7 @@ const AnnouncementsList: React.FC = () => {
                     <Link
                       to={`${ANNOUNCEMENTS_PATH}/${item.id}`}
                       onPointerMove={onRowMove}
-                      className="group relative grid grid-cols-[56px_1fr_auto] items-center gap-[var(--space-4)] overflow-hidden py-[var(--space-6)] md:grid-cols-[96px_1fr_auto]"
+                      className="group relative grid grid-cols-[56px_minmax(0,1fr)_auto] items-center gap-[var(--space-4)] overflow-hidden py-[var(--space-6)] md:grid-cols-[96px_minmax(0,1fr)_auto]"
                     >
                       {/* hover: amber wave from the left + cursor spotlight */}
                       <span
