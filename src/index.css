@@ -645,3 +645,134 @@ body {
     animation: none;
   }
 }
+
+/* Landing about (cinema) */
+@property --ab-ang {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ab-spin {
+  to {
+    --ab-ang: 360deg;
+  }
+}
+
+@keyframes ab-kenburns {
+  from {
+    transform: scale(1.12) translate(0, 0);
+  }
+
+  to {
+    transform: scale(1.24) translate(-2%, -1.5%);
+  }
+}
+
+@keyframes ab-beam {
+  0% {
+    transform: translateX(-60vw) skewX(-18deg);
+    opacity: 0;
+  }
+
+  15%,
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(140vw) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ab-drift {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(-220px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes ab-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes ab-word {
+  from {
+    transform: translateY(115%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+.ab-border {
+  background: conic-gradient(
+    from var(--ab-ang),
+    rgba(255, 255, 255, 0.08),
+    rgba(245, 158, 11, 0.95) 12%,
+    rgba(255, 255, 255, 0.08) 28%,
+    rgba(255, 255, 255, 0.08) 60%,
+    rgba(0, 79, 182, 0.9) 74%,
+    rgba(255, 255, 255, 0.08) 88%
+  );
+  animation: ab-spin 9s linear infinite;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 1.5px;
+}
+
+.ab-kenburns {
+  animation: ab-kenburns 24s ease-in-out infinite alternate;
+}
+
+.ab-beam {
+  animation: ab-beam 11s cubic-bezier(0.4, 0, 0.2, 1) 2.4s infinite;
+}
+
+.ab-drift {
+  animation: ab-drift 10s linear infinite;
+}
+
+.ab-bob {
+  animation: ab-bob 5.5s ease-in-out infinite;
+}
+
+.ab-word {
+  animation: ab-word 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-border,
+  .ab-kenburns,
+  .ab-beam,
+  .ab-drift,
+  .ab-bob,
+  .ab-word {
+    animation: none;
+  }
+
+  .ab-anim {
+    transition: none !important;
+  }
+}
