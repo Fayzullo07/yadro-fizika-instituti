@@ -87,10 +87,16 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
     };
   }, [open]);
 
-  // keep the active thumbnail centred in the strip
+  // keep the active thumbnail centred in the strip. Scroll only the strip itself:
+  // scrollIntoView would also scroll the (overflow-hidden) overlay sideways.
   useEffect(() => {
-    const active = stripRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
-    active?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    const strip = stripRef.current;
+    const active = strip?.querySelector<HTMLElement>('[aria-current="true"]');
+    if (!strip || !active) return;
+    strip.scrollTo({
+      left: active.offsetLeft - (strip.clientWidth - active.offsetWidth) / 2,
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    });
   }, [state?.index]);
 
   const go = (delta: number) => {
@@ -320,7 +326,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      className="fixed left-0 top-0 z-[1100] flex h-[100dvh] w-screen touch-pan-y items-center justify-center overflow-hidden bg-[#050a1c] p-4"
+      className="fixed left-0 top-0 z-[1100] flex h-[100dvh] w-screen touch-pan-y items-center justify-center overflow-clip bg-[#050a1c] p-4"
       onPointerDown={(e) => {
         swipe.current = e.clientX;
         swiped.current = false;
