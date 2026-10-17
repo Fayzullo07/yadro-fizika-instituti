@@ -3,9 +3,8 @@ import { useStats } from '@/hooks/useStats';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { StatData } from '@/types';
 import { CONTAINER } from './layout';
-
-const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const ROLL_MS = 1700;
+import Odometer from './Odometer';
+import { EASE, ROLL_MS } from './motion';
 
 /** Deterministic star field: [x%, y%, size px, delay s]. */
 const STARS: Array<[number, number, number, number]> = [
@@ -30,52 +29,6 @@ const STARS: Array<[number, number, number, number]> = [
   [71, 8, 2, 2.3],
   [85, 92, 2, 0.5],
 ];
-
-/** One column of an odometer: rolls through a full 0–9 cycle and lands on `digit`. */
-const Digit: React.FC<{ digit: number; active: boolean; order: number }> = ({
-  digit,
-  active,
-  order,
-}) => (
-  <span className="relative inline-block h-[1em] overflow-hidden leading-none" aria-hidden>
-    <span
-      className="flex flex-col will-change-transform motion-reduce:transition-none"
-      style={{
-        transform: active ? `translateY(-${digit + 10}em)` : 'translateY(0)',
-        transition: `transform ${ROLL_MS + order * 220}ms ${EASE}`,
-      }}
-    >
-      {Array.from({ length: 20 }, (_, i) => (
-        <span key={i} className="block h-[1em] leading-none">
-          {i % 10}
-        </span>
-      ))}
-    </span>
-  </span>
-);
-
-const Odometer: React.FC<{ text: string; active: boolean; done: boolean }> = ({
-  text,
-  active,
-  done,
-}) => (
-  <span
-    aria-label={text}
-    className={`flex text-[44px] font-bold leading-none tracking-tight tabular-nums text-[var(--color-neutral-900)] ${
-      done ? 'st-flash' : ''
-    }`}
-  >
-    {text.split('').map((ch, i) =>
-      /\d/.test(ch) ? (
-        <Digit key={i} digit={Number(ch)} active={active} order={text.length - i} />
-      ) : (
-        <span key={i} aria-hidden>
-          {ch}
-        </span>
-      )
-    )}
-  </span>
-);
 
 const TILT = 7;
 
@@ -117,7 +70,14 @@ const Stat: React.FC<{ stat: StatData; active: boolean; done: boolean; index: nu
         transition: `opacity 900ms ${EASE} ${delay}ms, translate 900ms ${EASE} ${delay}ms`,
       }}
     >
-      <Odometer text={text} active={active} done={done} />
+      <Odometer
+        text={text}
+        active={active}
+        delay={0}
+        className={`text-[44px] font-bold tracking-tight text-[var(--color-neutral-900)] ${
+          done ? 'st-flash' : ''
+        }`}
+      />
       <span className="pb-1 text-[15px] leading-5 text-[var(--color-neutral-500)] transition-colors duration-500 group-hover:text-[var(--color-neutral-900)]">
         {stat.title}
       </span>
