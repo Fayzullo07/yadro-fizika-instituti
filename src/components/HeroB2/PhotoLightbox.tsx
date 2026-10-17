@@ -23,7 +23,7 @@ const SLIDE_SHIFT = 90;
 const EASING = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const FINAL_RADIUS = 20;
 const SWIPE_PX = 50;
-const TILT = 7;
+const TILT = 4;
 const RING_COUNT = 3;
 const SPARK_COUNT = 26;
 
@@ -138,7 +138,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
     stage?.animate(
       [
         { transform: stage.style.transform || 'none' },
-        { transform: 'perspective(1200px) rotateX(0deg) rotateY(0deg)' },
+        { transform: 'perspective(2600px) rotateX(0deg) rotateY(0deg)' },
       ],
       { duration: ms(240), fill: 'forwards' }
     );
@@ -293,7 +293,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
     stage.style.transition = 'transform 120ms linear';
-    stage.style.transform = `perspective(1200px) rotateX(${(0.5 - py) * TILT}deg) rotateY(${(px - 0.5) * TILT * 1.6}deg)`;
+    stage.style.transform = `perspective(2600px) rotateX(${(0.5 - py) * TILT}deg) rotateY(${(px - 0.5) * TILT * 1.6}deg)`;
     glare.style.opacity = '1';
     glare.style.background = `radial-gradient(520px circle at ${px * 100}% ${py * 100}%, rgba(255,255,255,0.22), transparent 55%)`;
   };
@@ -320,7 +320,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-[1100] flex touch-pan-y items-center justify-center overflow-hidden bg-[#050a1c] p-4"
+      className="fixed left-0 top-0 z-[1100] flex h-[100dvh] w-screen touch-pan-y items-center justify-center overflow-hidden bg-[#050a1c] p-4"
       onPointerDown={(e) => {
         swipe.current = e.clientX;
         swiped.current = false;
@@ -419,7 +419,7 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
           draggable={false}
           onLoad={handleLoad}
           style={{ visibility: 'hidden' }}
-          className="block h-auto max-h-[68vh] w-auto max-w-[92vw] select-none rounded-[20px]"
+          className="block h-auto max-h-[68vh] w-auto max-w-[min(86vw,1500px)] select-none rounded-[20px]"
         />
         {/* glare + sheen live above the photo, clipped to its rounded box */}
         <div
