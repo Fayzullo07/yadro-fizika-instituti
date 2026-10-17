@@ -74,11 +74,16 @@ const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ state, onIndexChange, onC
       e.stopPropagation();
     };
     overlay.addEventListener('wheel', swallow, { passive: false });
-    const { overflow } = document.body.style;
+    const { overflow, paddingRight } = document.body.style;
+    // hiding the page scrollbar would widen the layout and shift everything right,
+    // so keep its width reserved while the viewer is open
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
     return () => {
       overlay.removeEventListener('wheel', swallow);
       document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
     };
   }, [open]);
 
