@@ -12,7 +12,6 @@ import LocationGlass from './sections/LocationGlass';
 const Landing: React.FC = () => (
   <div className="w-full">
     <HeroB2 />
-    <PartnersLanes />
     <AboutBlock />
     <StatsBand />
     <EventsTimeline />
@@ -21,6 +20,7 @@ const Landing: React.FC = () => (
     <GalleryBento />
     <VideoCoverflow />
     <LocationGlass />
+    <PartnersLanes />
   </div>
 );
 
