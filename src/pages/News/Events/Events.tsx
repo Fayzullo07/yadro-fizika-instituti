@@ -74,7 +74,13 @@ const FeaturedEvent: React.FC<{
               <img
                 src={item.image}
                 alt=""
-                className={`size-full object-cover transition-transform duration-[900ms] ${EASE} will-change-transform group-hover:scale-105`}
+                aria-hidden
+                className="absolute inset-0 size-full scale-110 object-cover opacity-60 blur-xl"
+              />
+              <img
+                src={item.image}
+                alt=""
+                className={`relative size-full object-contain transition-transform duration-[900ms] ${EASE} will-change-transform group-hover:scale-[1.03]`}
               />
             </div>
           </div>
