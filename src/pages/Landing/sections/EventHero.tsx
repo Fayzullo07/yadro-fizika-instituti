@@ -126,7 +126,6 @@ const CountTile: React.FC<{
 const EventHero: React.FC<{ items: EventApiItem[] }> = ({ items }) => {
   const { t, language } = useLanguage();
   const [sel, setSel] = useState(0);
-  const [prev, setPrev] = useState<string | null>(null);
   const item = items[sel] ?? items[0];
   const { day, month } = getDayMonth(item.created_at, language);
   const remaining = useRemaining(new Date(item.created_at).getTime());
@@ -154,9 +153,7 @@ const EventHero: React.FC<{ items: EventApiItem[] }> = ({ items }) => {
 
   const choose = (i: number) => {
     if (i === sel) return;
-    setPrev(item.image ?? null);
     setSel(i);
-    setTimeout(() => setPrev(null), 1100);
   };
 
   useEffect(() => {
@@ -281,26 +278,8 @@ const EventHero: React.FC<{ items: EventApiItem[] }> = ({ items }) => {
       className={`relative isolate overflow-hidden bg-[var(--color-brand-950)] ${SECTION_PAD}`}
       style={{ '--sp': 0, '--mx': 0, '--my': 0 } as CSSProperties}
     >
-      {/* backdrop: the event poster, blurred and drifting; cross-dissolves on switch */}
+      {/* ambient: aurora and embers */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        {prev && (
-          <img
-            key={`out-${prev}`}
-            src={prev}
-            alt=""
-            className="lb-ambient-out absolute inset-0 size-full scale-125 object-cover opacity-50 blur-[40px] saturate-[1.5]"
-          />
-        )}
-        {item.image && (
-          <img
-            key={`in-${item.image}`}
-            src={item.image}
-            alt=""
-            className="lb-ambient-in ab-kenburns absolute inset-[-6%] size-[112%] max-w-none object-cover opacity-50 blur-[40px] saturate-[1.5]"
-            style={{ translate: 'calc(var(--mx) * -26px) calc(var(--sp) * -50px)' }}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(10,19,48,0.35)] via-[rgba(10,19,48,0.72)] to-[rgba(10,19,48,0.96)]" />
         <div className="an-aurora-a absolute -right-20 -top-32 size-[560px] rounded-full bg-[var(--color-brand-600)] opacity-40 blur-[140px]" />
         <div className="an-aurora-b absolute -left-24 bottom-[-10%] size-[460px] rounded-full bg-[var(--color-accent-500)] opacity-[0.14] blur-[130px]" />
         {EMBERS.map(([x, s, d, dur], i) => (
