@@ -13,7 +13,7 @@ const PageHero: React.FC<PageHeroProps> = ({ slotRef }) => (
     />
     <div className="relative mx-auto flex w-full max-w-[1540px] flex-col gap-[var(--space-3)] px-3 pb-[var(--space-8)] pt-[var(--space-2)] sm:px-5 md:px-8 lg:px-10">
       <Breadcrumb tone="dark" />
-      <div ref={slotRef} className="min-h-3" />
+      <div ref={slotRef} className="min-h-[52px] md:min-h-[92px]" />
     </div>
   </section>
 );
