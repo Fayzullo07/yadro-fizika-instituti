@@ -50,6 +50,7 @@ const useRemaining = (target: number) => {
   return now ? target - now : 0;
 };
 
+const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const pad = (n: number) => String(n).padStart(2, '0');
 
 /** Each character rises out of its own mask, one after another. */
@@ -121,22 +122,24 @@ const CountTile: React.FC<{
   </div>
 );
 
-/**
- * Single-event layout for the landing Events section: a dark spotlight with
- * an outlined date that fills like liquid, a live countdown (only while the
- * event is still ahead) and a 3D poster ringed by orbits and rising embers.
- */
-const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
+/** Hero for the landing Events section: blurred poster backdrop, outlined date, glass countdown, 3D poster and a row of the next events. */
+const EventHero: React.FC<{ items: EventApiItem[] }> = ({ items }) => {
   const { t, language } = useLanguage();
+  const [sel, setSel] = useState(0);
+  const [prev, setPrev] = useState<string | null>(null);
+  const item = items[sel] ?? items[0];
   const { day, month } = getDayMonth(item.created_at, language);
   const remaining = useRemaining(new Date(item.created_at).getTime());
   const upcoming = remaining > 0;
 
   const sectionRef = useRef<HTMLElement>(null);
   const posterRef = useRef<HTMLDivElement>(null);
+  const posterImgRef = useRef<HTMLImageElement>(null);
   const glareRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
+  const firstPoster = useRef(true);
   const [started, setStarted] = useState(false);
+  const [settled, setSettled] = useState(false);
 
   const units = [
     { value: Math.floor(remaining / DAY), max: 60, label: t('landing.events.days') },
@@ -149,7 +152,13 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
     },
   ];
 
-  // start on first view
+  const choose = (i: number) => {
+    if (i === sel) return;
+    setPrev(item.image ?? null);
+    setSel(i);
+    setTimeout(() => setPrev(null), 1100);
+  };
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -165,17 +174,23 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!started) return;
+    const id = setTimeout(() => setSettled(true), 2400);
+    return () => clearTimeout(id);
+  }, [started]);
+
   // pointer + scroll parallax through CSS variables
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el || reduced()) return;
     let frame = 0;
     const update = () => {
       frame = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const p = (vh - r.top) / (vh + r.height);
-      el.style.setProperty('--sp', Math.max(-1, Math.min(1, p * 2 - 1)).toFixed(3));
+      const p = ((vh - r.top) / (vh + r.height)) * 2 - 1;
+      el.style.setProperty('--sp', Math.max(-1, Math.min(1, p)).toFixed(3));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -201,10 +216,26 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
     };
   }, []);
 
+  // switching events: the new poster opens as a circle
+  useEffect(() => {
+    const img = posterImgRef.current;
+    if (!img) return;
+    if (firstPoster.current) {
+      firstPoster.current = false;
+      return;
+    }
+    if (reduced()) return;
+    img.animate([{ clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(80% at 50% 50%)' }], {
+      duration: 1000,
+      easing: EASE,
+      fill: 'both',
+    });
+  }, [sel]);
+
   const onPosterMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
     const poster = posterRef.current;
     const glare = glareRef.current;
-    if (!poster || !glare || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!poster || !glare || reduced()) return;
     const r = e.currentTarget.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
@@ -222,10 +253,9 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
     if (glareRef.current) glareRef.current.style.opacity = '0';
   };
 
-  // the button leans toward the pointer
   const onButtonMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
     const el = buttonRef.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el || reduced()) return;
     const r = el.getBoundingClientRect();
     const dx = (e.clientX - (r.left + r.width / 2)) * 0.28;
     const dy = (e.clientY - (r.top + r.height / 2)) * 0.4;
@@ -240,6 +270,10 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
   };
 
   const title = stripHtmlAndDecode(item.title);
+  const others = items
+    .map((it, i) => ({ it, i }))
+    .filter(({ i }) => i !== sel)
+    .slice(0, 3);
 
   return (
     <section
@@ -247,17 +281,28 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
       className={`relative isolate overflow-hidden bg-[var(--color-brand-950)] ${SECTION_PAD}`}
       style={{ '--sp': 0, '--mx': 0, '--my': 0 } as CSSProperties}
     >
-      {/* ambient: aurora, glow that follows the pointer, rising embers */}
+      {/* backdrop: the event poster, blurred and drifting; cross-dissolves on switch */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="an-aurora-a absolute -right-20 -top-32 size-[620px] rounded-full bg-[var(--color-brand-600)] opacity-45 blur-[140px]" />
-        <div className="an-aurora-b absolute -left-24 bottom-[-10%] size-[460px] rounded-full bg-[var(--color-accent-500)] opacity-[0.12] blur-[130px]" />
-        <div
-          className="absolute size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-brand-600)] opacity-25 blur-[120px]"
-          style={{
-            left: 'calc(50% + var(--mx) * 900px)',
-            top: 'calc(50% + var(--my) * 500px)',
-          }}
-        />
+        {prev && (
+          <img
+            key={`out-${prev}`}
+            src={prev}
+            alt=""
+            className="lb-ambient-out absolute inset-0 size-full scale-125 object-cover opacity-50 blur-[40px] saturate-[1.5]"
+          />
+        )}
+        {item.image && (
+          <img
+            key={`in-${item.image}`}
+            src={item.image}
+            alt=""
+            className="lb-ambient-in ab-kenburns absolute inset-[-6%] size-[112%] max-w-none object-cover opacity-50 blur-[40px] saturate-[1.5]"
+            style={{ translate: 'calc(var(--mx) * -26px) calc(var(--sp) * -50px)' }}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(10,19,48,0.35)] via-[rgba(10,19,48,0.72)] to-[rgba(10,19,48,0.96)]" />
+        <div className="an-aurora-a absolute -right-20 -top-32 size-[560px] rounded-full bg-[var(--color-brand-600)] opacity-40 blur-[140px]" />
+        <div className="an-aurora-b absolute -left-24 bottom-[-10%] size-[460px] rounded-full bg-[var(--color-accent-500)] opacity-[0.14] blur-[130px]" />
         {EMBERS.map(([x, s, d, dur], i) => (
           <span
             key={i}
@@ -283,27 +328,25 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
           viewAllLabel={t('events.viewAll')}
         />
 
-        <div className="grid items-center gap-[var(--space-12)] lg:grid-cols-[1fr_480px] lg:gap-[var(--space-16)]">
+        <div className="grid items-center gap-[var(--space-12)] lg:grid-cols-[1fr_440px] lg:gap-[var(--space-16)]">
           <div
+            key={item.id}
             className="flex flex-col items-start gap-[var(--space-6)]"
             style={{ translate: 'calc(var(--mx) * 14px) calc(var(--my) * 10px)' }}
           >
             <RiseText
               text={`${day.padStart(2, '0')} ${month}`}
               active={started}
-              delay={200}
-              className="text-[64px] font-extrabold uppercase leading-none text-transparent [-webkit-text-stroke:2px_var(--color-accent-500)] md:text-[96px]"
+              delay={settled ? 0 : 200}
+              className="text-[64px] font-extrabold uppercase leading-none text-transparent [-webkit-text-stroke:2px_var(--color-accent-500)] md:text-[110px]"
             />
 
             <h3 className="flex flex-wrap gap-x-[0.26em] text-[24px] font-bold leading-8 text-[var(--color-neutral-0)] md:text-[32px] md:leading-10">
               {title.split(' ').map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
                   <span
-                    className="ab-anim inline-block"
-                    style={{
-                      transform: started ? 'none' : 'translateY(115%)',
-                      transition: `transform 1100ms ${EASE} ${500 + i * 70}ms`,
-                    }}
+                    className="vo-word inline-block"
+                    style={{ animationDelay: `${(settled ? 0 : 500) + i * 70}ms` }}
                   >
                     {word}
                   </span>
@@ -313,13 +356,7 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
 
             {upcoming && (
               <div className="flex flex-col gap-[var(--space-3)]">
-                <span
-                  className="ab-anim text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]"
-                  style={{
-                    opacity: started ? 1 : 0,
-                    transition: `opacity 900ms ${EASE} 600ms`,
-                  }}
-                >
+                <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]">
                   {t('landing.events.startsIn')}
                 </span>
                 <div className="flex gap-[var(--space-3)]">
@@ -342,8 +379,7 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
               to={`${EVENTS_PATH}/${item.id}`}
               onPointerMove={onButtonMove}
               onPointerLeave={onButtonLeave}
-              className="ab-anim group relative inline-flex items-center gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] shadow-[0_0_0_rgba(245,158,11,0)] transition-[background-color,box-shadow,opacity] duration-500 hover:bg-[var(--color-accent-600)] hover:shadow-[0_12px_44px_rgba(245,158,11,0.5)]"
-              style={{ opacity: started ? 1 : 0 }}
+              className="group relative inline-flex items-center gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-accent-500)] px-[var(--space-6)] py-[var(--space-3)] text-[16px] font-semibold leading-6 text-[var(--color-brand-950)] transition-[background-color,box-shadow] duration-500 hover:bg-[var(--color-accent-600)] hover:shadow-[0_12px_44px_rgba(245,158,11,0.5)]"
             >
               <span
                 aria-hidden
@@ -366,7 +402,6 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
                 translate: 'calc(var(--mx) * -22px) calc(var(--my) * -16px + var(--sp) * -26px)',
               }}
             >
-              {/* orbit rings, pulses and a breathing halo behind the poster */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 flex items-center justify-center"
@@ -388,7 +423,6 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
                   />
                 ))}
               </div>
-
               <div
                 className="ab-anim relative"
                 style={{
@@ -406,10 +440,12 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
                     className="group relative block overflow-hidden rounded-[var(--radius-lg)] border-[3px] border-[var(--color-accent-500)] shadow-[0_0_48px_rgba(245,158,11,0.35)]"
                   >
                     <img
+                      ref={posterImgRef}
+                      key={item.id}
                       src={item.image}
                       alt=""
                       loading="lazy"
-                      className="aspect-[480/340] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
+                      className="aspect-[440/312] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105"
                     />
                     <div
                       ref={glareRef}
@@ -423,9 +459,43 @@ const EventSpotlight: React.FC<{ item: EventApiItem }> = ({ item }) => {
             </div>
           )}
         </div>
+
+        {others.length > 0 && (
+          <div className="grid gap-[var(--space-4)] md:grid-cols-3">
+            {others.map(({ it, i }, k) => {
+              const d = getDayMonth(it.created_at, language);
+              return (
+                <button
+                  key={it.id}
+                  type="button"
+                  onClick={() => choose(i)}
+                  className="group flex items-center gap-[var(--space-3)] rounded-[var(--radius-lg)] border border-white/15 bg-white/[0.08] px-[var(--space-4)] py-[var(--space-3)] text-left backdrop-blur-xl hover:-translate-y-1 hover:border-[var(--color-accent-500)]/60 hover:bg-white/[0.14] hover:shadow-[0_12px_40px_rgba(245,158,11,0.25)]"
+                  style={{
+                    opacity: started ? 1 : 0,
+                    translate: started ? '0 0' : '0 30px',
+                    transition: `opacity 900ms ${EASE} ${1100 + k * 140}ms, translate 1000ms ${EASE} ${1100 + k * 140}ms, transform 500ms ${EASE}, background-color 500ms, border-color 500ms, box-shadow 500ms`,
+                  }}
+                >
+                  <span className="shrink-0 text-[20px] font-extrabold uppercase tabular-nums text-[var(--color-accent-500)]">
+                    {d.day.padStart(2, '0')} {d.month}
+                  </span>
+                  <span className="line-clamp-2 min-w-0 flex-1 text-[14px] leading-5 text-[var(--color-neutral-300)] transition-colors duration-500 group-hover:text-[var(--color-neutral-0)]">
+                    {stripHtmlAndDecode(it.title)}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-[var(--color-accent-500)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
-export default EventSpotlight;
+export default EventHero;
