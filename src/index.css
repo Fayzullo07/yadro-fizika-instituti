@@ -900,3 +900,27 @@ body {
     animation: none;
   }
 }
+
+/* Landing video coverflow */
+@keyframes vc-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.vc-progress {
+  animation-name: vc-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vc-progress {
+    animation: none;
+    width: 100%;
+  }
+}
