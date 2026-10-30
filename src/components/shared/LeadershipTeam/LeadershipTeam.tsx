@@ -6,12 +6,11 @@ import { useImageRetry } from '@/hooks/useImageRetry';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
 import type { LeadershipMember } from '@/types';
 
-type DepartmentType = 'leaders' | 'department' | 'division';
+type DepartmentType = 'leaders' | 'division';
 
 const TYPES: { key: DepartmentType; uz: string; ru: string; en: string }[] = [
   { key: 'leaders', uz: 'Rahbariyat', ru: 'Руководство', en: 'Leadership' },
   { key: 'division', uz: 'Boshqarma', ru: 'Управление', en: 'Directorate' },
-  { key: 'department', uz: "Bo'lim", ru: 'Отдел', en: 'Department' },
 ];
 
 const PREVIEW_LABEL: Record<string, string> = {
