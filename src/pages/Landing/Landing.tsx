@@ -18,9 +18,9 @@ const Landing: React.FC = () => (
     <EventsTimeline />
     <NewsBento />
     <AnnouncementsList />
-    <LocationGlass />
-    <VideoCoverflow />
     <PartnersLanes />
+    <VideoCoverflow />
+    <LocationGlass />
   </div>
 );
 
