@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSpecialties } from '@/hooks/useSpecialties';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
+import Reveal from '@/pages/Landing/sections/Reveal';
 import Pagination from '@/components/shared/Pagination';
 import type { SpecialtyItem } from '@/types';
 
@@ -81,80 +82,97 @@ const PdfModal: React.FC<{ url: string; title: string; onClose: () => void }> = 
   );
 };
 
-const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, index }) => {
+const EASE = 'ease-[cubic-bezier(0.22,1,0.36,1)]';
+
+const ACTION =
+  'inline-flex items-center gap-[var(--space-2)] rounded-[var(--radius-full)] px-[var(--space-4)] py-[var(--space-2)] text-[13px] font-semibold transition-all duration-500 motion-reduce:transition-none';
+
+const SpecialtyCard: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, index }) => {
   const { t } = useLanguage();
   const [showPreview, setShowPreview] = useState(false);
 
   return (
     <>
-      <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-300)] rounded-[var(--radius-md)] p-3 sm:p-5 hover:border-[var(--color-neutral-500)] transition-colors duration-200">
-        <div className="flex items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
-            <span className="text-sm sm:text-base font-semibold text-[var(--color-neutral-900)] shrink-0">
-              {index + 1})
-            </span>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start gap-2 flex-wrap">
-                {item.code && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[var(--color-brand-700)]/8 text-xs font-bold text-[var(--color-brand-700)] tracking-wide shrink-0 mt-0.5">
-                    {item.code}
-                  </span>
-                )}
-                <span className="text-sm sm:text-base text-[var(--color-neutral-700)] leading-relaxed">
-                  "{item.name}"
-                </span>
-              </div>
-            </div>
-          </div>
+      <article
+        className={`group relative flex h-full flex-col gap-[var(--space-4)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] transition-all duration-500 ${EASE} hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(1,61,140,0.18)] motion-reduce:transition-none motion-reduce:hover:translate-y-0`}
+      >
+        {/* amber edge that grows on hover */}
+        <span
+          aria-hidden
+          className={`absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-[var(--color-accent-500)] transition-transform duration-500 ${EASE} group-hover:scale-y-100`}
+        />
+        {/* soft glow in the corner */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-[var(--color-brand-100)] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+        />
 
-          <div className="flex items-center gap-2 shrink-0">
-            {item.file ? (
-              <>
-                <button
-                  onClick={() => setShowPreview(true)}
-                  title={t('pages.specialties.preview') || "Ko'rish"}
-                  className="w-8 h-8 flex items-center justify-center text-[var(--color-neutral-700)] hover:text-[var(--color-brand-700)] transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    />
-                  </svg>
-                </button>
-                <a
-                  href={item.file}
-                  target="_blank"
-                  download
-                  title={t('pages.specialties.download') || 'Yuklab olish'}
-                  className="w-8 h-8 flex items-center justify-center text-[var(--color-neutral-700)] hover:text-[var(--color-neutral-900)] transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                </a>
-              </>
-            ) : (
-              <span className="text-xs text-[var(--color-neutral-300)]">
-                {t('pages.specialties.fileNotAvailable') || "Fayl yo'q"}
-              </span>
-            )}
-          </div>
+        <div className="relative flex items-start justify-between gap-[var(--space-4)]">
+          <span
+            className={`text-[48px] font-extrabold leading-none tabular-nums text-transparent transition-transform duration-500 ${EASE} [-webkit-text-stroke:1.5px_var(--color-brand-700)] group-hover:scale-110 group-hover:[-webkit-text-stroke-color:var(--color-accent-500)]`}
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          {item.code && (
+            <span className="rounded-[var(--radius-full)] bg-[var(--color-brand-50)] px-[var(--space-3)] py-[var(--space-1)] text-[12px] font-bold tracking-wide text-[var(--color-brand-700)] transition-colors duration-500 group-hover:bg-[var(--color-brand-700)] group-hover:text-[var(--color-neutral-0)]">
+              {item.code}
+            </span>
+          )}
         </div>
-      </div>
+
+        <h3 className="relative text-[17px] font-semibold leading-7 text-[var(--color-neutral-900)] sm:text-[18px]">
+          {item.name}
+        </h3>
+
+        <div className="relative mt-auto flex flex-wrap items-center gap-[var(--space-2)] pt-[var(--space-2)]">
+          {item.file ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setShowPreview(true)}
+                className={`${ACTION} bg-[var(--color-brand-700)] text-[var(--color-neutral-0)] hover:bg-[var(--color-brand-600)] hover:shadow-[0_8px_24px_rgba(1,61,140,0.35)]`}
+              >
+                <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+                {t('pages.specialties.preview') || "Ko'rish"}
+              </button>
+              <a
+                href={item.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className={`${ACTION} border border-[var(--color-neutral-100)] text-[var(--color-neutral-700)] hover:border-[var(--color-accent-500)] hover:text-[var(--color-brand-700)]`}
+              >
+                <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                {t('pages.specialties.download') || 'Yuklab olish'}
+              </a>
+            </>
+          ) : (
+            <span className="text-[13px] text-[var(--color-neutral-500)]">
+              {t('pages.specialties.fileNotAvailable') || "Fayl yo'q"}
+            </span>
+          )}
+        </div>
+      </article>
 
       {showPreview && item.file && (
         <PdfModal url={item.file} title={item.name} onClose={() => setShowPreview(false)} />
@@ -163,21 +181,11 @@ const SpecialtyRow: React.FC<{ item: SpecialtyItem; index: number }> = ({ item, 
   );
 };
 
-const SkeletonRow: React.FC = () => (
-  <div className="bg-[var(--color-neutral-0)] border border-[var(--color-neutral-100)] rounded-[var(--radius-md)] p-3 sm:p-5 animate-pulse">
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-start gap-4 flex-1">
-        <div className="h-5 w-6 bg-[var(--color-neutral-100)] rounded shrink-0" />
-        <div className="flex-1 space-y-2">
-          <div className="h-4 bg-[var(--color-neutral-100)] rounded w-full" />
-          <div className="h-4 bg-[var(--color-neutral-100)] rounded w-3/4" />
-        </div>
-      </div>
-      <div className="flex gap-2 shrink-0">
-        <div className="w-8 h-8 bg-[var(--color-neutral-100)] rounded" />
-        <div className="w-8 h-8 bg-[var(--color-neutral-100)] rounded" />
-      </div>
-    </div>
+const SkeletonCard: React.FC = () => (
+  <div className="flex h-48 animate-pulse flex-col gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
+    <div className="h-10 w-16 rounded bg-[var(--color-neutral-100)]" />
+    <div className="h-4 w-full rounded bg-[var(--color-neutral-100)]" />
+    <div className="h-4 w-3/4 rounded bg-[var(--color-neutral-100)]" />
   </div>
 );
 
@@ -200,9 +208,9 @@ const Specialties: React.FC = () => {
         <PageTitle>{t('nav.ilmiyFaoliyat.specialties') || 'Ixtisosliklar pasportlari'}</PageTitle>
 
         {loading && items.length === 0 && (
-          <div className="space-y-3 sm:space-y-4">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <SkeletonRow key={i} />
+          <div className="grid grid-cols-1 gap-[var(--space-6)] md:grid-cols-2">
+            {[1, 2, 3, 4].map((i) => (
+              <SkeletonCard key={i} />
             ))}
           </div>
         )}
@@ -223,9 +231,11 @@ const Specialties: React.FC = () => {
           <div
             className={`transition-opacity duration-200 ${loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}
           >
-            <div className="space-y-3 sm:space-y-4">
+            <div className="grid grid-cols-1 gap-[var(--space-6)] md:grid-cols-2">
               {items.map((item, index) => (
-                <SpecialtyRow key={item.id} item={item} index={(page - 1) * PER_PAGE + index} />
+                <Reveal key={`${page}-${item.id}`} delay={(index % 2) * 90}>
+                  <SpecialtyCard item={item} index={(page - 1) * PER_PAGE + index} />
+                </Reveal>
               ))}
             </div>
             <Pagination page={page} lastPage={lastPage} onPageChange={handlePageChange} />
