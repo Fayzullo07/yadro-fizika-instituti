@@ -102,74 +102,6 @@ const VideoThumb: React.FC<{ item: VideoGalleryItem; quality: string }> = ({ ite
   );
 };
 
-const FeaturedVideo: React.FC<{
-  item: VideoGalleryItem;
-  language: string;
-  label: string;
-  onClick: () => void;
-}> = ({ item, language, label, onClick }) => {
-  const ytId = getYouTubeId(item.url);
-  const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null;
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group relative isolate block aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-brand-950)] text-left shadow-[0_24px_60px_rgba(1,61,140,0.25)] focus:outline-none sm:aspect-video lg:aspect-[2/1]"
-    >
-      {thumb && (
-        <>
-          {/* blurred copy fills the frame so letterboxed videos never show black bars */}
-          <img
-            src={thumb}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 -z-10 size-full scale-125 object-cover opacity-70 blur-2xl"
-          />
-          <img
-            src={thumb}
-            alt=""
-            className={`ab-kenburns absolute inset-0 size-full object-contain transition-transform duration-[1400ms] ${EASE} will-change-transform group-hover:scale-[1.06] motion-reduce:animate-none`}
-          />
-        </>
-      )}
-      <span
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-[rgba(10,19,48,0.92)] via-[rgba(10,19,48,0.2)] to-transparent"
-      />
-      <span
-        aria-hidden
-        className="absolute inset-y-0 -left-1/3 w-1/4 -skew-x-[18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:left-[120%] group-hover:opacity-100"
-      />
-
-      <span className="absolute left-[var(--space-4)] top-[var(--space-4)] flex items-center gap-[var(--space-2)] rounded-[var(--radius-full)] bg-[var(--color-accent-500)] px-[var(--space-3)] py-[var(--space-1)] text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--color-brand-950)] md:left-[var(--space-6)] md:top-[var(--space-6)]">
-        <span className="size-1.5 animate-pulse rounded-[var(--radius-full)] bg-[var(--color-brand-950)]" />
-        {label}
-      </span>
-
-      <span className="absolute inset-0 flex items-center justify-center pb-[var(--space-12)]">
-        <span className="relative">
-          <span className="st-ping absolute inset-0 rounded-[var(--radius-full)] border-2 border-[var(--color-accent-500)]" />
-          <span
-            className="st-ping absolute inset-0 rounded-[var(--radius-full)] border border-[var(--color-accent-500)]"
-            style={{ animationDelay: '1.2s' }}
-          />
-          <PlayButton size="size-16 md:size-24" />
-        </span>
-      </span>
-
-      <span className="absolute inset-x-0 bottom-0 flex flex-col gap-[var(--space-2)] p-[var(--space-4)] md:p-[var(--space-8)]">
-        <span className="w-fit rounded-[var(--radius-full)] border border-white/25 bg-white/10 px-[var(--space-3)] py-[var(--space-1)] text-[12px] text-[var(--color-neutral-0)] backdrop-blur-md">
-          {formatDate(item.created_at, language)}
-        </span>
-        <span className="line-clamp-2 max-w-[820px] text-[20px] font-bold leading-7 text-[var(--color-neutral-0)] md:text-[30px] md:leading-9">
-          {item.title}
-        </span>
-      </span>
-    </button>
-  );
-};
-
 const VideoCard: React.FC<{
   item: VideoGalleryItem;
   language: string;
@@ -268,24 +200,12 @@ const VideoGallery: React.FC = () => {
       )}
 
       {items.length > 0 && (
-        <div className="flex flex-col gap-[var(--space-10)] pt-[var(--space-6)]">
-          <Reveal>
-            <FeaturedVideo
-              item={items[0]}
-              language={language}
-              label={t('landing.video.now')}
-              onClick={() => openModal(items[0])}
-            />
-          </Reveal>
-          {items.length > 1 && (
-            <div className="grid grid-cols-1 gap-[var(--space-6)] sm:grid-cols-2 lg:grid-cols-3">
-              {items.slice(1).map((item, i) => (
-                <Reveal key={item.id} delay={(i % 3) * 80}>
-                  <VideoCard item={item} language={language} onClick={() => openModal(item)} />
-                </Reveal>
-              ))}
-            </div>
-          )}
+        <div className="grid grid-cols-1 gap-[var(--space-6)] pt-[var(--space-2)] sm:grid-cols-2 xl:grid-cols-3">
+          {items.map((item, i) => (
+            <Reveal key={item.id} delay={(i % 3) * 80}>
+              <VideoCard item={item} language={language} onClick={() => openModal(item)} />
+            </Reveal>
+          ))}
         </div>
       )}
 
