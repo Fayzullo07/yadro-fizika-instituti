@@ -133,7 +133,7 @@ const Contact: React.FC = () => {
       {socialLinks.length > 0 && (
         <div className="mt-[var(--space-4)] flex flex-wrap items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
           <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
-            {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
+            {t('contact.socialNetworks')}
           </span>
           <div className="flex flex-wrap gap-[var(--space-2)]">
             {socialLinks.map((s) => (
