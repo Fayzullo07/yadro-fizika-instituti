@@ -1,3 +1,4 @@
+import { useSocialLinks } from '@/hooks/useSocialLinks';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useGeneral } from '@/hooks/useGeneral';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
@@ -10,7 +11,6 @@ import {
   MAP_ZOOM,
   CONTACT_ADDRESS,
   CONTACT_HOURS,
-  SOCIAL_LINKS,
 } from '@/config/contactData';
 
 const Tile: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
@@ -44,6 +44,7 @@ const valueCls = 'text-[16px] font-semibold leading-6 text-[var(--color-neutral-
 
 const Contact: React.FC = () => {
   const { t, language } = useLanguage();
+  const socialLinks = useSocialLinks();
   const { data: generalData } = useGeneral();
 
   const email = generalData?.email || 'info@inp.uz';
@@ -129,31 +130,33 @@ const Contact: React.FC = () => {
       </div>
 
       {/* Social links */}
-      <div className="mt-[var(--space-4)] flex flex-wrap items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
-        <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
-          {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
-        </span>
-        <div className="flex flex-wrap gap-[var(--space-2)]">
-          {SOCIAL_LINKS.map((s) => (
-            <a
-              key={s.name}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={s.name}
-              className={`flex size-9 items-center justify-center rounded-full ${s.color} transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none`}
-            >
-              <svg
-                className="size-4 text-[var(--color-neutral-0)]"
-                viewBox="0 0 24 24"
-                fill="currentColor"
+      {socialLinks.length > 0 && (
+        <div className="mt-[var(--space-4)] flex flex-wrap items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)]">
+          <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-600)]">
+            {t('contact.socialNetworks') || 'Ijtimoiy tarmoqlar'}
+          </span>
+          <div className="flex flex-wrap gap-[var(--space-2)]">
+            {socialLinks.map((s) => (
+              <a
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={s.name}
+                className={`flex size-9 items-center justify-center rounded-full ${s.color} transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none`}
               >
-                {s.icon}
-              </svg>
-            </a>
-          ))}
+                <svg
+                  className="size-4 text-[var(--color-neutral-0)]"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  {s.icon}
+                </svg>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

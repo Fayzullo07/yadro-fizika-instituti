@@ -7,7 +7,8 @@ import DesktopNavigation from './DesktopNavigation';
 import MobileMenu from './MobileMenu';
 import MobileMenuButton from './MobileMenuButton';
 import LanguageSwitcher from './LanguageSwitcher';
-import { SOCIAL_LINKS, CONTACT_PHONES } from '@/config/contactData';
+import { CONTACT_PHONES } from '@/config/contactData';
+import { useSocialLinks } from '@/hooks/useSocialLinks';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 
 interface HeaderProps {
@@ -17,6 +18,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ variant = 'default' }) => {
   const { t } = useLanguage();
+  const socialLinks = useSocialLinks();
   const orgAcademy = t('org.academy');
   const orgInstitute = t('org.institute');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -126,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ variant = 'default' }) => {
 
             {/* Social links */}
             <div className="hidden md:flex items-center gap-1.5">
-              {SOCIAL_LINKS.map((social) => (
+              {socialLinks.map((social) => (
                 <a
                   key={social.id}
                   href={social.href}

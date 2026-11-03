@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EmailIcon, PhoneIcon, LocationIcon } from './FooterIcons';
-import { SOCIAL_LINKS, QUICK_LINKS } from './FooterData';
+import { QUICK_LINKS } from './FooterData';
+import { useSocialLinks } from '@/hooks/useSocialLinks';
 import { CONTACT_EMAIL, CONTACT_PHONES, CONTACT_ADDRESS } from '@/config/contactData';
 import logoFallback from '@/assets/logo/logo_70_trimmed.png';
 import logo from '@/assets/logo.png';
@@ -31,10 +32,11 @@ const Footer: React.FC<FooterProps> = ({ variant = 'default' }) => {
   const { t, language } = useLanguage();
   const orgAcademy = t('org.academy');
   const orgInstitute = t('org.institute');
+  const socialLinks = useSocialLinks();
 
   if (variant === 'landing') {
-    const socials = LANDING_SOCIALS.map((id) => SOCIAL_LINKS.find((s) => s.id === id)).filter(
-      (s): s is (typeof SOCIAL_LINKS)[number] => Boolean(s)
+    const socials = LANDING_SOCIALS.map((id) => socialLinks.find((s) => s.id === id)).filter(
+      (s): s is (typeof socialLinks)[number] => Boolean(s)
     );
     const name = t('landing.footer.name');
 
@@ -119,7 +121,7 @@ const Footer: React.FC<FooterProps> = ({ variant = 'default' }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            {SOCIAL_LINKS.map((social) => (
+            {socialLinks.map((social) => (
               <a
                 key={social.id}
                 href={social.href}

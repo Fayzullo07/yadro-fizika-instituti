@@ -1,5 +1,4 @@
 import { HOME_PATH, ABOUT_PATH, CONTACT_PATH } from '@/routes/path';
-export { SOCIAL_LINKS } from '@/config/contactData';
 
 export const QUICK_LINKS = [
   { pathKey: HOME_PATH, labelKey: 'nav.home', fallback: 'Bosh sahifa' },

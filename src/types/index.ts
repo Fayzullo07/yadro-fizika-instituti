@@ -433,3 +433,14 @@ export interface SocialMediaLink {
   color?: string;
   icon: React.ReactNode;
 }
+
+// Social links
+export interface SocialLinksData {
+  id: number;
+  youtube_url: string | null;
+  telegram_url: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
+  created_at: string;
+  updated_at: string;
+}

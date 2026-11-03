@@ -28,6 +28,7 @@ import type {
   TeamMember,
   Vacancy,
   StatData,
+  SocialLinksData,
   GalleryItem,
   GalleryDetailItem,
   VideoGalleryItem,
@@ -522,4 +523,9 @@ export const publicationsApi = {
 
   getById: (id: number | string, language: string | null = null) =>
     apiRequest<SingleResponse<PublicationItem>>(API_ENDPOINTS.PUBLICATIONS_BY_ID(id), {}, language),
+};
+
+// Social links API
+export const socialLinksApi = {
+  get: () => apiRequest<SingleResponse<SocialLinksData>>(API_ENDPOINTS.SOCIAL_LINKS),
 };

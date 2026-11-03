@@ -47,6 +47,7 @@ export const API_ENDPOINTS = {
 
   // Stats
   STATS: '/api/stats',
+  SOCIAL_LINKS: '/api/social-links',
 
   // Galleries
   GALLERIES: '/api/galleries',
