@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useNews } from '@/hooks/useNews';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { NEWS_PATH } from '@/routes/path';
-import { getDayMonth } from '@/utils/dateUtils';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
 import type { NewsItem } from '@/types';
 import { CONTAINER, SECTION_PAD } from './layout';
@@ -12,17 +11,13 @@ import SectionHeader from './SectionHeader';
 const imageOf = (item: NewsItem) => item.images?.[0]?.url || item.images?.[0]?.image || item.image;
 
 const NewsBento: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data, loading } = useNews({ per_page: 4 });
   const news: NewsItem[] = Array.isArray(data?.data) ? data.data.slice(0, 4) : [];
 
   if (!loading && !news.length) return null;
 
   const [lead, ...rest] = news;
-  const date = (item: NewsItem) => {
-    const { day, month } = getDayMonth(item.created_at, language);
-    return `${day} ${month}`;
-  };
 
   return (
     <section className={`bg-[var(--color-neutral-50)] ${SECTION_PAD}`}>
@@ -57,9 +52,10 @@ const NewsBento: React.FC = () => {
                     className="absolute inset-0 bg-gradient-to-t from-[rgba(10,19,48,0.92)] via-[rgba(10,19,48,0.35)] to-transparent"
                   />
                   <span className="relative flex flex-col items-start gap-[var(--space-3)] p-[var(--space-6)] md:p-[var(--space-8)]">
-                    <span className="rounded-[var(--radius-full)] bg-[var(--color-accent-500)] px-[var(--space-3)] py-[var(--space-1)] text-[12px] font-bold uppercase leading-4 text-[var(--color-brand-950)]">
-                      {date(lead)}
-                    </span>
+                    <span
+                      aria-hidden
+                      className="h-[3px] w-10 rounded-[var(--radius-full)] bg-[var(--color-accent-500)] transition-all duration-500 group-hover:w-16"
+                    />
                     <h3 className="line-clamp-4 text-[24px] font-bold leading-8 text-[var(--color-neutral-0)] md:text-[32px] md:leading-10">
                       {stripHtmlAndDecode(lead.title)}
                     </h3>
@@ -86,9 +82,10 @@ const NewsBento: React.FC = () => {
                       )}
                     </span>
                     <span className="flex min-w-0 flex-col gap-[var(--space-1)]">
-                      <span className="text-[12px] font-bold uppercase leading-4 text-[var(--color-accent-600)]">
-                        {date(item)}
-                      </span>
+                      <span
+                        aria-hidden
+                        className="mb-[var(--space-1)] h-[3px] w-8 rounded-[var(--radius-full)] bg-[var(--color-accent-500)] transition-all duration-500 group-hover:w-12"
+                      />
                       <span className="line-clamp-3 text-[16px] font-semibold leading-6 text-[var(--color-neutral-900)] transition-colors duration-500 group-hover:text-[var(--color-brand-700)]">
                         {stripHtmlAndDecode(item.title)}
                       </span>
