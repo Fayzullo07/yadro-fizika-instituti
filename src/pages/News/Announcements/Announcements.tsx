@@ -2,7 +2,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAnnouncements } from '@/hooks/useAnnouncements';
 import { stripHtmlAndDecode } from '@/utils/htmlUtils';
-import { formatDate, getDayMonth } from '@/utils/dateUtils';
 import Pagination from '@/components/shared/Pagination';
 import Reveal from '@/pages/Landing/sections/Reveal';
 import Loading from '@/components/shared/Loading/Loading';
@@ -27,8 +26,7 @@ const ArrowIcon: React.FC<{ className?: string }> = ({ className = 'size-5' }) =
 const FeaturedAnnouncement: React.FC<{
   item: AnnouncementItem;
   t: (k: string) => string;
-  language: string;
-}> = ({ item, t, language }) => {
+}> = ({ item, t }) => {
   const preview = stripHtmlAndDecode(item.description).slice(0, 260).trim();
 
   return (
@@ -38,8 +36,12 @@ const FeaturedAnnouncement: React.FC<{
         className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-[var(--color-accent-500)] opacity-20 blur-3xl"
       />
       <div className="relative max-w-3xl">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-500)]">
-          {formatDate(item.created_at, language)}
+        <span className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-accent-500)]">
+          <span
+            aria-hidden
+            className="h-[3px] w-8 rounded-[var(--radius-full)] bg-[var(--color-accent-500)]"
+          />
+          {t('pages.announcements.subtitle')}
         </span>
         <h2 className="mt-3 text-2xl font-bold leading-tight text-[var(--color-neutral-0)] sm:text-3xl">
           {item.title}
@@ -66,20 +68,18 @@ const FeaturedAnnouncement: React.FC<{
 
 const AnnouncementRow: React.FC<{
   item: AnnouncementItem;
-  language: string;
-}> = ({ item, language }) => {
+}> = ({ item }) => {
   const preview = stripHtmlAndDecode(item.description).slice(0, 180).trim();
-  const { day, month } = getDayMonth(item.created_at, language);
 
   return (
     <Link
       to={`/news/announcements/${item.id}`}
-      className={`group flex items-center gap-[var(--space-4)] rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ${EASE} hover:-translate-y-0.5 sm:gap-[var(--space-5)] sm:p-[var(--space-5)]`}
+      className={`group relative flex items-center gap-[var(--space-4)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-4)] shadow-[var(--shadow-card)] transition-all duration-500 ${EASE} hover:-translate-y-0.5 sm:gap-[var(--space-5)] sm:p-[var(--space-5)]`}
     >
-      <div className="flex size-16 shrink-0 flex-col items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-brand-700)] leading-none text-[var(--color-neutral-0)] sm:size-[72px]">
-        <span className="text-xl font-bold sm:text-2xl">{day}</span>
-        <span className="mt-1 text-[10px] font-semibold uppercase tracking-wide">{month}</span>
-      </div>
+      <span
+        aria-hidden
+        className={`absolute inset-y-0 left-0 w-1 origin-top scale-y-50 bg-[var(--color-accent-500)] opacity-60 transition-all duration-500 ${EASE} group-hover:scale-y-100 group-hover:opacity-100`}
+      />
       <div className="min-w-0 flex-1">
         <h2 className="line-clamp-2 text-base font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)] sm:text-lg">
           {item.title}
@@ -98,7 +98,7 @@ const AnnouncementRow: React.FC<{
 };
 
 const Announcements: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
 
@@ -131,14 +131,14 @@ const Announcements: React.FC = () => {
       {items.length > 0 && (
         <>
           <Reveal>
-            <FeaturedAnnouncement item={items[0]} t={t} language={language} />
+            <FeaturedAnnouncement item={items[0]} t={t} />
           </Reveal>
 
           {items.length > 1 && (
             <div className="mt-[var(--space-5)] flex flex-col gap-[var(--space-3)] sm:gap-[var(--space-4)]">
               {items.slice(1).map((item, i) => (
                 <Reveal key={item.id} delay={(i % 4) * 70}>
-                  <AnnouncementRow item={item} language={language} />
+                  <AnnouncementRow item={item} />
                 </Reveal>
               ))}
             </div>

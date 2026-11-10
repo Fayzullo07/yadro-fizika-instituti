@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { Image } from 'antd';
 import { useNewsById, useNews } from '@/hooks/useNews';
 import { stripHtmlRegex, sanitizeHtml } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useImageRetry } from '@/hooks/useImageRetry';
 import Loading from '@/components/shared/Loading/Loading';
@@ -19,7 +18,6 @@ const PREVIEW_LABEL: Record<string, string> = {
   en: 'Preview',
 };
 
-const DATE_LABEL: Record<string, string> = { uz: 'SANA', ru: 'ДАТА', en: 'DATE' };
 const SECTION_LABEL: Record<string, string> = { uz: "BO'LIM", ru: 'РАЗДЕЛ', en: 'SECTION' };
 const SHARE_LABEL: Record<string, string> = {
   uz: 'Ulashish',
@@ -102,16 +100,6 @@ const NewsDetail: React.FC = () => {
         <aside>
           <div className="rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] p-[var(--space-6)] shadow-[var(--shadow-card)] lg:sticky lg:top-28">
             <dl className="space-y-[var(--space-5)]">
-              {newsItem.created_at && (
-                <div>
-                  <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
-                    {DATE_LABEL[language] ?? DATE_LABEL.uz}
-                  </dt>
-                  <dd className="mt-1 text-base font-semibold text-[var(--color-neutral-900)]">
-                    {formatDate(newsItem.created_at, language)}
-                  </dd>
-                </div>
-              )}
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
                   {SECTION_LABEL[language] ?? SECTION_LABEL.uz}
@@ -254,11 +242,12 @@ const NewsDetail: React.FC = () => {
                         )}
                       </div>
                       <div className="flex flex-1 flex-col p-[var(--space-5)]">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
-                          {formatDate(item.created_at, language)}
-                        </span>
+                        <span
+                          aria-hidden
+                          className="block h-[3px] w-8 rounded-[var(--radius-full)] bg-[var(--color-accent-500)] transition-all duration-500 group-hover:w-14"
+                        />
                         <h3
-                          className="mt-2 line-clamp-2 text-base font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)]"
+                          className="mt-3 line-clamp-2 text-base font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)]"
                           dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
                         />
                       </div>

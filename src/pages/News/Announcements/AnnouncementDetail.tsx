@@ -4,14 +4,13 @@ import { useAnnouncementById } from '@/hooks/useAnnouncements';
 import { sanitizeHtml } from '@/utils/htmlUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
-import { formatDate } from '@/utils/dateUtils';
 import BackButton from '@/components/shared/BackButton/BackButton';
 
 const fileExt = (name: string) => (name.split('.').pop() || 'FILE').toUpperCase().slice(0, 4);
 
 const AnnouncementDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { data: detailRes, loading, error } = useAnnouncementById(id!);
 
   const item = detailRes?.data;
@@ -42,14 +41,6 @@ const AnnouncementDetail: React.FC = () => {
       <BackButton to="/news/announcements" label={t('backToList')} />
 
       <article className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-neutral-0)] shadow-[var(--shadow-card)]">
-        {item.created_at && (
-          <div className="border-b border-[var(--color-neutral-100)] px-4 py-4 sm:px-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
-              {formatDate(item.created_at, language)}
-            </span>
-          </div>
-        )}
-
         {files.length > 0 && (
           <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-[var(--color-neutral-100)]">
             <p className="text-xs font-semibold tracking-wide text-[var(--color-neutral-500)] uppercase mb-2.5">

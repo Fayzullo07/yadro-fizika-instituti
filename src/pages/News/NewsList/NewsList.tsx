@@ -3,7 +3,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useNews } from '@/hooks/useNews';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { stripHtmlRegex, stripHtmlAndDecode } from '@/utils/htmlUtils';
-import { formatDate } from '@/utils/dateUtils';
 import Loading from '@/components/shared/Loading/Loading';
 import Pagination from '@/components/shared/Pagination';
 import PageTitle from '@/components/shared/PageTitle/PageTitle';
@@ -45,7 +44,7 @@ interface CardProps {
 }
 
 const SpotCard: React.FC<CardProps> = ({ item, variant }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const src = cover(item);
   const title = stripHtmlRegex(item.title);
   const excerpt = stripHtmlAndDecode(item.description).trim();
@@ -79,11 +78,12 @@ const SpotCard: React.FC<CardProps> = ({ item, variant }) => {
       <div
         className={`flex flex-1 flex-col ${compact ? 'p-[var(--space-4)]' : 'p-[var(--space-5)]'}`}
       >
-        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-600)]">
-          {formatDate(item.created_at, language)}
-        </span>
+        <span
+          aria-hidden
+          className="block h-[3px] w-8 rounded-[var(--radius-full)] bg-[var(--color-accent-500)] transition-all duration-500 group-hover:w-14"
+        />
         <h3
-          className={`mt-2 font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)] ${
+          className={`mt-3 font-bold leading-snug text-[var(--color-neutral-900)] transition-colors duration-300 group-hover:text-[var(--color-brand-700)] ${
             variant === 'large' ? 'line-clamp-3 text-xl sm:text-2xl' : 'line-clamp-3 text-base'
           }`}
         >
@@ -133,8 +133,6 @@ const NewsList: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const yearSource = news[0]?.created_at;
-  const year = yearSource ? new Date(yearSource).getFullYear() : undefined;
   const [first, second, third, ...rest] = news;
 
   return (
@@ -169,16 +167,6 @@ const NewsList: React.FC = () => {
       {news.length > 0 ? (
         <>
           <div className="flex flex-col gap-[var(--space-6)] lg:flex-row lg:gap-[var(--space-10)]">
-            {year && (
-              <div className="shrink-0 lg:w-40">
-                <div className="lg:sticky lg:top-28">
-                  <span className="block text-6xl font-extrabold leading-none text-transparent [-webkit-text-stroke:2px_var(--color-accent-500)] lg:text-7xl">
-                    {year}
-                  </span>
-                </div>
-              </div>
-            )}
-
             <div className="min-w-0 flex-1">
               <div className="grid grid-cols-1 gap-[var(--space-5)] lg:grid-cols-3">
                 <Reveal className="lg:col-span-2">
